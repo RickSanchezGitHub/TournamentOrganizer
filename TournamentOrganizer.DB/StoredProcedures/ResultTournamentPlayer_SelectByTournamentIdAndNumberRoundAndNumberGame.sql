@@ -8,3 +8,5 @@ BEGIN
 	FROM [dbo].[ResultTournamentPlayer]
 	WHERE NumberRound = @NumberRound AND TournamentId = @TournamentId AND NumberGame = @NumberGame
 END
+
+/*показывает строки таблицы по турниру, раунду и партии (может помочь для извлечения соперников в конкретном раунде)*/

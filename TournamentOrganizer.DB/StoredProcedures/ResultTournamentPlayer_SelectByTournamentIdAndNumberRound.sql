@@ -7,3 +7,5 @@ BEGIN
 	FROM [dbo].[ResultTournamentPlayer]
 	WHERE NumberRound = @NumberRound AND TournamentId = @TournamentId
 END
+
+/*показывает всё по турниру и раунду (для отображения игроков раунда)*/

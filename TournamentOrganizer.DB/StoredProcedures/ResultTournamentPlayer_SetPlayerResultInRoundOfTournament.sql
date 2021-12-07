@@ -9,3 +9,5 @@ BEGIN
 	   SET [Result] = @newResult
 	WHERE [PlayerId] = @PlayerId AND [TournamentId] = @TournamentId AND [NumberRound] = @NumberRound
 END
+
+/*обновление результата выбранного игрока в выбранном раунде, выбранного турнира*/
