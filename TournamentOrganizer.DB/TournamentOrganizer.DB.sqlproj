@@ -67,5 +67,6 @@
     <Build Include="StoredProcedures\ResultTournamentPlayer_SelectByTournamentIdAndNumberRoundAndNumberGame.sql" />
     <Build Include="StoredProcedures\ResultTournamentPlayer_DeleteByTournamentId.sql" />
     <Build Include="StoredProcedures\ResultTournamentPlayer_SetPlayerResultInRoundOfTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_UpdatePlayerInNumberGameRoundOfTournament.sql" />
   </ItemGroup>
 </Project>
