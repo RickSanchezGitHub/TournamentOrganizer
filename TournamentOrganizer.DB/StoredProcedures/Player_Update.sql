@@ -1,8 +1,8 @@
 ﻿create proc dbo.Player_UpDate
 	(@id int,
-	 @First_Name varchar,
-	 @Last_Name varchar,
-	 @Nick_Name varchar)
+	 @First_Name varchar(25),
+	 @Last_Name varchar(25),
+	 @Nick_Name varchar(25))
 as
 begin
 	update	Player
