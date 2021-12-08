@@ -59,4 +59,18 @@
     <Folder Include="Tables" />
     <Folder Include="StoredProcedures" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Tournament.sql" />
+    <Build Include="Tables\Game.sql" />
+    <Build Include="StoredProcedures\Tournament_Insert.sql" />
+    <Build Include="StoredProcedures\Tournament_SelectByAll.sql" />
+    <Build Include="StoredProcedures\Tournament_SelectById.sql" />
+    <Build Include="StoredProcedures\Tournament_UpdateById.sql" />
+    <Build Include="StoredProcedures\Tournament_DeleteById.sql" />
+    <Build Include="StoredProcedures\Game_Insert.sql" />
+    <Build Include="StoredProcedures\Game_SelectByAll.sql" />
+    <Build Include="StoredProcedures\Game_SelectById.sql" />
+    <Build Include="StoredProcedures\Game_UpdateById.sql" />
+    <Build Include="StoredProcedures\Game_DeleteById.sql" />
+  </ItemGroup>
 </Project>
