@@ -65,7 +65,6 @@
     <Build Include="Tables\Team_Player.sql" />
     <Build Include="StoredProcedures\Player_Insert.sql" />
     <Build Include="StoredProcedures\Player_Delete.sql" />
-    <Build Include="StoredProcedures\Player_Update.sql" />
     <Build Include="StoredProcedures\Player_SelectAll.sql" />
     <Build Include="StoredProcedures\Player_SelectById.sql" />
     <Build Include="StoredProcedures\Team_Delete.sql" />
@@ -75,5 +74,8 @@
     <Build Include="StoredProcedures\Team_Update.sql" />
     <Build Include="StoredProcedures\Team_Player_Insert.sql" />
     <Build Include="StoredProcedures\Team_Player_Delete.sql" />
+    <Build Include="StoredProcedures\Player_UpdateFirstName.sql" />
+    <Build Include="StoredProcedures\Player_UpdateLastName.sql" />
+    <Build Include="StoredProcedures\Player_UpdateNickName.sql" />
   </ItemGroup>
 </Project>
