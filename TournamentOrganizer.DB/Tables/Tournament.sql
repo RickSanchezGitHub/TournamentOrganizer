@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Tournament]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL Identity(1,1) PRIMARY KEY, 
     [Name] VARCHAR(50) NOT NULL, 
     [StartDate] DATE NOT NULL, 
     [CloseDate] DATE NOT NULL, 
