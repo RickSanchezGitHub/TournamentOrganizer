@@ -2,6 +2,9 @@
 	
 AS
 Begin 
-	SELECT * From dbo.Game
+	SELECT 
+	Id,
+	Name
+	From dbo.Game
 End
 

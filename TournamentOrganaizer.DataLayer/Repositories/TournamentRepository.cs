@@ -11,27 +11,29 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 {
     public class TournamentRepository
     {
-        const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=TournamentOrganaizer;Trusted_Connection=True";
-        public void TournamentInsert(string name, DateTime startDate, DateTime closeDate, Game game)
+        string connectionString = RepositoryHelpers.GetConnectionString();
+       
+        public void TournamentInsert(Tournament tournament)
         {
-            const string procedureName = "Tournament_Insert";                        
+            const string procedureName = "Tournament_Insert";
             using var connection = new SqlConnection(connectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Name", name);
-            command.Parameters.AddWithValue("@StartDate", startDate);
-            command.Parameters.AddWithValue("@CloseDate", closeDate);
-            command.Parameters.AddWithValue("@GameId", game.Id);
+            command.Parameters.AddWithValue("@Name", tournament.Name);
+            command.Parameters.AddWithValue("@StartDate", tournament.StartDate);
+            command.Parameters.AddWithValue("@CloseDate", tournament.CloseDate);
+            command.Parameters.AddWithValue("@GameId", tournament.GameId.Id);
             try
             {
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
+
         public void TournamentDeleteById(int id)
         {
             const string procedureName = "Tournament_DeleteById";
@@ -49,6 +51,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                 Console.WriteLine(ex.Message);
             }
         }
+
         public List<Tournament> TournamentSelectByAll()
         {
             const string procedureName = "Tournament_SelectByAll";
@@ -63,18 +66,22 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    result = new Tournament
+                    resultList.Add(new Tournament
                     {
                         Id = reader.GetInt32(reader.GetOrdinal(nameof(Tournament.Id))),
                         Name = reader.GetString(reader.GetOrdinal(nameof(Tournament.Name))),
                         StartDate = reader.GetDateTime(reader.GetOrdinal(nameof(Tournament.StartDate))),
                         CloseDate = reader.GetDateTime(reader.GetOrdinal(nameof(Tournament.CloseDate))),
-                        GameId = reader.GetInt32(reader.GetOrdinal(nameof(Tournament.GameId)))
-                    };
+                        GameId = new Game
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal(nameof(Game.Id))),
+                            Name = reader.GetString(reader.GetOrdinal(nameof(Game.Name)))
+                        }
+                    });
                     resultList.Add(result);
                 }
                 reader.Close();
-                
+
             }
             catch (Exception ex)
             {
@@ -104,7 +111,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                         Name = reader.GetString(reader.GetOrdinal(nameof(Tournament.Name))),
                         StartDate = reader.GetDateTime(reader.GetOrdinal(nameof(Tournament.StartDate))),
                         CloseDate = reader.GetDateTime(reader.GetOrdinal(nameof(Tournament.CloseDate))),
-                        GameId = reader.GetInt32(reader.GetOrdinal(nameof(Tournament.GameId)))
+                        GameId = new Game
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal(nameof(Game.Id))),
+                            Name = reader.GetString(reader.GetOrdinal(nameof(Game.Name)))
+                        }
                     };
 
                 }

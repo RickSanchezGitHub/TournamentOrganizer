@@ -9,13 +9,15 @@ using TournamentOrganaizer.DataLayer.Entities;
 
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
+
     public class GameRepository
     {
-        const string connectionString = "Server=(localdb)\\mssqllocaldb;Database=TournamentOrganaizer;Trusted_Connection=True";
+        string connectionString = RepositoryHelpers.GetConnectionString();
+        
         public void GameInsert(string name)
         {
             const string procedureName = "Game_Insert";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(RepositoryHelpers.GetConnectionString());
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Name", name);
@@ -30,6 +32,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                 Console.WriteLine(ex.Message);
             }
         }
+
         public void GameDeleteById(int id)
         {
             const string procedureName = "Game_DeleteById";
@@ -55,19 +58,17 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             var resultList = new List<Game>();
-            var result = new Game();
             try
             {
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    result = new Game
+                    resultList.Add(new Game
                     {
                         Id = reader.GetInt32(reader.GetOrdinal(nameof(Game.Id))),
                         Name = reader.GetString(reader.GetOrdinal(nameof(Game.Name))),
-                    };
-                    resultList.Add(result);
+                    });
                 }
                 reader.Close();
 
@@ -79,7 +80,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             return resultList;
         }
 
-        public Game TournamentSelectById(int id)
+        public Game GameSelectById(int id)
         {
             const string procedureName = "Game_SelectById";
             using var connection = new SqlConnection(connectionString);

@@ -11,11 +11,5 @@ namespace TournamentOrganaizer.DataLayer.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public Game() { }
-        public Game(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
     }
 }
