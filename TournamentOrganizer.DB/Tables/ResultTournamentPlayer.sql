@@ -12,18 +12,18 @@
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[ResultTournamentPlayer]  WITH CHECK ADD  CONSTRAINT [ResultTournamentPlayer_fk0] FOREIGN KEY([PlayerId])
-REFERENCES [dbo].[Player] ([Id])
-ON UPDATE CASCADE
-GO
+--ALTER TABLE [dbo].[ResultTournamentPlayer]  WITH CHECK ADD  CONSTRAINT [ResultTournamentPlayer_fk0] FOREIGN KEY([PlayerId])
+--REFERENCES [dbo].[Player] ([Id])
+--ON UPDATE CASCADE
+--GO
 
-ALTER TABLE [dbo].[ResultTournamentPlayer] CHECK CONSTRAINT [ResultTournamentPlayer_fk0]
-GO
+--ALTER TABLE [dbo].[ResultTournamentPlayer] CHECK CONSTRAINT [ResultTournamentPlayer_fk0]
+--GO
 
-ALTER TABLE [dbo].[ResultTournamentPlayer]  WITH CHECK ADD  CONSTRAINT [ResultTournamentPlayer_fk1] FOREIGN KEY([TournamentId])
-REFERENCES [dbo].[Tournament] ([Id])
-ON UPDATE CASCADE
-GO
+--ALTER TABLE [dbo].[ResultTournamentPlayer]  WITH CHECK ADD  CONSTRAINT [ResultTournamentPlayer_fk1] FOREIGN KEY([TournamentId])
+--REFERENCES [dbo].[Tournament] ([Id])
+--ON UPDATE CASCADE
+--GO
 
-ALTER TABLE [dbo].[ResultTournamentPlayer] CHECK CONSTRAINT [ResultTournamentPlayer_fk1]
-GO
+--ALTER TABLE [dbo].[ResultTournamentPlayer] CHECK CONSTRAINT [ResultTournamentPlayer_fk1]
+--GO
