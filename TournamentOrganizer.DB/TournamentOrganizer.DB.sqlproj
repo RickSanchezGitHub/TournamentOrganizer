@@ -59,4 +59,8 @@
     <Folder Include="Tables" />
     <Folder Include="StoredProcedures" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\TeamTournamentsHistory.sql" />
+    <Build Include="Tables\PlayerTournamentsHistory.sql" />
+  </ItemGroup>
 </Project>
