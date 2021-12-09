@@ -62,5 +62,15 @@
   <ItemGroup>
     <Build Include="Tables\TeamTournamentsHistory.sql" />
     <Build Include="Tables\PlayerTournamentsHistory.sql" />
+    <Build Include="StoredProcedures\PlayerTournamentHistory_UpdateTournomentIdByPlayerId.sql" />
+    <Build Include="StoredProcedures\TeamTournamentHistory_SelectByTournamentId.sql" />
+    <Build Include="StoredProcedures\TeamTournamentHistory_SelectByTeamId.sql" />
+    <Build Include="StoredProcedures\TeamTournamentHistory_InsertTournomentIdAndTeamId.sql" />
+    <Build Include="StoredProcedures\TeamTournamentHistory_UpdateTournomentIdByTeamId.sql" />
+    <Build Include="StoredProcedures\TeamTournamentHistory_DeleteByTournomentId.sql" />
+    <Build Include="StoredProcedures\PlayerTournamentHistory_DeleteByTournomentId.sql" />
+    <Build Include="StoredProcedures\PlayerTournamentHistory_InsertTournomentIdAndPlayerId.sql" />
+    <Build Include="StoredProcedures\PlayerTournamentHistory_SelectByPlayerId.sql" />
+    <Build Include="StoredProcedures\PlayerTournamentHistory_SelectByTournamentId.sql" />
   </ItemGroup>
 </Project>
