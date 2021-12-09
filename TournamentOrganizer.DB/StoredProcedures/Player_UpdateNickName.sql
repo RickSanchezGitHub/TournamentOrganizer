@@ -1,6 +1,6 @@
 ﻿Create Proc dbo.Player_UpdateNickName
 	(@id int,
-	 @Nick_Name varchar)
+	 @Nick_Name varchar(25))
 as
 begin
 	update	Player
