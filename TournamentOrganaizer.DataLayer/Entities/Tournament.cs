@@ -12,6 +12,6 @@ namespace TournamentOrganaizer.DataLayer.Entities
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime CloseDate { get; set; }
-        public Game GameId { get; set; }
+        public Game Game { get; set; }
     }
 }

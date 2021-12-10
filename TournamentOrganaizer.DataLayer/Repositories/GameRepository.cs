@@ -12,12 +12,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
     public class GameRepository
     {
-        string connectionString = RepositoryHelpers.GetConnectionString();
+        string connectionString = RepositoryHelpers.connectionString;
         
         public void GameInsert(string name)
         {
             const string procedureName = "Game_Insert";
-            using var connection = new SqlConnection(RepositoryHelpers.GetConnectionString());
+            using var connection = new SqlConnection(connectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Name", name);
