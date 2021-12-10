@@ -59,4 +59,24 @@
     <Folder Include="Tables" />
     <Folder Include="StoredProcedures" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Player.sql" />
+    <Build Include="Tables\Team.sql" />
+    <Build Include="Tables\Team_Player.sql" />
+    <Build Include="StoredProcedures\Player_Insert.sql" />
+    <Build Include="StoredProcedures\Player_Delete.sql" />
+    <Build Include="StoredProcedures\Player_SelectAll.sql" />
+    <Build Include="StoredProcedures\Player_SelectById.sql" />
+    <Build Include="StoredProcedures\Team_Delete.sql" />
+    <Build Include="StoredProcedures\Team_Insert.sql" />
+    <Build Include="StoredProcedures\Team_SelectAll.sql" />
+    <Build Include="StoredProcedures\Team_SelectById.sql" />
+    <Build Include="StoredProcedures\Team_Update.sql" />
+    <Build Include="StoredProcedures\Team_Player_Insert.sql" />
+    <Build Include="StoredProcedures\Team_Player_Delete.sql" />
+    <Build Include="StoredProcedures\Player_Update.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />
+  </ItemGroup>
 </Project>
