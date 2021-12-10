@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganaizer.DataLayer.csproj" />
+    <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj" />
   </ItemGroup>
 
 </Project>

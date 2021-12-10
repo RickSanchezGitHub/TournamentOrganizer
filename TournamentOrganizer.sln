@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentOrganaizer", "TournamentOrganizer\TournamentOrganaizer.csproj", "{558F0AC5-6D42-404A-AEB8-612C6A757878}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentOrganizer", "TournamentOrganizer\TournamentOrganizer.csproj", "{558F0AC5-6D42-404A-AEB8-612C6A757878}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TournamentOrganaizer.DB", "TournamentOrganizer.DB\TournamentOrganaizer.DB.sqlproj", "{B4A77CE7-FB9F-47A2-A1ED-BA424478CAE9}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TournamentOrganizer.DB", "TournamentOrganizer.DB\TournamentOrganizer.DB.sqlproj", "{B4A77CE7-FB9F-47A2-A1ED-BA424478CAE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentOrganaizer.DataLayer", "TournamentOrganaizer.DataLayer\TournamentOrganaizer.DataLayer.csproj", "{F232EF01-A9C4-4CB1-A679-98973FF87625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentOrganizer.DataLayer", "TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj", "{F232EF01-A9C4-4CB1-A679-98973FF87625}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

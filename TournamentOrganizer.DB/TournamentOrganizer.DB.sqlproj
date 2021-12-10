@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>TournamentOrganaizer.DB</Name>
+    <Name>TournamentOrganizer.DB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{b4a77ce7-fb9f-47a2-a1ed-ba424478cae9}</ProjectGuid>
