@@ -11,12 +11,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 {
     public class TournamentRepository
     {
-        string connectionString = RepositoryHelpers.connectionString;
+        string ConnectionString = RepositoryHelpers.ConnectionString;
        
         public void TournamentInsert(Tournament tournament)
         {
             const string procedureName = "Tournament_Insert";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Name", tournament.Name);
@@ -37,7 +37,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void TournamentDeleteById(int id)
         {
             const string procedureName = "Tournament_DeleteById";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Id", id);
@@ -55,7 +55,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public List<Tournament> TournamentSelectByAll()
         {
             const string procedureName = "Tournament_SelectByAll";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             var resultList = new List<Tournament>();
@@ -93,7 +93,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public Tournament TournamentSelectById(int id)
         {
             const string procedureName = "Tournament_SelectById";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Id", id);
@@ -132,7 +132,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void TournamentUpdateById(int id, string name, DateTime startDate, DateTime closeDate, Game game)
         {
             const string procedureName = "Tournament_UpdateById";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Id", id);

@@ -27,6 +27,8 @@ namespace TournamentOrganizer
         public MainWindow()
         {
             InitializeComponent();
+            var test = new TournamentRepository();
+            var test2 = test.TournamentSelectByAll();
         }
     }
 }

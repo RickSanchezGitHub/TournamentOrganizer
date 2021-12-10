@@ -12,12 +12,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
     public class GameRepository
     {
-        string connectionString = RepositoryHelpers.connectionString;
+        string ConnectionString = RepositoryHelpers.ConnectionString;
         
         public void GameInsert(string name)
         {
             const string procedureName = "Game_Insert";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Name", name);
@@ -36,7 +36,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void GameDeleteById(int id)
         {
             const string procedureName = "Game_DeleteById";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Id", id);
@@ -54,7 +54,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public List<Game> GameSelectByAll()
         {
             const string procedureName = "Game_SelectByAll";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             var resultList = new List<Game>();
@@ -83,7 +83,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public Game GameSelectById(int id)
         {
             const string procedureName = "Game_SelectById";
-            using var connection = new SqlConnection(connectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(procedureName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Id", id);
