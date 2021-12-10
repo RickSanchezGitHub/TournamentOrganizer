@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[ResultTournamentPlayer_InsertNewValues]
+﻿CREATE PROCEDURE [dbo].[ResultTournamentPlayer_Insert]
 	@PlayerId int,
 	@Result int,
 	@NumberRound int,

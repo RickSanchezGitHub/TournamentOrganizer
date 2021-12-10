@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    class ResultTournamentPlayerRepository
+    public class ResultTournamentPlayerRepository
     {
         private const string _connectionString = "Data Source=LAPTOP-7HPLQHLI/TEW_SQLEXPRESS;Database=TournamentOrganizer.DB;Trusted_Connection=True;";
 
@@ -51,7 +52,29 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
         
+        public void ResultTournamentPlayerInsert(int playerId, int result, int numberRound, int numberGame, int tournamentId)
+        {
+            const string procName = "dbo.ResultTournamentPlayer_InsertNewValues";
+            using var connection = new SqlConnection(_connectionString);
+            var command = new SqlCommand(procName, connection);
 
-        
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@PlayerId", playerId);
+            command.Parameters.AddWithValue("@Result", result);
+            command.Parameters.AddWithValue("@NumberRound", numberRound);
+            command.Parameters.AddWithValue("@NumberGame", numberGame);
+            command.Parameters.AddWithValue("@TournamentId", tournamentId);
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
     }
 }

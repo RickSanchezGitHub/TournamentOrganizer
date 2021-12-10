@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.DataLayer.Entities
 {
-    class ResultTournamentPlayer
+    public class ResultTournamentPlayer
     {
         public int Id {get; set;}
         public int PlayerId { get; set; }
