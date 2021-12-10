@@ -1,10 +1,12 @@
-﻿create proc dbo.Player_SelectAll
-as
-begin
-	select 
+﻿Create Proc dbo.Player_SelectAll
+As
+Begin
+	Select 
 		id,
 		FirstName,
 		LastName,
-		NickName
-	from  dbo.Player
-end
+		NickName,
+		Email,
+		Birthday
+	From  dbo.Player
+End

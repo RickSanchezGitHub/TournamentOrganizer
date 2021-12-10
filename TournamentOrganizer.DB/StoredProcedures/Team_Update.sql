@@ -1,11 +1,11 @@
 ﻿create proc dbo.Team_Update
-	(@id int,
-	 @Team_Name varchar(25))
+	 @Id int,
+	 @Name varchar(25)
 as
 begin
 	update 	Team
 	set 
-		TeamName = @Team_Name
+		Name = @Name
 	where 
-		 Id = @id
+		 Id = @Id
 end

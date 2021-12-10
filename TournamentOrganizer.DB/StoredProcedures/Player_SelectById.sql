@@ -1,11 +1,14 @@
-﻿create proc dbo.Player_SelectById
+﻿Create Proc dbo.Player_SelectById
 	@Id int
-as
-begin
-	select 
+As
+Begin
+	Select 
 		id,
 		FirstName,
 		LastName,
-		NickName
-	from  dbo.Player
-end
+		NickName,
+		Email,
+		Birthday
+	From  dbo.Player
+	Where Id = @Id
+End

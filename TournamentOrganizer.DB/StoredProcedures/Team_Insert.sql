@@ -1,9 +1,9 @@
 ﻿create proc dbo.Team_Insert
-	(@Team_Name varchar(25))
+	@Name varchar(25)
 as
 begin
 	insert into Team
-		(TeamName)
+		(Name)
 	values
-		(@Team_Name)
+		(@Name)
 end

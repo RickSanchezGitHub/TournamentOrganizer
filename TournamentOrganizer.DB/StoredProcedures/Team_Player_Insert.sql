@@ -1,12 +1,12 @@
-﻿create proc dbo.Team_Player_Insert
-	@Team_Id int,
-	@Player_Id int
-as
-begin
-	insert into Team_Player
+﻿Create Proc dbo.Team_Player_Insert
+	@TeamId int,
+	@PlayerId int
+As
+Begin
+	Insert Into Team_Player
 		(TeamId,
 		PlayerId)
-	values
-		(@Team_Id,
-		@Player_Id)
-end
+	Values
+		(@TeamId,
+		@PlayerId)
+End

@@ -3,6 +3,6 @@ as
 begin
 	select
 		Id
-		TeamName
+		Name
 	from Team
 end

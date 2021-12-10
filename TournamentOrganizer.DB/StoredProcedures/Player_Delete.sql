@@ -1,7 +1,7 @@
-﻿create proc dbo.Player_Delete
-	(@id int)
-as
-begin
-	delete from Player
-	where Id = @id
-end
+﻿Create Proc dbo.Player_Delete
+	@Id int
+As
+Begin
+	Delete From Player
+	Where Id = @Id
+End

@@ -1,10 +1,10 @@
 ﻿create proc dbo.Team_SelectById
-	(@id int)
+	@Id int
 as
 begin
 	select 
-		id,
-		TeamName
+		Id,
+		Name
 	from  dbo.Team
-	where Id = @id
+	where Id = @Id
 end
