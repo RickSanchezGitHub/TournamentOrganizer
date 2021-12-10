@@ -60,6 +60,18 @@
     <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Tables\Tournament.sql" />
+    <Build Include="Tables\Game.sql" />
+    <Build Include="StoredProcedures\Tournament_Insert.sql" />
+    <Build Include="StoredProcedures\Tournament_SelectAll.sql" />
+    <Build Include="StoredProcedures\Tournament_SelectById.sql" />
+    <Build Include="StoredProcedures\Tournament_Update.sql" />
+    <Build Include="StoredProcedures\Tournament_Delete.sql" />
+    <Build Include="StoredProcedures\Game_Insert.sql" />
+    <Build Include="StoredProcedures\Game_SelectAll.sql" />
+    <Build Include="StoredProcedures\Game_SelectById.sql" />
+    <Build Include="StoredProcedures\Game_Update.sql" />
+    <Build Include="StoredProcedures\Game_Delete.sql" />
     <Build Include="Tables\Player.sql" />
     <Build Include="Tables\Team.sql" />
     <Build Include="Tables\Team_Player.sql" />
