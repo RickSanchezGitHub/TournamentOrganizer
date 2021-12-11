@@ -1,5 +1,5 @@
 CREATE TABLE [Player] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	FirstName varchar(25) NOT NULL,
 	LastName varchar(25) NOT NULL,
 	NickName varchar(25) NOT NULL UNIQUE,
@@ -11,7 +11,7 @@ CREATE TABLE [Player] (
 )
 GO
 CREATE TABLE [Team] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	TeamName varchar(25) NOT NULL UNIQUE,
   CONSTRAINT [PK_TEAM] PRIMARY KEY CLUSTERED
   (
@@ -21,7 +21,7 @@ CREATE TABLE [Team] (
 )
 GO
 CREATE TABLE [Game] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	Name varchar(25) NOT NULL UNIQUE,
   CONSTRAINT [PK_GAME] PRIMARY KEY CLUSTERED
   (
@@ -31,7 +31,7 @@ CREATE TABLE [Game] (
 )
 GO
 CREATE TABLE [Tournament] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	Name varchar(25) NOT NULL,
 	StartDate datetime NOT NULL,
 	EndDate datetime NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE [Tournament] (
 )
 GO
 CREATE TABLE [PlayerTournamentsHistory] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	TournamentId integer NOT NULL,
 	PlayerId integer NOT NULL,
   CONSTRAINT [PK_PLAYERTOURNAMENTSHISTORY] PRIMARY KEY CLUSTERED
@@ -55,7 +55,7 @@ CREATE TABLE [PlayerTournamentsHistory] (
 )
 GO
 CREATE TABLE [TeamTournamentsHistory] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	TournamentId integer NOT NULL,
 	TeamId integer NOT NULL,
   CONSTRAINT [PK_TEAMTOURNAMENTSHISTORY] PRIMARY KEY CLUSTERED
@@ -66,7 +66,7 @@ CREATE TABLE [TeamTournamentsHistory] (
 )
 GO
 CREATE TABLE [ResultTournamentPlayer] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	PlayerId integer NOT NULL,
 	Result integer NOT NULL,
 	NumberRound integer NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE [ResultTournamentPlayer] (
 )
 GO
 CREATE TABLE [ResultTournamentTeam] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	TeamId integer NOT NULL,
 	Result integer NOT NULL,
 	NumberRound integer NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE [ResultTournamentTeam] (
 )
 GO
 CREATE TABLE [Team_Player] (
-	Id integer NOT NULL,
+	Id integer NOT NULL IDENTITY,
 	TeamId integer NOT NULL,
 	PlayerId integer NOT NULL,
   CONSTRAINT [PK_TEAM_PLAYER] PRIMARY KEY CLUSTERED
