@@ -3,7 +3,7 @@
 	[PlayerId] [int] NOT NULL,
 	[Result] [int] NOT NULL,
 	[NumberRound] [int] NOT NULL,
-	[NumberGame] [int] NOT NULL,
+	[NumberMatch] [int] NOT NULL,
 	[TournamentId] [int] NOT NULL,
  CONSTRAINT [PK_RESULTTOURNAMENTPLAYER] PRIMARY KEY CLUSTERED 
 (

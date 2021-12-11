@@ -3,7 +3,7 @@
 	@TournamentId int
 AS
 BEGIN
-	SELECT PlayerId, Result, NumberRound, NumberGame, TournamentId 
+	SELECT PlayerId, Result, NumberRound, NumberMatch, TournamentId 
 	FROM [dbo].[ResultTournamentPlayer]
 	WHERE PlayerId = @PlayerId AND TournamentId = @TournamentId
 END

@@ -11,7 +11,7 @@ BEGIN
            ([PlayerId]
            ,[Result]
            ,[NumberRound]
-           ,[NumberGame]
+           ,[NumberMatch]
            ,[TournamentId])
      VALUES
            (@PlayerId,
