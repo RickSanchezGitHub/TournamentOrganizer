@@ -120,5 +120,16 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public void DeleteByTournament(Tournament tournament)
+        {
+            using var sqlConnection = new SqlConnection(ConnectionString);
+            sqlConnection.Open();
+
+            sqlConnection.Execute("[dbo].[ResultTournamentPlayer_DeleteByTournamentId]",
+                new {TournamentId = tournament.Id},
+                commandType: CommandType.StoredProcedure
+                );
+        }
+
     }
 }

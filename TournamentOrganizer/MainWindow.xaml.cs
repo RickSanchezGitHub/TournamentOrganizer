@@ -38,11 +38,11 @@ namespace TournamentOrganizer
             };
             var data = repo.GetPlayerResultsInAllTournaments(player);
 
-            Tournament t = new Tournament { Id = 1 };
+            Tournament t = new Tournament { Id = 2 };
 
             var data2 = repo.GetPlayerResultsInTournament(player, t);
 
-            repo.SetPlayerResultInRoundOfTournament(player, -5, 1, t);
+            repo.DeleteByTournament(t);
         }
     }
 }
