@@ -56,7 +56,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
             }
         }
 
-        public Team PlayerGetById(int id)
+        public Team GetById(int id)
         {
             const string procedureName = "Team_SelectById";
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -65,7 +65,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
             }
         }
 
-        public void PlayerUpdate(int id, Team team)
+        public void Update(int id, Team team)
         {
             const string procedureName = "Team_Update";
             using (IDbConnection db = new SqlConnection(ConnectionString))
