@@ -31,7 +31,18 @@ namespace TournamentOrganizer
 
             var repo = new ResultTournamentPlayerRepository();
 
-            var data = repo.GetPlayerResultsInAllTournaments();
+
+            Player player = new Player
+            {
+                Id = 1
+            };
+            var data = repo.GetPlayerResultsInAllTournaments(player);
+
+            Tournament t = new Tournament { Id = 1 };
+
+            var data2 = repo.GetPlayerResultsInTournament(player, t);
+
+            repo.SetPlayerResultInRoundOfTournament(player, -5, 1, t);
         }
     }
 }
