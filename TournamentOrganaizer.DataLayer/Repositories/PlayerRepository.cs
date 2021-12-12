@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,143 +14,76 @@ namespace TournamentOrganizer.DataLayer.Repositories
     public class PlayerRepository
     {
         private string ConnectionString = RepositoryHelpers.ConnectionString;
-        public void PlayerInsert(Player player)
+        public int PlayerInsert(Player player)
         {
-            const string procedureName = "Player_Insert";
-            using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddRange(new[]
+            int result = 0;
+            var procName = "Player_Insert";
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                new SqlParameter("@FirstName", player.FirstName),
-                new SqlParameter("@LastName", player.LastName),
-                new SqlParameter("@NickName", player.NickName),
-                new SqlParameter("@Email", player.Email),
-                new SqlParameter("@Birthday", player.Birthday)
-            });
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
+                int? Id = db.Query<int>(procName, new
+                {
+                    FirstName = player.FirstName,
+                    LastName = player.LastName,
+                    NickName = player.NickName,
+                    Email = player.Email,
+                    Birthday = player.Birthday
+                },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+                if(Id is null)
+                {
+                    return result;
+                }
+                else
+                {
+                    result = Id.Value;
+                }
             }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            return result;
         }
 
         public void PlayerDelete(int id)
         {
             const string procedureName = "Player_Delete";
-            using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", id);
-            try
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                int? Id = db.Execute(procedureName, new { id }, commandType: CommandType.StoredProcedure);
             }
         }
 
-        public List<Player> PlayerSelectAll()
+        public List<Player> PlayerGetAll()
         {
             const string procedureName = "Player_SelectAll";
-            using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            var resultList = new List<Player>();
-            var result = new Player();
-            try
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                connection.Open();
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    resultList.Add(new Player
-                    {
-                        Id = reader.GetInt32(reader.GetOrdinal(nameof(Player.Id))),
-                        FirstName = reader.GetString(reader.GetOrdinal(nameof(Player.FirstName))),
-                        LastName = reader.GetString(reader.GetOrdinal(nameof(Player.LastName))),
-                        NickName = reader.GetString(reader.GetOrdinal(nameof(Player.NickName))),
-                        Email = reader.GetString(reader.GetOrdinal(nameof(Player.Email))),
-                        Birthday = reader.GetDateTime(reader.GetOrdinal(nameof(Player.Birthday)))
-                    });
-                    resultList.Add(result);
-                }
-                reader.Close();
-
+                return db.Query<Player>(procedureName, commandType: CommandType.StoredProcedure).ToList();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return resultList;
-        }
-
-        public Player PlayerSelectById(int id)
+        }      
+     
+        public Player PlayerGetById(int id)
         {
             const string procedureName = "Player_SelectById";
-            using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", id);
-
-            var result = new Player();
-            try
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                connection.Open();
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    result = new Player
-                    {
-                        Id = reader.GetInt32(reader.GetOrdinal(nameof(Player.Id))),
-                        FirstName = reader.GetString(reader.GetOrdinal(nameof(Player.FirstName))),
-                        LastName = reader.GetString(reader.GetOrdinal(nameof(Player.LastName))),
-                        NickName = reader.GetString(reader.GetOrdinal(nameof(Player.NickName))),
-                        Email = reader.GetString(reader.GetOrdinal(nameof(Player.Email))),
-                        Birthday = reader.GetDateTime(reader.GetOrdinal(nameof(Player.Birthday)))
-                    };
-
-                }
-                reader.Close();
-
+                return db.Query<Player>(procedureName, new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return result;
         }
         
         public void PlayerUpdate(int id, Player player)
         {
             const string procedureName = "Player_Update";
-            using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddRange(new[]
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                new SqlParameter("@Id", id),
-                new SqlParameter("@FirstName", player.FirstName),
-                new SqlParameter("@LastName", player.LastName),
-                new SqlParameter("@NickName", player.NickName),
-                new SqlParameter("@Email", player.Email),
-                new SqlParameter("@Birthday", player.Birthday)
-            });
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                db.Execute(procedureName, new
+                {
+                    Id = id,
+                    FirstName = player.FirstName,
+                    LastName = player.LastName,
+                    NickName = player.NickName,
+                    Email = player.Email,
+                    Birthday = player.Birthday
+                },
+                    commandType: CommandType.StoredProcedure);
             }
         }
-    }    
+    }     
 }
