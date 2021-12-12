@@ -29,20 +29,7 @@ namespace TournamentOrganizer
         {
             InitializeComponent();
 
-            var repo = new ResultTournamentPlayerRepository();
-
-
-            Player player = new Player
-            {
-                Id = 1
-            };
-            var data = repo.GetPlayerResultsInAllTournaments(player);
-
-            Tournament t = new Tournament { Id = 2 };
-
-            var data2 = repo.GetPlayerResultsInTournament(player, t);
-
-            repo.DeleteByTournament(t);
+            
         }
     }
 }

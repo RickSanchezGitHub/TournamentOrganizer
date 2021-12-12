@@ -8,12 +8,13 @@ using TournamentOrganizer.DataLayer.Entities;
 using Dapper;
 using System.Data;
 using TournamentOrganaizer.DataLayer.Entities;
+using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
     public class ResultTournamentPlayerRepository
     {
-        string ConnectionString = @"Data Source=LAPTOP-7HPLQHLI\TEW_SQLEXPRESS;Initial Catalog=TournamentOrganizer.DB;Integrated Security=True;";
+        string ConnectionString = RepositoryHelpers.ConnectionString;
 
 
         public List<ResultTournamentPlayer> GetPlayerResultsInAllTournaments(Player player)
@@ -87,10 +88,11 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
         public void Insert(Player player, int result, int round, int match, Tournament tournament)
         {
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_Insert]";
             using var sqlConnection = new SqlConnection(ConnectionString);
             sqlConnection.Open();
 
-            var newRows = sqlConnection.Execute("[dbo].[ResultTournamentPlayer_Insert]",
+            var newRows = sqlConnection.Execute(storedProcedure,
                 new
                 {
                     PlayerId = player.Id,
