@@ -15,7 +15,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
     {
         
 
-        string ConnectionString = @"Data Source=DESKTOP-JFRNH1K;Initial Catalog = TournamentOrganizer.DB;Integrated Security=True";
+        string ConnectionString = @"Data Source=(local);Initial Catalog = TournamentOrganizer.DB;Integrated Security=True";
        
         public void Insert(Team team, int result, int round, int match, Tournament tournament)
         {
@@ -45,6 +45,92 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 new { TournamentId = tournament.Id },
                 commandType: CommandType.StoredProcedure
                 );
+        }
+
+        public void SetPlayerResultInRoundOfTournament(Team team, int newResult, int round, Tournament tournament)
+        {
+            using var sqlConnection = new SqlConnection(ConnectionString);
+            sqlConnection.Open();
+
+            var newRows = sqlConnection.Execute("[dbo].[ResultTournamentTeam_SetTeamResultInRoundOfTournament]",
+                new
+                {
+                    TeamId = team.Id,
+                    newResult = newResult,
+                    NumberRound = round,
+                    TournamentId = tournament.Id
+                },
+                commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public List<ResultTournamentTeam> GetTeamsResultsInTournament(Team team, Tournament tournament)
+        {
+
+            using var sqlConnection = new SqlConnection(ConnectionString);
+            sqlConnection.Open();
+            var result = sqlConnection.Query<ResultTournamentTeam, Team, ResultTournamentTeam>(
+                "dbo.ResultTournamentTeam_SelectByTeamIdAndTournamentId",
+                (resultTournamentTeam, team) =>
+                {
+                    resultTournamentTeam.Team = team;
+                    resultTournamentTeam.Tournament = tournament;
+                    return resultTournamentTeam;
+                },
+                new { TeamId = team.Id, TournamentId = tournament.Id },
+                commandType: CommandType.StoredProcedure,
+                splitOn: "Id"
+                ).ToList();
+
+            return result;
+        }
+
+        public List<Team> GetTeamsInTournament(Tournament tournament)
+        {
+
+            using var sqlConnection = new SqlConnection(ConnectionString);
+            sqlConnection.Open();
+
+            var teamDictionary = new Dictionary<int, Team>();
+
+            var result = sqlConnection.Query<Team, ResultTournamentTeam, Team>(
+                "[dbo].[ResultTournamentTeam_SelectByTournamentId]",
+                (team, ResultTournamentTeam) =>
+                {
+                    if (!teamDictionary.TryGetValue(team.Id, out var teamEntry))
+                    {
+                        teamEntry = team;
+                        teamDictionary.Add(teamEntry.Id, teamEntry);
+                    }
+                    return teamEntry;
+                },
+                new { TournamentId = tournament.Id },
+                commandType: CommandType.StoredProcedure,
+                splitOn: "Id"
+                ).Distinct()
+                .ToList();
+
+            return result;
+        }
+
+        public List<ResultTournamentTeam> GetPlayerResultsInAllTournaments(Team team)
+        {
+
+            using var sqlConnection = new SqlConnection(ConnectionString);
+            sqlConnection.Open();
+            var result = sqlConnection.Query<ResultTournamentTeam, Team, ResultTournamentTeam>(
+                "dbo.ResultTournamentTeam_SelectByTeamId",
+                (resultTournamentTeam, team) =>
+                {
+                    resultTournamentTeam.Team = team;
+                    return resultTournamentTeam;
+                },
+                new { TeamId = team.Id },
+                commandType: CommandType.StoredProcedure,
+                splitOn: "Id"
+                ).ToList();
+
+            return result;
         }
 
     }
