@@ -17,44 +17,29 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
         public int Insert(Team_Player team_player)
         {
-            int result = 0;
             var procName = "Team_Player_Insert";
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                int? Id = db.Query<int>(procName, new
+                int id = db.ExecuteScalar<int>(procName, new
                 {
                     TeamId = team_player.TeamId,
                     PlayerId = team_player.PlayerId
                 },
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
-                if (Id is null)
-                {
-                    return result;
-                }
-                else
-                {
-                    result = Id.Value;
-                }
+                    commandType: CommandType.StoredProcedure);
+                return id;
             }
-            return result;
         }
 
-        public void Delete(int Teamid, int PlayerId)
+        public void Delete(int teamid, int playerId)
         {
             const string procedureName = "Team_Player_Delete";
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                int? Id = db.Execute(procedureName, new { Teamid }, commandType: CommandType.StoredProcedure);
+                int? Id = db.Execute(procedureName, new {
+                    TeamId = teamid,
+                    PlayerId = playerId
+                }, commandType: CommandType.StoredProcedure);
             }
-        }       
-
-        public List<Team_Player> GetById(int TeamId)
-        {
-            const string procedureName = "Team_PlayerSelectByTeamId";
-            using (IDbConnection db = new SqlConnection(ConnectionString))
-            {
-                return db.Query<Team_Player>(procedureName, new { TeamId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
-            }
-        }     
+        }    
     }
 }
