@@ -3,8 +3,20 @@
 	@NumberRound int
 AS
 BEGIN
-	SELECT PlayerId, Result, NumberRound, NumberMatch, TournamentId 
-	FROM [dbo].[ResultTournamentPlayer]
+	SELECT
+	rtp.Id,
+	rtp.PlayerId, 
+	rtp.Result, 
+	rtp.NumberRound, 
+	rtp.NumberMatch, 
+	rtp.TournamentId,
+	p.Id,
+	p.FirstName,
+	p.LastName,
+	p.NickName,
+	p.Email,
+	p.Birthday
+	FROM [dbo].[ResultTournamentPlayer] rtp inner join [dbo].Player p ON rtp.PlayerId = p.Id
 	WHERE NumberRound = @NumberRound AND TournamentId = @TournamentId
 END
 
