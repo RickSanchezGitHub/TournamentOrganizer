@@ -3,7 +3,7 @@
 AS
 BEGIN
    select
-te.* , r.*
-from dbo.[ResultTournamentTeam] r inner join dbo.Team te on r.TeamId =te.Id
+rtt.* , t.*
+from dbo.[ResultTournamentTeam] rtt inner join dbo.Team t on rtt.TeamId =t.Id
     WHERE  TeamId = @TeamId
 END

@@ -15,7 +15,8 @@ using System.Windows.Shapes;
 using TournamentOrganaizer.DataLayer;
 using TournamentOrganaizer.DataLayer.Entities;
 using TournamentOrganaizer.DataLayer.Repositories;
-
+using TournamentOrganizer.DataLayer.Entities;
+using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer
 {
@@ -27,6 +28,7 @@ namespace TournamentOrganizer
         public MainWindow()
         {
             InitializeComponent();
+            
         }
     }
 }
