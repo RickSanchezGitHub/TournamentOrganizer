@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using TournamentOrganaizer.DataLayer.Entities;
+using Dapper;
 
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
@@ -18,65 +19,35 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         {
             const string procedureName = "Game_Insert";
             using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Name", name);
-
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            connection.Open();
+            connection.Query<Game>(
+                procedureName,
+                new { Name = name },
+                commandType: CommandType.StoredProcedure
+            ).FirstOrDefault();
         }
 
         public void GameDeleteById(int id)
         {
             const string procedureName = "Game_DeleteById";
             using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", id);
-            try
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            connection.Open();
+            connection.Query<Game>(
+                procedureName,
+                new { Id = id },
+                commandType: CommandType.StoredProcedure
+            ).FirstOrDefault();
         }
 
         public List<Game> GameSelectByAll()
         {
             const string procedureName = "Game_SelectByAll";
             using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            var resultList = new List<Game>();
-            try
-            {
-                connection.Open();
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    resultList.Add(new Game
-                    {
-                        Id = reader.GetInt32(reader.GetOrdinal(nameof(Game.Id))),
-                        Name = reader.GetString(reader.GetOrdinal(nameof(Game.Name))),
-                    });
-                }
-                reader.Close();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            connection.Open();
+            var resultList = connection.Query<Game>(
+                procedureName, 
+                commandType: CommandType.StoredProcedure
+            ).ToList();
             return resultList;
         }
 
@@ -84,32 +55,28 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         {
             const string procedureName = "Game_SelectById";
             using var connection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand(procedureName, connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", id);
-
-            var result = new Game();
-            try
-            {
-                connection.Open();
-                var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    result = new Game
-                    {
-                        Id = reader.GetInt32(reader.GetOrdinal(nameof(Game.Id))),
-                        Name = reader.GetString(reader.GetOrdinal(nameof(Game.Name))),
-                    };
-
-                }
-                reader.Close();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            connection.Open();
+            var result = connection.Query<Game>(
+                procedureName,
+                new { Id = id },
+                commandType: CommandType.StoredProcedure
+            ).FirstOrDefault();
             return result;
+        }
+
+        public void GameUpdate(int id, string name)
+        {
+            const string procedureName = "Game_SelectById";
+            using var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            var result = connection.Query<Game>(
+                procedureName,
+                new { 
+                    Id = id ,
+                    Name = name
+                    },
+                commandType: CommandType.StoredProcedure
+            ).FirstOrDefault();
         }
 
     }
