@@ -17,9 +17,10 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public int Insert(Player player)
         {
             var procName = "Player_Insert";
+            int id = 0;
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                int id = db.ExecuteScalar<int>(procName, new
+                id = db.ExecuteScalar<int>(procName, new
                 {
                     FirstName = player.FirstName,
                     LastName = player.LastName,
@@ -29,8 +30,8 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 },
                     commandType: CommandType.StoredProcedure);
                 
-                return id;
             }
+            return id;
         }
 
         public void Delete(int id)
