@@ -27,11 +27,6 @@ namespace TournamentOrganizer
         public MainWindow()
         {
             InitializeComponent();
-            var test = new TournamentRepository();
-            test.TournamentInsert(new Tournament() { Id = 1, Name = "TestInsert", StartDate = new DateTime(1999, 10, 2), CloseDate = new DateTime(1999, 10, 2) , Game = new Game() { Id = 3, Name = "132"} });
-            //var tetsRes = test.GameInsert("NewGame") ;
-            int e = 3;
-
         }
     }
 }
