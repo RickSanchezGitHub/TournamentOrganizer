@@ -3,9 +3,9 @@
 as
 begin
 	select 
+		t.Id,
 		t.Name,
-		tp.TeamId,
-		tp.PlayerId,
+		p.Id,
 		p.FirstName,
 		p.LastName,
 		p.NickName,
