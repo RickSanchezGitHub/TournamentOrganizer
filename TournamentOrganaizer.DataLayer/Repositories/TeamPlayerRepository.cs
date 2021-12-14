@@ -11,11 +11,11 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class Team_PlayerRepository
+    public class TeamPlayerRepository
     {
         private string _connectionString = RepositoryHelpers.ConnectionString;
 
-        public int Insert(Team_Player team_player)
+        public int Insert(TeamPlayer teamPlayer)
         {
             var procName = "Team_Player_Insert";
             int id = 0;
@@ -23,8 +23,8 @@ namespace TournamentOrganizer.DataLayer.Repositories
             {
                  id = db.ExecuteScalar<int>(procName, new
                 {
-                    TeamId = team_player.TeamId,
-                    PlayerId = team_player.PlayerId
+                    TeamId = teamPlayer.TeamId,
+                    PlayerId = teamPlayer.PlayerId
                 },
                     commandType: CommandType.StoredProcedure);
             }
