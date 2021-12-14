@@ -12,26 +12,26 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class ResultTournamentTeamRepository
+    class ResultTournamentTeamRepository
     {
-        
 
-        string ConnectionString = RepositoryHelpers.ConnectionString;
-       
-        public void Insert(int teamId, int result, int round, int match, int tournamentId)
+
+        public string connectionString = RepositoryHelpers.ConnectionString;
+
+        public void Insert(ResultTournamentTeam resultTournamentTeam)
         {
             string storedProcedure = "[dbo].[ResultTournamentTeam_Insert]";
-            using var sqlConnection = new SqlConnection(ConnectionString);
+            using var sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
 
             var newRows = sqlConnection.Execute(storedProcedure,
                 new
                 {
-                    TeamId = teamId,
-                    Result = result,
-                    NumberRound = round,
-                    NumberMatch = match,
-                    TournamentId = tournamentId
+                    TeamId = resultTournamentTeam.Team.Id,
+                    Result = resultTournamentTeam.Result,
+                    NumberRound = resultTournamentTeam.NumberRound,
+                    NumberMatch = resultTournamentTeam.NumberMatch,
+                    TournamentId = resultTournamentTeam.Tournament.Id
                 },
                 commandType: CommandType.StoredProcedure
                 );
@@ -39,79 +39,83 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
         public void DeleteByTournament(int tournamentId)
         {
-            string storedProcedure = "[dbo].[ResultTournamentTeam_DeleteByTournamentId]";
-            using var sqlConnection = new SqlConnection(ConnectionString);
+            using var sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-
-            sqlConnection.Execute(
-                storedProcedure,
-                new { TournamentId = tournamentId },
-                commandType: CommandType.StoredProcedure
+            string storedProcedure = "[dbo].[ResultTournamentTeam_DeleteByTournamentId]";
+            sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new { TournamentId = tournamentId },
+                    commandType: CommandType.StoredProcedure
                 );
         }
 
-        public void SetPlayerResultInRoundOfTournament(int teamId, int newResult, int round, int tournamentId)
+        public void SetPlayerResultInRoundOfTournament(ResultTournamentTeam resultTournamentTeam, int newResult)
         {
-            string storedProcedure = "[dbo].[ResultTournamentTeam_SetTeamResultInRoundOfTournament]";
-            using var sqlConnection = new SqlConnection(ConnectionString);
+            using var sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-
+            string storedProcedure ="[dbo].[ResultTournamentTeam_SetTeamResultInRoundOfTournament]";
             var newRows = sqlConnection.Execute(
-                storedProcedure,
-                new
-                {
-                    TeamId = teamId,
-                    newResult = newResult,
-                    NumberRound = round,
-                    TournamentId = tournamentId
-                },
-                commandType: CommandType.StoredProcedure
+                    storedProcedure,
+                    new
+                    {
+                        TeamId = resultTournamentTeam.Team.Id,
+                        newResult = newResult,
+                        NumberRound = resultTournamentTeam.NumberRound,
+                        TournamentId = resultTournamentTeam.Tournament.Id
+                    },
+                    commandType: CommandType.StoredProcedure
                 );
         }
 
         public List<ResultTournamentTeam> GetTeamsResultsInTournament(int teamId, int tournamentId)
         {
-            string storedProcedure = "dbo.ResultTournamentTeam_SelectByTeamIdAndTournamentId";
-            using var sqlConnection = new SqlConnection(ConnectionString);
+
+            using var sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            var result = sqlConnection.Query<ResultTournamentTeam, Team, ResultTournamentTeam>(
-               storedProcedure, 
-                (resultTournamentTeam, team) =>
-                {
-                    resultTournamentTeam.Team = team;
-                    return resultTournamentTeam;
-                },
-                new { TeamId = teamId, TournamentId = tournamentId },
-                commandType: CommandType.StoredProcedure,
-                splitOn: "Id"
-                ).ToList();
+            string storedProcedure = "dbo.ResultTournamentTeam_SelectByTeamIdAndTournamentId";
+            var result = sqlConnection.Query<ResultTournamentTeam, Team, ResultTournamentTeam>
+                (
+                    storedProcedure,
+                    (resultTournamentTeam, team) =>
+                    {
+                        resultTournamentTeam.Team = team;
+                        return resultTournamentTeam;
+                    },
+                    new { TeamId = teamId, TournamentId = tournamentId },
+                    commandType: CommandType.StoredProcedure,
+                    splitOn: "Id"
+                )
+                .ToList();
 
             return result;
         }
 
         public List<Team> GetTeamsInTournament(int tournamentId)
         {
-            string storedProcedure = "[dbo].[ResultTournamentTeam_SelectByTournamentId]";
-            using var sqlConnection = new SqlConnection(ConnectionString);
-            sqlConnection.Open();
 
+            using var sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_SelectByTournamentId]";
             var teamDictionary = new Dictionary<int, Team>();
 
-            var result = sqlConnection.Query<Team, ResultTournamentTeam, Team>(
-               storedProcedure,
-                (team, ResultTournamentTeam) =>
-                {
-                    if (!teamDictionary.TryGetValue(team.Id, out var teamEntry))
+            var result = sqlConnection.Query<Team, ResultTournamentTeam, Team>
+                (
+                    storedProcedure,
+                    (team, ResultTournamentTeam) =>
                     {
-                        teamEntry = team;
-                        teamDictionary.Add(teamEntry.Id, teamEntry);
-                    }
-                    return teamEntry;
-                },
-                new { TournamentId = tournamentId },
-                commandType: CommandType.StoredProcedure,
-                splitOn: "Id"
-                ).Distinct()
+                        if (!teamDictionary.TryGetValue(team.Id, out var teamEntry))
+                        {
+                            teamEntry = team;
+                            teamDictionary.Add(teamEntry.Id, teamEntry);
+                        }
+                        return teamEntry;
+                    },
+                    new { TournamentId = tournamentId },
+                    commandType: CommandType.StoredProcedure,
+                    splitOn: "Id"
+                )
+                .Distinct()
                 .ToList();
 
             return result;
@@ -119,20 +123,23 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
         public List<ResultTournamentTeam> GetPlayerResultsInAllTournaments(int teamId)
         {
-            string storedProcedure = "dbo.ResultTournamentTeam_SelectByTeamId";
-            using var sqlConnection = new SqlConnection(ConnectionString);
+
+            using var sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            var result = sqlConnection.Query<ResultTournamentTeam, Team, ResultTournamentTeam>( 
-                storedProcedure,
-                (resultTournamentTeam, team) =>
-                {
-                    resultTournamentTeam.Team = team;
-                    return resultTournamentTeam;
-                },
-                new { TeamId = teamId },
-                commandType: CommandType.StoredProcedure,
-                splitOn: "Id"
-                ).ToList();
+            string storedProcedure = "dbo.ResultTournamentTeam_SelectByTeamId";
+            var result = sqlConnection.Query<ResultTournamentTeam, Tournament, ResultTournamentTeam>
+                (
+                    storedProcedure,
+                    (resultTournamentTeam, tournament) =>
+                    {
+                        resultTournamentTeam.Tournament = tournament;
+                        return resultTournamentTeam;
+                    },
+                    new { TeamId = teamId },
+                    commandType: CommandType.StoredProcedure,
+                    splitOn: "Id"
+                )
+                .ToList();
 
             return result;
         }
