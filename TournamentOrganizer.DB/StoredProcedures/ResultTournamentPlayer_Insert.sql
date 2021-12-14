@@ -2,7 +2,7 @@
 	@PlayerId int,
 	@Result int,
 	@NumberRound int,
-	@NumberGame int,
+	@NumberMatch int,
 	@TournamentId int
 
 AS
@@ -17,6 +17,6 @@ BEGIN
            (@PlayerId,
 			@Result,
 			@NumberRound,
-			@NumberGame,
+			@NumberMatch,
 			@TournamentId)
 END
