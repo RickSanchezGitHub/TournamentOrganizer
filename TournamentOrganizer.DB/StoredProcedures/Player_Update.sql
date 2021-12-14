@@ -3,7 +3,6 @@
 	 @FirstName varchar(25),
 	 @LastName varchar(25),
 	 @NickName varchar(25),
-	 @Email varchar(50),
 	 @Birthday date
 As
 Begin
@@ -12,7 +11,6 @@ Begin
 		FirstName = @FirstName,
 		LastName = @LastName,
 		NickName = @NickName,
-		Email = @Email,
 		Birthday = @Birthday
 	Where Id = @id
 End
