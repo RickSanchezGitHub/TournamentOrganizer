@@ -20,11 +20,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             const string procedureName = "Game_Insert";
             using var connection = new SqlConnection(ConnectionString);
             connection.Open();
-            connection.Query<Game>(
+            connection.Execute(
                 procedureName,
                 new { Name = name },
                 commandType: CommandType.StoredProcedure
-            ).FirstOrDefault();
+            );
         }
 
         public void GameDeleteById(int id)
@@ -32,11 +32,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             const string procedureName = "Game_DeleteById";
             using var connection = new SqlConnection(ConnectionString);
             connection.Open();
-            connection.Query<Game>(
+            connection.Execute(
                 procedureName,
                 new { Id = id },
                 commandType: CommandType.StoredProcedure
-            ).FirstOrDefault();
+            );
         }
 
         public List<Game> GameSelectByAll()
@@ -66,17 +66,17 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         public void GameUpdate(int id, string name)
         {
-            const string procedureName = "Game_SelectById";
+            const string procedureName = "Game_Update";
             using var connection = new SqlConnection(ConnectionString);
             connection.Open();
-            var result = connection.Query<Game>(
+            var result = connection.Execute(
                 procedureName,
                 new { 
                     Id = id ,
                     Name = name
                     },
                 commandType: CommandType.StoredProcedure
-            ).FirstOrDefault();
+            );
         }
 
     }

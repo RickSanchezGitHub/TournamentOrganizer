@@ -18,14 +18,17 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             const string procedureName = "Tournament_Insert";
             using var connection = new SqlConnection(ConnectionString);
             connection.Open();
-            connection.Query<Tournament>(
+            connection.Execute(
                 procedureName,
-                new { Name = tournament.Name,
-                      StartDate = tournament.StartDate,
-                      CloseDate = tournament.CloseDate,
-                      GameId =  tournament.Game.Id},
+                new 
+                { 
+                    Name = tournament.Name,
+                    StartDate = tournament.StartDate,
+                    CloseDate = tournament.CloseDate,
+                    GameId =  tournament.Game.Id
+                },
                 commandType: CommandType.StoredProcedure
-            ).FirstOrDefault();
+            );
         }
 
         public void TournamentDeleteById(int id)
@@ -33,12 +36,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             const string procedureName = "Tournament_DeleteById";
             using var connection = new SqlConnection(ConnectionString);
             connection.Open();
-            connection.Query<Tournament>(
+            connection.Execute(
                 procedureName,
                 new
                 {Id = id},
                 commandType: CommandType.StoredProcedure
-            ).FirstOrDefault();
+            );
 
         }
 
@@ -79,22 +82,22 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             return result;
         }
 
-        public void TournamentUpdateById(int id, string name, DateTime startDate, DateTime closeDate, Game game)
+        public void TournamentUpdateById(Tournament tournament)
         {
             const string procedureName = "Tournament_UpdateById";
             using var connection = new SqlConnection(ConnectionString);
             connection.Open();
-            connection.Query<Tournament>(
+            connection.Execute(
                 procedureName,
                 new
                 {
-                    Name = name,
-                    StartDate = startDate,
-                    CloseDate = closeDate,
-                    GameId = game.Id
+                    Name = tournament.Name,
+                    StartDate = tournament.StartDate,
+                    CloseDate = tournament.CloseDate,
+                    GameId = tournament.Game.Id
                 },
                 commandType: CommandType.StoredProcedure
-            ).FirstOrDefault();
+            );
         }
 
 
