@@ -132,7 +132,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
 
-        public void Insert(int playerId, int result, int round, int match, int tournamentId)
+        public void Insert(ResultTournamentPlayer resultTournamentPlayer)
         {
             using var sqlConnection = new SqlConnection(ConnectionString);
             sqlConnection.Open();
@@ -143,17 +143,17 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     storedProcedure,
                     new
                     {
-                        PlayerId = playerId,
-                        Result = result,
-                        NumberRound = round,
-                        NumberMatch = match,
-                        TournamentId = tournamentId
+                        PlayerId = resultTournamentPlayer.Player.Id,
+                        Result = resultTournamentPlayer.Result,
+                        NumberRound = resultTournamentPlayer.NumberRound,
+                        NumberMatch = resultTournamentPlayer.NumberMatch,
+                        TournamentId = resultTournamentPlayer.Tournament.Id
                     },
                     commandType: CommandType.StoredProcedure
                 );
         }
 
-        public void SetPlayerResultInRoundOfTournament(int playerId, int newResult, int round, int tournamentId)
+        public void SetPlayerResultInRoundOfTournament(int newResult, ResultTournamentPlayer resultTournamentPlayer)
         {
             using var sqlConnection = new SqlConnection(ConnectionString);
             sqlConnection.Open();
@@ -164,10 +164,10 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     storedProcedure,
                     new
                     {
-                        PlayerId = playerId,
+                        PlayerId = resultTournamentPlayer.Player.Id,
                         newResult = newResult,
-                        NumberRound = round,
-                        TournamentId = tournamentId
+                        NumberRound = resultTournamentPlayer.NumberRound,
+                        TournamentId = resultTournamentPlayer.Tournament.Id
                     },
                     commandType: CommandType.StoredProcedure
                 );
