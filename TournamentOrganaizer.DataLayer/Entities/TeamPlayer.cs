@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.DataLayer.Entities
 {
-    public class Team
+    public class TeamPlayer
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Player> Players { get; set; }
+        public int TeamId { get; set; }
+        public int PlayerId { get; set; }
+
     }
 }

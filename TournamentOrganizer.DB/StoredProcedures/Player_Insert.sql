@@ -19,4 +19,5 @@ Begin
 		 @NickName,
 		 @Email,
 		 @Birthday)
+		 SELECT CAST(SCOPE_IDENTITY() as int)
 End
