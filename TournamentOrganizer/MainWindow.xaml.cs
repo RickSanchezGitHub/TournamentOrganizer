@@ -27,9 +27,7 @@ namespace TournamentOrganizer
     {
         public MainWindow()
         {
-            InitializeComponent();
-
-            
+            InitializeComponent();            
         }
     }
 }

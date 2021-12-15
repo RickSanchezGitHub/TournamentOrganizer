@@ -91,6 +91,13 @@
     <Build Include="StoredProcedures\Team_Player_Insert.sql" />
     <Build Include="StoredProcedures\Team_Player_Delete.sql" />
     <Build Include="StoredProcedures\Player_Update.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam_Insert.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam_DeleteByTournamentId.sql" />
+    <Build Include="Tables\ResultTournamentTeam.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam_SelectByTournamentId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam_SelectByTeamId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam_SelectByTeamIdAndTournamentId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam_SetTeamResultInRoundOfTournament.sql" />
     <Build Include="StoredProcedures\ResultTournamentPlayer_GetPlayerResultsInTournament.sql" />
     <Build Include="StoredProcedures\ResultTournamentPlayer_SelectPlayerResultsInAllTournaments.sql" />
     <Build Include="StoredProcedures\ResultTournamentPlayer_SelectPlayersInTournament.sql" />
