@@ -14,6 +14,5 @@ namespace TournamentOrganizer.DataLayer.Entities
         public string NickName { get; set; }
         public string Email { get; set; }
         public DateTime Birthday { get; set; }
-
     }
 }

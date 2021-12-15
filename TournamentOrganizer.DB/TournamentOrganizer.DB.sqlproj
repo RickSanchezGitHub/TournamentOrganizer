@@ -87,7 +87,6 @@
     <Build Include="StoredProcedures\Team_Delete.sql" />
     <Build Include="StoredProcedures\Team_Insert.sql" />
     <Build Include="StoredProcedures\Team_SelectAll.sql" />
-    <Build Include="StoredProcedures\Team_SelectById.sql" />
     <Build Include="StoredProcedures\Team_Update.sql" />
     <Build Include="StoredProcedures\Team_Player_Insert.sql" />
     <Build Include="StoredProcedures\Team_Player_Delete.sql" />
