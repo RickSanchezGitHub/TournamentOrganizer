@@ -77,9 +77,9 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     commandType: CommandType.StoredProcedure);
             }
         }
+
         public List<Player> GetPlayersInTournament(int tournamentId)
         {
-
             using var sqlConnection = new SqlConnection(ConnectionString);
             sqlConnection.Open();
             string storedProcedure = "[dbo].[ResultTournamentPlayer_SelectPlayersInTournament]";
@@ -90,14 +90,14 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 .Query<Player, ResultTournamentPlayer, Player>
                  (
                     storedProcedure,
-                    (player, ResultTournamentPlayer) =>
+                    (player, resultTournamentPlayer) =>
                     {
                         if (!playerDictionary.TryGetValue(player.Id, out var playerEntry))
                         {
                             playerEntry = player;
                             playerDictionary.Add(playerEntry.Id, playerEntry);
                         }
-                        ResultTournamentPlayer.Player = playerEntry;
+                        resultTournamentPlayer.Player = playerEntry;
                         return playerEntry;
                     },
                     new { TournamentId = tournamentId },

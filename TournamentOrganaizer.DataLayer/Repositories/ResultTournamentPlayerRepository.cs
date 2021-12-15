@@ -42,39 +42,6 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
 
-        public List<Player> GetPlayersInTournament(int tournamentId)
-        {
-
-            using var sqlConnection = new SqlConnection(ConnectionString);
-            sqlConnection.Open();
-            string storedProcedure = "[dbo].[ResultTournamentPlayer_SelectPlayersInTournament]";
-
-            var playerDictionary = new Dictionary<int, Player>();
-
-            var result = sqlConnection
-                .Query<Player, ResultTournamentPlayer, Player>
-                 (
-                    storedProcedure,
-                    (player,ResultTournamentPlayer) =>
-                    {
-                        if (!playerDictionary.TryGetValue(player.Id, out var playerEntry))
-                        {
-                            playerEntry = player;
-                            playerDictionary.Add(playerEntry.Id, playerEntry);
-                        }
-                        ResultTournamentPlayer.Player = playerEntry;
-                        return playerEntry;
-                    },
-                    new { TournamentId = tournamentId },
-                    commandType: CommandType.StoredProcedure,
-                    splitOn: "Id"
-                 )
-                .Distinct()
-                .ToList();
-
-            return result;
-        }
-
         public List<ResultTournamentPlayer> GetPlayersResultsInTournamentRound(int tournamentId, int numberRound)
         {
 
