@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{b4a77ce7-fb9f-47a2-a1ed-ba424478cae9}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -60,6 +60,11 @@
     <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Tables\ResultTournamentPlayer.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_Insert.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_SelectByTournamentIdAndNumberRound.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_DeleteByTournamentId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_SetPlayerResultInRoundOfTournament.sql" />
     <Build Include="Tables\Tournament.sql" />
     <Build Include="Tables\Game.sql" />
     <Build Include="StoredProcedures\Tournament_Insert.sql" />
@@ -86,6 +91,9 @@
     <Build Include="StoredProcedures\Team_Player_Insert.sql" />
     <Build Include="StoredProcedures\Team_Player_Delete.sql" />
     <Build Include="StoredProcedures\Player_Update.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_GetPlayerResultsInTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_SelectPlayerResultsInAllTournaments.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer_SelectPlayersInTournament.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />
