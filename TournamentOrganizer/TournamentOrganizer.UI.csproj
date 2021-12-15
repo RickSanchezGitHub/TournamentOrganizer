@@ -14,4 +14,8 @@
     <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="VeiwModels\" />
+  </ItemGroup>
+
 </Project>
