@@ -12,13 +12,13 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamRepository : Repository
+    public class TeamRepository : BaseRepository
     {
         public int Insert(Team team)
         {
             int id = 0;
             var procName = "Team_Insert";
-            using (IDbConnection db = new SqlConnection(ConnectionString))
+            using (IDbConnection db = ProvideConnection())
             {
                 id = db.ExecuteScalar<int>(procName, new
                 {
@@ -32,7 +32,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void Delete(int id)
         {
             const string procedureName = "Team_Delete";
-            using (IDbConnection db = new SqlConnection(ConnectionString))
+            using (IDbConnection db = ProvideConnection())
             {
                 db.Execute(procedureName, new { id }, commandType: CommandType.StoredProcedure);
             }
@@ -41,7 +41,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public List<Team> GetAll()
         {
             const string procedureName = "Team_SelectAll";
-            using (IDbConnection db = new SqlConnection(ConnectionString))
+            using (IDbConnection db = ProvideConnection())
             {
                 return db.Query<Team>(procedureName, commandType: CommandType.StoredProcedure).ToList();
             }
@@ -50,7 +50,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public List<Team> GetById(int id)
         {
             const string procedureName = "Team_SelectById";
-            using (IDbConnection db = new SqlConnection(ConnectionString))
+            using (IDbConnection db = ProvideConnection())
             {
                 var teamDictionary = new Dictionary<int, Team>();
 
@@ -80,7 +80,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void Update(int id, Team team)
         {
             const string procedureName = "Team_Update";
-            using (IDbConnection db = new SqlConnection(ConnectionString))
+            using (IDbConnection db = ProvideConnection())
             {
                 db.Execute(procedureName, new
                 {

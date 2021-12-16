@@ -12,13 +12,12 @@ using TournamentOrganizer.DataLayer.Repositories;
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
 
-    public class GameRepository: Repository
+    public class GameRepository: BaseRepository
     {
         public void GameInsert(string name)
         {
             const string procedureName = "Game_Insert";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             connection.Execute(
                 procedureName,
                 new { Name = name },
@@ -29,8 +28,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void GameDeleteById(int id)
         {
             const string procedureName = "Game_DeleteById";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             connection.Execute(
                 procedureName,
                 new { Id = id },
@@ -41,8 +39,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public List<Game> GameSelectByAll()
         {
             const string procedureName = "Game_SelectByAll";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             var resultList = connection.Query<Game>(
                 procedureName, 
                 commandType: CommandType.StoredProcedure
@@ -53,8 +50,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public Game GameSelectById(int id)
         {
             const string procedureName = "Game_SelectById";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             var result = connection.Query<Game>(
                 procedureName,
                 new { Id = id },
@@ -66,8 +62,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void GameUpdate(int id, string name)
         {
             const string procedureName = "Game_Update";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             var result = connection.Execute(
                 procedureName,
                 new { 
