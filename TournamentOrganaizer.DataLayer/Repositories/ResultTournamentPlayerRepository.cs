@@ -14,9 +14,6 @@ namespace TournamentOrganizer.DataLayer.Repositories
 {
     public class ResultTournamentPlayerRepository: Repository
     {
-        string ConnectionString = RepositoryHelpers.ConnectionString;
-
-
         public List<ResultTournamentPlayer> GetPlayerResultsInAllTournaments(int playerId)
         {
 
