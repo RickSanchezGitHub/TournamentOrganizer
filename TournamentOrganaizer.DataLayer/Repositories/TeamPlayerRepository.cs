@@ -11,22 +11,20 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamPlayerRepository
+    public class TeamPlayerRepository : Repository
     {
-        private string _connectionString = RepositoryHelpers.ConnectionString;
-
         public int Insert(TeamPlayer teamPlayer)
         {
             var procName = "Team_Player_Insert";
             int id = 0;
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                 id = db.ExecuteScalar<int>(procName, new
+                id = db.ExecuteScalar<int>(procName, new
                 {
                     TeamId = teamPlayer.TeamId,
                     PlayerId = teamPlayer.PlayerId
                 },
-                    commandType: CommandType.StoredProcedure);
+                   commandType: CommandType.StoredProcedure);
             }
             return id;
         }
@@ -34,13 +32,14 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void Delete(int teamid, int playerId)
         {
             const string procedureName = "Team_Player_Delete";
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                db.Execute(procedureName, new {
+                db.Execute(procedureName, new
+                {
                     TeamId = teamid,
                     PlayerId = playerId
                 }, commandType: CommandType.StoredProcedure);
             }
-        }    
+        }
     }
 }

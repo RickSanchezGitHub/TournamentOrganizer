@@ -12,7 +12,7 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class ResultTournamentPlayerRepository
+    public class ResultTournamentPlayerRepository: Repository
     {
         string ConnectionString = RepositoryHelpers.ConnectionString;
 

@@ -7,12 +7,12 @@ using System.Data;
 using System.Data.SqlClient;
 using TournamentOrganaizer.DataLayer.Entities;
 using Dapper;
+using TournamentOrganizer.DataLayer.Repositories;
+
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
-    public class TournamentRepository
+    public class TournamentRepository : Repository
     {
-        string ConnectionString = RepositoryHelpers.ConnectionString;
-
         public void TournamentInsert(Tournament tournament)
         {
             const string procedureName = "Tournament_Insert";
@@ -20,12 +20,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             connection.Open();
             connection.Execute(
                 procedureName,
-                new 
-                { 
+                new
+                {
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
-                    GameId =  tournament.Game.Id
+                    GameId = tournament.Game.Id
                 },
                 commandType: CommandType.StoredProcedure
             );
@@ -39,7 +39,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             connection.Execute(
                 procedureName,
                 new
-                {Id = id},
+                { Id = id },
                 commandType: CommandType.StoredProcedure
             );
 
@@ -75,7 +75,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                     tournament.Game = game;
                     return tournament;
                 },
-                new {Id = id},
+                new { Id = id },
                 commandType: CommandType.StoredProcedure,
                 splitOn: "Id"
             ).FirstOrDefault();

@@ -7,14 +7,13 @@ using System.Data;
 using System.Data.SqlClient;
 using TournamentOrganaizer.DataLayer.Entities;
 using Dapper;
+using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
 
-    public class GameRepository
+    public class GameRepository: Repository
     {
-        string ConnectionString = RepositoryHelpers.ConnectionString;
-        
         public void GameInsert(string name)
         {
             const string procedureName = "Game_Insert";

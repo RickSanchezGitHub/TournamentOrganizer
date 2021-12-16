@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TournamentOrganaizer.DataLayer.Repositories
+namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public static class RepositoryHelpers
+    public abstract class Repository
     {
-        //const string ConnectionString = "Server=(local);Database=TournamentOrganaizer;Trusted_Connection=True";
         public const string ConnectionString = "Data Source=80.78.240.16;Initial Catalog=TournamentOrganizer.DB;User ID=student;Password=qwe!23";
     }
 }

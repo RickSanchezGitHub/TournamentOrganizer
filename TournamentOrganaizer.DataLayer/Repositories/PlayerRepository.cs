@@ -11,14 +11,13 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class PlayerRepository
-    {
-        private string _connectionString = RepositoryHelpers.ConnectionString;
+    public class PlayerRepository : Repository
+    { 
         public int Insert(Player player)
         {
             var procName = "Player_Insert";
             int id = 0;
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 id = db.ExecuteScalar<int>(procName, new
                 {
@@ -37,7 +36,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void Delete(int id)
         {
             const string procedureName = "Player_Delete";
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 db.Execute(procedureName, new { id }, commandType: CommandType.StoredProcedure);
             }
@@ -46,7 +45,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public List<Player> GetAll()
         {
             const string procedureName = "Player_SelectAll";
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 return db.Query<Player>(procedureName, commandType: CommandType.StoredProcedure).ToList();
             }
@@ -55,7 +54,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public Player GetById(int id)
         {
             const string procedureName = "Player_SelectById";
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 return db.Query<Player>(procedureName, new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
@@ -64,7 +63,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void Update(int id, Player player)
         {
             const string procedureName = "Player_Update";
-            using (IDbConnection db = new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 db.Execute(procedureName, new
                 {
