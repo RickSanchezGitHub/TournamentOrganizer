@@ -1,0 +1,12 @@
+﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemParticipants"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:tabData ="clr-namespace:TournamentOrganizer.UI.Tabs"
+         Header="Participants">
+
+    <Grid>
+        <TabControl>
+
+        </TabControl>
+    </Grid>
+</TabItem>

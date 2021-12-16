@@ -12,17 +12,12 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    class ResultTournamentTeamRepository
-    {
-
-
-        public string connectionString = RepositoryHelpers.ConnectionString;
-
+    class ResultTournamentTeamRepository: BaseRepository
+    { 
         public void Insert(ResultTournamentTeam resultTournamentTeam)
         {
             string storedProcedure = "[dbo].[ResultTournamentTeam_Insert]";
-            using var sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
 
             var newRows = sqlConnection.Execute(storedProcedure,
                 new
@@ -39,8 +34,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
         public void DeleteByTournament(int tournamentId)
         {
-            using var sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentTeam_DeleteByTournamentId]";
             sqlConnection.Execute
                 (
@@ -52,8 +46,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
         public void SetPlayerResultInRoundOfTournament(ResultTournamentTeam resultTournamentTeam, int newResult)
         {
-            using var sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure ="[dbo].[ResultTournamentTeam_SetTeamResultInRoundOfTournament]";
             var newRows = sqlConnection.Execute(
                     storedProcedure,
@@ -71,8 +64,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public List<ResultTournamentTeam> GetTeamsResultsInTournament(int teamId, int tournamentId)
         {
 
-            using var sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "dbo.ResultTournamentTeam_SelectByTeamIdAndTournamentId";
             var result = sqlConnection.Query<ResultTournamentTeam, Team, ResultTournamentTeam>
                 (
@@ -94,8 +86,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public List<Team> GetTeamsInTournament(int tournamentId)
         {
 
-            using var sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentTeam_SelectByTournamentId]";
             var teamDictionary = new Dictionary<int, Team>();
 
@@ -124,8 +115,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public List<ResultTournamentTeam> GetPlayerResultsInAllTournaments(int teamId)
         {
 
-            using var sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "dbo.ResultTournamentTeam_SelectByTeamId";
             var result = sqlConnection.Query<ResultTournamentTeam, Tournament, ResultTournamentTeam>
                 (

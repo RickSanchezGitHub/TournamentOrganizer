@@ -7,25 +7,24 @@ using System.Data;
 using System.Data.SqlClient;
 using TournamentOrganaizer.DataLayer.Entities;
 using Dapper;
+using TournamentOrganizer.DataLayer.Repositories;
+
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
-    public class TournamentRepository
+    public class TournamentRepository : BaseRepository
     {
-        string ConnectionString = RepositoryHelpers.ConnectionString;
-
         public void TournamentInsert(Tournament tournament)
         {
             const string procedureName = "Tournament_Insert";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             connection.Execute(
                 procedureName,
-                new 
-                { 
+                new
+                {
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
-                    GameId =  tournament.Game.Id
+                    GameId = tournament.Game.Id
                 },
                 commandType: CommandType.StoredProcedure
             );
@@ -34,12 +33,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void TournamentDeleteById(int id)
         {
             const string procedureName = "Tournament_DeleteById";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             connection.Execute(
                 procedureName,
                 new
-                {Id = id},
+                { Id = id },
                 commandType: CommandType.StoredProcedure
             );
 
@@ -48,8 +46,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public List<Tournament> TournamentSelectByAll()
         {
             const string procedureName = "Tournament_SelectByAll";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             var resultList = connection.Query<Tournament, Game, Tournament>(
                 procedureName,
                 (tournament, game) =>
@@ -66,8 +63,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public Tournament TournamentSelectById(int id)
         {
             const string procedureName = "Tournament_SelectById";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             var result = connection.Query<Tournament, Game, Tournament>(
                 procedureName,
                 (tournament, game) =>
@@ -75,7 +71,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                     tournament.Game = game;
                     return tournament;
                 },
-                new {Id = id},
+                new { Id = id },
                 commandType: CommandType.StoredProcedure,
                 splitOn: "Id"
             ).FirstOrDefault();
@@ -85,8 +81,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
         public void TournamentUpdateById(Tournament tournament)
         {
             const string procedureName = "Tournament_UpdateById";
-            using var connection = new SqlConnection(ConnectionString);
-            connection.Open();
+            using IDbConnection connection = ProvideConnection();
             connection.Execute(
                 procedureName,
                 new

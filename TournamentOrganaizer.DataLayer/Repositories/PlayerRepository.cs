@@ -11,16 +11,18 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class PlayerRepository
+    public class PlayerRepository : BaseRepository
     {
-        private string _connectionString = RepositoryHelpers.ConnectionString;
         public int Insert(Player player)
         {
-            var procName = "Player_Insert";
+            var storedProcedure = "Player_Insert";
             int id = 0;
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                id = db.ExecuteScalar<int>(procName, new
+            using IDbConnection sqlConnection = ProvideConnection();
+
+
+            id = sqlConnection.ExecuteScalar<int>
+                (storedProcedure,
+                new
                 {
                     FirstName = player.FirstName,
                     LastName = player.LastName,
@@ -28,60 +30,75 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     Email = player.Email,
                     Birthday = player.Birthday
                 },
-                    commandType: CommandType.StoredProcedure);
-                
-            }
+                commandType: CommandType.StoredProcedure);
             return id;
         }
 
         public void Delete(int id)
         {
             const string procedureName = "Player_Delete";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                db.Execute(procedureName, new { id }, commandType: CommandType.StoredProcedure);
-            }
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            sqlConnection.Execute
+                (
+                    procedureName,
+                    new { id },
+                    commandType: CommandType.StoredProcedure
+                );
         }
 
         public List<Player> GetAll()
         {
             const string procedureName = "Player_SelectAll";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                return db.Query<Player>(procedureName, commandType: CommandType.StoredProcedure).ToList();
-            }
-        }      
-     
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            var result = sqlConnection.Query<Player>
+                (
+                    procedureName,
+                    commandType: CommandType.StoredProcedure
+                )
+                .ToList();
+
+            return result;
+        }
+
         public Player GetById(int id)
         {
             const string procedureName = "Player_SelectById";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                return db.Query<Player>(procedureName, new { id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
-            }
+            using IDbConnection sqlConnection = ProvideConnection();
+            var result = sqlConnection.Query<Player>
+                (
+                    procedureName,
+                    new { id },
+                    commandType: CommandType.StoredProcedure
+                )
+                .FirstOrDefault();
+            return result;
         }
-        
+
         public void Update(int id, Player player)
         {
             const string procedureName = "Player_Update";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                db.Execute(procedureName, new
-                {
-                    Id = id,
-                    FirstName = player.FirstName,
-                    LastName = player.LastName,
-                    NickName = player.NickName,
-                    Birthday = player.Birthday
-                },
-                    commandType: CommandType.StoredProcedure);
-            }
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            sqlConnection.Execute(
+                    procedureName,
+                    new
+                    {
+                        Id = id,
+                        FirstName = player.FirstName,
+                        LastName = player.LastName,
+                        NickName = player.NickName,
+                        Birthday = player.Birthday
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+
         }
 
         public List<Player> GetPlayersInTournament(int tournamentId)
         {
-            using var sqlConnection = new SqlConnection(ConnectionString);
-            sqlConnection.Open();
+            using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentPlayer_SelectPlayersInTournament]";
 
             var playerDictionary = new Dictionary<int, Player>();
@@ -109,5 +126,5 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
             return result;
         }
-    }     
+    }
 }

@@ -12,51 +12,62 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamRepository
+    public class TeamRepository : BaseRepository
     {
-        private string _connectionString = RepositoryHelpers.ConnectionString;
-
         public int Insert(Team team)
         {
             int id = 0;
-            var procName = "Team_Insert";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                id = db.ExecuteScalar<int>(procName, new
-                {
-                    Name = team.Name                    
-                },
-                    commandType: CommandType.StoredProcedure);
-            }
+            var procedureName = "Team_Insert";
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            id = sqlConnection.ExecuteScalar<int>(
+                    procedureName,
+                    new
+                    {
+                        Name = team.Name
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+
             return id;
         }
 
         public void Delete(int id)
         {
             const string procedureName = "Team_Delete";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                db.Execute(procedureName, new { id }, commandType: CommandType.StoredProcedure);
-            }
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            sqlConnection.Execute(
+                    procedureName,
+                    new { id },
+                    commandType: CommandType.StoredProcedure
+                );
+
         }
 
         public List<Team> GetAll()
         {
             const string procedureName = "Team_SelectAll";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                return db.Query<Team>(procedureName, commandType: CommandType.StoredProcedure).ToList();
-            }
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            var result = sqlConnection
+                .Query<Team>
+                (
+                    procedureName,
+                    commandType: CommandType.StoredProcedure
+                )
+                .ToList();
+            return result;
         }
 
         public List<Team> GetById(int id)
         {
             const string procedureName = "Team_SelectById";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                var teamDictionary = new Dictionary<int, Team>();
+            using IDbConnection sqlConnection = ProvideConnection();
 
-                var list = db.Query<Team, Player, Team>(
+            var teamDictionary = new Dictionary<int, Team>();
+
+            var result = sqlConnection.Query<Team, Player, Team>(
                     procedureName,
                     (team, player) =>
                     {
@@ -71,25 +82,33 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
                         teamEntry.Players.Add(player);
                         return teamEntry;
-                    }, new { Id = id },
-                    splitOn: "Id", commandType: CommandType.StoredProcedure)
-                    .Distinct()
-                    .ToList();
-            }
+                    },
+                    new { Id = id },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure
+                 )
+                .Distinct()
+                .ToList();
+
+            return result;
+
         }
 
         public void Update(int id, Team team)
         {
             const string procedureName = "Team_Update";
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                db.Execute(procedureName, new
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            sqlConnection.Execute(
+                procedureName,
+                new
                 {
                     Id = id,
-                    Name = team.Name                    
+                    Name = team.Name
                 },
-                commandType: CommandType.StoredProcedure);
-            }
+                commandType: CommandType.StoredProcedure
+            );
+
         }
     }
 }
