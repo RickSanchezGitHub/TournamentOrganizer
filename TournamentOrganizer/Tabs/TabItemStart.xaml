@@ -5,6 +5,8 @@
 
     <Grid Background="Black">
         <Image Source="/Tabs/Fon123.png"/>
+        <Image Source="/Tabs/Tournament (8).png"/>
+
 
     </Grid>
 </TabItem>
