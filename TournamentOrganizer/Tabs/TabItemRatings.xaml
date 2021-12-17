@@ -1,0 +1,39 @@
+﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemRatings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TournamentOrganizer.UI.Tabs"
+      Header="Ratings">
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF240909"/>
+                <GradientStop Color="#FFB48A8A" Offset="2"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <RadioButton Content="Игроки" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
+            <RadioButton Content="Команды" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Игра" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="300,0,0,0"/>
+                <ComboBox x:Name="ComboBoxSelectGame" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0" Width="50"/>
+            </StackPanel>
+        </StackPanel>
+        <ListView Grid.Row="1"  VerticalAlignment="Stretch">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Header="Имя" Width= "30" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Рейтинг" Width= "50" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </Grid>
+</TabItem>
