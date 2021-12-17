@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="Организатор турниров" Height="450" Width="800">
     <Grid>
-        <TabControl x:Name="MainTabControl">
+        <TabControl x:Name="MainTabControl" >
             <tabData:TabItemStart></tabData:TabItemStart>
             <tabData:TabItemParticipants></tabData:TabItemParticipants>
             <tabData:TabItemGame></tabData:TabItemGame>
+            
         </TabControl>
     </Grid>
 </Window>
