@@ -1,0 +1,42 @@
+﻿<Window x:Class="TournamentOrganizer.UI.Windows.AddParticipantToTournament"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TournamentOrganizer.UI.Windows"
+        mc:Ignorable="d"
+        Title="Список участников" Height="350" Width="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="listViewForCredits"   HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"  />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn Header=" Имя/Название " Width="100" />
+                    <GridViewColumn Header=" Рейтинг " Width="90"/>
+                    <GridViewColumn Header=" Удалить " Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button  Content="Удалить" Margin="0" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="1"  MinHeight="30" MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Добавить"/>
+    </Grid>
+</Window>

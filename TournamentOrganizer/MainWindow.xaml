@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tabData ="clr-namespace:TournamentOrganizer.UI.Tabs"
         mc:Ignorable="d"
-        Title="Организатор турниров" Height="450" Width="800">
+        Title="Организатор турниров" Height="460" Width="819">
     <Grid>
+
         <TabControl x:Name="MainTabControl">
             <tabData:TabItemStart></tabData:TabItemStart>
             <tabData:TabItemParticipants></tabData:TabItemParticipants>
             <tabData:TabItemGame></tabData:TabItemGame>
+            <tabData:TabItemTournament></tabData:TabItemTournament>
         </TabControl>
     </Grid>
 </Window>
