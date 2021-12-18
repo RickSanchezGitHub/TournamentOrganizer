@@ -17,10 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="VeiwModels\" />
+    <ProjectReference Include="..\TournamentOrganizer.BusinessLayer\TournamentOrganizer.BusinessLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

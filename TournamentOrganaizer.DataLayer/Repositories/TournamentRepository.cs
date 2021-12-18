@@ -43,7 +43,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         }
 
-        public List<Tournament> TournamentSelectByAll()
+        public List<Tournament> TournamentSelectAll()
         {
             const string procedureName = "Tournament_SelectByAll";
             using IDbConnection connection = ProvideConnection();

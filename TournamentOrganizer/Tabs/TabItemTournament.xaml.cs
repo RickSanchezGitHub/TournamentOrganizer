@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Tabs
 {
@@ -20,9 +22,14 @@ namespace TournamentOrganizer.UI.Tabs
     /// </summary>
     public partial class TabItemTournament : TabItem
     {
+        private readonly TournamentService _tournamentService;
         public TabItemTournament()
         {
             InitializeComponent();
+            _tournamentService = new TournamentService();
+            var vm = new TournamentViewModel();
+            vm.Tournaments = _tournamentService.GetAllTournaments();
+            DataContext = vm;
         }
     }
 }
