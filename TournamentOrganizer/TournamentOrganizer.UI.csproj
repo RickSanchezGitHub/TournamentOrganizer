@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\icoSearch.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="VeiwModels\" />
+    <Resource Include="Images\icoSearch.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

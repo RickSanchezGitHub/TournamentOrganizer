@@ -3,9 +3,39 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:TournamentOrganizer.UI.Tabs"
       Header="Ratings">
 
+    <TabItem.Resources>
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBox Text="{Binding Path=Text,
+                                                RelativeSource={RelativeSource TemplatedParent}, 
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 x:Name="textSource" 
+                                 Background="Transparent" 
+                                 Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="#FF807463"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </TabItem.Resources>
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -19,21 +49,36 @@
         </Grid.Background>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <RadioButton Content="Игроки" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
-            <RadioButton Content="Команды" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Content="Игра" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="300,0,0,0"/>
-                <ComboBox x:Name="ComboBoxSelectGame" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0" Width="50"/>
+                <Label Content="Выберите игру" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                <ComboBox DisplayMemberPath="Name" x:Name="ComboBoxSelectGame" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0" SelectionChanged="ComboBoxSelectGame_Selected"/>
+            </StackPanel >
+            <StackPanel x:Name="StackPanelRatingViewManager" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Hidden">
+                <Label Content="Посмотреть рейтинг" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                <RadioButton x:Name="RadioButtonPlayers" GroupName="Participants" Content="Игроков" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Checked="RadioButton_Checked" />
+                <RadioButton x:Name="RadioButtonTeams" GroupName="Participants" Content="Команд" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Checked="RadioButton_Checked" />
+                <TextBox Style="{StaticResource placeHolder}" Tag="Поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="80"/>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20">
+                    
+                </Button>
             </StackPanel>
+
         </StackPanel>
-        <ListView Grid.Row="1"  VerticalAlignment="Stretch">
+        <DataGrid x:Name="DataGridParticipants" Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" Width="200" Binding="{Binding Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+       
+        <!--<ListView Grid.Row="1"  VerticalAlignment="Stretch">
             <ListView.View>
                 <GridView >
                     <GridViewColumn Header="Имя" Width= "30" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Рейтинг" Width= "50" DisplayMemberBinding="{Binding Name}"/>
                 </GridView>
             </ListView.View>
-        </ListView>
-        
+        </ListView>-->
+
     </Grid>
 </TabItem>

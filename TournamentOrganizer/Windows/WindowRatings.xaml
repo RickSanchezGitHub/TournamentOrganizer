@@ -6,6 +6,38 @@
         xmlns:local="clr-namespace:TournamentOrganizer.UI.Tabs"
         mc:Ignorable="d"
         Title="WindowRatings" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBox Text="{Binding Path=Text,
+                                                RelativeSource={RelativeSource TemplatedParent}, 
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 x:Name="textSource" 
+                                 Background="Transparent" 
+                                 Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="#FF807463"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -19,12 +51,20 @@
         </Grid.Background>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <RadioButton Content="Игроки" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
-            <RadioButton Content="Команды" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Content="Игра" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="300,0,0,0"/>
+                <Label Content="Выберите игру" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
                 <ComboBox x:Name="ComboBoxSelectGame" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0" Width="50"/>
+            </StackPanel >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Label Content="Посмотреть рейтинг" Foreground="#FFEADDDD" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                <RadioButton Content="Игроков" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
+                <RadioButton Content="Команд" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <TextBox Style="{StaticResource placeHolder}" Tag="Поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="80"/>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20">
+                    <Image Source="Images/icoSearch.ico" Width="20" Height="20"/>
+                </Button>
             </StackPanel>
+            
         </StackPanel>
         <ListView Grid.Row="1"  VerticalAlignment="Stretch">
             <ListView.View>
