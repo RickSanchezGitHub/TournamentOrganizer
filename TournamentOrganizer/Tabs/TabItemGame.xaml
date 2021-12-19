@@ -4,6 +4,26 @@
       Header="Game">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="AllGames" Width="0" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="9*" />
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" x:Name ="DataGridListGames" Grid.Row="0" Grid.Column="0">
+            <DataGrid.Columns>
+            <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonGameDelite_Click" Width="200" Height="35">Удалить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </TabItem>

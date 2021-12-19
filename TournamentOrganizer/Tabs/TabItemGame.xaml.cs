@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Tabs
 {
@@ -20,9 +21,19 @@ namespace TournamentOrganizer.UI.Tabs
     /// </summary>
     public partial class TabItemGame : TabItem
     {
+        public TabItemGameViewModel ViewModel;
+
         public TabItemGame()
         {
             InitializeComponent();
+            ViewModel = new TabItemGameViewModel();
+            ViewModel.Games.Add(new GameViewModel { Name = "WoW" } ) ;
+            DataGridListGames.ItemsSource = ViewModel.Games;
+        }
+
+        private void ButtonGameDelite_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }
