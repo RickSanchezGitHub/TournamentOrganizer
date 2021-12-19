@@ -11,6 +11,7 @@
             <tabData:TabItemStart></tabData:TabItemStart>
             <tabData:TabItemParticipants></tabData:TabItemParticipants>
             <tabData:TabItemGame></tabData:TabItemGame>
+            <tabData:TabItemPlayer></tabData:TabItemPlayer>
             
         </TabControl>
     </Grid>
