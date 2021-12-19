@@ -1,6 +1,6 @@
-﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemGame"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemGame" 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
       Header="Game">
 
     <Grid>
@@ -12,26 +12,29 @@
             <RowDefinition Height="9*" />
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" x:Name ="DataGridListGames" Grid.Row="0" Grid.Column="0">
+        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" x:Name ="DataGridListGames" Grid.Row="0" Grid.Column="0">
             <DataGrid.Columns>
-            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTemplateColumn>
+                <DataGridTextColumn Width="2*" Header="Name" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button >Редактировать</Button>
+                            <Button Click="ButtonGameEdit_Click">Редактировать</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button >Удалить</Button>
+                            <Button Click="ButtonGameDelite_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >Удалить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-            
-
         </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox TextChanged="TextBoxAddGameName_TextChanged" x:Name="TextBoxAddGameName"/>
+            <Button x:Name="ButtonAddEdit" Click="ButtonAdd_Click" Content="Добавить"/>
+        </StackPanel>
+
     </Grid>
 </TabItem>
