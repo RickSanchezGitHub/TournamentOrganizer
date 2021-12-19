@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,11 @@ namespace TournamentOrganizer.UI.Tabs
             ViewModel.Games.Add(new GameViewModel { Name = "Poker" });
             ViewModel.Games.Add(new GameViewModel { Name = "Durak" });
             ViewModel.Games.Add(new GameViewModel { Name = "Monopoly" });
+            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+
             DataContext = ViewModel;
             ComboBoxSelectGame.ItemsSource = ViewModel.Games;
         }
@@ -46,19 +52,21 @@ namespace TournamentOrganizer.UI.Tabs
 
             if (radioButton.Name == "RadioButtonPlayers")
             {
-                DataGridParticipants.Columns.Clear();
-                DataGridParticipants.Columns.Add(new DataGridTextColumn { Header = "Имя" });
-                DataGridParticipants.Columns.Add(new DataGridTextColumn { Header = "Фамилия" });
-                DataGridParticipants.Columns.Add(new DataGridTextColumn { Header = "Погоняло" });
-                DataGridParticipants.Columns.Add(new DataGridTextColumn { Header = "Результат" });
-                
+                DataGridTeams.Visibility = Visibility.Hidden;
+                DataGridPlayers.Visibility = Visibility.Visible;
+                DataGridPlayers.ItemsSource = ViewModel.Players;
             }
             else
             {
-                DataGridParticipants.Columns.Clear();
-                DataGridParticipants.Columns.Add(new DataGridTextColumn { Header = "Название" });
-                DataGridParticipants.Columns.Add(new DataGridTextColumn { Header = "Результат" });
+                DataGridPlayers.Visibility = Visibility.Hidden;
+                DataGridTeams.Visibility = Visibility.Visible;
+                DataGridTeams.ItemsSource = ViewModel.Teams;
             }
+        }
+
+        private void DataGridSetHeaderInColumns(IEnumerable headers, IEnumerable source)
+        {
+            
         }
     }
 }

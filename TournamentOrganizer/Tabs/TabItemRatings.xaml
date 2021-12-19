@@ -59,18 +59,26 @@
                 <RadioButton x:Name="RadioButtonTeams" GroupName="Participants" Content="Команд" Foreground="#FFEADDDD" Margin="20,10" FontWeight="Bold" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Checked="RadioButton_Checked" />
                 <TextBox Style="{StaticResource placeHolder}" Tag="Поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="80"/>
                 <Button HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20">
-                    
+                    <Image Source="../Images/icoSeach.ico"/>
                 </Button>
             </StackPanel>
 
         </StackPanel>
-        <DataGrid x:Name="DataGridParticipants" Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="DataGridPlayers" Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="Hidden">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наименование" Width="200" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Имя" Width="200" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Фамилия" Width="200" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Псевдоним" Width="200" Binding="{Binding Name}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-       
+        <DataGrid x:Name="DataGridTeams" Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Width="200" Binding="{Binding Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
         <!--<ListView Grid.Row="1"  VerticalAlignment="Stretch">
             <ListView.View>
                 <GridView >
