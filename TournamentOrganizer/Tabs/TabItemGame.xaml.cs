@@ -27,7 +27,8 @@ namespace TournamentOrganizer.UI.Tabs
         {
             InitializeComponent();
             ViewModel = new TabItemGameViewModel();
-            ViewModel.Games.Add(new GameViewModel { Name = "WoW" } ) ;
+            ViewModel.Games.Add(new GameViewModel { Name = "WoW" });
+            ViewModel.Games.Add(new GameViewModel { Name = "Monopolia" });
             DataGridListGames.ItemsSource = ViewModel.Games;
         }
 
