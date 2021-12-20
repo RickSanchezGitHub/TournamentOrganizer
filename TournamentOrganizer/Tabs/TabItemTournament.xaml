@@ -2,27 +2,29 @@
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Header="Tournament">
+    <TabItem.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="HorizontalAlignment"  Value="Left"/>
 
+        </Style>
+    </TabItem.Resources>
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="70*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition x:Name="columnsSaveUpdate" Width="0*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="MainImage" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Source="..\Images\carbon.jpg" Stretch="UniformToFill" Grid.RowSpan="9" Panel.ZIndex="0"/>
+        <Image x:Name="MainImage" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Source="..\Images\carbon.jpg" Stretch="UniformToFill" Grid.RowSpan="9" Panel.ZIndex="0"/>
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
             <Label HorizontalAlignment="Left" FontWeight="Normal" FontSize="15" VerticalAlignment="Center" >Список турниров</Label>
             <ComboBox  Name="ComboBoxPickParticipants" Width="auto" VerticalAlignment="Center">
@@ -34,49 +36,60 @@
                 </ComboBoxItem>
             </ComboBox>
         </StackPanel>
-        <ListView x:Name="listViewForCredits"   HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.RowSpan="7" Grid.Column="1" Grid.ColumnSpan="1">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"  />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View >
-                <GridView>
-                    <GridViewColumn Header=" Название " Width="auto" />
-                    <GridViewColumn Header=" Дата начала " Width="auto"/>
-                    <GridViewColumn Header=" Дата окончания " Width="auto"/>
-                    <GridViewColumn Header=" Детали " Width="auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button  Content=" Просмотреть " Margin="0" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header=" Удалить " Width="auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button  Content="Удалить" Margin="0" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
 
-        <Label Name="LabelName" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Название</Label>
-        <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></TextBox>
-        <Label Name="LabelStartDate" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Дата начала</Label>
-        <DatePicker x:Name="DatePickerDayStart" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></DatePicker>
-        <Label Name="LabelCloseDate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Дата закрытия</Label>
-        <DatePicker x:Name="DatePickerDayClose" Grid.Row="3"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></DatePicker>
-        <Label Name="LabelParticipant" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Список участников</Label>
-        <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
-        <Label Name="LabelRounds" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Турнирная сетка</Label>
-        <Button Name="ButtonViewRounds" Grid.Row="5"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
+        <DataGrid x:Name="DataGrifTournaments" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Tournaments}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" Width="20*" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Дата начала" Width="20*" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"/>
+                <DataGridTextColumn Header="Дата окончания" Width="20*" Binding="{Binding CloseDate, StringFormat=\{0:dd.MM.yy\}}"/>
 
-        <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="1"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Добавить"/>
-        <Button x:Name="ButtonBack" Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="1" MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Назад"/>
-        <Button x:Name="ButtonSave" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="1"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Сохранить"/>
+                <DataGridTemplateColumn Width="20*" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonDataGridTournamentsUpdateClick">Изменить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn Width="20*" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonDataGridTournamentsDeleteClick">Удалить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" >
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label Name="LabelName" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Название</Label>
+                <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label Name="LabelStartDate" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center" >Дата начала</Label>
+                <DatePicker x:Name="DatePickerDayStart" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label Name="LabelCloseDate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Дата закрытия</Label>
+                <DatePicker x:Name="DatePickerDayClose" Grid.Row="3"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label Name="LabelParticipant" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Список участников</Label>
+                <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Label Name="LabelRounds" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Турнирная сетка</Label>
+                <Button Name="ButtonViewRounds" Grid.Row="5"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="1"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Добавить" Click="ButtonTournamentsAddClick"/>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+            <Button x:Name="ButtonSave" Visibility ="Collapsed" MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Сохранить" Click="ButtonTournamentsSaveClick"/>
+            <Button x:Name="ButtonUpdate" Visibility ="Collapsed"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Изменить" Click="ButtonTournamentsUpdateClick"/>
+            <Button x:Name="ButtonBack"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Назад" Click="ButtonTournamentsBackClick"/>
+        </StackPanel>
     </Grid>
 </TabItem>

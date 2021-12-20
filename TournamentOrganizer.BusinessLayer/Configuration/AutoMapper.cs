@@ -9,7 +9,7 @@ using TournamentOrganizer.BusinessLayer.Models;
 
 namespace TournamentOrganizer.BusinessLayer.Configuration
 {
-    public static class CustomMaoper
+    public static class CustomMapper
     {
         private static Mapper _instance;
 
@@ -26,7 +26,10 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
             _instance = new Mapper(new MapperConfiguration(cfg => 
             {
                 cfg.CreateMap<Tournament, TournamentModel>();
-            
+                cfg.CreateMap<TournamentModel, Tournament>();
+                cfg.CreateMap<Game, GameModel>();
+                cfg.CreateMap<GameModel, Game>();
+
             }));
         }
     }

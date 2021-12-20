@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TournamentOrganaizer.DataLayer.Entities;
 using TournamentOrganaizer.DataLayer.Repositories;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
@@ -20,7 +21,25 @@ namespace TournamentOrganizer.BusinessLayer.Service
         public List<TournamentModel> GetAllTournaments()
         {
             var tournaments = _tournamentRepository.TournamentSelectAll();
-            return CustomMaoper.GetInstance().Map<List<TournamentModel>>(tournaments);
+            return CustomMapper.GetInstance().Map<List<TournamentModel>>(tournaments);
         }
+
+        public void DeleteTournament(int id)
+        {
+            _tournamentRepository.TournamentDeleteById(id);
+        }
+
+        public void UpdateTournament(TournamentModel tournament)
+        {
+            var tournamentModel = CustomMapper.GetInstance().Map<Tournament>(tournament);
+            _tournamentRepository.TournamentUpdateById(tournamentModel);
+        }
+        public void InsertTournament(TournamentModel tournament)
+        {
+            var tournamentModel = CustomMapper.GetInstance().Map<Tournament>(tournament);
+            _tournamentRepository.TournamentInsert(tournamentModel);
+        }
+
+
     }
 }

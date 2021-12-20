@@ -86,6 +86,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                 procedureName,
                 new
                 {
+                    Id = tournament.Id,
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
