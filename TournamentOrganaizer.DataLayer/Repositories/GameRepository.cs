@@ -61,7 +61,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         public void GameUpdate(int id, string name)
         {
-            const string procedureName = "Game_Update";
+            const string procedureName = "Game_UpdateById";
             using IDbConnection connection = ProvideConnection();
             var result = connection.Execute(
                 procedureName,

@@ -10,9 +10,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
             <RowDefinition Height="9*" />
-            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" x:Name ="DataGridListGames" Grid.Row="0" Grid.Column="0">
+        <DataGrid IsEnabled="{Binding StateDataGrid}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" x:Name ="DataGridListGames" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Games}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="2*" Header="Name" Binding="{Binding Name}"/>
                 <DataGridTemplateColumn Width="1*" >
@@ -31,9 +30,10 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox TextChanged="TextBoxAddGameName_TextChanged" x:Name="TextBoxAddGameName"/>
-            <Button x:Name="ButtonAddEdit" Click="ButtonAdd_Click" Content="Добавить"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox  Text="{Binding TextBoxAddGameNameText}" TextChanged="TextBoxAddGameName_TextChanged" x:Name="TextBoxAddGameName"/>
+            <Button x:Name="ButtonAddEdit" Click="ButtonAdd_Click" Content="{Binding ButtonAddEditContent}"/>
+            <Button Visibility="{Binding VisibilityButtonCancel}" IsEnabled="{Binding StateButtonCancel}" x:Name="ButtonCancel" Content="Отмена" Click="ButtonCancel_Click"/>
         </StackPanel>
 
     </Grid>
