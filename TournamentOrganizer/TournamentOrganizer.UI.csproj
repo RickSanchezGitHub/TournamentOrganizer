@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\carbon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
   </ItemGroup>
 
@@ -17,6 +21,12 @@
 
   <ItemGroup>
     <Folder Include="VeiwModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\carbon.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

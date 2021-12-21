@@ -25,5 +25,26 @@ namespace TournamentOrganizer.UI.Tabs
         {
             InitializeComponent();
         }
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonGetInfo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonAddTeam_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void ButtonSaveTeam_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
