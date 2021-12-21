@@ -16,11 +16,11 @@ namespace TournamentOrganizer.DataLayer.Repositories
     {
         public int Insert(Team team)
         {
-            int id = 0;
+            
             var procedureName = "Team_Insert";
             using IDbConnection sqlConnection = ProvideConnection();
 
-            id = sqlConnection.ExecuteScalar<int>(
+            int id = sqlConnection.ExecuteScalar<int>(
                     procedureName,
                     new
                     {
@@ -60,7 +60,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
 
-        public List<Team> GetById(int id)
+        public Team GetById(int id)
         {
             const string procedureName = "Team_SelectById";
             using IDbConnection sqlConnection = ProvideConnection();
@@ -86,9 +86,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     new { Id = id },
                     splitOn: "Id",
                     commandType: CommandType.StoredProcedure
-                 )
-                .Distinct()
-                .ToList();
+                 ).FirstOrDefault();
 
             return result;
 
