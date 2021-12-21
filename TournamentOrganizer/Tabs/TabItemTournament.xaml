@@ -1,16 +1,18 @@
 ﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemTournament"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Header="Tournament">
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+         Header="Tournament">
     <TabItem.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Verdana" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Margin" Value="10" />
             <Setter Property="HorizontalAlignment"  Value="Left"/>
-
         </Style>
     </TabItem.Resources>
+    <TabItem.DataContext>
+        <local:TabItemTournamentsViewModel/>
+    </TabItem.DataContext>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -27,7 +29,7 @@
         <Image x:Name="MainImage" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Source="..\Images\carbon.jpg" Stretch="UniformToFill" Grid.RowSpan="9" Panel.ZIndex="0"/>
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
             <Label HorizontalAlignment="Left" FontWeight="Normal" FontSize="15" VerticalAlignment="Center" >Список турниров</Label>
-            <ComboBox  Name="ComboBoxPickParticipants" Width="auto" VerticalAlignment="Center">
+            <ComboBox  Name="ComboBoxPickParticipants" Width="auto" VerticalAlignment="Center" >
                 <ComboBoxItem IsSelected="true">
                     <TextBlock>Командные турниры</TextBlock>
                 </ComboBoxItem>
@@ -37,12 +39,12 @@
             </ComboBox>
         </StackPanel>
 
-        <DataGrid x:Name="DataGridTournaments" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Tournaments}">
+        <DataGrid x:Name="DataGridTournaments" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Tournaments}" SelectedItem="{Binding SelectedTournament}" SelectionMode="Extended" SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Width="20*" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Дата начала" Width="20*" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"/>
                 <DataGridTextColumn Header="Дата окончания" Width="20*" Binding="{Binding CloseDate, StringFormat=\{0:dd.MM.yy\}}"/>
-
+                <DataGridTextColumn Header="Игра" Width="20*" Binding="{Binding Game.Name}"/>
                 <DataGridTemplateColumn Width="20*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -54,7 +56,7 @@
                 <DataGridTemplateColumn Width="20*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ButtonDataGridTournamentsDeleteClick">Удалить</Button>
+                            <Button  Command="{Binding DeleteTournament}">Удалить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -67,7 +69,7 @@
                 <DataGridTemplateColumn Width="50*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ButtonDataGridTournamentsDeleteClick">Удалить</Button>
+                            <Button>Удалить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -77,8 +79,12 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" >
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
-                <Label Name="LabelName" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Название</Label>
-                <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></TextBox>
+                <Label Name="LabelName" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Название</Label>
+                <TextBox x:Name="TextBoxName" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label Name="LabelGame" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Игра</Label>
+                <ComboBox  Width="auto" VerticalAlignment="Center"  ItemsSource="{Binding Games}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding SelectedGame}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelStartDate" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center" >Дата начала</Label>
@@ -99,7 +105,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
-            <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1"   MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Добавить" Click="ButtonTournamentsAddClick"/>
+            <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1"   MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonTournamentsAddClick" Content="Добавить"/>
             <Button x:Name="ButtonCloseParticipants" Grid.Row="8" Grid.Column="1" Visibility="Collapsed"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Назад" Click="ButtonParticipantsCloseClick"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">

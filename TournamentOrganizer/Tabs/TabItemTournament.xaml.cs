@@ -27,29 +27,23 @@ namespace TournamentOrganizer.UI.Tabs
     {
         private const double ColumnVisibilityOn = 40;
         private const double ColumnVisibilityOff = 0;
-        private readonly TournamentService _tournamentService;
-        private TournamentModel _tmpTournament;
+
 
         public TabItemTournament()
         {
             InitializeComponent();
-            _tournamentService = new TournamentService();
-            UpdateViewModel();
+            //DataContext = new TabItemTournamentsViewModel();
+            
         }
 
         private void UpdateViewModel()
         {
-            var tournamentViewModel = new TournamentViewModel();
-            tournamentViewModel.Tournaments = _tournamentService.GetAllTournaments();
-            DataContext = tournamentViewModel;
+
         }
 
         private void ButtonDataGridTournamentsDeleteClick(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
-            var tournament = (TournamentModel)button.DataContext;
-            _tournamentService.DeleteTournament(tournament.Id);
-            UpdateViewModel();
+
         }
 
         private void ButtonTournamentsAddClick(object sender, RoutedEventArgs e)
@@ -66,13 +60,7 @@ namespace TournamentOrganizer.UI.Tabs
 
         private void ButtonTournamentsSaveClick(object sender, RoutedEventArgs e)
         {
-            var tournametModel = new TournamentModel();
-            tournametModel.Name = TextBoxName.Text;
-            tournametModel.StartDate = (DateTime)DatePickerDayStart.SelectedDate;
-            tournametModel.CloseDate = (DateTime)DatePickerDayClose.SelectedDate;
-            tournametModel.Game = new GameModel { Id = 1, Name = "dsda" };
-            _tournamentService.InsertTournament(tournametModel);
-            UpdateViewModel();
+
         }
 
         private void ButtonDataGridTournamentsUpdateClick(object sender, RoutedEventArgs e)
@@ -80,32 +68,13 @@ namespace TournamentOrganizer.UI.Tabs
             UIHelpers.ChangeWidthGridColumns(columnsSaveUpdate, ColumnVisibilityOn);
             ButtonUpdate.Visibility = Visibility.Visible;
             ButtonSave.Visibility = Visibility.Collapsed;
-            var button = (Button)sender;
-            var tournament = (TournamentModel)button.DataContext;
-            _tmpTournament = new TournamentModel()
-            {
-                Id = tournament.Id,
-                Name = tournament.Name,
-                StartDate = tournament.StartDate,
-                CloseDate = tournament.CloseDate,
-                Game = tournament.Game
-            };
-            TextBoxName.Text = tournament.Name;
-            DatePickerDayStart.SelectedDate = tournament.StartDate;
-            DatePickerDayClose.SelectedDate = tournament.CloseDate;
         }
 
         private void ButtonTournamentsUpdateClick(object sender, RoutedEventArgs e)
         {
-            var tournametModel = new TournamentModel();
-            tournametModel.Id = _tmpTournament.Id;
-            tournametModel.Name = TextBoxName.Text;
-            tournametModel.StartDate = (DateTime)DatePickerDayStart.SelectedDate;
-            tournametModel.CloseDate = (DateTime)DatePickerDayClose.SelectedDate;
-            tournametModel.Game = _tmpTournament.Game;
-            _tournamentService.UpdateTournament(tournametModel);
+
             UIHelpers.ChangeWidthGridColumns(columnsSaveUpdate, ColumnVisibilityOff);
-            UpdateViewModel();
+       
         }
 
         private void ButtonTournamentsOpenParticipants(object sender, RoutedEventArgs e)

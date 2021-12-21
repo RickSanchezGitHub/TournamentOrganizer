@@ -9,10 +9,12 @@ namespace TournamentOrganizer.BusinessLayer.Service
     public class TournamentService
     {
         private readonly TournamentRepository _tournamentRepository;
+        private readonly GameRepository _gameRepository;
 
         public TournamentService()
         {
             _tournamentRepository = new TournamentRepository();
+            _gameRepository = new GameRepository();
         }
 
         public List<TournamentModel> GetAllTournaments()
@@ -38,6 +40,11 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _tournamentRepository.TournamentInsert(tournamentModel);
         }
 
+        public List<GameModel> GetAllGames()
+        {
+            var games = _gameRepository.GameSelectAll();
+            return CustomMapper.GetInstance().Map<List<GameModel>>(games);
+        }
     }
 
 }

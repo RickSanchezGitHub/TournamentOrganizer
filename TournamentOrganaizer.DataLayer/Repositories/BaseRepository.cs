@@ -11,7 +11,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
     public abstract class BaseRepository
     {
         //private const string _сonnectionString = "Data Source=80.78.240.16;Initial Catalog=TournamentOrganizer.DB;User ID=student;Password=qwe!23";
-        private const string _сonnectionString = "Server=(localdb)\\mssqllocaldb;Database=TournamentOrganaizer;Trusted_Connection=True";
+        private const string _сonnectionString = "Server=(localdb)\\mssqllocaldb;Database=TournamentOrganizer;Trusted_Connection=True";
 
         protected IDbConnection ProvideConnection()
         {
