@@ -85,7 +85,8 @@
                 <Label Content="Дата рождения"/>
                 <DatePicker x:Name="DatePickerBirthday" SelectedDate="{Binding DatePickerBirthdaySelectedDate}" />
             </StackPanel>
-            <Button x:Name="ButtonSavePlayer" Width="166" Margin="0,5,0,0" Content="Сохранить" Click="ButtonSavePlayer_Click"/>
+            <Button x:Name="ButtonSaveEditPlayer" Visibility="{Binding VisibilityButtonEditSave}" IsEnabled="{Binding IsEnabledButtonEditSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Click=" ButtonSaveEditPlayer_Click"/>
+            <Button x:Name="ButtonSaveAddedPlayer" Visibility="{Binding VisibilityButtonAddSave}" IsEnabled="{Binding IsEnabledButtonAddSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Click="ButtonSaveAddedPlayer_Click"/>
             <Button Click="ButtonBackSavePlayer_Click" Margin="0,30,0,0" Width="166" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1" />
 
         </StackPanel >

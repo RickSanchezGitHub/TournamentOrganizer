@@ -43,12 +43,63 @@ namespace TournamentOrganizer.UI.Tabs
 
         private void ButtonAddPlayer_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.TextBoxFirstNameText = null;
+            ViewModel.TextBoxLastNameText = null;
+            ViewModel.TextBoxNickNameText = null;
+            ViewModel.TextBoxEmailText = null;
+            ViewModel.DatePickerBirthdaySelectedDate = DateTime.Now;
+
             ViewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
             ViewModel.StateMainDataGrid = false;
-            ViewModel.SelectedPlayer = null;
+            //ViewModel.SelectedPlayer = null;
+            ViewModel.IsEnabledButtonAddSave = true;
+            ViewModel.VisibilityButtonAddSave = Visibility.Visible;
+
         }
 
-        private void ButtonSavePlayer_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveEditPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextIsNullorWhiteSpace(TextBoxFirstName) || TextIsNullorWhiteSpace(TextBoxLastName)
+                || TextIsNullorWhiteSpace(TextBoxNickName) || TextIsNullorWhiteSpace(TextBoxEmail))
+            {
+                MessageBox.Show("Зполните все поля");
+                return;
+            }
+            //if (ViewModel.Players.FirstOrDefault(item => item.Email == TextBoxEmail.Text.Trim()) != null)
+            //{
+            //    MessageBox.Show("Такой email уже существует");
+            //    return;
+            //}
+            //if (ViewModel.Players.FirstOrDefault(item => item.NickName == TextBoxNickName.Text.Trim()) != null)
+            //{
+            //    MessageBox.Show("Такой псевдоним уже существует");
+            //    return;
+            //}
+
+            ViewModel.SelectedPlayer.FirstName = ViewModel.TextBoxFirstNameText;
+            ViewModel.SelectedPlayer.LastName = ViewModel.TextBoxLastNameText ;
+            ViewModel.SelectedPlayer.NickName = ViewModel.TextBoxNickNameText ;
+            ViewModel.SelectedPlayer.Email = ViewModel.TextBoxEmailText;
+            ViewModel.SelectedPlayer.Birthday = ViewModel.DatePickerBirthdaySelectedDate;
+
+            ViewModel.IsEnabledButtonEditSave = false;
+            ViewModel.VisibilityButtonEditSave = Visibility.Hidden;
+
+            //ViewModel.Players.Remove(ViewModel.SelectedPlayer);
+
+            //ViewModel.Players.Add(new PlayerModel 
+            //{ 
+            //FirstName=ViewModel.TextBoxFirstNameText,
+            //LastName = ViewModel.TextBoxLastNameText,
+            //NickName = ViewModel.TextBoxNickNameText,
+            //Email = ViewModel.TextBoxEmailText,
+            //Birthday = ViewModel.DatePickerBirthdaySelectedDate
+            //});
+            ViewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
+            ViewModel.StateMainDataGrid = true;
+        }
+
+        private void ButtonSaveAddedPlayer_Click(object sender, RoutedEventArgs e)
         {
             if (TextIsNullorWhiteSpace(TextBoxFirstName) || TextIsNullorWhiteSpace(TextBoxLastName)
                 || TextIsNullorWhiteSpace(TextBoxNickName) || TextIsNullorWhiteSpace(TextBoxEmail))
@@ -67,18 +118,19 @@ namespace TournamentOrganizer.UI.Tabs
                 return;
             }
 
-            ViewModel.Players.Remove(ViewModel.SelectedPlayer);
-
-            ViewModel.Players.Add(new PlayerModel 
-            { 
-            FirstName=ViewModel.TextBoxFirstNameText,
-            LastName = ViewModel.TextBoxLastNameText,
-            NickName = ViewModel.TextBoxNickNameText,
-            Email = ViewModel.TextBoxEmailText,
-            Birthday = ViewModel.DatePickerBirthdaySelectedDate
+            ViewModel.Players.Add(new PlayerModel
+            {
+                FirstName = ViewModel.TextBoxFirstNameText,
+                LastName = ViewModel.TextBoxLastNameText,
+                NickName = ViewModel.TextBoxNickNameText,
+                Email = ViewModel.TextBoxEmailText,
+                Birthday = ViewModel.DatePickerBirthdaySelectedDate
             });
             ViewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             ViewModel.StateMainDataGrid = true;
+
+            ViewModel.IsEnabledButtonAddSave = false;
+            ViewModel.VisibilityButtonAddSave = Visibility.Hidden;
         }
 
         private bool TextIsNullorWhiteSpace(TextBox textBox)
@@ -119,6 +171,8 @@ namespace TournamentOrganizer.UI.Tabs
         {
             var button = (Button)sender;
             ViewModel.SelectedPlayer = (PlayerModel)button.DataContext;
+            ViewModel.IsEnabledButtonEditSave = true;
+            ViewModel.VisibilityButtonEditSave = Visibility.Visible;
 
             ViewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
             ViewModel.TextBoxFirstNameText = ViewModel.SelectedPlayer.FirstName;
@@ -142,6 +196,10 @@ namespace TournamentOrganizer.UI.Tabs
 
             ViewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             ViewModel.StateMainDataGrid = true;
+            ViewModel.VisibilityButtonAddSave = Visibility.Hidden;
+            ViewModel.VisibilityButtonEditSave = Visibility.Hidden;
+            ViewModel.IsEnabledButtonAddSave = false;
+            ViewModel.IsEnabledButtonEditSave = false;
 
         }
     }

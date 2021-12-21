@@ -18,12 +18,15 @@ namespace TournamentOrganizer.UI.VeiwModels
             WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
             StateMainDataGrid = true;
-           
-            
+            VisibilityButtonAddSave = Visibility.Hidden;
+            VisibilityButtonEditSave = Visibility.Hidden;
+            IsEnabledButtonAddSave = false;
+            IsEnabledButtonEditSave = false;
+
 
         }
         private ObservableCollection<PlayerModel> _players;
-       
+
         public ObservableCollection<PlayerModel> Players
         {
             get { return _players; }
@@ -56,7 +59,7 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(WidthGridPlayerInfo));
             }
         }
-      
+
         private PlayerModel _selectedPlayer;
         public PlayerModel SelectedPlayer
         {
@@ -131,6 +134,50 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _datePickerBirthdaySelectedDate = value;
                 OnPropertyChanged(nameof(DatePickerBirthdaySelectedDate));
+            }
+        }
+
+        private bool _isEnabledButtonAddSave;
+        public bool IsEnabledButtonAddSave
+        {
+            get { return _isEnabledButtonAddSave; }
+            set
+            {
+                _isEnabledButtonAddSave = value;
+                OnPropertyChanged(nameof(IsEnabledButtonAddSave));
+            }
+        }
+
+        private Visibility _visibilityButtonAddSave;
+        public Visibility VisibilityButtonAddSave
+        {
+            get { return _visibilityButtonAddSave; }
+            set
+            {
+                _visibilityButtonAddSave = value;
+                OnPropertyChanged(nameof(VisibilityButtonAddSave));
+            }
+        }
+
+        private bool _isEnabledButtonEditSave;
+        public bool IsEnabledButtonEditSave
+        {
+            get { return _isEnabledButtonEditSave; }
+            set
+            {
+                _isEnabledButtonEditSave = value;
+                OnPropertyChanged(nameof(IsEnabledButtonEditSave));
+            }
+        }
+
+        private Visibility _visibilityButtonEditSave;
+        public Visibility VisibilityButtonEditSave
+        {
+            get { return _visibilityButtonEditSave; }
+            set
+            {
+                _visibilityButtonEditSave = value;
+                OnPropertyChanged(nameof(VisibilityButtonEditSave));
             }
         }
     }
