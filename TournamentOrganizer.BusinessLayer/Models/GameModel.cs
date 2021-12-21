@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TournamentOrganizer.UI.VeiwModels.EntitiesVM
+namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class PlayerResultViewModel : INotifyPropertyChanged
+    public class GameModel: INotifyPropertyChanged
     {
         private int _id;
         public int Id
@@ -21,30 +21,8 @@ namespace TournamentOrganizer.UI.VeiwModels.EntitiesVM
             }
         }
 
-        private string? _firstName;
-        public string? FirstName
-        {
-            get { return _firstName; }
-            set
-            {
-                _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
-            }
-        }
-
-        private string? _lastName;
-        public string? LastName
-        {
-            get { return _lastName; }
-            set
-            {
-                _lastName = value;
-                OnPropertyChanged(nameof(LastName));
-            }
-        }
-
-        private string? _name;
-        public string? Name
+        private string _name;
+        public string Name
         {
             get { return _name; }
             set

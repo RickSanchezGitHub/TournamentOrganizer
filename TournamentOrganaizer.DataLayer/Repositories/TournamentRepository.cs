@@ -95,6 +95,24 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             );
         }
 
+        public List<Tournament> TournamentSelectByGameId(int gameId)
+        {
+            const string procedureName = "[dbo].[Tournament_SelectByGameId]";
+            using IDbConnection connection = ProvideConnection();
+            var resultList = connection.Query<Tournament, Game, Tournament>(
+                procedureName,
+                (tournament, game) =>
+                {
+                    tournament.Game = game;
+                    return tournament;
+                },
+                new { GameId = gameId },
+                commandType: CommandType.StoredProcedure,
+                splitOn: "Id"
+            ).ToList();
+            return resultList;
+        }
+
 
     }
 }

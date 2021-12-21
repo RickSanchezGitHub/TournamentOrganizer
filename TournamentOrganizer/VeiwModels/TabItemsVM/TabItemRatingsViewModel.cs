@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.DataLayer.Entities;
 using TournamentOrganizer.UI.VeiwModels.EntitiesVM;
 
@@ -16,12 +17,12 @@ namespace TournamentOrganizer.UI.VeiwModels.TabItemsVM
     {
         public TabItemRatingsViewModel()
         {
-            Games = new ObservableCollection<GameViewModel>();
-            Players = new ObservableCollection<PlayerResultViewModel>();
+            Games = new ObservableCollection<GameModel>();
+            ResultsTournamentPlayer = new ObservableCollection<ResultTournamentPlayerModel>();
         }
 
-        private ObservableCollection<GameViewModel> _games;
-        public ObservableCollection<GameViewModel> Games
+        private ObservableCollection<GameModel> _games;
+        public ObservableCollection<GameModel> Games
         {
             get { return _games; }
             set
@@ -31,14 +32,14 @@ namespace TournamentOrganizer.UI.VeiwModels.TabItemsVM
             }
         }
 
-        private ObservableCollection<PlayerResultViewModel> _players;
-        public ObservableCollection<PlayerResultViewModel> Players
+        private ObservableCollection<ResultTournamentPlayerModel> _resultsTournamentPlayer;
+        public ObservableCollection<ResultTournamentPlayerModel> ResultsTournamentPlayer
         {
-            get { return _players; }
+            get { return _resultsTournamentPlayer; }
             set
             {
-                _players = value;
-                OnPropertyChanged(nameof(Players));
+                _resultsTournamentPlayer = value;
+                OnPropertyChanged(nameof(ResultsTournamentPlayer));
             }
         }
 

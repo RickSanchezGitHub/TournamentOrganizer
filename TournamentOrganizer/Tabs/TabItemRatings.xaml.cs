@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.UI.VeiwModels.EntitiesVM;
 using TournamentOrganizer.UI.VeiwModels.TabItemsVM;
 
@@ -29,13 +30,13 @@ namespace TournamentOrganizer.UI.Tabs
         {
             InitializeComponent();
             ViewModel = new TabItemRatingsViewModel();
-            ViewModel.Games.Add(new GameViewModel { Name = "Poker" });
-            ViewModel.Games.Add(new GameViewModel { Name = "Durak" });
-            ViewModel.Games.Add(new GameViewModel { Name = "Monopoly" });
-            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
-            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
-            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
-            ViewModel.Players.Add(new PlayerResultViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            ViewModel.Games.Add(new GameModel { Name = "Poker" });
+            ViewModel.Games.Add(new GameModel { Name = "Durak" });
+            ViewModel.Games.Add(new GameModel { Name = "Monopoly" });
+            //ViewModel.ResultsTournamentPlayer.Add(new PlayerRatingViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            //ViewModel.ResultsTournamentPlayer.Add(new PlayerRatingViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            //ViewModel.ResultsTournamentPlayer.Add(new PlayerRatingViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
+            //ViewModel.ResultsTournamentPlayer.Add(new PlayerRatingViewModel { FirstName = "Nikita", LastName = "auf", Name = "nick" });
 
             DataContext = ViewModel;
             ComboBoxSelectGame.ItemsSource = ViewModel.Games;
@@ -54,7 +55,7 @@ namespace TournamentOrganizer.UI.Tabs
             {
                 DataGridTeams.Visibility = Visibility.Hidden;
                 DataGridPlayers.Visibility = Visibility.Visible;
-                DataGridPlayers.ItemsSource = ViewModel.Players;
+                DataGridPlayers.ItemsSource = ViewModel.ResultsTournamentPlayer;
             }
             else
             {

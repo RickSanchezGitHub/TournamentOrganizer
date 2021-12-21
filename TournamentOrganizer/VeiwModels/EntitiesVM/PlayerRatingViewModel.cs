@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TournamentOrganizer.BusinessLayer.Models;
 
-namespace TournamentOrganizer.BusinessLayer.Models
+namespace TournamentOrganizer.UI.VeiwModels.EntitiesVM
 {
-    public class ResultTournamentPlayerModel : INotifyPropertyChanged
+    public class PlayerRatingViewModel : INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public PlayerModel Player { get; set; }
 
-        private int _result;
-        public int Result
+
+        private ObservableCollection<PlayerModel> _players;
+        public ObservableCollection<PlayerModel> Players
         {
-            get { return _result; }
+            get { return _players; }
             set
             {
-                _result = value;
-                OnPropertyChanged(nameof(Result));
+                _players = value;
+                OnPropertyChanged(nameof(Players));
             }
         }
-        public int NumberRound { get; set; }
-        public int NumberMatch { get; set; }
-        public TournamentModel Tournament { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
