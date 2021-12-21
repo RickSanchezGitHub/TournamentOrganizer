@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TournamentOrganaizer.DataLayer.Entities;
 using TournamentOrganaizer.DataLayer.Repositories;
 using TournamentOrganizer.BusinessLayer.Configuration;
@@ -13,6 +9,7 @@ namespace TournamentOrganizer.BusinessLayer.Service
     public class TournamentService
     {
         private readonly TournamentRepository _tournamentRepository;
+
         public TournamentService()
         {
             _tournamentRepository = new TournamentRepository();
@@ -34,12 +31,13 @@ namespace TournamentOrganizer.BusinessLayer.Service
             var tournamentModel = CustomMapper.GetInstance().Map<Tournament>(tournament);
             _tournamentRepository.TournamentUpdateById(tournamentModel);
         }
+
         public void InsertTournament(TournamentModel tournament)
         {
             var tournamentModel = CustomMapper.GetInstance().Map<Tournament>(tournament);
             _tournamentRepository.TournamentInsert(tournamentModel);
         }
 
-
     }
+
 }

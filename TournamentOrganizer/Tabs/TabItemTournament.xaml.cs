@@ -107,5 +107,19 @@ namespace TournamentOrganizer.UI.Tabs
             UIHelpers.ChangeWidthGridColumns(columnsSaveUpdate, ColumnVisibilityOff);
             UpdateViewModel();
         }
+
+        private void ButtonTournamentsOpenParticipants(object sender, RoutedEventArgs e)
+        {
+            DataGridTournaments.Visibility = Visibility.Collapsed;
+            DataGridParticipants.Visibility = Visibility.Visible;
+            ButtonCloseParticipants.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonParticipantsCloseClick(object sender, RoutedEventArgs e)
+        {
+            DataGridTournaments.Visibility = Visibility.Visible;
+            DataGridParticipants.Visibility = Visibility.Collapsed;
+            ButtonCloseParticipants.Visibility = Visibility.Collapsed;
+        }
     }
 }
