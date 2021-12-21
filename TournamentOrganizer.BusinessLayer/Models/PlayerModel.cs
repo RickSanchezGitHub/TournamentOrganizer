@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TournamentOrganizer.UI.VeiwModels
+namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class PlayerViewModel : INotifyPropertyChanged
+    public class PlayerModel : INotifyPropertyChanged
     {
         private int _id;
         public int Id
@@ -21,8 +21,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private string? _firstName;
-        public string? FirstName
+        private string _firstName;
+        public string FirstName
         {
             get { return _firstName; }
             set
@@ -32,8 +32,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private string? _lastName;
-        public string? LastName
+        private string _lastName;
+        public string LastName
         {
             get { return _lastName; }
             set
@@ -43,8 +43,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private string? _nickName;
-        public string? NickName
+        private string _nickName;
+        public string NickName
         {
             get { return _nickName; }
             set
@@ -54,8 +54,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private string? _email;
-        public string? Email
+        private string _email;
+        public string Email
         {
             get { return _email; }
             set
@@ -65,8 +65,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private DateTime? _birthday;
-        public DateTime? Birthday
+        private DateTime _birthday;
+        public DateTime Birthday
         {
             get { return _birthday; }
             set

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Tabs
@@ -22,7 +23,7 @@ namespace TournamentOrganizer.UI.Tabs
     public partial class TabItemPlayer : TabItem
     {
         public TabItemPlayerViewModel ViewModel;
-        private PlayerViewModel _player;
+        private PlayerModel _player;
         public TabItemPlayer()
         {
             InitializeComponent();
@@ -35,15 +36,16 @@ namespace TournamentOrganizer.UI.Tabs
 
         private void InitTestData()
         {
-            ViewModel.Players.Add(new PlayerViewModel { FirstName = "Иван", LastName = "Ivanov", NickName = "vanya", Email = "vanya@com", Birthday = DateTime.Today.AddYears(-20) });
-            ViewModel.Players.Add(new PlayerViewModel { FirstName = "Petya", LastName = "Petrov", NickName = "vasya", Email = "vaa@com", Birthday = DateTime.Today.AddYears(-30) });
-            ViewModel.Players.Add(new PlayerViewModel { FirstName = "Stas", LastName = "Sidorov", NickName = "sidor", Email = "vya@com", Birthday = DateTime.Today.AddYears(-22) });
+            ViewModel.Players.Add(new PlayerModel { FirstName = "Иван", LastName = "Ivanov", NickName = "vanya", Email = "vanya@com", Birthday = DateTime.Today.AddYears(-20) });
+            ViewModel.Players.Add(new PlayerModel { FirstName = "Petya", LastName = "Petrov", NickName = "vasya", Email = "vaa@com", Birthday = DateTime.Today.AddYears(-30) });
+            ViewModel.Players.Add(new PlayerModel { FirstName = "Stas", LastName = "Sidorov", NickName = "sidor", Email = "vya@com", Birthday = DateTime.Today.AddYears(-22) });
         }
 
         private void ButtonAddPlayer_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
             ViewModel.StateMainDataGrid = false;
+            ViewModel.SelectedPlayer = null;
         }
 
         private void ButtonSavePlayer_Click(object sender, RoutedEventArgs e)
@@ -65,13 +67,15 @@ namespace TournamentOrganizer.UI.Tabs
                 return;
             }
 
-            ViewModel.Players.Add(new PlayerViewModel
-            {
-                FirstName = TextBoxFirstName.Text.Trim(),
-                LastName = TextBoxLastName.Text.Trim(),
-                NickName = TextBoxNickName.Text.Trim(),
-                Email = TextBoxEmail.Text.Trim(),
-                Birthday = DatePickerBirthday.SelectedDate
+            ViewModel.Players.Remove(ViewModel.SelectedPlayer);
+
+            ViewModel.Players.Add(new PlayerModel 
+            { 
+            FirstName=ViewModel.TextBoxFirstNameText,
+            LastName = ViewModel.TextBoxLastNameText,
+            NickName = ViewModel.TextBoxNickNameText,
+            Email = ViewModel.TextBoxEmailText,
+            Birthday = ViewModel.DatePickerBirthdaySelectedDate
             });
             ViewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             ViewModel.StateMainDataGrid = true;
@@ -99,14 +103,14 @@ namespace TournamentOrganizer.UI.Tabs
         private void ButtonGetInfo_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            ViewModel.SelectedPlayer = (PlayerViewModel)button.DataContext;
+            ViewModel.SelectedPlayer = (PlayerModel)button.DataContext;
             ViewModel.WidthGridPlayerInfo = new GridLength(1, GridUnitType.Star);
             ViewModel.StateMainDataGrid = false;
         }
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            PlayerViewModel player = (PlayerViewModel)button.DataContext;
+            PlayerModel player = (PlayerModel)button.DataContext;
             ViewModel.Players.Remove(player);
 
         }
@@ -114,22 +118,31 @@ namespace TournamentOrganizer.UI.Tabs
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            PlayerViewModel player = (PlayerViewModel)button.DataContext;
+            ViewModel.SelectedPlayer = (PlayerModel)button.DataContext;
 
             ViewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
-            TextBoxFirstName.Text = player.FirstName;
-            TextBoxLastName.Text = player.LastName;
-            TextBoxNickName.Text = player.NickName;
-            TextBoxEmail.Text = player.Email;
-            DatePickerBirthday.SelectedDate = player.Birthday;
-            ViewModel.Players.Remove(player);
+            ViewModel.TextBoxFirstNameText = ViewModel.SelectedPlayer.FirstName;
+            ViewModel.TextBoxLastNameText = ViewModel.SelectedPlayer.LastName;
+            ViewModel.TextBoxNickNameText = ViewModel.SelectedPlayer.NickName;
+            ViewModel.TextBoxEmailText = ViewModel.SelectedPlayer.Email;
+            ViewModel.DatePickerBirthdaySelectedDate = ViewModel.SelectedPlayer.Birthday;
+            
             ViewModel.StateMainDataGrid = false;
 
         }
+
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
             ViewModel.StateMainDataGrid = true;
+        }
+
+        private void ButtonBackSavePlayer_Click(object sender, RoutedEventArgs e)
+        {
+
+            ViewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
+            ViewModel.StateMainDataGrid = true;
+
         }
     }
 }

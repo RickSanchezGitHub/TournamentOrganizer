@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj" />
+    <ProjectReference Include="..\TournamentOrganizer.BusinessLayer\TournamentOrganizer.BusinessLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
