@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
-    class TeamViewModel
+    public class TeamViewModel : ViewModel
     {
+
     }
 }
