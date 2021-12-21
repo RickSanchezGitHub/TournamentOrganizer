@@ -32,8 +32,6 @@ namespace TournamentOrganizer.UI.Tabs
         public TabItemTournament()
         {
             InitializeComponent();
-            //DataContext = new TabItemTournamentsViewModel();
-            
         }
 
         private void UpdateViewModel()

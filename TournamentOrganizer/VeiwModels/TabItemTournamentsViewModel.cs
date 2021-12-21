@@ -46,8 +46,8 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(Name));
             }
         }
-        private string _startDate;
-        public string StartDate
+        private DateTime _startDate;
+        public DateTime StartDate
         {
             get { return _startDate; }
             set
@@ -56,8 +56,8 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(StartDate));
             }
         }
-        private string _closeDate;
-        public string CloseDate
+        private DateTime _closeDate;
+        public DateTime CloseDate
         {
             get { return _closeDate; }
             set

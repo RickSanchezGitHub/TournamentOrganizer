@@ -20,8 +20,9 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         }
         public override void Execute(object parameter)
         {
-            _viewModel.Tournaments.Remove(_viewModel.SelectedTournament);
             _tournamentService.DeleteTournament(_viewModel.SelectedTournament.Id);
+            _viewModel.Tournaments.Remove(_viewModel.SelectedTournament);
+           
         }
     }
 }
