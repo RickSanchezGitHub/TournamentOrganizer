@@ -21,6 +21,8 @@ namespace TournamentOrganizer.UI.Commands
         public override void Execute(object parameter)
         {
             _viewModel.GameService.UpdateGameName(_viewModel.TextBoxAddGameNameText, _viewModel.SelectedGame.Id);
+            _viewModel.SelectedGame.Name = _viewModel.TextBoxAddGameNameText;
+            _viewModel.TextBoxAddGameNameText = string.Empty;
             _viewModel.IsEnabledButtonAdd = true;
             _viewModel.IsEnabledButtonSave = false;
             _viewModel.StateDataGrid = true;

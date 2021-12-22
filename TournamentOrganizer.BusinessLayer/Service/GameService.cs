@@ -27,9 +27,9 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
             _gameRepository.GameDeleteById(id);
         }
 
-        public void InsertGame(string nameGame)
+        public int InsertGame(string nameGame)
         {
-            _gameRepository.GameInsert(nameGame);
+           return _gameRepository.GameInsert(nameGame);
         }
 
         public void UpdateGameName(string newNameGame, int id)

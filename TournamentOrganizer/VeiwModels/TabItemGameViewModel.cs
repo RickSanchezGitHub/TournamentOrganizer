@@ -26,7 +26,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             IsEnabledButtonAdd = true;
             TextBoxAddGameNameText = string.Empty;
             SelectedGame = null;
-            StateButtonCancel = false;
+            IsEnabledButtonCancel = false;
+            VisibilityButtonSave = Visibility.Hidden;
         }
         private ObservableCollection<GameModel> _games;
         public ObservableCollection<GameModel> Games
@@ -83,15 +84,15 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private bool _stateButtonCancel;
-        public bool StateButtonCancel
+        private bool _isEnabledButtonCancel;
+        public bool IsEnabledButtonCancel
         {
-            get { return _stateButtonCancel; }
+            get { return _isEnabledButtonCancel; }
             set
             {
-                _stateButtonCancel = value;
-                OnPropertyChanged(nameof(StateButtonCancel));
-                if (StateButtonCancel)
+                _isEnabledButtonCancel = value;
+                OnPropertyChanged(nameof(IsEnabledButtonCancel));
+                if (IsEnabledButtonCancel)
                 {
                     VisibilityButtonCancel = Visibility.Visible;
                 }

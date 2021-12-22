@@ -20,14 +20,14 @@
                 <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="{Binding DataContext.EditGameCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Редактировать</Button>
+                            <Button Command="{Binding DataContext.EditGameCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Редактировать</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="{Binding DataContext.DeleteGameCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >Удалить</Button>
+                            <Button Command="{Binding DataContext.DeleteGameCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >Удалить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -35,9 +35,9 @@
         </DataGrid>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox  Text="{Binding TextBoxAddGameNameText}"  x:Name="TextBoxAddGameName"/>
-            <Button x:Name="ButtonAdd" Visibility="{Binding VisibilityButtonAdd}" Click="{Binding AddGameCommand}" Content="Добавить" IsEnabled ="{Binding ButtonAddIsEnabled}"/>
-            <Button x:Name="ButtonSave" Visibility="{Binding VisibilityButtonSave}"  Click="{Binding SaveGameCommand}" Content="Сохранить" IsEnabled ="{Binding ButtonSaveIsEnabled}"/>
-            <Button Visibility="{Binding VisibilityButtonCancel}" IsEnabled="{Binding StateButtonCancel}" x:Name="ButtonCancel" Content="Отмена" Click="{Binding CancelGameCommand}"/>
+            <Button x:Name="ButtonAdd" Visibility="{Binding VisibilityButtonAdd}" Command="{Binding AddGameCommand}" Content="Добавить" IsEnabled ="{Binding IsEnabledButtonAdd}"/>
+            <Button x:Name="ButtonSave" Visibility="{Binding VisibilityButtonSave}"  Command="{Binding SaveGameCommand}" Content="Сохранить" IsEnabled ="{Binding IsEnabledButtonSave}"/>
+            <Button Visibility="{Binding VisibilityButtonCancel}" IsEnabled="{Binding IsEnabledButtonCancel}" x:Name="ButtonCancel" Content="Отмена" Command="{Binding CancelGameCommand}"/>
         </StackPanel>
 
     </Grid>

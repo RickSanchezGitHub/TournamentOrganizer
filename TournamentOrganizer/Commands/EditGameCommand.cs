@@ -20,7 +20,9 @@ namespace TournamentOrganizer.UI.Commands
         }
         public override void Execute(object parameter)
         {
+            _viewModel.TextBoxAddGameNameText = _viewModel.SelectedGame.Name;
             _viewModel.IsEnabledButtonAdd = false;
+            _viewModel.IsEnabledButtonCancel = true;
             _viewModel.IsEnabledButtonSave = true;
             _viewModel.StateDataGrid = false;
         }

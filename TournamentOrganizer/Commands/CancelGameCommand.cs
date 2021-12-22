@@ -22,6 +22,8 @@ namespace TournamentOrganizer.UI.Commands
         {
             _viewModel.IsEnabledButtonAdd = true;
             _viewModel.IsEnabledButtonSave = false;
+            _viewModel.IsEnabledButtonCancel = false;
+            _viewModel.TextBoxAddGameNameText = string.Empty;
             _viewModel.StateDataGrid = true;
         }
     }
