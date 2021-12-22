@@ -101,6 +101,8 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
 
         private Visibility _visibilityButtonCancel;
+        internal GameService _gameService;
+
         public Visibility VisibilityButtonCancel
         {
             get { return _visibilityButtonCancel; }
