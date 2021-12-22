@@ -13,7 +13,6 @@ namespace TournamentOrganizer.UI.VeiwModels
     public class TeamViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<TeamModel> Teams { get; set; }
-
         public TeamViewModel()
         {
             Teams = new ObservableCollection<TeamModel>
@@ -21,34 +20,36 @@ namespace TournamentOrganizer.UI.VeiwModels
                 new TeamModel{Id = 1, Name = "Test1", Players = new ObservableCollection<PlayerModel>
                 { new PlayerModel {
                     Id = 1,
-                    FirstName = "FirstName",
-                    LastName = "LastName",
-                    NickName = "NickName", 
-                    Email = "aaaaa", 
+                    FirstName = "Иван",
+                    LastName = "Ильин",
+                    NickName = "plater1", 
+                    Email = "aaa@aa.ru", 
                     Birthday = new DateTime(2000-12-11) }
                 } },
                 new TeamModel{Id = 2, Name = "Test2", Players = new ObservableCollection<PlayerModel>
                 { new PlayerModel{
-                    Id = 2, 
-                    FirstName = "TestPlayer2"
-                }, new PlayerModel { 
-                    Id = 1, 
-                    FirstName = "Suuuuukaaaaaa" 
+                    Id = 1,
+                    FirstName = "Вася",
+                    LastName = "Ильин",
+                    NickName = "player2",
+                    Email = "aaa@aa.ru",
+                    Birthday = new DateTime(2000-12-11)
+                }, new PlayerModel {
+                    Id = 2,
+                    FirstName = "костя",
+                    LastName = "Костин",
+                    NickName = "player0",
+                    Email = "aaa@aa.ru",
+                    Birthday = new DateTime(2000-12-11)
                 } } }
             };
         }
 
         private TeamModel _selectedTeam;
 
-        public TeamModel SelectedTeam
-        {
-            get { return _selectedTeam; }
-            set
-            {
-                _selectedTeam = value;
-                OnPropertyChanged("SelectedTeam");
-            }
-        }
+        public TeamModel SelectedTeam { get => _selectedTeam; set => Set(ref _selectedTeam, value); }
+        
+        
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,5 +58,13 @@ namespace TournamentOrganizer.UI.VeiwModels
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        public bool Set<T>(ref T field, T value, [CallerMemberName] string prop = "")
+        {
+            if (Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(prop);
+            return true;
+        }
+
     }
 }

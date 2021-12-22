@@ -33,7 +33,7 @@
                   Width="200"
                   Margin="10"
                   Foreground="White">
-            <DockPanel>
+            <DockPanel Margin="5">
                 <ListBox ItemsSource="{Binding Teams}" 
                          SelectedItem="{Binding SelectedTeam}" 
                          SelectedIndex="0">
@@ -57,46 +57,35 @@
             </DockPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" 
-                  Grid.Row="0"                  
-                  Header="Игроки" 
+                  Grid.Row="0"                
                   MinWidth="200"
                   MaxWidth="450"
                   Margin="10"
-                  Foreground="White">
-            <DockPanel Margin="5">
-                <ListBox ItemsSource="{Binding SelectedTeam.Players}" 
-                         IsSynchronizedWithCurrentItem="True">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" 
-                                    Value="Stretch"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="c:PlayerModel">
-                            <TextBlock>
-                                <TextBlock Text="{Binding Id}" 
-                                           Width="20"/>
-                                <TextBlock Text="{Binding FirstName}" 
-                                           MaxWidth="100" 
-                                           MinWidth ="50"/>
-                                <TextBlock Text="{Binding LastName}"
-                                           MaxWidth="100" 
-                                           MinWidth ="50"/>
-                                <TextBlock Text="{Binding NickName}"
-                                           MaxWidth="100" 
-                                           MinWidth ="50"/>
-                                <TextBlock Text="{Binding Email}"
-                                           MaxWidth="100" 
-                                           MinWidth ="50"/>
-                                <TextBlock Text="{Binding Birthday}"
-                                           MaxWidth="100" 
-                                           MinWidth ="50"/>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </DockPanel>
+                  Foreground="White"
+                  Header="{Binding SelectedTeam.Name,
+                    StringFormat='Игроки команды {0}', 
+                    FallbackValue='Игроки', 
+                    TargetNullValue='Команда не выбрана'}">
+            
+            <DataGrid ItemsSource="{Binding SelectedTeam.Players}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True">
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" 
+                                        Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Имя" 
+                                        Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Фамилия" 
+                                        Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Ник" 
+                                        Binding="{Binding NickName}"/>
+                    <DataGridTextColumn Header="Email" 
+                                        Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Дата рождения" 
+                                        Binding="{Binding Birthday, StringFormat=dd.mm.yyyy}"/>
+                </DataGrid.Columns>                
+            </DataGrid>
         </GroupBox>
     </Grid>
 </TabItem>
