@@ -27,4 +27,8 @@
     <Resource Include="Images\Tournament %288%29.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\TabItemPlayerCommands\" />
+  </ItemGroup>
+
 </Project>
