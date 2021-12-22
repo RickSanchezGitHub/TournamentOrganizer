@@ -10,9 +10,9 @@
     </TabItem.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"
+            <ColumnDefinition Width="240"
                               MinWidth="200"/>
-            <ColumnDefinition Width="2*" 
+            <ColumnDefinition Width="*" 
                               MinWidth="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -59,7 +59,7 @@
         <GroupBox Grid.Column="1" 
                   Grid.Row="0"                
                   MinWidth="200"
-                  MaxWidth="450"
+                  MaxWidth="470"
                   Margin="10"
                   Foreground="White"
                   Header="{Binding SelectedTeam.Name,
@@ -69,21 +69,39 @@
             
             <DataGrid ItemsSource="{Binding SelectedTeam.Players}"
                       AutoGenerateColumns="False"
-                      IsReadOnly="True">
+                      IsReadOnly="True"
+                      HorizontalGridLinesBrush="LightGray"
+                      VerticalGridLinesBrush="LightGray">
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" 
-                                        Binding="{Binding Id}"/>
+                                        Binding="{Binding Id}"
+                                        Width="20"/>
                     <DataGridTextColumn Header="Имя" 
-                                        Binding="{Binding FirstName}"/>
+                                        Binding="{Binding FirstName}"
+                                        Width="Auto" 
+                                        MaxWidth="100"
+                                        MinWidth ="50"/>
                     <DataGridTextColumn Header="Фамилия" 
-                                        Binding="{Binding LastName}"/>
+                                        Binding="{Binding LastName}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="50"/>
                     <DataGridTextColumn Header="Ник" 
-                                        Binding="{Binding NickName}"/>
+                                        Binding="{Binding NickName}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="50"/>
                     <DataGridTextColumn Header="Email" 
-                                        Binding="{Binding Email}"/>
+                                        Binding="{Binding Email}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="70"/>
                     <DataGridTextColumn Header="Дата рождения" 
-                                        Binding="{Binding Birthday, StringFormat=dd.mm.yyyy}"/>
+                                        Binding="{Binding Birthday, StringFormat=dd.mm.yyyy}"
+                                        Width="*"
+                                        MinWidth="70"
+                                        MaxWidth="150"/>
                 </DataGrid.Columns>                
             </DataGrid>
         </GroupBox>
