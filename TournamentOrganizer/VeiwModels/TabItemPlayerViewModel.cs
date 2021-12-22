@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
@@ -14,7 +16,8 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         public TabItemPlayerViewModel()
         {
-            Players = new ObservableCollection<PlayerModel>();
+            PlayerService = new PlayerService();
+            Players = new ObservableCollection<PlayerModel>(PlayerService.GetAll());
             WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
             StateMainDataGrid = true;
@@ -22,9 +25,10 @@ namespace TournamentOrganizer.UI.VeiwModels
             VisibilityButtonEditSave = Visibility.Hidden;
             IsEnabledButtonAddSave = false;
             IsEnabledButtonEditSave = false;
-
-
         }
+
+        public PlayerService PlayerService;
+
         private ObservableCollection<PlayerModel> _players;
 
         public ObservableCollection<PlayerModel> Players
@@ -34,6 +38,18 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _players = value;
                 OnPropertyChanged(nameof(Players));
+            }
+        }
+
+        private ObservableCollection<TeamModel> _teams;
+
+        public ObservableCollection<TeamModel> Teams
+        {
+            get { return _teams; }
+            set
+            {
+                _teams = value;
+                OnPropertyChanged(nameof(Teams));
             }
         }
 

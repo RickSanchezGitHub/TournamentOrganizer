@@ -90,14 +90,21 @@
             <Button Click="ButtonBackSavePlayer_Click" Margin="0,30,0,0" Width="166" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1" />
 
         </StackPanel >
-        <StackPanel DataContext="{Binding SelectedPlayer}" x:Name="StackPanelPlayerInfo" Grid.Column="2" Margin="0,17,0,0">
+        <StackPanel Grid.Column="2" Grid.RowSpan="2">
+        <StackPanel DataContext="{Binding SelectedPlayer}" x:Name="StackPanelPlayerInfo" VerticalAlignment="Top">
             <Label HorizontalAlignment="Center" Content="Информация"/>
             <Label Content="{Binding FirstName}" Margin="0,0,0,8" />
             <Label Content="{Binding LastName}" Margin="0,0,0,8"/>
             <Label Content="{Binding NickName}" Margin="0,0,0,8"/>
             <Label Content="{Binding Email}" Margin="0,0,0,8"/>
             <Label Content="{Binding Birthday}"/>
-            <Button Click="ButtonBack_Click" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1"/>
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding Teams}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False"  Margin="0,20,0,0" Grid.RowSpan="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Состоит в командах" Binding="{Binding Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="ButtonBack_Click" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1"/>
         </StackPanel>
     </Grid>
 </TabItem>

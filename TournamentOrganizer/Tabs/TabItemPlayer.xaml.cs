@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,17 +30,17 @@ namespace TournamentOrganizer.UI.Tabs
             InitializeComponent();
             ViewModel = new TabItemPlayerViewModel();
             DataContext = ViewModel;
-            InitTestData();
+            //InitTestData();
 
 
         }
 
-        private void InitTestData()
-        {
-            ViewModel.Players.Add(new PlayerModel { FirstName = "Иван", LastName = "Ivanov", NickName = "vanya", Email = "vanya@com", Birthday = DateTime.Today.AddYears(-20) });
-            ViewModel.Players.Add(new PlayerModel { FirstName = "Petya", LastName = "Petrov", NickName = "vasya", Email = "vaa@com", Birthday = DateTime.Today.AddYears(-30) });
-            ViewModel.Players.Add(new PlayerModel { FirstName = "Stas", LastName = "Sidorov", NickName = "sidor", Email = "vya@com", Birthday = DateTime.Today.AddYears(-22) });
-        }
+        //private void InitTestData()
+        //{
+        //    ViewModel.Players.Add(new PlayerModel { FirstName = "Иван", LastName = "Ivanov", NickName = "vanya", Email = "vanya@com", Birthday = DateTime.Today.AddYears(-20) });
+        //    ViewModel.Players.Add(new PlayerModel { FirstName = "Petya", LastName = "Petrov", NickName = "vasya", Email = "vaa@com", Birthday = DateTime.Today.AddYears(-30) });
+        //    ViewModel.Players.Add(new PlayerModel { FirstName = "Stas", LastName = "Sidorov", NickName = "sidor", Email = "vya@com", Birthday = DateTime.Today.AddYears(-22) });
+        //}
 
         private void ButtonAddPlayer_Click(object sender, RoutedEventArgs e)
         {
@@ -81,7 +82,7 @@ namespace TournamentOrganizer.UI.Tabs
             ViewModel.SelectedPlayer.NickName = ViewModel.TextBoxNickNameText ;
             ViewModel.SelectedPlayer.Email = ViewModel.TextBoxEmailText;
             ViewModel.SelectedPlayer.Birthday = ViewModel.DatePickerBirthdaySelectedDate;
-
+            ViewModel.PlayerService.PlayerUpdate(ViewModel.SelectedPlayer.Id, ViewModel.SelectedPlayer);
             ViewModel.IsEnabledButtonEditSave = false;
             ViewModel.VisibilityButtonEditSave = Visibility.Hidden;
 
@@ -117,15 +118,19 @@ namespace TournamentOrganizer.UI.Tabs
                 MessageBox.Show("Такой псевдоним уже существует");
                 return;
             }
-
-            ViewModel.Players.Add(new PlayerModel
+            var playerModel = new PlayerModel
             {
                 FirstName = ViewModel.TextBoxFirstNameText,
                 LastName = ViewModel.TextBoxLastNameText,
                 NickName = ViewModel.TextBoxNickNameText,
                 Email = ViewModel.TextBoxEmailText,
                 Birthday = ViewModel.DatePickerBirthdaySelectedDate
-            });
+            };
+            int idNewPlayer = ViewModel.PlayerService.InsertPlayer(playerModel);
+            playerModel.Id = idNewPlayer;
+            ViewModel.Players.Add(playerModel);
+            
+
             ViewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             ViewModel.StateMainDataGrid = true;
 
@@ -156,6 +161,7 @@ namespace TournamentOrganizer.UI.Tabs
         {
             var button = (Button)sender;
             ViewModel.SelectedPlayer = (PlayerModel)button.DataContext;
+            ViewModel.Teams = new ObservableCollection<TeamModel>(ViewModel.PlayerService.GetTeamsByPlayerId(ViewModel.SelectedPlayer.Id));
             ViewModel.WidthGridPlayerInfo = new GridLength(1, GridUnitType.Star);
             ViewModel.StateMainDataGrid = false;
         }
@@ -164,6 +170,7 @@ namespace TournamentOrganizer.UI.Tabs
             var button = (Button)sender;
             PlayerModel player = (PlayerModel)button.DataContext;
             ViewModel.Players.Remove(player);
+            ViewModel.PlayerService.DeleteById(player.Id);
 
         }
 
