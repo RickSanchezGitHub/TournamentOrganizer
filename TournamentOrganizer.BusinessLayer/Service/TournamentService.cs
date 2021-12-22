@@ -34,10 +34,10 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _tournamentRepository.TournamentUpdateById(tournamentModel);
         }
 
-        public void InsertTournament(TournamentModel tournament)
+        public int InsertTournament(TournamentModel tournament)
         {
             var tournamentModel = CustomMapper.GetInstance().Map<Tournament>(tournament);
-            _tournamentRepository.TournamentInsert(tournamentModel);
+            return _tournamentRepository.TournamentInsert(tournamentModel);
         }
 
         public List<GameModel> GetAllGames()

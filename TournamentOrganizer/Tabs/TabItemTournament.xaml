@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
        xmlns:vm="clr-namespace:TournamentOrganizer.UI.VeiwModels"
-       Header="Tournament">
+       Header="Турниры">
     <TabItem.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Verdana" />
@@ -16,7 +16,6 @@
         <local:TabItemTournamentsViewModel/>
     </TabItem.DataContext>
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="60*"/>
@@ -25,7 +24,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="5*"/>
             <ColumnDefinition Width="50*"/>
-            <ColumnDefinition x:Name="columnsSaveUpdate" Width="0*"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Image x:Name="MainImage" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Source="..\Images\carbon.jpg" Stretch="UniformToFill" Grid.RowSpan="9" Panel.ZIndex="0"/>
@@ -41,7 +40,7 @@
             </ComboBox>
         </StackPanel>
 
-        <DataGrid x:Name="DataGridTournaments" HorizontalContentAlignment="Center"  ItemsSource="{Binding Tournaments}" SelectedItem="{Binding SelectedTournament}"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False"  SelectionMode="Extended" SelectionUnit="FullRow">
+        <DataGrid x:Name="DataGridTournaments" HorizontalContentAlignment="Center"  ItemsSource="{Binding Tournaments}" SelectedItem="{Binding SelectedTournament}"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Width="20*" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Дата начала" Width="20*" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"/>
@@ -50,7 +49,7 @@
                 <DataGridTemplateColumn Width="20*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ButtonDataGridTournamentsUpdateClick">Изменить</Button>
+                            <Button Command="{Binding DataContext.EditTournament, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Изменить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -77,12 +76,12 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" >
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Visibility="{Binding VisibilityColumn}" >
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelName" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Название</Label>
-                <TextBox x:Name="TextBoxName" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></TextBox>
+                <TextBox x:Name="TextBoxName" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" Text="{Binding TextBoxName}"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelGame" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Игра</Label>
@@ -90,15 +89,15 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelStartDate" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center" >Дата начала</Label>
-                <DatePicker x:Name="DatePickerDayStart" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></DatePicker>
+                <DatePicker x:Name="DatePickerDayStart" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" SelectedDate="{Binding DatePickerStartDate}"></DatePicker>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelCloseDate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Дата закрытия</Label>
-                <DatePicker x:Name="DatePickerDayClose" Grid.Row="3"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100"></DatePicker>
+                <DatePicker x:Name="DatePickerDayClose" Grid.Row="3"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" SelectedDate="{Binding DatePickerCloseDate}"></DatePicker>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelParticipant" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Список участников</Label>
-                <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" Click="ButtonTournamentsOpenParticipants">Просмотреть</Button>
+                <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <Label Name="LabelRounds" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Турнирная сетка</Label>
@@ -106,14 +105,13 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
-            <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1"   MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ButtonTournamentsAddClick" Content="Добавить"/>
-            <Button x:Name="ButtonCloseParticipants" Grid.Row="8" Grid.Column="1" Visibility="Collapsed"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Назад" Click="ButtonParticipantsCloseClick"/>
+        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" >
+            <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1"   MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddTournament}" Content="Добавить"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
-            <Button x:Name="ButtonSave" Visibility ="Collapsed" MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Сохранить" Click="ButtonTournamentsSaveClick"/>
-            <Button x:Name="ButtonUpdate" Visibility ="Collapsed"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Изменить" Click="ButtonTournamentsUpdateClick"/>
-            <Button x:Name="ButtonBack"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Назад" Click="ButtonTournamentsBackClick"/>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding VisibilityColumn}">
+            <Button x:Name="ButtonSave" Visibility ="{Binding VisibilitySaveButton}" MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Сохранить" Command="{Binding SaveTournament}"/>
+            <Button x:Name="ButtonUpdate" Visibility ="{Binding VisibilityUpdateButton}"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Изменить" Command="{Binding UpdateTournament}"/>
+            <Button x:Name="ButtonBack"  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Назад" Command="{Binding BackTournament}"/>
         </StackPanel>
     </Grid>
 </TabItem>

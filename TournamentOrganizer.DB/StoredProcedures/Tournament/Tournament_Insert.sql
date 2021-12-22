@@ -6,6 +6,6 @@
 	@GameId int
 AS
 BEGIN
-	INSERT Tournament(Name, StartDate, CloseDate, GameId) Values
+	INSERT Tournament(Name, StartDate, CloseDate, GameId) OUTPUT Inserted.Id Values
 	(@Name, @StartDate, @CloseDate, @GameId)
 END

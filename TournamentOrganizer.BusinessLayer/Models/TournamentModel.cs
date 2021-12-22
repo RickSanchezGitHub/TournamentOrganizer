@@ -32,8 +32,8 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        private DateTime _startDate;
-        public DateTime StartDate
+        private DateTime? _startDate;
+        public DateTime? StartDate
         {
             get { return _startDate; }
             set
@@ -43,8 +43,8 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        private DateTime _closeDate;
-        public DateTime CloseDate
+        private DateTime? _closeDate;
+        public DateTime? CloseDate
         {
             get { return _closeDate; }
             set

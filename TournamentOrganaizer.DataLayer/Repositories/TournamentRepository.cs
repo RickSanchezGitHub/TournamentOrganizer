@@ -13,11 +13,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 {
     public class TournamentRepository : BaseRepository
     {
-        public void TournamentInsert(Tournament tournament)
+        public int TournamentInsert(Tournament tournament)
         {
             const string procedureName = "Tournament_Insert";
             using IDbConnection connection = ProvideConnection();
-            connection.Execute(
+            var result = connection.Query<int>(
                 procedureName,
                 new
                 {
@@ -27,7 +27,8 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                     GameId = tournament.Game.Id
                 },
                 commandType: CommandType.StoredProcedure
-            );
+            ).FirstOrDefault();
+            return result;
         }
 
         public void TournamentDeleteById(int id)
