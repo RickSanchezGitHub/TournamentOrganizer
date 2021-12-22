@@ -19,9 +19,10 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel = viewModel;
          //   _gameService = _viewModel._gameService;
         }
+   
         public override void Execute(object parameter)
         {
-            _viewModel._gameService.InsertGame(_viewModel.TextBoxAddGameNameText);
+            _viewModel.GameService.InsertGame(_viewModel.TextBoxAddGameNameText);
             _viewModel.Games.Add(new GameModel { Name = _viewModel.TextBoxAddGameNameText } );
 
         }

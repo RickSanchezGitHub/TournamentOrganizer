@@ -8,21 +8,22 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
 {
-    public class EditGameCommand : CommandBase
+    public class SaveGameCommand : CommandBase
     {
         private TabItemGameViewModel _viewModel;
         // private GameService _gameService;
 
-        public EditGameCommand(TabItemGameViewModel viewModel) : base()
+        public SaveGameCommand(TabItemGameViewModel viewModel) : base()
         {
             _viewModel = viewModel;
             // _gameService = _viewModel._gameService;
         }
         public override void Execute(object parameter)
         {
-            _viewModel.IsEnabledButtonAdd = false;
-            _viewModel.IsEnabledButtonSave = true;
-            _viewModel.StateDataGrid = false;
+            _viewModel.GameService.UpdateGameName(_viewModel.TextBoxAddGameNameText, _viewModel.SelectedGame.Id);
+            _viewModel.IsEnabledButtonAdd = true;
+            _viewModel.IsEnabledButtonSave = false;
+            _viewModel.StateDataGrid = true;
         }
     }
 }

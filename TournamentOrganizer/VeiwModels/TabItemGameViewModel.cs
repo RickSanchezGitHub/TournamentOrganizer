@@ -21,7 +21,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             GameService = new GameService();
             Games = new ObservableCollection<GameModel>(GameService.GetAllGames());
             StateDataGrid = true;
-            ButtonAddEditContent = "Добавить";
+            IsEnabledButtonAdd = true;
             TextBoxAddGameNameText = string.Empty;
             SelectedGame = null;
             StateButtonCancel = false;
@@ -101,7 +101,6 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
 
         private Visibility _visibilityButtonCancel;
-        internal GameService _gameService;
 
         public Visibility VisibilityButtonCancel
         {
@@ -112,6 +111,66 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(VisibilityButtonCancel));
             }
         }
+        private bool _isEnabledButtonSave;
+        public bool IsEnabledButtonSave
+        {
+            get { return _isEnabledButtonSave; }
+            set
+            {
+                _isEnabledButtonSave = value;
+                OnPropertyChanged(nameof(IsEnabledButtonSave));
+                if (IsEnabledButtonSave)
+                {
+                    VisibilityButtonSave = Visibility.Visible;
+                }
+                else
+                {
+                    VisibilityButtonSave = Visibility.Hidden;
+                }
+            }
+        }
 
+        private Visibility _visibilityButtonSave;
+
+        public Visibility VisibilityButtonSave
+        {
+            get { return _visibilityButtonSave; }
+            set
+            {
+                _visibilityButtonSave = value;
+                OnPropertyChanged(nameof(VisibilityButtonSave));
+            }
+        }
+        private bool _isEnabledButtonAdd;
+        public bool IsEnabledButtonAdd
+        {
+            get { return _isEnabledButtonAdd; }
+            set
+            {
+                _isEnabledButtonAdd = value;
+                OnPropertyChanged(nameof(IsEnabledButtonAdd));
+                if (IsEnabledButtonAdd)
+                {
+                    VisibilityButtonAdd = Visibility.Visible;
+                }
+                else
+                {
+                    VisibilityButtonAdd = Visibility.Hidden;
+                }
+            }
+        }
+
+        private Visibility _visibilityButtonAdd;
+
+        public Visibility VisibilityButtonAdd
+        {
+            get { return _visibilityButtonAdd; }
+            set
+            {
+                _visibilityButtonAdd = value;
+                OnPropertyChanged(nameof(VisibilityButtonAdd));
+            }
+        }
     }
+
 }

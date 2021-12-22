@@ -8,21 +8,21 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
 {
-    public class DeleteGameCommand : CommandBase
+    public class CancelGameCommand : CommandBase
     {
         private TabItemGameViewModel _viewModel;
-       // private GameService _gameService;
+        // private GameService _gameService;
 
-        public DeleteGameCommand(TabItemGameViewModel viewModel) : base()
+        public CancelGameCommand(TabItemGameViewModel viewModel) : base()
         {
             _viewModel = viewModel;
-           // _gameService = _viewModel._gameService;
+            // _gameService = _viewModel._gameService;
         }
         public override void Execute(object parameter)
         {
-            _viewModel.GameService.DeleteGame(_viewModel.SelectedGame.Id);
-            _viewModel.Games.Remove(_viewModel.SelectedGame);
-
+            _viewModel.IsEnabledButtonAdd = true;
+            _viewModel.IsEnabledButtonSave = false;
+            _viewModel.StateDataGrid = true;
         }
     }
 }
