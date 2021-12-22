@@ -6,9 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.DataLayer.Repositories;
+using TournamentOrganizer.UI.Commands;
+using TournamentOrganizer.UI.Commands.TabItemPlayerCommands;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
@@ -84,6 +87,17 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _selectedPlayer = value;
                 OnPropertyChanged(nameof(SelectedPlayer));
+            }
+        }
+
+        private PlayerModel _selectedDeletePlayer;
+        public PlayerModel SelectedDeletePlayer
+        {
+            get { return _selectedDeletePlayer; }
+            set
+            {
+                _selectedDeletePlayer = value;
+                OnPropertyChanged(nameof(SelectedDeletePlayer));
             }
         }
 
@@ -194,6 +208,110 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _visibilityButtonEditSave = value;
                 OnPropertyChanged(nameof(VisibilityButtonEditSave));
+            }
+        }
+
+        private ICommand _deletePlayer;
+        public ICommand DeletePlayer
+        {
+            get
+            {
+                if (_deletePlayer == null)
+                {
+                    _deletePlayer = new DeletePlayerCommand(this);
+                }
+                return _deletePlayer;
+            }
+        }
+
+        private ICommand _addSavePlayer;
+        public ICommand AddSavePlayer
+        {
+            get
+            {
+                if (_addSavePlayer == null)
+                {
+                    _addSavePlayer = new AddSavePlayerCommand(this);
+                }
+                return _addSavePlayer;
+            }
+        }
+
+        private ICommand _addClick;
+        public ICommand AddClick
+        {
+            get
+            {
+                if (_addClick == null)
+                {
+                    _addClick = new AddClickCommand(this);
+                }
+                return _addClick;
+            }
+        }
+
+        private ICommand _editClick;
+        public ICommand EditClick
+        {
+            get
+            {
+                if (_editClick == null)
+                {
+                    _editClick = new EditClickCommand(this);
+                }
+                return _editClick;
+            }
+        }
+
+        private ICommand _editSavePlayer;
+        public ICommand EditSavePlayer
+        {
+            get
+            {
+                if (_editSavePlayer == null)
+                {
+                    _editSavePlayer = new EditSavePlayerCommand(this);
+                }
+                return _editSavePlayer;
+            }
+        }
+
+        private ICommand _getInfoAboutPlayer;
+        public ICommand GetInfoAboutPlayer
+        {
+            get
+            {
+                if (_getInfoAboutPlayer == null)
+                {
+                    _getInfoAboutPlayer = new GetInfoAboutPlayerCommand(this);
+                }
+                return _getInfoAboutPlayer;
+            }
+        }
+
+        private ICommand _backFromInfo;
+        public ICommand BackFromInfo
+        {
+            get
+            {
+                if (_backFromInfo == null)
+                {
+                    _backFromInfo = new BackFromInfoCommand(this);
+                }
+                return _backFromInfo;
+            }
+        }
+
+        private ICommand _backFromAdd;
+        public ICommand BackFromAdd
+        {
+            get
+            {
+                if (_backFromAdd == null)
+                {
+                    _backFromAdd = new BackFromAddCommand(this);
+                }
+                return _backFromAdd;
             }
         }
     }

@@ -29,7 +29,7 @@ namespace TournamentOrganizer.UI.Tabs
         {
             InitializeComponent();
             ViewModel = new TabItemPlayerViewModel();
-            DataContext = ViewModel;
+            //DataContext = ViewModel;
             //InitTestData();
 
 
@@ -42,7 +42,7 @@ namespace TournamentOrganizer.UI.Tabs
         //    ViewModel.Players.Add(new PlayerModel { FirstName = "Stas", LastName = "Sidorov", NickName = "sidor", Email = "vya@com", Birthday = DateTime.Today.AddYears(-22) });
         //}
 
-        private void ButtonAddPlayer_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddPlayer_Click(object sender, RoutedEventArgs e)//DONE
         {
             ViewModel.TextBoxFirstNameText = null;
             ViewModel.TextBoxLastNameText = null;
@@ -100,7 +100,7 @@ namespace TournamentOrganizer.UI.Tabs
             ViewModel.StateMainDataGrid = true;
         }
 
-        private void ButtonSaveAddedPlayer_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveAddedPlayer_Click(object sender, RoutedEventArgs e)//DONE
         {
             if (TextIsNullorWhiteSpace(TextBoxFirstName) || TextIsNullorWhiteSpace(TextBoxLastName)
                 || TextIsNullorWhiteSpace(TextBoxNickName) || TextIsNullorWhiteSpace(TextBoxEmail))
@@ -165,7 +165,7 @@ namespace TournamentOrganizer.UI.Tabs
             ViewModel.WidthGridPlayerInfo = new GridLength(1, GridUnitType.Star);
             ViewModel.StateMainDataGrid = false;
         }
-        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)//DONE
         {
             var button = (Button)sender;
             PlayerModel player = (PlayerModel)button.DataContext;

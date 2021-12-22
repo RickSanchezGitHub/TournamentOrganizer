@@ -1,8 +1,13 @@
 ﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemPlayer"  
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+         xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
       Header="Player">
 
+    <TabItem.DataContext>
+        <local:TabItemPlayerViewModel/>
+    </TabItem.DataContext>
+    
     <TabItem.Resources>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
@@ -46,7 +51,8 @@
             <ColumnDefinition  Width="{Binding WidthGridPlayerInfo}"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid ItemsSource="{Binding Players}" IsEnabled="{Binding StateMainDataGrid}" x:Name="DataGridListPlayers" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="0" Grid.Column="0" Margin="0,20,0,0" Grid.RowSpan="1">
+        <DataGrid ItemsSource="{Binding Players}" IsEnabled="{Binding StateMainDataGrid}" x:Name="DataGridListPlayers" 
+                  SelectedItem="{Binding SelectedDeletePlayer}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="0" Grid.Column="0" Margin="0,20,0,0" Grid.RowSpan="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="2*" Header="Имя" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Width="2*" Header="Фамилия" Binding="{Binding LastName}"/>
@@ -54,27 +60,27 @@
                 <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ButtonEdit_Click">Редактировать</Button>
+                            <Button Command="{Binding DataContext.EditClick, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}} }">Редактировать</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ButtonGetInfo_Click">Информация</Button>
+                            <Button Command="{Binding DataContext.GetInfoAboutPlayer, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}} }" >Информация</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click= "ButtonDelete_Click" >Удалить</Button>
+                            <Button Command="{Binding DataContext.DeletePlayer, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}} }" >Удалить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ButtonAddPlayer" Content="Добавить игрока" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Click="ButtonAddPlayer_Click"/>
+        <Button x:Name="ButtonAddPlayer" Content="Добавить игрока" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Command="{Binding AddClick}"/>
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,17,0,0"  >
             <Label Content="Добавить игрока"/>
             <TextBox x:Name="TextBoxFirstName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxFirstNameText}" Tag="Введите имя" Margin="0,0,0,8" />
@@ -85,9 +91,9 @@
                 <Label Content="Дата рождения"/>
                 <DatePicker x:Name="DatePickerBirthday" SelectedDate="{Binding DatePickerBirthdaySelectedDate}" />
             </StackPanel>
-            <Button x:Name="ButtonSaveEditPlayer" Visibility="{Binding VisibilityButtonEditSave}" IsEnabled="{Binding IsEnabledButtonEditSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Click=" ButtonSaveEditPlayer_Click"/>
-            <Button x:Name="ButtonSaveAddedPlayer" Visibility="{Binding VisibilityButtonAddSave}" IsEnabled="{Binding IsEnabledButtonAddSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Click="ButtonSaveAddedPlayer_Click"/>
-            <Button Click="ButtonBackSavePlayer_Click" Margin="0,30,0,0" Width="166" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1" />
+            <Button x:Name="ButtonSaveEditPlayer" Visibility="{Binding VisibilityButtonEditSave}" IsEnabled="{Binding IsEnabledButtonEditSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Command="{Binding EditSavePlayer}"/>
+            <Button x:Name="ButtonSaveAddedPlayer" Visibility="{Binding VisibilityButtonAddSave}" IsEnabled="{Binding IsEnabledButtonAddSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Command="{Binding AddSavePlayer}"/>
+            <Button Command="{Binding BackFromAdd}" Margin="0,30,0,0" Width="166" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1" />
 
         </StackPanel >
         <StackPanel Grid.Column="2" Grid.RowSpan="2">
@@ -104,7 +110,7 @@
                 <DataGridTextColumn Width="*" Header="Состоит в командах" Binding="{Binding Name}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Click="ButtonBack_Click" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1"/>
+            <Button Command="{Binding BackFromInfo}" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1"/>
         </StackPanel>
     </Grid>
 </TabItem>
