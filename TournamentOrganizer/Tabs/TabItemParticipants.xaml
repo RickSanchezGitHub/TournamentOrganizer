@@ -1,7 +1,8 @@
 ﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemParticipants"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+         xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+         xmlns:cmd="clr-namespace:TournamentOrganizer.UI.Command"
          xmlns:c="clr-namespace:TournamentOrganizer.BusinessLayer.Models;assembly=TournamentOrganizer.BusinessLayer"
          Header="Команды">
 

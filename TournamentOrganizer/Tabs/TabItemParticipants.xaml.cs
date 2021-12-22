@@ -21,9 +21,17 @@ namespace TournamentOrganizer.UI.Tabs
 
     public partial class TabItemParticipants : TabItem
     {
+        public ICommand SomeCommand { get; }
+        private bool OnSomeCommandExecute(object obj) => true;
+        private void OnSomeCommandExecuted(object obj)
+        {
+            Application.Current
+        }
         public TabItemParticipants()
         {
-            InitializeComponent();
+            
+
+
         }      
     }
 }
