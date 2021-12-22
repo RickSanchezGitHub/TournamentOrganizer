@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.UI.Commands;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
@@ -169,6 +171,66 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _visibilityButtonAdd = value;
                 OnPropertyChanged(nameof(VisibilityButtonAdd));
+            }
+        }
+        private ICommand _deleteGameCommand;
+        public ICommand DeleteGameCommand
+        {
+            get
+            {
+                if (_deleteGameCommand == null)
+                {
+                    _deleteGameCommand = new DeleteGameCommand(this);
+                }
+                return _deleteGameCommand;
+            }
+        }
+        private ICommand _addGameCommand;
+        public ICommand AddGameCommand
+        {
+            get
+            {
+                if (_addGameCommand == null)
+                {
+                    _addGameCommand = new AddGameCommand(this);
+                }
+                return _addGameCommand;
+            }
+        }
+        private ICommand _cancelGameCommand;
+        public ICommand CancelGameCommand
+        {
+            get
+            {
+                if (_cancelGameCommand == null)
+                {
+                    _cancelGameCommand = new CancelGameCommand(this);
+                }
+                return _cancelGameCommand;
+            }
+        }
+        private ICommand _editGameCommand;
+        public  ICommand EditGameCommand
+        {
+            get
+            {
+                if (_editGameCommand == null)
+                {
+                    _editGameCommand = new EditGameCommand(this);
+                }
+                return _editGameCommand;
+            }
+        }
+        private ICommand _saveGameCommand;
+        public ICommand SaveGameCommand
+        {
+            get
+            {
+                if (_saveGameCommand == null)
+                {
+                    _saveGameCommand = new SaveGameCommand(this);
+                }
+                return _saveGameCommand;
             }
         }
     }

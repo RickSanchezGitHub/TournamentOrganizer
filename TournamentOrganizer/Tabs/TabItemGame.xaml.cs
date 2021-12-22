@@ -23,89 +23,89 @@ namespace TournamentOrganizer.UI.Tabs
     /// </summary> 
     public partial class TabItemGame : TabItem
     {
-        public TabItemGameViewModel ViewModel;
+        //public TabItemGameViewModel ViewModel;
         public TabItemGame()
         {
             InitializeComponent();
-            ViewModel = new TabItemGameViewModel();
-            DataContext = ViewModel;
+           // ViewModel = new TabItemGameViewModel();
+            //DataContext = ViewModel;
         }
 
 
 
-        private void ButtonGameDelite_Click(object sender, RoutedEventArgs e)
-        {
-            var button = (Button)sender;
-            var game = (GameModel)button.DataContext;
-            ViewModel.Games.Remove(game);
-            ViewModel.GameService.DeleteGame(game.Id);
+        //private void ButtonGameDelite_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var button = (Button)sender;
+        //    var game = (GameModel)button.DataContext;
+        //    //ViewModel.Games.Remove(game);
+        //    //ViewModel.GameService.DeleteGame(game.Id);
             
 
-        }
+        //}
 
-        private void ButtonGameEdit_Click(object sender, RoutedEventArgs e)
-        {
+        //private void ButtonGameEdit_Click(object sender, RoutedEventArgs e)
+        //{
 
-            ViewModel.StateButtonCancel = true;
-            ViewModel.StateDataGrid = false;
-
-
-            var button = (Button)sender;
-            ViewModel.SelectedGame = (GameModel)button.DataContext;
-            ViewModel.TextBoxAddGameNameText = ViewModel.SelectedGame.Name;
+        //    ViewModel.StateButtonCancel = true;
+        //    ViewModel.StateDataGrid = false;
 
 
-            ViewModel.ButtonAddEditContent = "Сохранить";
-        }
+        //    var button = (Button)sender;
+        //    ViewModel.SelectedGame = (GameModel)button.DataContext;
+        //    ViewModel.TextBoxAddGameNameText = ViewModel.SelectedGame.Name;
 
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrWhiteSpace(ViewModel.TextBoxAddGameNameText))
-            {
-                MessageBox.Show("Введите название игры");
-                return;
-            }
 
-            if (ViewModel.Games.FirstOrDefault(item => item.Name == ViewModel.TextBoxAddGameNameText) != null)
-            {
-                MessageBox.Show("Такая игра уже есть");
-                return;
-            }
+        //    ViewModel.ButtonAddEditContent = "Сохранить";
+        //}
 
-            if (ViewModel.ButtonAddEditContent == "Добавить")
-            {
-                ViewModel.Games.Add(new GameModel { Name = TextBoxAddGameName.Text });
-                ViewModel.GameService.InsertGame(TextBoxAddGameName.Text);
-            }
-            else if (ViewModel.ButtonAddEditContent == "Сохранить")
-            {
-                ViewModel.ButtonAddEditContent = "Добавить";
+        //private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (String.IsNullOrWhiteSpace(ViewModel.TextBoxAddGameNameText))
+        //    {
+        //        MessageBox.Show("Введите название игры");
+        //        return;
+        //    }
 
-                ViewModel.SelectedGame.Name = ViewModel.TextBoxAddGameNameText;
-                ViewModel.GameService.UpdateGameName(ViewModel.SelectedGame.Name, ViewModel.SelectedGame.Id);
-                ViewModel.StateDataGrid = true;
+        //    if (ViewModel.Games.FirstOrDefault(item => item.Name == ViewModel.TextBoxAddGameNameText) != null)
+        //    {
+        //        MessageBox.Show("Такая игра уже есть");
+        //        return;
+        //    }
 
-            }
-            ViewModel.TextBoxAddGameNameText = String.Empty;
-        }
+        //    if (ViewModel.ButtonAddEditContent == "Добавить")
+        //    {
+        //        ViewModel.Games.Add(new GameModel { Name = TextBoxAddGameName.Text });
+        //        ViewModel.GameService.InsertGame(TextBoxAddGameName.Text);
+        //    }
+        //    else if (ViewModel.ButtonAddEditContent == "Сохранить")
+        //    {
+        //        ViewModel.ButtonAddEditContent = "Добавить";
 
-        private void TextBoxAddGameName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (ViewModel.TextBoxAddGameNameText.Length > 25)
-            {
-                MessageBox.Show("Длинное название");
-                return;
-            }
-        }
+        //        ViewModel.SelectedGame.Name = ViewModel.TextBoxAddGameNameText;
+        //        ViewModel.GameService.UpdateGameName(ViewModel.SelectedGame.Name, ViewModel.SelectedGame.Id);
+        //        ViewModel.StateDataGrid = true;
 
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.ButtonAddEditContent = "Добавить";
+        //    }
+        //    ViewModel.TextBoxAddGameNameText = String.Empty;
+        //}
 
-            ViewModel.StateButtonCancel = false;
-            ViewModel.TextBoxAddGameNameText = String.Empty;
+        //private void TextBoxAddGameName_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (ViewModel.TextBoxAddGameNameText.Length > 25)
+        //    {
+        //        MessageBox.Show("Длинное название");
+        //        return;
+        //    }
+        //}
 
-            ViewModel.StateDataGrid = true;
-        }
+        //private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ViewModel.ButtonAddEditContent = "Добавить";
+
+        //    ViewModel.StateButtonCancel = false;
+        //    ViewModel.TextBoxAddGameNameText = String.Empty;
+
+        //    ViewModel.StateDataGrid = true;
+        //}
     }
 }
