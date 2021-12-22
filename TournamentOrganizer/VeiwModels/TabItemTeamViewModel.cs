@@ -10,10 +10,10 @@ using TournamentOrganizer.BusinessLayer.Models;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
-    public class TeamViewModel : INotifyPropertyChanged
+    public class TabItemTeamViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<TeamModel> Teams { get; set; }
-        public TeamViewModel()
+        public TabItemTeamViewModel()
         {
             Teams = new ObservableCollection<TeamModel>
             {

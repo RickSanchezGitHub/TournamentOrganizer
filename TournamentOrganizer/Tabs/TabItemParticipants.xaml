@@ -72,7 +72,8 @@
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       HorizontalGridLinesBrush="LightGray"
-                      VerticalGridLinesBrush="LightGray">
+                      VerticalGridLinesBrush="LightGray"
+                      Margin="10">
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" 
