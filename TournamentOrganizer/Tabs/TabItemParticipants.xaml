@@ -16,10 +16,12 @@
             <ColumnDefinition Width="*" 
                               MinWidth="200"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        
         <Image x:Name="MainImage"
                            Grid.Column="0" 
                            Grid.Row="0" 
@@ -28,20 +30,24 @@
                            Source="..\Images\carbon.jpg" 
                            Stretch="UniformToFill" 
                            Panel.ZIndex="0"/>
+        
         <GroupBox Grid.Column="0"
                   Grid.Row="0"
                   Header="Команды" 
                   Width="200"
                   Margin="10"
                   Foreground="White">
+            
             <DockPanel Margin="5">
                 <ListBox ItemsSource="{Binding Teams}" 
                          SelectedItem="{Binding SelectedTeam}" 
                          SelectedIndex="0">
+                    
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" 
                                     Value="Stretch"/>
+                            
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
@@ -51,12 +57,14 @@
                                            Text="{Binding Id}"
                                            Width="30"/>
                                 <TextBlock Text="{Binding Name}" Width="100"/>
+                                
                             </DockPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
         </GroupBox>
+        
         <GroupBox Grid.Column="1" 
                   Grid.Row="0"                
                   MinWidth="200"
@@ -79,31 +87,37 @@
                     <DataGridTextColumn Header="Id" 
                                         Binding="{Binding Id}"
                                         Width="20"/>
+                    
                     <DataGridTextColumn Header="Имя" 
                                         Binding="{Binding FirstName}"
                                         Width="Auto" 
                                         MaxWidth="100"
                                         MinWidth ="50"/>
+                    
                     <DataGridTextColumn Header="Фамилия" 
                                         Binding="{Binding LastName}"
                                         Width="Auto" 
                                         MaxWidth="120"
                                         MinWidth ="50"/>
+                    
                     <DataGridTextColumn Header="Ник" 
                                         Binding="{Binding NickName}"
                                         Width="Auto" 
                                         MaxWidth="120"
                                         MinWidth ="50"/>
+                    
                     <DataGridTextColumn Header="Email" 
                                         Binding="{Binding Email}"
                                         Width="Auto" 
                                         MaxWidth="120"
                                         MinWidth ="70"/>
+                    
                     <DataGridTextColumn Header="Дата рождения" 
                                         Binding="{Binding Birthday, StringFormat=dd.mm.yyyy}"
                                         Width="*"
                                         MinWidth="70"
                                         MaxWidth="150"/>
+                    
                 </DataGrid.Columns>                
             </DataGrid>
         </GroupBox>
