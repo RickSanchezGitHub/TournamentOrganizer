@@ -1,103 +1,102 @@
 ﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemParticipants"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:vm="clr-namespace:TournamentOrganizer.UI.VeiwModels"
-         xmlns:tabData ="clr-namespace:TournamentOrganizer.UI.Tabs"
+          xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+         xmlns:c="clr-namespace:TournamentOrganizer.BusinessLayer.Models;assembly=TournamentOrganizer.BusinessLayer"
          Header="Команды">
 
-                    <Grid Background="Black">
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="0"/>
-                            <ColumnDefinition Width="0"/>
-                        </Grid.ColumnDefinitions>
-                        <Image x:Name="MainImage"
+    <TabItem.DataContext>
+        <m:TeamViewModel></m:TeamViewModel>
+    </TabItem.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"
+                              MinWidth="200"/>
+            <ColumnDefinition Width="2*" 
+                              MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="MainImage"
                            Grid.Column="0" 
-                           Grid.ColumnSpan="8"
                            Grid.Row="0" 
+                           Grid.ColumnSpan="2"
+                           Grid.RowSpan="2"
                            Source="..\Images\carbon.jpg" 
                            Stretch="UniformToFill" 
-                           Grid.RowSpan="6" 
                            Panel.ZIndex="0"/>
-                        <DataGrid Background="Gray" 
-                              Grid.RowSpan="6"
-                              Grid.ColumnSpan="5"
-                              Grid.Row="0" 
-                              Grid.Column="0"
-                              IsReadOnly="True" 
-                              AutoGenerateColumns="False"
-                              CanUserAddRows="False" 
-                              Margin="10,20,0,20">
-
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Id" 
-                                                Width="30"
-                                                MinWidth="30" />
-                                <DataGridTextColumn Header="Название"
-                                                Width="*" 
-                                                MinWidth="80"  />
-
-
-                                <DataGridTemplateColumn Width="100" >
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button Click="ButtonEdit_Click">Редактировать</Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-
-                                <DataGridTemplateColumn Width="60">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button Click="ButtonDelete_Click">Удалить</Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-
-                                <DataGridTemplateColumn Width="60">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button Click="ButtonGetInfo_Click">Игроки</Button>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-
-                            </DataGrid.Columns>
-                            <DataGrid.RowDetailsTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="какая-то информация" />
-                                        <TextBlock Text=" рублей по скидке" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGrid.RowDetailsTemplate>
-                        </DataGrid>
-
-                        <Button x:Name="ButtonAddTeam" Width="80"
-                            Content="Добавить"
-                            HorizontalAlignment="Center"
-                            Margin="0,20,0,0" 
-                            Grid.Row="0" 
-                            Grid.Column="6" 
-                            VerticalAlignment="Top"
-                            Click="ButtonAddTeam_Click"/>
-
-                    </Grid>
- 
+        <GroupBox Grid.Column="0"
+                  Grid.Row="0"
+                  Header="Команды" 
+                  Width="200"
+                  Margin="10"
+                  Foreground="White">
+            <DockPanel>
+                <ListBox ItemsSource="{Binding Teams}" 
+                         SelectedItem="{Binding SelectedTeam}" 
+                         SelectedIndex="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate  DataType="c:TeamModel">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Left"
+                                           Text="{Binding Id}"
+                                           Width="30"/>
+                                <TextBlock Text="{Binding Name}" Width="100"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Grid.Column="1" 
+                  Grid.Row="0"                  
+                  Header="Игроки" 
+                  MinWidth="200"
+                  MaxWidth="450"
+                  Margin="10"
+                  Foreground="White">
+            <DockPanel Margin="5">
+                <ListBox ItemsSource="{Binding SelectedTeam.Players}" 
+                         IsSynchronizedWithCurrentItem="True">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="c:PlayerModel">
+                            <TextBlock>
+                                <TextBlock Text="{Binding Id}" 
+                                           Width="20"/>
+                                <TextBlock Text="{Binding FirstName}" 
+                                           MaxWidth="100" 
+                                           MinWidth ="50"/>
+                                <TextBlock Text="{Binding LastName}"
+                                           MaxWidth="100" 
+                                           MinWidth ="50"/>
+                                <TextBlock Text="{Binding NickName}"
+                                           MaxWidth="100" 
+                                           MinWidth ="50"/>
+                                <TextBlock Text="{Binding Email}"
+                                           MaxWidth="100" 
+                                           MinWidth ="50"/>
+                                <TextBlock Text="{Binding Birthday}"
+                                           MaxWidth="100" 
+                                           MinWidth ="50"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
 </TabItem>
