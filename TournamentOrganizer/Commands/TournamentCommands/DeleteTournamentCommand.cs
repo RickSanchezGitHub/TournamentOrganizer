@@ -6,9 +6,9 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
     public class DeleteTournamentCommand : CommandBase
     {
         private readonly TabItemTournamentsViewModel _viewModel;
-        private readonly TournamentService _tournamentService;
+        private readonly ITournamentService _tournamentService;
 
-        public DeleteTournamentCommand(TabItemTournamentsViewModel viewModel, TournamentService tournamentService) : base()
+        public DeleteTournamentCommand(TabItemTournamentsViewModel viewModel, ITournamentService tournamentService) : base()
         {
             _viewModel = viewModel;
             _tournamentService = tournamentService;

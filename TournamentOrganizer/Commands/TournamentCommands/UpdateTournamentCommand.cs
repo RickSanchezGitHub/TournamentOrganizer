@@ -7,10 +7,10 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 {
     public class UpdateTournamentCommand : CommandBase
     {
-        private TabItemTournamentsViewModel _viewModel;
-        private TournamentService _tournamentService;
+        private readonly TabItemTournamentsViewModel _viewModel;
+        private readonly ITournamentService _tournamentService;
 
-        public UpdateTournamentCommand(TabItemTournamentsViewModel viewModel, TournamentService tournamentService) : base()
+        public UpdateTournamentCommand(TabItemTournamentsViewModel viewModel, ITournamentService tournamentService) : base()
         {
             _viewModel = viewModel;
             _tournamentService = tournamentService;

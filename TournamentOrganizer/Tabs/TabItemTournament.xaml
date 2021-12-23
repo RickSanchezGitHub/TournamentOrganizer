@@ -2,7 +2,7 @@
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
-       xmlns:vm="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"  
        Header="Турниры">
     <TabItem.Resources>
         <Style TargetType="Label">
@@ -16,6 +16,11 @@
         <local:TabItemTournamentsViewModel/>
     </TabItem.DataContext>
     <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding InitializeTournaments}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="60*"/>

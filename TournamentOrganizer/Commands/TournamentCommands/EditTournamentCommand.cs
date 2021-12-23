@@ -5,7 +5,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 {
     public class EditTournamentCommand : CommandBase
     {
-        private TabItemTournamentsViewModel _viewModel;
+        private readonly TabItemTournamentsViewModel _viewModel;
 
         public EditTournamentCommand(TabItemTournamentsViewModel viewModel) : base()
         {

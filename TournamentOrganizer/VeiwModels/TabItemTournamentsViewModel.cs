@@ -11,14 +11,14 @@ namespace TournamentOrganizer.UI.VeiwModels
 {
     public class TabItemTournamentsViewModel : BaseViewModel
     {
-        public readonly TournamentService _tournamentService;
+        public readonly ITournamentService _tournamentService;
         public ICommand DeleteTournament { get; set; }
         public ICommand SaveTournament { get; set; }
         public ICommand UpdateTournament { get; set; }
         public ICommand AddTournament { get; set; }
         public ICommand BackTournament { get; set; }
         public ICommand EditTournament { get; set; }
-
+        public ICommand InitializeTournaments { get; set; }
 
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
         public ObservableCollection<GameModel> Games { get; set; }
@@ -141,9 +141,8 @@ namespace TournamentOrganizer.UI.VeiwModels
         public TabItemTournamentsViewModel()
         {
             _tournamentService = new TournamentService();
-            Tournaments = new ObservableCollection<TournamentModel>(_tournamentService.GetAllTournaments());
-            Games = new ObservableCollection<GameModel>(_tournamentService.GetAllGames());
-            //GridLength = new GridLength(0, GridUnitType.Star);
+            //Tournaments = new ObservableCollection<TournamentModel>(_tournamentService.GetAllTournaments());
+            //Games = new ObservableCollection<GameModel>(_tournamentService.GetAllGames());
             VisibilityColumn = Visibility.Collapsed;
             DeleteTournament = new DeleteTournamentCommand(this, _tournamentService);
             SaveTournament = new SaveTournamentCommand(this, _tournamentService);

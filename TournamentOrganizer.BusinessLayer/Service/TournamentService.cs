@@ -6,7 +6,7 @@ using TournamentOrganizer.BusinessLayer.Models;
 
 namespace TournamentOrganizer.BusinessLayer.Service
 {
-    public class TournamentService
+    public class TournamentService : ITournamentService
     {
         private readonly TournamentRepository _tournamentRepository;
         private readonly GameRepository _gameRepository;
