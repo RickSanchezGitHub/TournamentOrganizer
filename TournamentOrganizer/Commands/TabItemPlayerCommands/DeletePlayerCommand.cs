@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Configuration;
+using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -13,13 +14,17 @@ namespace TournamentOrganizer.UI.Commands
     {
         private TabItemPlayerViewModel _viewModel;
 
-        public DeletePlayerCommand(TabItemPlayerViewModel viewModel) : base()
+        private readonly IPlayerService _playerService;
+
+        public DeletePlayerCommand(TabItemPlayerViewModel viewModel, IPlayerService playerService) : base()
         {
             _viewModel = viewModel;
+            _playerService = playerService;
         }
+
         public override void Execute(object parameter)
         {
-            _viewModel.PlayerService.DeleteById(_viewModel.SelectedDeletePlayer.Id);
+            _playerService.DeleteById(_viewModel.SelectedDeletePlayer.Id);
             _viewModel.Players.Remove(_viewModel.SelectedDeletePlayer);
             
         }

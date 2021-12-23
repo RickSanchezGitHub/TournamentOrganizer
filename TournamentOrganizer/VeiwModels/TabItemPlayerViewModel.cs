@@ -19,8 +19,8 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         public TabItemPlayerViewModel()
         {
-            PlayerService = new PlayerService();
-            Players = new ObservableCollection<PlayerModel>(PlayerService.GetAll());
+            _playerService = new PlayerService();
+            Players = new ObservableCollection<PlayerModel>(_playerService.GetAll());
             WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
             StateMainDataGrid = true;
@@ -28,33 +28,24 @@ namespace TournamentOrganizer.UI.VeiwModels
             VisibilityButtonEditSave = Visibility.Hidden;
             IsEnabledButtonAddSave = false;
             IsEnabledButtonEditSave = false;
+            DeletePlayer = new DeletePlayerCommand(this, _playerService);
+            AddSavePlayer = new AddSavePlayerCommand(this, _playerService);
+            GetInfoAboutPlayer = new GetInfoAboutPlayerCommand(this, _playerService);
+            EditSavePlayer = new EditSavePlayerCommand(this, _playerService);
+
+
         }
 
-        public PlayerService PlayerService;
+        private  IPlayerService _playerService;
 
-        private ObservableCollection<PlayerModel> _players;
+        
 
-        public ObservableCollection<PlayerModel> Players
-        {
-            get { return _players; }
-            set
-            {
-                _players = value;
-                OnPropertyChanged(nameof(Players));
-            }
-        }
+        public ObservableCollection<PlayerModel> Players {get; set;}
 
-        private ObservableCollection<TeamModel> _teams;
+        
 
-        public ObservableCollection<TeamModel> Teams
-        {
-            get { return _teams; }
-            set
-            {
-                _teams = value;
-                OnPropertyChanged(nameof(Teams));
-            }
-        }
+        public ObservableCollection<TeamModel> Teams { get; set; }
+       
 
         private GridLength? _widthGridAddPlayer;
 
@@ -80,6 +71,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
 
         private PlayerModel _selectedPlayer;
+
         public PlayerModel SelectedPlayer
         {
             get { return _selectedPlayer; }
@@ -91,6 +83,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
 
         private PlayerModel _selectedDeletePlayer;
+
         public PlayerModel SelectedDeletePlayer
         {
             get { return _selectedDeletePlayer; }
@@ -211,31 +204,13 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private ICommand _deletePlayer;
-        public ICommand DeletePlayer
-        {
-            get
-            {
-                if (_deletePlayer == null)
-                {
-                    _deletePlayer = new DeletePlayerCommand(this);
-                }
-                return _deletePlayer;
-            }
-        }
+        
+        public ICommand DeletePlayer { get; set; }
+     
 
-        private ICommand _addSavePlayer;
-        public ICommand AddSavePlayer
-        {
-            get
-            {
-                if (_addSavePlayer == null)
-                {
-                    _addSavePlayer = new AddSavePlayerCommand(this);
-                }
-                return _addSavePlayer;
-            }
-        }
+        
+        public ICommand AddSavePlayer { get; set; }
+      
 
         private ICommand _addClick;
         public ICommand AddClick
@@ -263,31 +238,13 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private ICommand _editSavePlayer;
-        public ICommand EditSavePlayer
-        {
-            get
-            {
-                if (_editSavePlayer == null)
-                {
-                    _editSavePlayer = new EditSavePlayerCommand(this);
-                }
-                return _editSavePlayer;
-            }
-        }
+        
+        public ICommand EditSavePlayer { get; set; }
+       
 
-        private ICommand _getInfoAboutPlayer;
-        public ICommand GetInfoAboutPlayer
-        {
-            get
-            {
-                if (_getInfoAboutPlayer == null)
-                {
-                    _getInfoAboutPlayer = new GetInfoAboutPlayerCommand(this);
-                }
-                return _getInfoAboutPlayer;
-            }
-        }
+        
+        public ICommand GetInfoAboutPlayer { get; set; }
+
 
         private ICommand _backFromInfo;
         public ICommand BackFromInfo

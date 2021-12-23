@@ -18,6 +18,7 @@ namespace TournamentOrganizer.UI.Commands
         {
             _viewModel = viewModel;
         }
+        
         public override void Execute(object parameter)
         {
             _viewModel.IsEnabledButtonEditSave = true;

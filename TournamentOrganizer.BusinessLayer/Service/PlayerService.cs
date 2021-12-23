@@ -10,7 +10,7 @@ using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.BusinessLayer.Service
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         private readonly PlayerRepository _playerRepository;
         private readonly TeamPlayerRepository _teamPlayerRepository;
@@ -49,8 +49,8 @@ namespace TournamentOrganizer.BusinessLayer.Service
             var player = CustomMapper.GetInstance().Map<Player>(playerModel);
             _playerRepository.Update(id, player);
         }
-        
-        public List<TeamModel> GetTeamsByPlayerId (int playerId)
+
+        public List<TeamModel> GetTeamsByPlayerId(int playerId)
         {
             var teams = _teamPlayerRepository.GetTeamsByPlayerId(playerId);
             return CustomMapper.GetInstance().Map<List<TeamModel>>(teams);

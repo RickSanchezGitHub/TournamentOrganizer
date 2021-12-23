@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -15,10 +16,14 @@ namespace TournamentOrganizer.UI.Commands
     {
         private TabItemPlayerViewModel _viewModel;
 
-        public AddSavePlayerCommand(TabItemPlayerViewModel viewModel) : base()
+        private readonly IPlayerService _playerService;
+
+        public AddSavePlayerCommand(TabItemPlayerViewModel viewModel, IPlayerService playerService) : base()
         {
             _viewModel = viewModel;
+            _playerService = playerService;
         }
+        
         public override void Execute(object parameter)
         {
             var playerModel = new PlayerModel
@@ -29,7 +34,7 @@ namespace TournamentOrganizer.UI.Commands
                 Email = _viewModel.TextBoxEmailText,
                 Birthday = _viewModel.DatePickerBirthdaySelectedDate
             };
-            int idNewPlayer = _viewModel.PlayerService.InsertPlayer(playerModel);
+            int idNewPlayer = _playerService.InsertPlayer(playerModel);
             playerModel.Id = idNewPlayer;
             _viewModel.Players.Add(playerModel);
 
