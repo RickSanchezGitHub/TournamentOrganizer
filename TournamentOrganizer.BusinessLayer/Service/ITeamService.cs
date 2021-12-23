@@ -9,5 +9,6 @@ namespace TournamentOrganizer.BusinessLayer.Service
         List<TeamModel> GetAll();
         TeamModel GetById(int id);
         int Insert(TeamModel team);
+        void Update(int id, TeamModel team);
     }
 }

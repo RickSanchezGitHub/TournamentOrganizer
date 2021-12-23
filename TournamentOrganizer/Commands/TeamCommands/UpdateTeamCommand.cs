@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,22 +10,22 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
 {
-    public class GetAllTeamCommand : CommandBase
+    public class UpdateTeamCommand : CommandBase
     {
-        private TabItemTeamViewModel _viewModel;
-
-        private ITeamService _teamService;
-
-        public GetAllTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService) : base()
+        private readonly TabItemTeamViewModel _viewModel;
+        private readonly ITeamService _teamService;
+        public UpdateTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
         {
             _viewModel = viewModel;
             _teamService = teamService;
         }
-
         public override void Execute(object parameter)
         {
-            var teams = _teamService.GetAll();
-            _viewModel.Teams = new ObservableCollection<TeamModel>(teams);
+            var teamModel = new TeamModel
+            {
+                Name = ""
+            };
+            _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
         }
     }
 }

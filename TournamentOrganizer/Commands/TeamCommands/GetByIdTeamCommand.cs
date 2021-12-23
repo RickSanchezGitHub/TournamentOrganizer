@@ -12,7 +12,9 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     class GetByIdTeamCommand : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
+
         private readonly ITeamService _teamService;
+
         public GetByIdTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
         {
             _viewModel = viewModel;

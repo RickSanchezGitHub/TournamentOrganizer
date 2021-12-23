@@ -19,7 +19,7 @@ namespace TournamentOrganizer.BusinessLayer.Service
         }
         public int Insert(TeamModel team)
         {
-            var entity = CustomMapper.GetInstance().Map<TeamModel, Team>(team);
+            var entity = CustomMapper.GetInstance().Map<Team>(team);
             var result = _teamRepository.Insert(entity);
             return result;
         }
@@ -30,14 +30,19 @@ namespace TournamentOrganizer.BusinessLayer.Service
         public List<TeamModel> GetAll()
         {
             var entity = _teamRepository.GetAll();
-            var result = CustomMapper.GetInstance().Map<List<Team>, List<TeamModel>>(entity);
+            var result = CustomMapper.GetInstance().Map<List<TeamModel>>(entity);
             return result;
         }
         public TeamModel GetById(int id)
         {
             var entity = _teamRepository.GetById(id);
-            var result = CustomMapper.GetInstance().Map<Team, TeamModel>(entity);
+            var result = CustomMapper.GetInstance().Map<TeamModel>(entity);
             return result;
+        }
+        public void Update(int id, TeamModel team)
+        {
+            var entity = CustomMapper.GetInstance().Map<Team>(team);
+            _teamRepository.Update(id, entity);
         }
     }
 }

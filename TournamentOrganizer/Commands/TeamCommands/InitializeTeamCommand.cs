@@ -11,13 +11,11 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
 {
-    public class GetAllTeamCommand : CommandBase
+    public class InitializeTeamCommand : CommandBase
     {
-        private TabItemTeamViewModel _viewModel;
-
-        private ITeamService _teamService;
-
-        public GetAllTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService) : base()
+        private readonly TabItemTeamViewModel _viewModel;
+        private readonly ITeamService _teamService;
+        public InitializeTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
         {
             _viewModel = viewModel;
             _teamService = teamService;
@@ -25,8 +23,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            var teams = _teamService.GetAll();
-            _viewModel.Teams = new ObservableCollection<TeamModel>(teams);
+            _viewModel.Teams = new ObservableCollection<TeamModel>(_teamService.GetAll());
         }
     }
 }

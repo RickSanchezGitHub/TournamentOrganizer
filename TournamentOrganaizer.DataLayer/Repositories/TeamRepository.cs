@@ -50,27 +50,13 @@ namespace TournamentOrganizer.DataLayer.Repositories
             const string procedureName = "Team_SelectAll";
             using IDbConnection sqlConnection = ProvideConnection();
 
-            var teamDictionary = new Dictionary<int, Team>();
-
-             var result = sqlConnection.Query<Team, Player, Team>(
+            var result = sqlConnection
+                .Query<Team>
+                (
                     procedureName,
-                    (team, player) =>
-                    {
-                        Team teamEntry;
-
-                        if (!teamDictionary.TryGetValue(team.Id, out teamEntry))
-                        {
-                            teamEntry = team;
-                            teamEntry.Players = new List<Player>();
-                            teamDictionary.Add(teamEntry.Id, teamEntry);
-                        }
-
-                        teamEntry.Players.Add(player);
-                        return teamEntry;
-                    },
-                    splitOn: "Id",
                     commandType: CommandType.StoredProcedure
-                 ).ToList();
+                )
+                .ToList();
             return result;
         }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TournamentOrganizer.BusinessLayer.Service;
+﻿using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -12,6 +7,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     public class DeleteTeamCommand : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
+
         private readonly ITeamService _teamService;
         public DeleteTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
         {
