@@ -3,7 +3,6 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
          xmlns:cmd="clr-namespace:TournamentOrganizer.UI.Command"
-         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"         
          xmlns:c="clr-namespace:TournamentOrganizer.BusinessLayer.Models;assembly=TournamentOrganizer.BusinessLayer" 
          Header="Команды">
 
@@ -11,11 +10,6 @@
         <m:TabItemTeamViewModel></m:TabItemTeamViewModel>
     </TabItem.DataContext>
     <Grid>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <i:InvokeCommandAction Command="{Binding InitializeTeamCommand}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="210"/>
             <ColumnDefinition Width="*"/>
