@@ -10,7 +10,7 @@ using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.BusinessLayer.Service
 {
-    public class TeamService
+    public class TeamService : ITeamService
     {
         private readonly TeamRepository _teamRepository;
         public TeamService()
@@ -30,7 +30,7 @@ namespace TournamentOrganizer.BusinessLayer.Service
         public List<TeamModel> GetAll()
         {
             var entity = _teamRepository.GetAll();
-            var result = CustomMapper.GetInstance().Map<List<Team>,List<TeamModel>> (entity);
+            var result = CustomMapper.GetInstance().Map<List<Team>, List<TeamModel>>(entity);
             return result;
         }
         public TeamModel GetById(int id)

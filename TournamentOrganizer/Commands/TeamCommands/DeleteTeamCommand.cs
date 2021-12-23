@@ -9,11 +9,11 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
 {
-    class GetByIdTeamCommand : CommandBase
+    public class DeleteTeamCommand : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
         private readonly ITeamService _teamService;
-        public GetByIdTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
+        public DeleteTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
         {
             _viewModel = viewModel;
             _teamService = teamService;
@@ -21,8 +21,8 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            var team = _teamService.GetById(_viewModel.SelectedTeam.Id);
-            _viewModel.Teams.Add(team);
+            _teamService.Delete(_viewModel.SelectedTeam.Id);
+            _viewModel.Teams.Remove(_viewModel.SelectedTeam);
         }
     }
 }

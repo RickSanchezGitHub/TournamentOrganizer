@@ -52,7 +52,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
 
             var teamDictionary = new Dictionary<int, Team>();
 
-            var result = sqlConnection.Query<Team, Player, Team>(
+             var result = sqlConnection.Query<Team, Player, Team>(
                     procedureName,
                     (team, player) =>
                     {

@@ -11,8 +11,8 @@
     </TabItem.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240"
-                              MinWidth="200"/>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*" 
                               MinWidth="200"/>
         </Grid.ColumnDefinitions>
@@ -25,51 +25,71 @@
         <Image x:Name="MainImage"
                            Grid.Column="0" 
                            Grid.Row="0" 
-                           Grid.ColumnSpan="2"
+                           Grid.ColumnSpan="3"
                            Grid.RowSpan="2"
                            Source="..\Images\carbon.jpg" 
                            Stretch="UniformToFill" 
                            Panel.ZIndex="0"/>
         
+        <Button Content="Добавить"
+                Grid.Column="0" 
+                Grid.Row="1"
+                Width="100" 
+                Height="20"/>
+
+        <Button Content="Редактировать"
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Width="100" 
+                Height="20"/>
+
+        <Button Content="Удалить"
+                Grid.Column="2" 
+                Grid.Row="1" 
+                Width="100" 
+                Height="20"/>
+
         <GroupBox Grid.Column="0"
                   Grid.Row="0"
                   Header="Команды" 
-                  Width="200"
-                  Margin="10"
+                  Width="180"
+                  Margin="10,5,5,0"
                   Foreground="White">
-            
-            <DockPanel Margin="5">
+
+            <DockPanel Margin="5" Width="180">
+
                 <ListBox ItemsSource="{Binding Teams}" 
                          SelectedItem="{Binding SelectedTeam}" 
                          SelectedIndex="0">
-                    
+
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" 
                                     Value="Stretch"/>
-                            
+
                         </Style>
                     </ListBox.ItemContainerStyle>
+
                     <ListBox.ItemTemplate>
                         <DataTemplate  DataType="c:TeamModel">
                             <DockPanel>
                                 <TextBlock DockPanel.Dock="Left"
                                            Text="{Binding Id}"
-                                           Width="30"/>
-                                <TextBlock Text="{Binding Name}" Width="100"/>
-                                
+                                           Width="20"/>
+                                <TextBlock Text="{Binding Name}" Width="120"/>
+
                             </DockPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+
                 </ListBox>
             </DockPanel>
         </GroupBox>
         
         <GroupBox Grid.Column="1" 
-                  Grid.Row="0"                
-                  MinWidth="200"
-                  MaxWidth="470"
-                  Margin="10"
+                  Grid.Row="0"   
+                  Grid.ColumnSpan="2"               
+                   Margin="5,5,10,0"
                   Foreground="White"
                   Header="{Binding SelectedTeam.Name,
                     StringFormat='Игроки команды {0}', 
@@ -77,11 +97,14 @@
                     TargetNullValue='Команда не выбрана'}">
             
             <DataGrid ItemsSource="{Binding SelectedTeam.Players}"
+                      Width="Auto"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       HorizontalGridLinesBrush="LightGray"
                       VerticalGridLinesBrush="LightGray"
-                      Margin="10">
+                      Background="LightGray"
+                      
+                      Margin="5">
                 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" 
@@ -111,14 +134,20 @@
                                         Width="Auto" 
                                         MaxWidth="120"
                                         MinWidth ="70"/>
-                    
+
                     <DataGridTextColumn Header="Дата рождения" 
                                         Binding="{Binding Birthday, StringFormat=dd.mm.yyyy}"
-                                        Width="*"
-                                        MinWidth="70"
-                                        MaxWidth="150"/>
-                    
-                </DataGrid.Columns>                
+                                        Width="100"/>
+
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
     </Grid>
