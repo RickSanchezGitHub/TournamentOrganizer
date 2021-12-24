@@ -13,11 +13,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 {
     public class TournamentRepository : BaseRepository
     {
-        public void TournamentInsert(Tournament tournament)
+        public int TournamentInsert(Tournament tournament)
         {
             const string procedureName = "Tournament_Insert";
             using IDbConnection connection = ProvideConnection();
-            connection.Execute(
+            return connection.Execute(
                 procedureName,
                 new
                 {
@@ -43,7 +43,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         }
 
-        public List<Tournament> TournamentSelectByAll()
+        public List<Tournament> TournamentSelectAll()
         {
             const string procedureName = "Tournament_SelectByAll";
             using IDbConnection connection = ProvideConnection();

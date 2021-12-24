@@ -36,7 +36,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             );
         }
 
-        public List<Game> GameSelectByAll()
+        public List<Game> GameSelectAll()
         {
             const string procedureName = "Game_SelectByAll";
             using IDbConnection connection = ProvideConnection();
