@@ -4,6 +4,7 @@
        xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"  
        Header="Турниры">
+
     <TabItem.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Verdana" />
@@ -45,7 +46,7 @@
             </ComboBox>
         </StackPanel>
 
-        <DataGrid x:Name="DataGridTournaments" HorizontalContentAlignment="Center"  ItemsSource="{Binding Tournaments}" SelectedItem="{Binding SelectedTournament}"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="DataGridTournaments" HorizontalContentAlignment="Center"  ItemsSource="{Binding Tournaments}" SelectedItem="{Binding SelectedTournament}" Visibility="{Binding VisibilityDataGridTournaments}"  Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Width="20*" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Дата начала" Width="20*" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yy\}}"/>
@@ -69,20 +70,23 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid Visibility="Collapsed" x:Name="DataGridParticipants" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid Visibility="{Binding VisibilityDataGridPlayers}" x:Name="DataGridParticipants" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Players}" SelectedItem ="{Binding SelectedPlayer}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Имя" Width="50*" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Имя" Width="50*" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Фамилия" Width="50*" Binding="{Binding LastName}" />
                 <DataGridTemplateColumn Width="50*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button>Удалить</Button>
+                            <Button Command="{Binding DataContext.DeletePlayer, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">Удалить</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Visibility="{Binding VisibilityColumn}" >
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
+           
+        <StackPanel Orientation="Vertical" Visibility="{Binding VisibilityColumn}" >
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelName" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Название</Label>
@@ -102,7 +106,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelParticipant" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Список участников</Label>
-                <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
+                <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" Command="{Binding GetPlayers}">Просмотреть</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <Label Name="LabelRounds" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Турнирная сетка</Label>
@@ -110,8 +114,16 @@
             </StackPanel>
         </StackPanel>
 
+        <StackPanel Orientation="Vertical" Visibility="{Binding VisibilityColumnParticipant}" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Игрок</Label>
+                <ComboBox  Width="auto" VerticalAlignment="Center"  ItemsSource="{Binding Participants}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedParticipant}"/>
+            </StackPanel>
+        </StackPanel>
+        </StackPanel>
         <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" >
-            <Button x:Name="ButtonAdd" Grid.Row="8" Grid.Column="1"   MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddTournament}" Content="Добавить"/>
+            <Button  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddTournament}" Content="Добавить"/>
+            <Button  MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding BackPlayers}" Visibility="{Binding VisibilityBackPlayersButton}" Content="Назад"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Visibility="{Binding VisibilityColumn}">
             <Button x:Name="ButtonSave" Visibility ="{Binding VisibilitySaveButton}" MinHeight="20" MinWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Сохранить" Command="{Binding SaveTournament}"/>

@@ -17,6 +17,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         }
         public override void Execute(object parameter)
         {
+            _viewModel.VisibilityColumn = Visibility.Collapsed;
             var tournament = new TournamentModel()
             {
                 Name = _viewModel.TextBoxName,
@@ -24,7 +25,6 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
                 CloseDate = _viewModel.DatePickerCloseDate,
                 Game = _viewModel.SelectedGame
             };
-            _viewModel.VisibilityColumn = Visibility.Collapsed;
             var insertedTournament = _tournamentService.InsertTournament(tournament);
             tournament.Id = insertedTournament;
             _viewModel.Tournaments.Add(tournament);

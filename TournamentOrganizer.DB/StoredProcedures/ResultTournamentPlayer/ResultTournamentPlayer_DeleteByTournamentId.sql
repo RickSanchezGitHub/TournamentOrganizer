@@ -1,9 +1,12 @@
 ﻿CREATE PROCEDURE ResultTournamentPlayer_DeleteByTournamentId
-	@TournamentId int
+	@TournamentId int,
+	@Id int
 AS
 BEGIN
 	DELETE [dbo].[ResultTournamentPlayer]
-	WHERE TournamentId = @TournamentId
+	WHERE TournamentId = @TournamentId AND
+	      Id = @Id
+
 END
 GO
 

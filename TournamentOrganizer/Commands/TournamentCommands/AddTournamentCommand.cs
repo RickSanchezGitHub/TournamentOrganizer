@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TournamentCommands
@@ -11,15 +12,15 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         {
             _viewModel = viewModel;
         }
+
         public override void Execute(object parameter)
         {
             _viewModel.VisibilityColumn = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;
             _viewModel.VisibilityUpdateButton = Visibility.Collapsed;
-            _viewModel.TextBoxName = "";
-            _viewModel.DatePickerStartDate = null;
-            _viewModel.DatePickerCloseDate = null;
-            _viewModel.SelectedGame = null;
+            _viewModel.TextBoxName = null;
+            _viewModel.DatePickerStartDate = DateTime.Today;
+            _viewModel.DatePickerCloseDate = DateTime.Today;
         }
     }
 }

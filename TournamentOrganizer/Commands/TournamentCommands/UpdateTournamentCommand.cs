@@ -30,7 +30,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
                 CloseDate = _viewModel.SelectedTournament.CloseDate,
                 Game = _viewModel.SelectedTournament.Game
             };
-            _tournamentService.InsertTournament(tournament);
+            _tournamentService.UpdateTournament(tournament);
 
         }
     }

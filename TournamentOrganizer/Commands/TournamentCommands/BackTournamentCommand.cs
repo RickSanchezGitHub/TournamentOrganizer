@@ -11,9 +11,9 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         {
             _viewModel = viewModel;
         }
+
         public override void Execute(object parameter)
-        {
-            
+        {   
             _viewModel.VisibilityColumn = Visibility.Collapsed;
         }
     }
