@@ -20,14 +20,14 @@ namespace TournamentOrganizer.DataLayer.Repositories
             var procedureName = "Team_Insert";
             using IDbConnection sqlConnection = ProvideConnection();
 
-            int id = sqlConnection.ExecuteScalar<int>(
+            int id = sqlConnection.Query<int>(
                     procedureName,
                     new
                     {
                         Name = team.Name
                     },
                     commandType: CommandType.StoredProcedure
-                );
+                ).FirstOrDefault();
 
             return id;
         }

@@ -4,32 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TournamentOrganizer.BusinessLayer.Models;
-using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
 {
-    public class UpdateTeamCommand : CommandBase
+    public class AddTeamCommand : CommandBase
     {
-        private readonly TabItemTeamViewModel _viewModel;
-        private readonly ITeamService _teamService;
-        public UpdateTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService)
+        private TabItemTeamViewModel _viewModel;
+        public AddTeamCommand(TabItemTeamViewModel viewModel)
         {
             _viewModel = viewModel;
-            _teamService = teamService;
         }
         public override void Execute(object parameter)
         {
             _viewModel.VisibilityColumn = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;
             _viewModel.TextBoxName = "";
-            var teamModel = new TeamModel
-            {
-                Name = _viewModel.TextBoxName
-            };
-            _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
         }
     }
 }

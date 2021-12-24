@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
@@ -14,6 +15,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         private readonly ITeamService _teamService;
 
         private ObservableCollection<TeamModel> _teams;
+
         public ObservableCollection<TeamModel> Teams {
             get
             {
@@ -25,6 +27,11 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged();
             } 
         }
+        public ObservableCollection<PlayerModel> ListPlayers { get; set; }
+
+        public ICommand AddTeamCommand { get; set; }
+
+        public ICommand BackTeamCommand { get; set; }
 
         public ICommand DeleteTeamCommand { get; set; }
 
@@ -41,6 +48,10 @@ namespace TournamentOrganizer.UI.VeiwModels
         public TabItemTeamViewModel()
         {
             _teamService = new TeamService();
+
+            AddTeamCommand = new AddTeamCommand(this);
+            BackTeamCommand = new BackTeamCommand(this);
+
             DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
             GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);
             GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);
@@ -57,6 +68,53 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _selectedTeam = value;
                 OnPropertyChanged(nameof(SelectedTeam));
+            }
+        }
+
+        private PlayerModel _selectedPlayer;
+        public PlayerModel SelectedPlayer
+        {
+            get => _selectedPlayer;
+            set
+            {
+                _selectedPlayer = value;
+                OnPropertyChanged(nameof(SelectedPlayer));
+            }
+        }
+        private Visibility _visibilityColumn;
+
+        public Visibility VisibilityColumn 
+        {
+            get => _visibilityColumn;
+            set
+            {
+                _visibilityColumn = value;
+                OnPropertyChanged(nameof(VisibilityColumn));
+            }
+        }
+        private Visibility _visibilitySaveButton;
+
+        public Visibility VisibilitySaveButton
+        {
+            get => _visibilitySaveButton;
+            set
+            {
+                _visibilitySaveButton = value;
+                OnPropertyChanged(nameof(VisibilitySaveButton));
+            }
+        }
+
+        private Visibility _visibilityBackButton;
+
+
+        private string _textBoxName;
+        public string TextBoxName
+        {
+            get => _textBoxName;
+            set
+            {
+                _textBoxName = value;
+                OnPropertyChanged(nameof(TextBoxName));
             }
         }
 

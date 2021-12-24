@@ -14,44 +14,31 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="210"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*" 
-                              MinWidth="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         
         <Image x:Name="MainImage"
                            Grid.Column="0" 
                            Grid.Row="0" 
-                           Grid.ColumnSpan="3"
-                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="5"
+                           Grid.RowSpan="3"
                            Source="..\Images\carbon.jpg" 
                            Stretch="UniformToFill" 
                            Panel.ZIndex="0"/>
         
-        <Button Content="Добавить"
-                Grid.Column="0" 
-                Grid.Row="1"
-                Width="100" 
-                Height="20"/>
 
-        <Button Content="Редактировать"
-                Grid.Column="1" 
-                Grid.Row="1" 
-                Width="100" 
-                Height="20"/>
-
-        <Button Content="Удалить"
-                Grid.Column="2" 
-                Grid.Row="1" 
-                Width="100" 
-                Height="20"/>
 
         <GroupBox Grid.Column="0"
                   Grid.Row="0"
+                  Grid.RowSpan="2"
                   Header="Команды" 
                   Width="180"
                   Margin="10,5,5,0"
@@ -88,13 +75,14 @@
         
         <GroupBox Grid.Column="1" 
                   Grid.Row="0"   
-                  Grid.ColumnSpan="2"               
-                   Margin="5,5,10,0"
+                  Grid.ColumnSpan="2" 
+                  Grid.RowSpan="2"
+                  Margin="5,5,10,0"
                   Foreground="White"
                   Header="{Binding SelectedTeam.Name,
-                    StringFormat='Игроки команды {0}', 
-                    FallbackValue='Игроки', 
-                    TargetNullValue='Команда не выбрана'}">
+                  StringFormat='Игроки команды {0}', 
+                  FallbackValue='Игроки', 
+                  TargetNullValue='Команда не выбрана'}">
             
             <DataGrid ItemsSource="{Binding SelectedTeam.Players}"
                       Width="Auto"
@@ -102,8 +90,7 @@
                       IsReadOnly="True"
                       HorizontalGridLinesBrush="LightGray"
                       VerticalGridLinesBrush="LightGray"
-                      Background="LightGray"
-                      
+                      Background="LightGray"                      
                       Margin="5">
                 
                 <DataGrid.Columns>
@@ -152,5 +139,102 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" 
+                    Grid.Column="3"
+                    Visibility="{Binding VisibilityColumn}"
+                    Margin="0,20,0,0">
+            
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Stretch">
+                
+                <Label Name="LabelName"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15"                        
+                       VerticalAlignment="Center">Название
+                </Label>
+                
+                <TextBox x:Name="TextBoxName"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         MinWidth="100"
+                         Text ="{Binding TextBoxName}">                    
+                </TextBox>
+                
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Stretch">
+                
+                <Label Name="LabelPlayer"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15"
+                       VerticalAlignment="Center">Игроки
+                </Label>
+                
+                <ComboBox Width="Auto"
+                          VerticalAlignment="Center" 
+                          ItemsSource="{Binding ListPlayers}"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding SelectedPlayer}"/>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal">
+            <Button x:Name="ButtonAdd"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Height="20"
+                    Width="80"
+                    Margin="10"                    
+                    Content="Добавить"
+                    Command="{Binding AddTeamCommand}"/>
+            
+            <Button Content="Редактировать"
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Width="90" 
+                Height="20"
+                Margin="10"              
+                Command="{Binding UpdateTeamCommand}"/>
+
+            <Button Content="Удалить"
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Width="80" 
+                Height="20"
+                Margin="10"
+                Command="{Binding DeleteTeamCommand}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2"
+                    Grid.Column="3"
+                    Orientation="Horizontal"
+                    Visibility="{Binding VisibilityColumn}">
+
+            <Button Visibility="{Binding VisibilitySaveButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Сохранить"
+                    Command="{Binding InsertTeamCommand}"/>
+            
+            <Button Visibility="{Binding VisibilityBackButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Назад"
+                    Command="{Binding BackTeamCommand}"/>
+
+        </StackPanel>
+        
     </Grid>
 </TabItem>

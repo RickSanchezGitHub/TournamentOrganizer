@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
@@ -24,6 +25,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         public override void Execute(object parameter)
         {
             _viewModel.Teams = new ObservableCollection<TeamModel>(_teamService.GetAll());
+            _viewModel.VisibilityColumn = Visibility.Collapsed;
         }
     }
 }
