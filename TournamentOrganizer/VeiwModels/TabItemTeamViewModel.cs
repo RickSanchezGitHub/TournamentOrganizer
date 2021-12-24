@@ -13,7 +13,18 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         private readonly ITeamService _teamService;
 
-        public ObservableCollection<TeamModel> Teams { get; set; }
+        private ObservableCollection<TeamModel> _teams;
+        public ObservableCollection<TeamModel> Teams {
+            get
+            {
+                return _teams ?? new ObservableCollection<TeamModel>();
+            }
+            set
+            {
+                _teams = value;
+                OnPropertyChanged();
+            } 
+        }
 
         public ICommand DeleteTeamCommand { get; set; }
 

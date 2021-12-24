@@ -4,12 +4,13 @@
          xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
          xmlns:cmd="clr-namespace:TournamentOrganizer.UI.Command"
          xmlns:c="clr-namespace:TournamentOrganizer.BusinessLayer.Models;assembly=TournamentOrganizer.BusinessLayer" 
+         xmlns:i="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
          Header="Команды">
-
+        
     <TabItem.DataContext>
         <m:TabItemTeamViewModel></m:TabItemTeamViewModel>
     </TabItem.DataContext>
-    <Grid>
+    <Grid i:CommandBehavior.Event="Loaded" i:CommandBehavior.Command="{Binding InitializeTeamCommand}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="210"/>
             <ColumnDefinition Width="*"/>
