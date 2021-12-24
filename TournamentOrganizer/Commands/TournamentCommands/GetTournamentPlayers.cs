@@ -19,15 +19,17 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 
         public override void Execute(object parameter)
         {
-            _viewModel.Players.Clear();
+            _viewModel.TournamentParticipants.Clear();
             var playerList =  _tournamentService.GetPlayersInTournament(_viewModel.SelectedTournament.Id);
             foreach (var item in playerList)
             {
-                _viewModel.Players.Add(item);
+                _viewModel.TournamentParticipants.Add(item);
             }
             _viewModel.VisibilityDataGridPlayers = Visibility.Visible;
             _viewModel.VisibilityDataGridTournaments = Visibility.Collapsed;
             _viewModel.VisibilityBackPlayersButton = Visibility.Visible;
+            _viewModel.VisibilityColumnParticipant = Visibility.Visible;
+            _viewModel.VisibilityColumn = Visibility.Collapsed;
         }
     }
 }

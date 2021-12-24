@@ -1,4 +1,5 @@
-﻿using TournamentOrganizer.BusinessLayer.Service;
+﻿using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TournamentCommands
@@ -16,8 +17,9 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 
         public override void Execute(object parameter)
         {
-            _tournamentService.DeletePlayerFromTournament(_viewModel.SelectedPlayer.Id, _viewModel.SelectedTournament.Id);
-            _viewModel.Players.Remove(_viewModel.SelectedPlayer);
+            PlayerModel player = _viewModel.SelectedTournamentParticipant as PlayerModel;
+            _tournamentService.DeletePlayerFromTournament(player.Id, _viewModel.SelectedTournament.Id);
+            _viewModel.TournamentParticipants.Remove(_viewModel.SelectedTournamentParticipant);
         }
     }
 }

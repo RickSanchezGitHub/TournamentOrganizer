@@ -2,8 +2,9 @@
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
-       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"  
-       Header="Турниры">
+       xmlns:i="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
+       Header="Турниры"
+       i:CommandBehavior.Event="Loaded" i:CommandBehavior.Command="{Binding InitializeTournaments}">
 
     <TabItem.Resources>
         <Style TargetType="Label">
@@ -16,12 +17,7 @@
     <TabItem.DataContext>
         <local:TabItemTournamentsViewModel/>
     </TabItem.DataContext>
-    <Grid>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <i:InvokeCommandAction Command="{Binding InitializeTournaments}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="60*"/>
@@ -70,7 +66,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <DataGrid Visibility="{Binding VisibilityDataGridPlayers}" x:Name="DataGridParticipants" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Players}" SelectedItem ="{Binding SelectedPlayer}">
+        <DataGrid Visibility="{Binding VisibilityDataGridPlayers}" x:Name="DataGridParticipants" HorizontalContentAlignment="Center"   Background="#606060" Foreground="Black" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TournamentParticipants}" SelectedItem ="{Binding SelectedTournamentParticipant}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Width="50*" Binding="{Binding FirstName}" />
                 <DataGridTextColumn Header="Фамилия" Width="50*" Binding="{Binding LastName}" />
@@ -117,7 +113,7 @@
         <StackPanel Orientation="Vertical" Visibility="{Binding VisibilityColumnParticipant}" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Игрок</Label>
-                <ComboBox  Width="auto" VerticalAlignment="Center"  ItemsSource="{Binding Participants}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedParticipant}"/>
+                    <ComboBox  Width="auto" VerticalAlignment="Center"  ItemsSource="{Binding Participants}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedParticipant}"/>
             </StackPanel>
         </StackPanel>
         </StackPanel>

@@ -18,8 +18,19 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 
         public override void Execute(object parameter)
         {
-            _viewModel.Games = new ObservableCollection<GameModel>(_tournamentService.GetAllGames());
-            _viewModel.Tournaments = new ObservableCollection<TournamentModel>(_tournamentService.GetAllTournaments());
+            var games = _tournamentService.GetAllGames();
+            var tournaments = _tournamentService.GetAllTournaments();
+
+            foreach (var item in games)
+            {
+                _viewModel.Games.Add(item);
+            }
+
+            foreach (var item in tournaments)
+            {
+                _viewModel.Tournaments.Add(item);
+            }
+
         }
     }
 }

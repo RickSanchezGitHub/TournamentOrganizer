@@ -25,7 +25,7 @@ namespace TournamentOrganizer.UI.VeiwModels
 
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
         public ObservableCollection<GameModel> Games { get; set; }
-        public ObservableCollection<PlayerModel> Players { get; set; }
+        public ObservableCollection<IParticipant> TournamentParticipants { get; set; }
 
         private TournamentModel _selectedTournament;
         public TournamentModel SelectedTournament
@@ -38,14 +38,14 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private PlayerModel _selectedPlayer;
-        public PlayerModel SelectedPlayer
+        private IParticipant _selectedTournamentParticipant;
+        public IParticipant SelectedTournamentParticipant
         {
-            get { return _selectedPlayer; }
+            get { return _selectedTournamentParticipant; }
             set
             {
-                _selectedPlayer = value;
-                OnPropertyChanged(nameof(SelectedPlayer));
+                _selectedTournamentParticipant = value;
+                OnPropertyChanged(nameof(_selectedTournamentParticipant));
             }
         }
 
@@ -184,6 +184,21 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private Visibility _visibilityColumnParticipant;
+        public Visibility VisibilityColumnParticipant
+        {
+            get
+            {
+                return _visibilityColumnParticipant;
+            }
+            set
+            {
+                _visibilityColumnParticipant = value;
+
+                OnPropertyChanged(nameof(VisibilityColumnParticipant));
+            }
+        }
+
         private GridLength _gridLength;
         public GridLength GridLength
         {
@@ -201,9 +216,9 @@ namespace TournamentOrganizer.UI.VeiwModels
         public TabItemTournamentsViewModel()
         {
             _tournamentService = new TournamentService();
-            Tournaments = new ObservableCollection<TournamentModel>(_tournamentService.GetAllTournaments());
-            Games = new ObservableCollection<GameModel>(_tournamentService.GetAllGames());
-            Players = new ObservableCollection<PlayerModel>();
+            Tournaments = new ObservableCollection<TournamentModel>();
+            Games = new ObservableCollection<GameModel>();
+            TournamentParticipants = new ObservableCollection<IParticipant>();
             VisibilityColumn = Visibility.Collapsed;
             VisibilityDataGridPlayers = Visibility.Collapsed;
             VisibilityBackPlayersButton = Visibility.Collapsed;

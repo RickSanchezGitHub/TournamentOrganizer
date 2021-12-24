@@ -17,6 +17,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
             _viewModel.VisibilityDataGridPlayers = Visibility.Collapsed;
             _viewModel.VisibilityDataGridTournaments = Visibility.Visible;
             _viewModel.VisibilityBackPlayersButton = Visibility.Collapsed;
+            _viewModel.VisibilityColumnParticipant = Visibility.Collapsed;
         }
     }
 }
