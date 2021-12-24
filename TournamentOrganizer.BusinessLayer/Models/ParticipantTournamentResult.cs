@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class ParticipantTournamentResult: INotifyPropertyChanged, 
+    public class ParticipantTournamentResult: INotifyPropertyChanged
     {
         public IParticipant Participant { get; set; }
 

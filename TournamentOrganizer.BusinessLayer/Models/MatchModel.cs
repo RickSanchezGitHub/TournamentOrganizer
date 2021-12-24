@@ -9,20 +9,22 @@ namespace TournamentOrganizer.BusinessLayer.Models
     public class MatchModel
     {
         public int MatchNumber { get; set; }
-        public List<ParticipantTournamentResult> Participants { get; set; }
+        
+        public List<IParticipant> Participants { get; set; }
+
         private bool _matchResolved;
 
-        public void ResolveMatch()
+        private int _numberParticipantsInMatch;
+
+        public void MatchResolve()
         {
-            foreach (var item in Participants)
-            {
-                if (item.Score == null)
-                {
-                    _matchResolved = false;
-                    return;
-                }
-            }
-            _matchResolved = true;
+
         }
+
+        public bool GetMatchResolved()
+        {
+            return _matchResolved;
+        }
+        
     }
 }

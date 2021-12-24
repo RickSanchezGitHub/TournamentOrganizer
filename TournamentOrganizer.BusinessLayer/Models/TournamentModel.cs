@@ -10,6 +10,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
 {
     public class TournamentModel : INotifyPropertyChanged
     {
+
         private int _id;
         public int Id
         {
@@ -55,6 +56,12 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private GameModel _game;
+
+        public TournamentModel(int numberParticipantsInMatch = 2)
+        {
+            NumberParticipantsInMatch = numberParticipantsInMatch;
+        }
+
         public GameModel Game
         {
             get { return _game; }
@@ -72,17 +79,22 @@ namespace TournamentOrganizer.BusinessLayer.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+        public List<ParticipantTournamentResult> ParticipantsResults { get; set; }
+
         public List<IParticipant> Participants { get; set; }
         public List<RoundModel> Rounds { get; private set; }
         public int NumberParticipantsInMatch { get; private set; }//2
 
+        public int NumberRounds { get; set; }
         public void GetNumberRounds()
         {
-            var numberRounds = Math.Log(Participants.Count, NumberParticipantsInMatch);
-            for (int i = 0; i < numberRounds; i++)
-            {
-                var round = new RoundModel(Participants, NumberParticipantsInMatch);
-            }
+            NumberRounds = (int)Math.Log(Participants.Count, NumberParticipantsInMatch);
+        }
+
+        public void CreateRound()
+        {
+            RoundModel round = new RoundModel(Participants, NumberParticipantsInMatch);
+            Rounds.Add(round);
         }
     }
 }

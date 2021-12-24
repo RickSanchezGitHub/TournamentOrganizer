@@ -20,7 +20,7 @@
         <ComboBox HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Width="100" Height="23"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0">
-            <Label Content="Участники"  FontSize="14" FontWeight="Bold" Margin="0,0,0,1"/>
+            <Label Content="Участники?"  FontSize="14" FontWeight="Bold" Margin="0,0,0,1"/>
             <ComboBox  Width="120" Height="23"/>
         </StackPanel>
         <TreeView Grid.Row="1" Grid.Column="0" Margin="10">
@@ -51,6 +51,20 @@
                         </StackPanel>
                     </StackPanel>
                 </TreeViewItem>
+            </TreeViewItem>
+            <TreeViewItem Header="Round 3">
+                <DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TreeViewItem>
         </TreeView>
 
