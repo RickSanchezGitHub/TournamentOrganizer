@@ -12,8 +12,4 @@
     <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Service\PlayerService\" />
-  </ItemGroup>
-
 </Project>
