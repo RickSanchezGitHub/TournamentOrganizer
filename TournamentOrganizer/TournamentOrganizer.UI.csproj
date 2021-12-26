@@ -27,8 +27,4 @@
     </Resource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\TabItemPlayerCommands\" />
-  </ItemGroup>
-
 </Project>

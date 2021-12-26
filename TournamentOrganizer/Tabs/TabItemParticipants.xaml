@@ -177,7 +177,7 @@
                 
                 <ComboBox Width="Auto"
                           VerticalAlignment="Center" 
-                          ItemsSource="{Binding ListPlayers}"
+                          ItemsSource="{Binding GetAllPlayerCommand}"
                           DisplayMemberPath="Name"
                           SelectedValue="{Binding SelectedPlayer}"/>
             </StackPanel>

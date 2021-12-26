@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -14,8 +15,8 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     {
         private readonly TabItemTeamViewModel _viewModel;
 
-        private readonly ITeamPlayerService _teamPlayerService;
-        public DeletePlayerForTeamCommand(TabItemTeamViewModel viewModel, ITeamPlayerService teamPlayerService)
+        private readonly ITeamPLayerService _teamPlayerService;
+        public DeletePlayerForTeamCommand(TabItemTeamViewModel viewModel, ITeamPLayerService teamPlayerService)
         {
             _viewModel = viewModel;
             _teamPlayerService = teamPlayerService;

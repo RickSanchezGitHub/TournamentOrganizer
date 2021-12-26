@@ -10,7 +10,7 @@ using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.BusinessLayer.Service.PlayerService
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         private readonly PlayerRepository _playerRepository;
         private readonly TeamPlayerRepository _teamPlayerRepository;
@@ -32,19 +32,19 @@ namespace TournamentOrganizer.BusinessLayer.Service.PlayerService
             return CustomMapper.GetInstance().Map<PlayerModel>(players);
         }
 
-        public void DeleteById(int id)
+        public void Delete(int id)
         {
             _playerRepository.Delete(id);
         }
 
-        public int InsertPlayer(PlayerModel playerModel)
+        public int Insert(PlayerModel playerModel)
         {
             var player = CustomMapper.GetInstance().Map<Player>(playerModel);
             int id = _playerRepository.Insert(player);
             return id;
         }
 
-        public void PlayerUpdate(int id, PlayerModel playerModel)
+        public void Update(int id, PlayerModel playerModel)
         {
             var player = CustomMapper.GetInstance().Map<Player>(playerModel);
             _playerRepository.Update(id, player);

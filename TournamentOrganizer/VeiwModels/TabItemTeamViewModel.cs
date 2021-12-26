@@ -5,7 +5,10 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using TournamentOrganizer.BusinessLayer.Models;
-using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.BusinessLayer.Service.PlayerService;
+using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
+using TournamentOrganizer.BusinessLayer.Service.TeamService;
+using TournamentOrganizer.UI.Commands.TabItemPlayerCommands;
 using TournamentOrganizer.UI.Commands.TeamCommands;
 
 namespace TournamentOrganizer.UI.VeiwModels
@@ -14,7 +17,8 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         private readonly ITeamService _teamService;
 
-        private readonly ITeamPlayerService _teamPlayerService;
+        private readonly ITeamPLayerService _teamPlayerService;
+        private readonly IPlayerService _playerService;
 
         public ICommand AddTeamCommand { get; set; }
         public ICommand BackTeamCommand { get; set; }
@@ -26,6 +30,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand InitializeTeamCommand { get; set; }
         public ICommand AddPlayerForTeamCommand { get; set; }
         public ICommand DeletePlayerForTeamCommand { get; set; }
+        public ICommand GetAllPlayerCommand { get; set; }
 
         public TabItemTeamViewModel()
         {
@@ -40,6 +45,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddPlayerForTeamCommand = new AddPlayerForTeamCommand(this, _teamPlayerService);
 
             DeletePlayerForTeamCommand = new DeletePlayerForTeamCommand(this, _teamPlayerService);
+            GetAllPlayerCommand = new GetAllPlayerCommand(this, _playerService);
 
             DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
             
@@ -67,6 +73,20 @@ namespace TournamentOrganizer.UI.VeiwModels
             set
             {
                 _teams = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<PlayerModel> _players;
+
+        public ObservableCollection<PlayerModel> Players
+        {
+            get
+            {
+                return _players ?? new ObservableCollection<PlayerModel>();
+            }
+            set
+            {
+                _players = value;
                 OnPropertyChanged();
             }
         }
