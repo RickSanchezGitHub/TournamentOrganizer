@@ -16,20 +16,6 @@ namespace TournamentOrganizer.UI.VeiwModels
 
         private readonly ITeamPlayerService _teamPlayerService;
 
-        private ObservableCollection<TeamModel> _teams;
-
-        public ObservableCollection<TeamModel> Teams {
-            get
-            {
-                return _teams ?? new ObservableCollection<TeamModel>();
-            }
-            set
-            {
-                _teams = value;
-                OnPropertyChanged();
-            } 
-        }
-
         public ICommand AddTeamCommand { get; set; }
         public ICommand BackTeamCommand { get; set; }
         public ICommand DeleteTeamCommand { get; set; }
@@ -68,6 +54,21 @@ namespace TournamentOrganizer.UI.VeiwModels
             InitializeTeamCommand = new InitializeTeamCommand(this, _teamService);
             
             VisibilityColumn = Visibility.Collapsed;
+        }
+
+        private ObservableCollection<TeamModel> _teams;
+
+        public ObservableCollection<TeamModel> Teams
+        {
+            get
+            {
+                return _teams ?? new ObservableCollection<TeamModel>();
+            }
+            set
+            {
+                _teams = value;
+                OnPropertyChanged();
+            }
         }
 
         private TeamModel _selectedTeam;
