@@ -14,6 +14,8 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         private readonly ITeamService _teamService;
 
+        private readonly ITeamPlayerService _teamPlayerService;
+
         private ObservableCollection<TeamModel> _teams;
 
         public ObservableCollection<TeamModel> Teams {
@@ -27,38 +29,45 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged();
             } 
         }
-        public ObservableCollection<PlayerModel> ListPlayers { get; set; }
 
         public ICommand AddTeamCommand { get; set; }
-
         public ICommand BackTeamCommand { get; set; }
-
         public ICommand DeleteTeamCommand { get; set; }
-
         public ICommand GetAllTeamCommand { get; set; }
-
         public ICommand GetByIdTeamCommand { get; set; }
-
         public ICommand InsertTeamCommand { get; set; }
-
         public ICommand UpdateTeamCommand { get; set; }
-
         public ICommand InitializeTeamCommand { get; set; }
+        public ICommand AddPlayerForTeamCommand { get; set; }
+        public ICommand DeletePlayerForTeamCommand { get; set; }
 
         public TabItemTeamViewModel()
         {
             _teamService = new TeamService();
 
+            _teamPlayerService = new TeamPlayerService();
+            
             AddTeamCommand = new AddTeamCommand(this);
+            
             BackTeamCommand = new BackTeamCommand(this);
-            DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
-            GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);
-            GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);
-            InsertTeamCommand = new InsertTeamCommand(this, _teamService);
-            UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
-            InitializeTeamCommand = new InitializeTeamCommand(this, _teamService);
-            VisibilityColumn = Visibility.Collapsed;
+            
+            AddPlayerForTeamCommand = new AddPlayerForTeamCommand(this, _teamPlayerService);
 
+            DeletePlayerForTeamCommand = new DeletePlayerForTeamCommand(this, _teamPlayerService);
+
+            DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
+            
+            GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);
+            
+            GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);
+            
+            InsertTeamCommand = new InsertTeamCommand(this, _teamService);
+            
+            UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
+            
+            InitializeTeamCommand = new InitializeTeamCommand(this, _teamService);
+            
+            VisibilityColumn = Visibility.Collapsed;
         }
 
         private TeamModel _selectedTeam;
@@ -117,8 +126,6 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(TextBoxName));
             }
         }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
