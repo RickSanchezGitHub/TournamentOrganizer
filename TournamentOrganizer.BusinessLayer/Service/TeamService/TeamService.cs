@@ -8,7 +8,7 @@ using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.DataLayer.Entities;
 using TournamentOrganizer.DataLayer.Repositories;
 
-namespace TournamentOrganizer.BusinessLayer.Service
+namespace TournamentOrganizer.BusinessLayer.Service.TeamService
 {
     public class TeamService : ITeamService
     {
