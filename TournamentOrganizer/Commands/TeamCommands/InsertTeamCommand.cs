@@ -30,7 +30,6 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             int idNewTeam = _teamService.Insert(teamModel);
             teamModel.Id = idNewTeam;
             _viewModel.Teams.Add(teamModel);
-
         }
     }
 }

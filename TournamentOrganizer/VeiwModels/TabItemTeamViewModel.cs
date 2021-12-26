@@ -51,13 +51,14 @@ namespace TournamentOrganizer.UI.VeiwModels
 
             AddTeamCommand = new AddTeamCommand(this);
             BackTeamCommand = new BackTeamCommand(this);
-
             DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
             GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);
             GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);
             InsertTeamCommand = new InsertTeamCommand(this, _teamService);
             UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
             InitializeTeamCommand = new InitializeTeamCommand(this, _teamService);
+            VisibilityColumn = Visibility.Collapsed;
+
         }
 
         private TeamModel _selectedTeam;
@@ -81,6 +82,7 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(SelectedPlayer));
             }
         }
+
         private Visibility _visibilityColumn;
 
         public Visibility VisibilityColumn 
@@ -92,6 +94,7 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(VisibilityColumn));
             }
         }
+
         private Visibility _visibilitySaveButton;
 
         public Visibility VisibilitySaveButton
@@ -103,9 +106,6 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(VisibilitySaveButton));
             }
         }
-
-        private Visibility _visibilityBackButton;
-
 
         private string _textBoxName;
         public string TextBoxName

@@ -25,7 +25,6 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         public override void Execute(object parameter)
         {
             _viewModel.Teams = new ObservableCollection<TeamModel>(_teamService.GetAll());
-            _viewModel.VisibilityColumn = Visibility.Collapsed;
         }
     }
 }
