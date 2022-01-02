@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Configuration;
-using TournamentOrganizer.UI.VeiwModels;
+using TournamentOrganizer.UI.ViewModels;
 
 namespace TournamentOrganizer.UI.Commands
 {
     public class EditGameCommand : CommandBase
     {
         private TabItemGameViewModel _viewModel;
-        // private GameService _gameService;
+         private IGameService _gameService;
 
-        public EditGameCommand(TabItemGameViewModel viewModel) : base()
+        public EditGameCommand(TabItemGameViewModel viewModel, IGameService gameService) : base()
         {
             _viewModel = viewModel;
-            // _gameService = _viewModel._gameService;
+            _gameService = gameService;
         }
         public override void Execute(object parameter)
         {

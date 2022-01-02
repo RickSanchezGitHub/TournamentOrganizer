@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Configuration;
-using TournamentOrganizer.UI.VeiwModels;
+using TournamentOrganizer.UI.ViewModels;
 
 namespace TournamentOrganizer.UI.Commands
 {
     public class CancelGameCommand : CommandBase
     {
         private TabItemGameViewModel _viewModel;
-        // private GameService _gameService;
 
         public CancelGameCommand(TabItemGameViewModel viewModel) : base()
         {
             _viewModel = viewModel;
-            // _gameService = _viewModel._gameService;
         }
         public override void Execute(object parameter)
         {

@@ -8,7 +8,7 @@ using TournamentOrganizer.BusinessLayer.Models;
 
 namespace TournamentOrganizer.BusinessLayer.Configuration
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private readonly GameRepository _gameRepository;
         public GameService()
@@ -29,7 +29,7 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
 
         public int InsertGame(string nameGame)
         {
-           return _gameRepository.GameInsert(nameGame);
+            return _gameRepository.GameInsert(nameGame);
         }
 
         public void UpdateGameName(string newNameGame, int id)

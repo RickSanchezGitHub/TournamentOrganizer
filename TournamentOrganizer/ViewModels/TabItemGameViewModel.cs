@@ -13,21 +13,27 @@ using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.UI.Commands;
 
-namespace TournamentOrganizer.UI.VeiwModels
+namespace TournamentOrganizer.UI.ViewModels
 {
     public class TabItemGameViewModel : BaseViewModel
     {
-        public GameService GameService;
+        private GameService _gameService;
         public TabItemGameViewModel()
         {
-            GameService = new GameService();
-            Games = new ObservableCollection<GameModel>(GameService.GetAllGames());
+            _gameService = new GameService();
+            Games = new ObservableCollection<GameModel>(_gameService.GetAllGames());
             StateDataGrid = true;
             IsEnabledButtonAdd = true;
             TextBoxAddGameNameText = string.Empty;
             SelectedGame = null;
             IsEnabledButtonCancel = false;
             VisibilityButtonSave = Visibility.Hidden;
+            DeleteGameCommand = new DeleteGameCommand(this, _gameService);
+            AddGameCommand = new AddGameCommand(this, _gameService);
+            CancelGameCommand = new CancelGameCommand(this);
+            EditGameCommand = new EditGameCommand(this, _gameService);
+            SaveGameCommand = new SaveGameCommand(this, _gameService);
+
         }
         private ObservableCollection<GameModel> _games;
         public ObservableCollection<GameModel> Games
@@ -174,66 +180,15 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(VisibilityButtonAdd));
             }
         }
-        private ICommand _deleteGameCommand;
-        public ICommand DeleteGameCommand
-        {
-            get
-            {
-                if (_deleteGameCommand == null)
-                {
-                    _deleteGameCommand = new DeleteGameCommand(this);
-                }
-                return _deleteGameCommand;
-            }
-        }
-        private ICommand _addGameCommand;
-        public ICommand AddGameCommand
-        {
-            get
-            {
-                if (_addGameCommand == null)
-                {
-                    _addGameCommand = new AddGameCommand(this);
-                }
-                return _addGameCommand;
-            }
-        }
-        private ICommand _cancelGameCommand;
-        public ICommand CancelGameCommand
-        {
-            get
-            {
-                if (_cancelGameCommand == null)
-                {
-                    _cancelGameCommand = new CancelGameCommand(this);
-                }
-                return _cancelGameCommand;
-            }
-        }
-        private ICommand _editGameCommand;
-        public  ICommand EditGameCommand
-        {
-            get
-            {
-                if (_editGameCommand == null)
-                {
-                    _editGameCommand = new EditGameCommand(this);
-                }
-                return _editGameCommand;
-            }
-        }
-        private ICommand _saveGameCommand;
-        public ICommand SaveGameCommand
-        {
-            get
-            {
-                if (_saveGameCommand == null)
-                {
-                    _saveGameCommand = new SaveGameCommand(this);
-                }
-                return _saveGameCommand;
-            }
-        }
+
+        public ICommand DeleteGameCommand { get; set; }
+
+        public ICommand AddGameCommand { get; set; }
+        public ICommand CancelGameCommand { get; set; }
+        public ICommand EditGameCommand { get; set; }
+
+        public ICommand SaveGameCommand { get; set; }
+
     }
 
 }

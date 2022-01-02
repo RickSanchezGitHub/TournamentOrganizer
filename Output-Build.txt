@@ -1,0 +1,35 @@
+﻿Rebuild started...
+1>------ Rebuild All started: Project: TournamentOrganizer.DataLayer, Configuration: Debug Any CPU ------
+2>------ Rebuild All started: Project: TournamentOrganizer.DB, Configuration: Debug Any CPU ------
+Restored C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\TournamentOrganizer.UI.csproj (in 56 ms).
+Restored C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj (in 83 ms).
+Restored C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.BusinessLayer\TournamentOrganizer.BusinessLayer.csproj (in 110 ms).
+2>		C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Roslyn\csc.exe /noconfig /nowarn:1701,1702,2008 /fullpaths /nostdlib+ /errorreport:prompt /warn:4 /define:DEBUG;TRACE /errorendlocation /preferreduilang:en-US /highentropyva+ /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /debug+ /debug:full /optimize- /out:obj\Debug\TournamentOrganizer.DB.dll /subsystemversion:6.00 /target:library /warnaserror- /utf8output /langversion:7.3 "C:\Users\checove\AppData\Local\Temp\.NETFramework,Version=v4.5.SqlClrAttributes.cs"
+2>		Loading project references...
+2>		Loading project files...
+2>		Building the project model and resolving object interdependencies...
+2>		Validating the project model...
+2>		Writing model to C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\obj\Debug\Model.xml...
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\Tables\Team_Player.sql(16,1): Warning:  SQL70588: WITH CHECK | NOCHECK option for existing data check enforcement is ignored.
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\Tables\Team_Player.sql(23,1): Warning:  SQL70588: WITH CHECK | NOCHECK option for existing data check enforcement is ignored.
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\Tables\ResultTournamentPlayer.sql(15,1): Warning:  SQL70588: WITH CHECK | NOCHECK option for existing data check enforcement is ignored.
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\Tables\ResultTournamentPlayer.sql(23,1): Warning:  SQL70588: WITH CHECK | NOCHECK option for existing data check enforcement is ignored.
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\Tables\ResultTournamentTeam.sql(15,1): Warning:  SQL70588: WITH CHECK | NOCHECK option for existing data check enforcement is ignored.
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\Tables\ResultTournamentTeam.sql(23,1): Warning:  SQL70588: WITH CHECK | NOCHECK option for existing data check enforcement is ignored.
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\StoredProcedures\Player\Player_Update.sql(1,1): Warning:  SQL71558: The object reference [dbo].[Player_Update].[@id] differs only by case from the object definition [dbo].[Player_Update].[@Id].
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\StoredProcedures\Player\Player_SelectById.sql(1,1): Warning:  SQL71558: The object reference [dbo].[Player].[id] differs only by case from the object definition [dbo].[Player].[Id].
+2>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\StoredProcedures\Player\Player_SelectAll.sql(1,1): Warning:  SQL71558: The object reference [dbo].[Player].[id] differs only by case from the object definition [dbo].[Player].[Id].
+2>		TournamentOrganizer.DB -> C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\bin\Debug\TournamentOrganizer.DB.dll
+2>		TournamentOrganizer.DB -> C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.DB\bin\Debug\TournamentOrganizer.DB.dacpac
+1>TournamentOrganizer.DataLayer -> C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganaizer.DataLayer\bin\Debug\net5.0\TournamentOrganizer.DataLayer.dll
+3>------ Rebuild All started: Project: TournamentOrganizer.BusinessLayer, Configuration: Debug Any CPU ------
+3>TournamentOrganizer.BusinessLayer -> C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer.BusinessLayer\bin\Debug\net5.0\TournamentOrganizer.BusinessLayer.dll
+4>------ Rebuild All started: Project: TournamentOrganizer.UI, Configuration: Debug Any CPU ------
+4>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\Tabs\TabItemParticipants.xaml.cs(6,7,6,18): warning CS0105: The using directive for 'System.Linq' appeared previously in this namespace
+4>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\Tabs\TabItemParticipants.xaml.cs(7,7,7,18): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace
+4>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\Tabs\TabItemParticipants.xaml.cs(8,7,8,29): warning CS0105: The using directive for 'System.Threading.Tasks' appeared previously in this namespace
+4>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\VeiwModels\GameViewModel.cs(25,22,25,23): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+4>C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\VeiwModels\GameViewModel.cs(24,23,24,24): warning CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+4>CSC : error CS7064: Error opening icon file C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\Images\appIco.ico -- Could not find a part of the path 'C:\Users\checove\source\repos\TournamentOrganizer\TournamentOrganizer\Images\appIco.ico'.
+4>Done building project "TournamentOrganizer.UI_wlovkfji_wpftmp.csproj" -- FAILED.
+========== Rebuild All: 3 succeeded, 1 failed, 0 skipped ==========
