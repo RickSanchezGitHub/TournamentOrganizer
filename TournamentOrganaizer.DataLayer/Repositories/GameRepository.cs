@@ -14,11 +14,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
     public class GameRepository: BaseRepository
     {
-        public void GameInsert(string name)
+        public int GameInsert(string name)
         {
             const string procedureName = "Game_Insert";
             using IDbConnection connection = ProvideConnection();
-            connection.Execute(
+            return connection.ExecuteScalar<int>(
                 procedureName,
                 new { Name = name },
                 commandType: CommandType.StoredProcedure

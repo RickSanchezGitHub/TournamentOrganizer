@@ -24,5 +24,21 @@ namespace TournamentOrganizer.UI.Tabs
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            if ((string)button.Content == "Разрешить матч")
+            {
+                button.Content = "Выберите победителя";
+            }
+            else
+            {
+
+            }
+            var data = button.DataContext;
+            var father = button.Parent;
+
+        }
     }
 }

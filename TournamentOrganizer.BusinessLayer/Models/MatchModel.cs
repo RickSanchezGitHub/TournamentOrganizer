@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,21 +11,26 @@ namespace TournamentOrganizer.BusinessLayer.Models
     {
         public int MatchNumber { get; set; }
         
-        public List<IParticipant> Participants { get; set; }
+        public ObservableCollection<PlayerModel> Participants { get; set; }
 
-        private bool _matchResolved;
+        public bool MatchResolved { get; private set; }
 
         private int _numberParticipantsInMatch;
 
-        public void MatchResolve()
+        public void ResolveWinner(List<ParticipantTournamentResult> tournamentParticipants, IParticipant participant)
         {
-
+            var winner = tournamentParticipants.Find(item => item.Participant == participant);
+            MatchResolved = true;
+            winner.Score+=2;
         }
 
-        public bool GetMatchResolved()
+        public void ResolveDraw(List<ParticipantTournamentResult> tournamentParticipants, IParticipant participant)
         {
-            return _matchResolved;
+            var draw = tournamentParticipants.Find(item => item.Participant == participant);
+            MatchResolved = true;
+            draw.Score += 1;
         }
+
         
     }
 }

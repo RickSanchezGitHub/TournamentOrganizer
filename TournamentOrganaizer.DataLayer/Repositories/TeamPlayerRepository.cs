@@ -49,5 +49,36 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
 
         }
+
+        public List<Team> GetTeamsByPlayerId(int playerId)
+        {
+            const string procedureName = "[dbo].[Team_Player_SelectByPlayerId]";
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            var teamDictionary = new Dictionary<int, Team>();
+            var result = sqlConnection
+               .Query<TeamPlayer, Team, Team>
+                (
+                   procedureName,
+                   (teamPlayer, team) =>
+                   {
+                       if (!teamDictionary.TryGetValue(team.Id, out var teamEntry))
+                       {
+                           teamEntry = team;
+                           teamDictionary.Add(teamEntry.Id, teamEntry);
+                       }
+                       teamPlayer.TeamId = teamEntry.Id;
+                       return teamEntry;
+                   },
+                   new { PlayerId = playerId },
+                   commandType: CommandType.StoredProcedure,
+                   splitOn: "Id"
+                )
+               .Distinct()
+               .ToList();
+
+            return result;
+        }
+
     }
 }

@@ -10,5 +10,6 @@ namespace TournamentOrganizer.BusinessLayer.Service
         List<TournamentModel> GetAllTournaments();
         int InsertTournament(TournamentModel tournament);
         void UpdateTournament(TournamentModel tournament);
+        void AddPalyerToTournament(PlayerModel player, int tournamentId);
     }
 }

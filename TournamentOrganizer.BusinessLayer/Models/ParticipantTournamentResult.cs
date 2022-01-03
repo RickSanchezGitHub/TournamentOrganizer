@@ -10,11 +10,11 @@ namespace TournamentOrganizer.BusinessLayer.Models
 {
     public class ParticipantTournamentResult: INotifyPropertyChanged
     {
-        public IParticipant Participant { get; set; }
+        public PlayerModel Participant { get; set; }
 
         private int? _score;
 
-        public ParticipantTournamentResult(IParticipant participant)
+        public ParticipantTournamentResult(PlayerModel participant)
         {
             Participant = participant;
         }

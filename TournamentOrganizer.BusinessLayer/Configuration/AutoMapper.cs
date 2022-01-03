@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganaizer.DataLayer.Entities;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.BusinessLayer.Configuration
 {
@@ -29,6 +30,10 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
                 cfg.CreateMap<TournamentModel, Tournament>();
                 cfg.CreateMap<Game, GameModel>();
                 cfg.CreateMap<GameModel, Game>();
+                cfg.CreateMap<Player, PlayerModel>();
+                cfg.CreateMap<PlayerModel, Player>();
+                cfg.CreateMap<Team, TeamModel>();
+                cfg.CreateMap<TeamModel, Team>();
 
             }));
         }

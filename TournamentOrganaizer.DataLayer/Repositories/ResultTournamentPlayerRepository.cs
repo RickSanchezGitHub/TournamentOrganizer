@@ -145,5 +145,23 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public void AddPlayerToTournament(Player player, int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_InsertPlayerAndTournament]";
+
+            var newRows = sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        PlayerId = player.Id,
+                        TournamentId = tournamentId
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+
     }
 }

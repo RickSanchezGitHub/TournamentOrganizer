@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,7 +11,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
 {
     public class TournamentModel : INotifyPropertyChanged
     {
-
+        #region NikitaSergeevich
         private int _id;
         public int Id
         {
@@ -56,12 +57,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private GameModel _game;
-
-        public TournamentModel(int numberParticipantsInMatch = 2)
-        {
-            NumberParticipantsInMatch = numberParticipantsInMatch;
-        }
-
         public GameModel Game
         {
             get { return _game; }
@@ -79,22 +74,66 @@ namespace TournamentOrganizer.BusinessLayer.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public List<ParticipantTournamentResult> ParticipantsResults { get; set; }
+        #endregion
 
-        public List<IParticipant> Participants { get; set; }
-        public List<RoundModel> Rounds { get; private set; }
+        public TournamentModel(int numberParticipantsInMatch = 2)
+        {
+            NumberParticipantsInMatch = numberParticipantsInMatch;
+            Rounds = new ObservableCollection<RoundModel>();
+            Participants = new();
+            ParticipantsResults = new();
+            _closeTournament = false;
+            _startedTournament = false;
+
+        }
+
+        private bool _closeTournament;
+        private bool _startedTournament;
+        public ObservableCollection<ParticipantTournamentResult> ParticipantsResults { get; set; }
+
+        public ObservableCollection<PlayerModel> Participants { get; set; }
+        public ObservableCollection<RoundModel> Rounds { get; private set; }
         public int NumberParticipantsInMatch { get; private set; }//2
 
         public int NumberRounds { get; set; }
-        public void GetNumberRounds()
+        private void SetNumberRounds()
         {
             NumberRounds = (int)Math.Log(Participants.Count, NumberParticipantsInMatch);
         }
 
         public void CreateRound()
         {
-            RoundModel round = new RoundModel(Participants, NumberParticipantsInMatch);
-            Rounds.Add(round);
+            if (NumberRounds > Rounds.Count && _startedTournament)
+            {
+                int numberRound = Rounds.Count + 1;
+                RoundModel newRound = new RoundModel { RoundNumber = numberRound };
+                newRound.DistributeParticipants(Participants, this);
+                Rounds.Add(newRound);
+            }
+        }
+
+        public ObservableCollection<ObservableCollection<PlayerModel>> GetAllPlayerPairsInTournament()
+        {
+            ObservableCollection<ObservableCollection<PlayerModel>> playerPairs = new();
+            for (int i = 0; i < Rounds.Count; i++)
+            {
+                foreach (var item in Rounds[i].GetAllPlayerPairsInMatchs())
+                {
+                    playerPairs.Add(item);
+                }
+            }
+            return playerPairs;
+        }
+
+        public void CloseTournament()
+        {
+            _closeTournament = true;
+        }
+
+        public void StartTournament()
+        {
+            _startedTournament = true;
+            SetNumberRounds();
         }
     }
 }
