@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Tabs
 {
@@ -20,25 +22,26 @@ namespace TournamentOrganizer.UI.Tabs
     /// </summary>
     public partial class TabItemGridOfTournaments : TabItem
     {
+        private TabItemGridOfTournamentsViewModel _viewModel;
         public TabItemGridOfTournaments()
         {
+            _viewModel = new();
             InitializeComponent();
+            DataContext = _viewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            if ((string)button.Content == "Разрешить матч")
-            {
-                button.Content = "Выберите победителя";
-            }
-            else
-            {
-
-            }
             var data = button.DataContext;
-            var father = button.Parent;
 
+            _viewModel.SelctedMatchInTreeView = (MatchModel)data;
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Visible;
+        }
+
+        private void ComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

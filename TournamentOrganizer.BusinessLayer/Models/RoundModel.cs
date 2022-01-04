@@ -45,7 +45,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 for (int i = 0; i < numberHalfParticipants; i++)
                 {
                     var match = new MatchModel();
-                    match.Participants = new ObservableCollection<PlayerModel>();
+                    match.Participants = new ObservableCollection<IParticipant>();
                     match.Participants.Add(participants[i]);
                     match.Participants.Add(participants[i + numberHalfParticipants]);
                     Matchs.Add(match);
@@ -100,9 +100,9 @@ namespace TournamentOrganizer.BusinessLayer.Models
         */
         #endregion
 
-        public ObservableCollection<ObservableCollection<PlayerModel>> GetAllPlayerPairsInMatchs()
+        public ObservableCollection<ObservableCollection<IParticipant>> GetAllPlayerPairsInMatchs()
         {
-            ObservableCollection<ObservableCollection<PlayerModel>> playerPairs = new();
+            ObservableCollection<ObservableCollection<IParticipant>> playerPairs = new();
             for (int i = 0; i < Matchs.Count; i++)
             {
                 playerPairs.Add(Matchs[i].Participants);
@@ -110,10 +110,10 @@ namespace TournamentOrganizer.BusinessLayer.Models
             return playerPairs;
         }
 
-        private ObservableCollection<PlayerModel> GetTournamentPlayersAndOrderByDescending(TournamentModel tournament)
+        private ObservableCollection<IParticipant> GetTournamentPlayersAndOrderByDescending(TournamentModel tournament)
         {
             var sortedResults = tournament.ParticipantsResults.OrderByDescending(item => item.Score);
-            ObservableCollection<PlayerModel> sortedParticipants = new();
+            ObservableCollection<IParticipant> sortedParticipants = new();
             foreach (ParticipantTournamentResult item in sortedResults)
             {
                 sortedParticipants.Add(item.Participant);
@@ -121,11 +121,11 @@ namespace TournamentOrganizer.BusinessLayer.Models
             return sortedParticipants;
         }
 
-        public void DistributeParticipants(ObservableCollection<PlayerModel> participants,
+        public void DistributeParticipants(ObservableCollection<IParticipant> participants,
             TournamentModel tournament)
         {
-            ObservableCollection<PlayerModel> sortedPlayersByScore = GetTournamentPlayersAndOrderByDescending(tournament);
-            ObservableCollection<ObservableCollection<PlayerModel>> allTournamentPairs = tournament.GetAllPlayerPairsInTournament();
+            ObservableCollection<IParticipant> sortedPlayersByScore = GetTournamentPlayersAndOrderByDescending(tournament);
+            ObservableCollection<ObservableCollection<IParticipant>> allTournamentPairs = tournament.GetAllPlayerPairsInTournament();
 
             while (sortedPlayersByScore.Count != 0)
             {
@@ -137,7 +137,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 {
                     if (index == sortedPlayersByScore.Count)
                     {
-                        foreach (PlayerModel item in allTournamentPairs[allTournamentPairs.Count - 1])
+                        foreach (IParticipant item in allTournamentPairs[allTournamentPairs.Count - 1])
                             sortedPlayersByScore.Add(item);
 
                         allTournamentPairs.RemoveAt(allTournamentPairs.Count - 1);
@@ -161,6 +161,16 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 allTournamentPairs.Add(match.Participants);
             }
 
+        }
+
+        public bool CheckMatchesOnResolved()
+        {
+            foreach (var item in Matchs)
+            {
+                if (!item.MatchResolved)
+                    return false;
+            }
+            return true;
         }
     }
 }

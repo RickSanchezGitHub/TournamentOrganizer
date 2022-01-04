@@ -91,7 +91,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         private bool _startedTournament;
         public ObservableCollection<ParticipantTournamentResult> ParticipantsResults { get; set; }
 
-        public ObservableCollection<PlayerModel> Participants { get; set; }
+        public ObservableCollection<IParticipant> Participants { get; set; }
         public ObservableCollection<RoundModel> Rounds { get; private set; }
         public int NumberParticipantsInMatch { get; private set; }//2
 
@@ -101,20 +101,26 @@ namespace TournamentOrganizer.BusinessLayer.Models
             NumberRounds = (int)Math.Log(Participants.Count, NumberParticipantsInMatch);
         }
 
-        public void CreateRound()
+
+
+        public bool CreateRound()
         {
-            if (NumberRounds > Rounds.Count && _startedTournament)
+            //или проверки в отдельный метод
+            bool lastRoundIsResolved = Rounds.Count == 0 || Rounds.Last<RoundModel>().CheckMatchesOnResolved();
+            if (NumberRounds > Rounds.Count && _startedTournament && lastRoundIsResolved)
             {
                 int numberRound = Rounds.Count + 1;
                 RoundModel newRound = new RoundModel { RoundNumber = numberRound };
                 newRound.DistributeParticipants(Participants, this);
                 Rounds.Add(newRound);
+                return true;
             }
+            return false;
         }
 
-        public ObservableCollection<ObservableCollection<PlayerModel>> GetAllPlayerPairsInTournament()
+        public ObservableCollection<ObservableCollection<IParticipant>> GetAllPlayerPairsInTournament()
         {
-            ObservableCollection<ObservableCollection<PlayerModel>> playerPairs = new();
+            ObservableCollection<ObservableCollection<IParticipant>> playerPairs = new();
             for (int i = 0; i < Rounds.Count; i++)
             {
                 foreach (var item in Rounds[i].GetAllPlayerPairsInMatchs())

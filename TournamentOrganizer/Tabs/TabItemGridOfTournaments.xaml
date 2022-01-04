@@ -3,6 +3,7 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels" 
          xmlns:cmd ="clr-namspace:TournamentOrganizer.UI.Commands"
+         xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
          Header="Турнирная сетка">
 
 
@@ -30,45 +31,39 @@
             <Button Command="{Binding CreateRound}" Width="130" Height="23" Content="Сформировать раунд"/>
         </StackPanel>
         <TreeView Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding SelectedTournament.Rounds}">
-            <TreeView.ItemTemplate >
+            <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Matchs}">
                     <TextBlock Text="{Binding Path=RoundNumber}" />
                     <HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <DataGrid ItemsSource="{Binding Participants}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid ItemsSource="{Binding Participants}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
                                         <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
                                         <DataGridTextColumn Header="Псевдоним" Binding="{Binding NickName}"/>
-                                        <!--<DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Command="{Binding DataContext.SetWinner, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Content="Выбрать победителем"
-                                                        Visibility="{Binding DataContext.VisibilityButtonSetWinner, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}"
-                                                        />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Command="{Binding DataContext.UnSetWinner, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" Content="Отменить результаты" 
-                                                        Visibility="{Binding DataContext.VisibilityButtonUnsetWinner, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>-->
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <Button Click="Button_Click" Content="Разрешить матч" Margin="15, 0" Height="30"/>
                             </StackPanel>
                         </DataTemplate>
-
                     </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <Label Grid.Row="1" Grid.Column="1" Content="Участники" Margin="10"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="ШЛа НА ХУЙ" Margin="10"/>
+        <StackPanel Visibility="{Binding DataContext.VisibilityStackPanelMatchResolve, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }" 
+                    Margin="20, 40" Grid.Row="1" Grid.Column="1" DataContext="{Binding SelctedMatchInTreeView}" HorizontalAlignment="Center">
+            <Label Margin="3" Content="Выберите победителя"/>
+            <ComboBox SelectedItem="{Binding DataContext.SelctedPlayerInComboBox, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
+                      Margin="3" ItemsSource="{Binding Participants}" DisplayMemberPath="NickName"/>
+            <Button Command="{Binding DataContext.SetWinner, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Зафиксировать победителя"/>
+            <Label Margin="3" Content="Или"/>
+            <Button Command="{Binding DataContext.SetDraw, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Ничья"/>
 
+
+            <Button Command="{Binding DataContext.BackFromResolveMatch, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3,30,3,3" Content="Назад"/>
+
+        </StackPanel>
     </Grid>
 </TabItem>

@@ -18,9 +18,13 @@ namespace TournamentOrganizer.UI.Commands
 
         public override void Execute(object parameter)
         {
-            _viewModel.VisibilityButtonSetWinner = Visibility.Collapsed;
-            _viewModel.VisibilityButtonUnsetWinner = Visibility.Visible;
-
+            if (_viewModel.SelctedPlayerInComboBox == null)
+            {
+                MessageBox.Show("Необходимо выбрать победителя");
+                return;
+            }
+            _viewModel.SelctedMatchInTreeView.ResolveWinner(_viewModel.SelectedTournament, _viewModel.SelctedPlayerInComboBox);
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Hidden;
         }
     }
 }

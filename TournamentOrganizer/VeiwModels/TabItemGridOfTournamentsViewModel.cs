@@ -12,6 +12,7 @@ using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Commands;
+using TournamentOrganizer.UI.Commands.GridOfTournamentsCommands;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
@@ -19,7 +20,7 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
         public ObservableCollection<PlayerModel> Players { get; set; }
-
+        public ObservableCollection<ParticipantTournamentResult> ParticipantTournamentResults { get; set; }
 
         private ITournamentService _tournamentService;
         private IPlayerService _playerService;
@@ -31,9 +32,11 @@ namespace TournamentOrganizer.UI.VeiwModels
             Tournaments = new ObservableCollection<TournamentModel>(_tournamentService.GetAllTournaments());
             CreateRound = new CreateRoundCommand(this);
             SetWinner = new SetWinnerCommand(this);
-            UnSetWinner = new UnSetWinnerCommand(this);
-            VisibilityButtonUnsetWinner = Visibility.Collapsed;
+            SetDraw = new SetDrawCommand(this);
+            BackFromResolveMatch = new BackFromResolveMatchCommand(this);
             Players = new();
+            SelctedMatchInTreeView = new();
+            VisibilityStackPanelMatchResolve = Visibility.Hidden;
             InitialData();
         }
 
@@ -45,49 +48,50 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _selectedTournament = value;
                 OnPropertyChanged(nameof(SelectedTournament));
-            }
-        }
-
-        private Visibility _visibilityButtonUnsetWinner;
-        public Visibility VisibilityButtonUnsetWinner
-        {
-            get { return _visibilityButtonUnsetWinner; }
-            set
-            {
-                _visibilityButtonUnsetWinner = value;
-                OnPropertyChanged(nameof(VisibilityButtonUnsetWinner));
                 
             }
         }
-        private Visibility _visibilityButtonSetWinner;
-        public Visibility VisibilityButtonSetWinner
+
+        private MatchModel _selctedMatchInTreeView;
+        public MatchModel SelctedMatchInTreeView
         {
-            get { return _visibilityButtonSetWinner; }
+            get { return _selctedMatchInTreeView; }
             set
             {
-                _visibilityButtonSetWinner = value;
-                OnPropertyChanged(nameof(VisibilityButtonSetWinner));
+                _selctedMatchInTreeView = value;
+                OnPropertyChanged(nameof(SelctedMatchInTreeView));
 
             }
         }
 
-        private Button _selectedButton;
-        public Button SelectedButton
+        private PlayerModel _selctedPlayerInComboBox;
+        public PlayerModel SelctedPlayerInComboBox
         {
-            get { return _selectedButton; }
+            get { return _selctedPlayerInComboBox; }
             set
             {
-                _selectedButton = value;
-                OnPropertyChanged(nameof(SelectedButton));
+                _selctedPlayerInComboBox = value;
+                OnPropertyChanged(nameof(SelctedPlayerInComboBox));
 
+            }
+        }
+
+        private Visibility _visibilityStackPanelMatchResolve;
+        public Visibility VisibilityStackPanelMatchResolve
+        {
+            get { return _visibilityStackPanelMatchResolve; }
+            set
+            {
+                _visibilityStackPanelMatchResolve = value;
+                OnPropertyChanged(nameof(VisibilityStackPanelMatchResolve));
             }
         }
 
         public ICommand TournamentSelect { get; set; }
         public ICommand CreateRound { get; set; }
         public ICommand SetWinner { get; set; }
-        public ICommand UnSetWinner { get; set; }
-
+        public ICommand SetDraw { get; set; }
+        public ICommand BackFromResolveMatch { get; set; }
         private void InitialData()
         {
             GameService game = new GameService();

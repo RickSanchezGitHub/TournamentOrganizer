@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using System.Windows;
 using TournamentOrganizer.UI.VeiwModels;
 
-namespace TournamentOrganizer.UI.Commands
+namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
-    public class UnSetWinnerCommand : CommandBase
+    public class BackFromResolveMatchCommand: CommandBase
     {
         private TabItemGridOfTournamentsViewModel _viewModel;
-        public UnSetWinnerCommand(TabItemGridOfTournamentsViewModel viewModel)
+        public BackFromResolveMatchCommand(TabItemGridOfTournamentsViewModel viewModel)
         {
             _viewModel = viewModel;
         }
 
         public override void Execute(object parameter)
         {
-            _viewModel.VisibilityButtonSetWinner = Visibility.Visible;
-            _viewModel.VisibilityButtonUnsetWinner = Visibility.Collapsed;
-
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Hidden;
         }
     }
 }

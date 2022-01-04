@@ -11,22 +11,23 @@ namespace TournamentOrganizer.BusinessLayer.Models
     {
         public int MatchNumber { get; set; }
         
-        public ObservableCollection<PlayerModel> Participants { get; set; }
+        public ObservableCollection<IParticipant> Participants { get; set; }
 
         public bool MatchResolved { get; private set; }
 
         private int _numberParticipantsInMatch;
 
-        public void ResolveWinner(List<ParticipantTournamentResult> tournamentParticipants, IParticipant participant)
+        public void ResolveWinner(TournamentModel tournament, IParticipant participant)
         {
-            var winner = tournamentParticipants.Find(item => item.Participant == participant);
+            ObservableCollection<ParticipantTournamentResult> tournamentParticipants = tournament.ParticipantsResults;
+            var winner = tournamentParticipants.First(item => item.Participant == participant);
             MatchResolved = true;
             winner.Score+=2;
         }
 
-        public void ResolveDraw(List<ParticipantTournamentResult> tournamentParticipants, IParticipant participant)
+        public void ResolveDraw(TournamentModel tournament, IParticipant participant)
         {
-            var draw = tournamentParticipants.Find(item => item.Participant == participant);
+            var draw = tournament.ParticipantsResults.First(item => item.Participant == participant);
             MatchResolved = true;
             draw.Score += 1;
         }
