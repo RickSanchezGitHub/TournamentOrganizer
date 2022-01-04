@@ -36,6 +36,8 @@ namespace TournamentOrganizer.UI.VeiwModels
         {
             _teamService = new TeamService();
 
+            _playerService = new PlayerService();
+
             _teamPlayerService = new TeamPlayerService();
             
             AddTeamCommand = new AddTeamCommand(this);
@@ -57,7 +59,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             
             UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
             
-            InitializeTeamCommand = new InitializeTeamCommand(this, _teamService);
+            InitializeTeamCommand = new InitializeTeamCommand(this, _teamService, _playerService);
             
             VisibilityColumn = Visibility.Collapsed;
         }

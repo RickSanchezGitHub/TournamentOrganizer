@@ -13,7 +13,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _id = value;
-                OnPropertyChanged(nameof(Id));
+                OnPropertyChanged();
             }
         }
 
@@ -24,7 +24,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged();
             }
         }
 
@@ -35,7 +35,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged();
             }
         }
 
@@ -46,7 +46,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _nickName = value;
-                OnPropertyChanged(nameof(NickName));
+                OnPropertyChanged();
             }
         }
 
@@ -57,7 +57,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _email = value;
-                OnPropertyChanged(nameof(Email));
+                OnPropertyChanged();
             }
         }
 
@@ -68,7 +68,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _birthday = value;
-                OnPropertyChanged(nameof(Birthday));
+                OnPropertyChanged();
             }
         }
 

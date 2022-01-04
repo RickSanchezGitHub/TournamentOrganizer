@@ -166,7 +166,7 @@
             
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Stretch">
-                
+
                 <Label Name="LabelPlayer"
                        Foreground="White"
                        HorizontalAlignment="Center"
@@ -174,12 +174,14 @@
                        FontSize="15"
                        VerticalAlignment="Center">Игроки
                 </Label>
-                
+               
                 <ComboBox Width="Auto"
                           VerticalAlignment="Center" 
-                          ItemsSource="{Binding GetAllPlayerCommand}"
-                          DisplayMemberPath="Name"
-                          SelectedValue="{Binding SelectedPlayer}"/>
+                          ItemsSource="{Binding Players}"
+                          DisplayMemberPath="FirstName"
+                          SelectedValue="{Binding SelectedPlayer}">
+                                  
+                </ComboBox>
             </StackPanel>
             
         </StackPanel>
