@@ -30,7 +30,7 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
             //ViewModel.SelectedPlayer = null;
             _viewModel.IsEnabledButtonAddSave = true;
             _viewModel.VisibilityButtonAddSave = Visibility.Visible;
-
+            _viewModel.IsEnabledButtonAdd = false;
         }
     }
 }

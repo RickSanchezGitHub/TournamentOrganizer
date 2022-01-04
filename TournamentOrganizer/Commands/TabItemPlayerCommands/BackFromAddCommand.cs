@@ -26,7 +26,7 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.VisibilityButtonEditSave = Visibility.Hidden;
             _viewModel.IsEnabledButtonAddSave = false;
             _viewModel.IsEnabledButtonEditSave = false;
-
+            _viewModel.IsEnabledButtonAdd = true;
         }
     }
 }

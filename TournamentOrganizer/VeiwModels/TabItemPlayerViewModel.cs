@@ -32,7 +32,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddSavePlayer = new AddSavePlayerCommand(this, _playerService);
             GetInfoAboutPlayer = new GetInfoAboutPlayerCommand(this, _playerService);
             EditSavePlayer = new EditSavePlayerCommand(this, _playerService);
-
+            IsEnabledButtonAdd = true; 
 
         }
 
@@ -269,6 +269,17 @@ namespace TournamentOrganizer.UI.VeiwModels
                     _backFromAdd = new BackFromAddCommand(this);
                 }
                 return _backFromAdd;
+            }
+        }
+
+        private bool _isEnabledButtonAdd;
+        public bool IsEnabledButtonAdd
+        {
+            get { return _isEnabledButtonAdd; }
+            set
+            {
+                _isEnabledButtonAdd = value;
+                OnPropertyChanged(nameof(IsEnabledButtonAdd));
             }
         }
     }

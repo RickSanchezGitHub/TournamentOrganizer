@@ -22,7 +22,7 @@ namespace TournamentOrganizer.UI.Commands
         {
             _viewModel.WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
             _viewModel.StateMainDataGrid = true;
-
+            _viewModel.IsEnabledButtonAdd = true;
         }
     }
 }

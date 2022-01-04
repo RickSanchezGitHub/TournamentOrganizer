@@ -29,6 +29,7 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.Teams = new ObservableCollection<TeamModel>(_playerService.GetTeamsByPlayerId(_viewModel.SelectedPlayer.Id));
             _viewModel.WidthGridPlayerInfo = new GridLength(1, GridUnitType.Star);
             _viewModel.StateMainDataGrid = false;
+            _viewModel.IsEnabledButtonAdd = false;
 
         }
     }

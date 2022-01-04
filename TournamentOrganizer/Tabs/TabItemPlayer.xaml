@@ -80,7 +80,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ButtonAddPlayer" Content="Добавить игрока" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Command="{Binding AddClick}"/>
+        <Button x:Name="ButtonAddPlayer" Content="Добавить игрока" IsEnabled="{Binding IsEnabledButtonAdd}" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Command="{Binding AddClick}"/>
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,17,0,0"  >
             <Label Content="Добавить игрока"/>
             <TextBox x:Name="TextBoxFirstName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxFirstNameText}" Tag="Введите имя" Margin="0,0,0,8" />

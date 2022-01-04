@@ -7,11 +7,15 @@
         mc:Ignorable="d"
         Title="Организатор турниров" Height="450" Width="800">
     <Grid>
+        <UniformGrid Columns="4" Margin="3, 0, 3, 0">
+            <FrameworkElement x:Name="c1"/>
+        </UniformGrid>
+        
         <TabControl x:Name="MainTabControl" >
-            <tabData:TabItemStart></tabData:TabItemStart>
-            <tabData:TabItemParticipants></tabData:TabItemParticipants>
-            <tabData:TabItemGame></tabData:TabItemGame>
-            <tabData:TabItemPlayer></tabData:TabItemPlayer>
+            <tabData:TabItemStart Width="{Binding ElementName=c1, Path=(FrameworkElement.ActualWidth)}"></tabData:TabItemStart >
+            <tabData:TabItemParticipants Width="{Binding ElementName=c1, Path=(FrameworkElement.ActualWidth)}"></tabData:TabItemParticipants>
+            <tabData:TabItemGame Width="{Binding ElementName=c1, Path=(FrameworkElement.ActualWidth)}"></tabData:TabItemGame>
+            <tabData:TabItemPlayer Width="{Binding ElementName=c1, Path=(FrameworkElement.ActualWidth)}"></tabData:TabItemPlayer>
             
         </TabControl>
     </Grid>
