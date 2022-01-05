@@ -152,7 +152,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
                         index++;
                     }
                 }
-
                 match.Participants.Add(sortedPlayersByScore[0]);
                 match.Participants.Add(sortedPlayersByScore[index]);
                 Matchs.Add(match);

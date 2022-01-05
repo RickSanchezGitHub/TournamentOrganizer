@@ -29,14 +29,20 @@ namespace TournamentOrganizer.UI.VeiwModels
             _tournamentService = new TournamentService();
             _playerService = new PlayerService();
             TournamentSelect = new TournamentSelectCommand(this, _tournamentService);
-            Tournaments = new ObservableCollection<TournamentModel>(_tournamentService.GetAllTournaments());
+            Tournaments = new ObservableCollection<TournamentModel>();
             CreateRound = new CreateRoundCommand(this);
             SetWinner = new SetWinnerCommand(this);
             SetDraw = new SetDrawCommand(this);
             BackFromResolveMatch = new BackFromResolveMatchCommand(this);
+            ShowTournamentParticipants = new ShowTournamentParticipantsCommand(this);
+            LoadTournaments = new LoadTournamentsCommand(this, _tournamentService);
+            ResolveMatch = new ResolveMatchCommand(this);
+            Command = new RoutedCommand("Command", typeof(Button));
             Players = new();
             SelctedMatchInTreeView = new();
-            VisibilityStackPanelMatchResolve = Visibility.Hidden;
+            VisibilityStackPanelMatchResolve = Visibility.Collapsed;
+            VisibilityButtonShowTournamentParticipants = Visibility.Collapsed;
+            VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
             InitialData();
         }
 
@@ -48,6 +54,10 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _selectedTournament = value;
                 OnPropertyChanged(nameof(SelectedTournament));
+                if (_selectedTournament != null)
+                {
+                    VisibilityButtonShowTournamentParticipants = Visibility.Visible;
+                }
                 
             }
         }
@@ -86,12 +96,47 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(VisibilityStackPanelMatchResolve));
             }
         }
+        private Visibility _visibilityButtonShowTournamentParticipants;
+        public Visibility VisibilityButtonShowTournamentParticipants
+        {
+            get { return _visibilityButtonShowTournamentParticipants; }
+            set
+            {
+                _visibilityButtonShowTournamentParticipants = value;
+                OnPropertyChanged(nameof(VisibilityButtonShowTournamentParticipants));
+            }
+        }
+
+        private Visibility _visibilityDataGridShowTournamentParticipants;
+        public Visibility VisibilityDataGridShowTournamentParticipants
+        {
+            get { return _visibilityDataGridShowTournamentParticipants; }
+            set
+            {
+                _visibilityDataGridShowTournamentParticipants = value;
+                OnPropertyChanged(nameof(VisibilityDataGridShowTournamentParticipants));
+            }
+        }
 
         public ICommand TournamentSelect { get; set; }
         public ICommand CreateRound { get; set; }
         public ICommand SetWinner { get; set; }
         public ICommand SetDraw { get; set; }
         public ICommand BackFromResolveMatch { get; set; }
+        public ICommand ShowTournamentParticipants { get; set; }
+        public ICommand LoadTournaments { get;set; }
+        public ICommand ResolveMatch { get; set; }
+        public RoutedCommand Command { get; set; }
+
+        public void Command_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var data = button.DataContext;
+            SelctedMatchInTreeView = (MatchModel)data;
+            VisibilityStackPanelMatchResolve = Visibility.Visible;
+            VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
+        }
+
         private void InitialData()
         {
             GameService game = new GameService();

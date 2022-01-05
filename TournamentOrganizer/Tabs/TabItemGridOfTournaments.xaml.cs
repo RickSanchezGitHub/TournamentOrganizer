@@ -29,6 +29,10 @@ namespace TournamentOrganizer.UI.Tabs
             InitializeComponent();
             DataContext = _viewModel;
         }
+        //CommandBinding OpenCmdBinding = new CommandBinding(
+        //    ApplicationCommands.Open,
+        //    Command_Execute);
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -37,11 +41,12 @@ namespace TournamentOrganizer.UI.Tabs
 
             _viewModel.SelctedMatchInTreeView = (MatchModel)data;
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Visible;
+            _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
         }
 
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

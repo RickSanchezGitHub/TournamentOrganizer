@@ -23,8 +23,14 @@ namespace TournamentOrganizer.UI.Commands
                 MessageBox.Show("Необходимо выбрать победителя");
                 return;
             }
+            MessageBoxResult userAnswer = MessageBox.Show($"Установить победителем {_viewModel.SelctedPlayerInComboBox.NickName} ?", "Подтверждение",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (userAnswer == MessageBoxResult.No)
+            {
+                return;
+            }
             _viewModel.SelctedMatchInTreeView.ResolveWinner(_viewModel.SelectedTournament, _viewModel.SelctedPlayerInComboBox);
-            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Hidden;
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
         }
     }
 }

@@ -18,12 +18,18 @@ namespace TournamentOrganizer.UI.Commands
 
         public override void Execute(object parameter)
         {
+            MessageBoxResult userAnswer = MessageBox.Show($"Установить ничью?", "Подтверждение",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (userAnswer == MessageBoxResult.No)
+            {
+                return;
+            }
             var players = _viewModel.SelctedMatchInTreeView.Participants;
             foreach (var item in players)
             {
                 _viewModel.SelctedMatchInTreeView.ResolveDraw(_viewModel.SelectedTournament, item);
             }
-            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Hidden;
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             _viewModel.SelctedPlayerInComboBox = null;
         }
     }
