@@ -105,12 +105,13 @@
             <Label Content="{Binding Email}" Margin="0,0,0,8"/>
             <Label Content="{Binding Birthday}"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding Teams}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False"  Margin="0,20,0,0" Grid.RowSpan="1">
+            <Label Visibility="{Binding VisibilityLabelPlayerWithoutTeams}" Content="В командах не состоит" Margin="0,20,0,60"/>
+            <DataGrid Visibility="{Binding VisibilityDataGridShowTeamsPlayer}" Height="96" ItemsSource="{Binding Teams}" Margin="0,10,0,0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Состоит в командах" Binding="{Binding Name}"/>
             </DataGrid.Columns>
         </DataGrid>
-            <Button Command="{Binding BackFromInfo}" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1"/>
+            <Button Command="{Binding BackFromInfo}" Content="Назад" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="20,1,20,1" Margin="12,35,12,12"/>
         </StackPanel>
     </Grid>
 </TabItem>

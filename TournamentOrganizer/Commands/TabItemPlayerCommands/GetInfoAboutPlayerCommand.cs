@@ -26,7 +26,22 @@ namespace TournamentOrganizer.UI.Commands
         public override void Execute(object parameter)
         {
             _viewModel.SelectedPlayer = _viewModel.SelectedDeletePlayer;
-            _viewModel.Teams = new ObservableCollection<TeamModel>(_playerService.GetTeamsByPlayerId(_viewModel.SelectedPlayer.Id));
+
+            _viewModel.Teams.Clear();
+            foreach (var item in _playerService.GetTeamsByPlayerId(_viewModel.SelectedPlayer.Id))
+                _viewModel.Teams.Add(item);
+
+            if (_viewModel.Teams.Count == 0)
+            {
+                _viewModel.VisibilityDataGridShowTeamsPlayer = Visibility.Collapsed;
+                _viewModel.VisibilityLabelPlayerWithoutTeams = Visibility.Visible;
+            }
+            else
+            {
+                _viewModel.VisibilityDataGridShowTeamsPlayer = Visibility.Visible;
+                _viewModel.VisibilityLabelPlayerWithoutTeams = Visibility.Collapsed;
+            }
+
             _viewModel.WidthGridPlayerInfo = new GridLength(1, GridUnitType.Star);
             _viewModel.StateMainDataGrid = false;
             _viewModel.IsEnabledButtonAdd = false;

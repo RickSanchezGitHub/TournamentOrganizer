@@ -28,6 +28,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             VisibilityButtonEditSave = Visibility.Hidden;
             IsEnabledButtonAddSave = false;
             IsEnabledButtonEditSave = false;
+            Teams = new();
             DeletePlayer = new DeletePlayerCommand(this, _playerService);
             AddSavePlayer = new AddSavePlayerCommand(this, _playerService);
             GetInfoAboutPlayer = new GetInfoAboutPlayerCommand(this, _playerService);
@@ -208,7 +209,28 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        
+        private Visibility _visibilityDataGridShowTeamsPlayer;
+        public Visibility VisibilityDataGridShowTeamsPlayer
+        {
+            get { return _visibilityDataGridShowTeamsPlayer; }
+            set
+            {
+                _visibilityDataGridShowTeamsPlayer = value;
+                OnPropertyChanged(nameof(VisibilityDataGridShowTeamsPlayer));
+            }
+        }
+
+        private Visibility _visibilityLabelPlayerWithoutTeams;
+        public Visibility VisibilityLabelPlayerWithoutTeams
+        {
+            get { return _visibilityLabelPlayerWithoutTeams; }
+            set
+            {
+                _visibilityLabelPlayerWithoutTeams = value;
+                OnPropertyChanged(nameof(VisibilityLabelPlayerWithoutTeams));
+            }
+        }
+
         public ICommand DeletePlayer { get; set; }
      
 
