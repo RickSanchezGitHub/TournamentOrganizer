@@ -14,6 +14,8 @@ namespace TournamentOrganizer.UI.Commands
     {
         private TabItemPlayerViewModel _viewModel;
 
+
+
         public EditClickCommand(TabItemPlayerViewModel viewModel) : base()
         {
             _viewModel = viewModel;
@@ -21,23 +23,7 @@ namespace TournamentOrganizer.UI.Commands
         
         public override void Execute(object parameter)
         {
-            bool canExecute = Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxFirstNameText) &&
-                Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxLastNameText) &&
-                Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxEmailText) &&
-                Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxNickNameText);
-            if (!canExecute)
-            {
-                MessageBox.Show("Заполните все поля");
-                return;
-            }
-
-            canExecute = Validation.TextBoxValidation(_viewModel.TextBoxFirstNameText) &&
-                Validation.TextBoxValidation(_viewModel.TextBoxLastNameText);
-            if (!canExecute)
-            {
-                MessageBox.Show("Имя и Фамилия не должны содержать 1234567890!@#$%^&*()_+= и пробелов");
-                return;
-            }
+           
 
             _viewModel.IsEnabledButtonEditSave = true;
             _viewModel.VisibilityButtonEditSave = Visibility.Visible;

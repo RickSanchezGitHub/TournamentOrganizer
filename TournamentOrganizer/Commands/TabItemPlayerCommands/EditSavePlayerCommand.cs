@@ -7,6 +7,7 @@ using System.Windows;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Commands.TabItemPlayerCommands;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
@@ -17,14 +18,30 @@ namespace TournamentOrganizer.UI.Commands
 
         private readonly IPlayerService _playerService;
 
+        private ValidationTabItemPlayer _validationTabItemPlayer;
+
         public EditSavePlayerCommand(TabItemPlayerViewModel viewModel, IPlayerService playerService) : base()
         {
             _viewModel = viewModel;
             _playerService = playerService;
+            _validationTabItemPlayer = new ValidationTabItemPlayer(viewModel);
         }
 
         public override void Execute(object parameter)
         {
+            if (_validationTabItemPlayer.CheckIsEmptyOrWhiteSpaceInputData())
+            {
+                MessageBox.Show("Заполните все поля");
+                return;
+            }
+
+
+            if (_validationTabItemPlayer.CheckIsValidInputData())
+            {
+                MessageBox.Show("Имя и Фамилия не должны содержать 1234567890!@#$%^&*()_+= и пробелов");
+                return;
+            }
+
             _viewModel.SelectedDeletePlayer.FirstName = _viewModel.TextBoxFirstNameText;
             _viewModel.SelectedDeletePlayer.LastName = _viewModel.TextBoxLastNameText;
             _viewModel.SelectedDeletePlayer.NickName = _viewModel.TextBoxNickNameText;

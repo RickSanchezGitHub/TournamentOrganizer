@@ -8,6 +8,7 @@ using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Commands.TabItemPlayerCommands;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
@@ -18,27 +19,26 @@ namespace TournamentOrganizer.UI.Commands
 
         private readonly IPlayerService _playerService;
 
+        private ValidationTabItemPlayer _validationTabItemPlayer;
+
         public AddSavePlayerCommand(TabItemPlayerViewModel viewModel, IPlayerService playerService) : base()
         {
             _viewModel = viewModel;
             _playerService = playerService;
+            _validationTabItemPlayer = new ValidationTabItemPlayer(viewModel);
         }
 
         public override void Execute(object parameter)
         {
-            bool canExecute = Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxFirstNameText) &&
-                Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxLastNameText) &&
-                Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxEmailText) &&
-                Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxNickNameText);
-            if (!canExecute)
+           
+            if (_validationTabItemPlayer.CheckIsEmptyOrWhiteSpaceInputData())
             {
                 MessageBox.Show("Заполните все поля");
                 return;
             }
 
-            canExecute = Validation.TextBoxValidation(_viewModel.TextBoxFirstNameText) &&
-                Validation.TextBoxValidation(_viewModel.TextBoxLastNameText);
-            if (!canExecute)
+            
+            if (_validationTabItemPlayer.CheckIsValidInputData())
             {
                 MessageBox.Show("Имя и Фамилия не должны содержать 1234567890!@#$%^&*()_+= и пробелов");
                 return;

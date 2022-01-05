@@ -32,7 +32,11 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddSavePlayer = new AddSavePlayerCommand(this, _playerService);
             GetInfoAboutPlayer = new GetInfoAboutPlayerCommand(this, _playerService);
             EditSavePlayer = new EditSavePlayerCommand(this, _playerService);
-            IsEnabledButtonAdd = true; 
+            BackFromInfo = new BackFromInfoCommand(this);
+            BackFromAdd = new BackFromAddCommand(this);
+            AddClick = new AddClickCommand(this);
+            EditClick = new EditClickCommand(this);
+            IsEnabledButtonAdd = true;
 
         }
 
@@ -212,67 +216,20 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand AddSavePlayer { get; set; }
       
 
-        private ICommand _addClick;
-        public ICommand AddClick
-        {
-            get
-            {
-                if (_addClick == null)
-                {
-                    _addClick = new AddClickCommand(this);
-                }
-                return _addClick;
-            }
-        }
-
-        private ICommand _editClick;
-        public ICommand EditClick
-        {
-            get
-            {
-                if (_editClick == null)
-                {
-                    _editClick = new EditClickCommand(this);
-                }
-                return _editClick;
-            }
-        }
-
-        
+        public ICommand AddClick { get; set; }
+      
+        public ICommand EditClick { get; set; }
+       
         public ICommand EditSavePlayer { get; set; }
        
-
-        
         public ICommand GetInfoAboutPlayer { get; set; }
 
-
-        private ICommand _backFromInfo;
-        public ICommand BackFromInfo
-        {
-            get
-            {
-                if (_backFromInfo == null)
-                {
-                    _backFromInfo = new BackFromInfoCommand(this);
-                }
-                return _backFromInfo;
-            }
-        }
-
-        private ICommand _backFromAdd;
-        public ICommand BackFromAdd
-        {
-            get
-            {
-                if (_backFromAdd == null)
-                {
-                    _backFromAdd = new BackFromAddCommand(this);
-                }
-                return _backFromAdd;
-            }
-        }
-
+        public ICommand BackFromInfo { get; set; }
+       
+        public ICommand BackFromAdd { get; set; }
+        
         private bool _isEnabledButtonAdd;
+
         public bool IsEnabledButtonAdd
         {
             get { return _isEnabledButtonAdd; }
