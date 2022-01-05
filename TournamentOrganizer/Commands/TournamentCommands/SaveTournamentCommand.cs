@@ -23,7 +23,8 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
                 Name = _viewModel.TextBoxName,
                 StartDate = _viewModel.DatePickerStartDate,
                 CloseDate = _viewModel.DatePickerCloseDate,
-                Game = _viewModel.SelectedGame
+                Game = _viewModel.SelectedGame,
+                OnlyForTeams = _viewModel.CheckBoxSelectedTournamentType
             };
             var insertedTournament = _tournamentService.InsertTournament(tournament);
             tournament.Id = insertedTournament;

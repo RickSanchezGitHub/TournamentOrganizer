@@ -26,6 +26,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
         public ObservableCollection<GameModel> Games { get; set; }
         public ObservableCollection<IParticipant> TournamentParticipants { get; set; }
+        public ObservableCollection<string> TournamentsSelectionTypeList { get; set; }
 
         private TournamentModel _selectedTournament;
         public TournamentModel SelectedTournament
@@ -50,14 +51,36 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
 
 
-        private string _textboxname;
+        private string _textBoxName;
         public string TextBoxName
         {
-            get => _textboxname;
+            get => _textBoxName;
             set
             {
-                _textboxname = value;
+                _textBoxName = value;
                 OnPropertyChanged(nameof(TextBoxName));
+            }
+        }
+
+        private string _comboBoxSelectTournamentType;
+        public string ComboBoxSelectTournamentType
+        {
+            get => _comboBoxSelectTournamentType;
+            set
+            {
+                _comboBoxSelectTournamentType = value;
+                OnPropertyChanged(nameof(ComboBoxSelectTournamentType));
+            }
+        }
+
+        private bool _checkBoxSelectedTournamentType;
+        public bool CheckBoxSelectedTournamentType
+        {
+            get => _checkBoxSelectedTournamentType;
+            set
+            {
+                _checkBoxSelectedTournamentType = value;
+                OnPropertyChanged(nameof(CheckBoxSelectedTournamentType));
             }
         }
 
@@ -93,6 +116,9 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(SelectedGame));
             }
         }
+
+
+
 
         private Visibility _visibilitySaveButton;
         public Visibility VisibilitySaveButton
@@ -219,9 +245,11 @@ namespace TournamentOrganizer.UI.VeiwModels
             Tournaments = new ObservableCollection<TournamentModel>();
             Games = new ObservableCollection<GameModel>();
             TournamentParticipants = new ObservableCollection<IParticipant>();
+            ComboBoxSelectTournamentType = "Турниры для игроков";
             VisibilityColumn = Visibility.Collapsed;
             VisibilityDataGridPlayers = Visibility.Collapsed;
             VisibilityBackPlayersButton = Visibility.Collapsed;
+            VisibilityColumnParticipant = Visibility.Collapsed;
             DeleteTournament = new DeleteTournamentCommand(this, _tournamentService);
             SaveTournament = new SaveTournamentCommand(this, _tournamentService);
             UpdateTournament = new UpdateTournamentCommand(this, _tournamentService);

@@ -10,15 +10,22 @@ namespace TournamentOrganizer.BusinessLayer.Service
 {
     public class TournamentService : ITournamentService
     {
-        private readonly TournamentRepository _tournamentRepository;
-        private readonly GameRepository _gameRepository;
-        private readonly ResultTournamentPlayerRepository _resultTournamentPlayerRepository;
+        private readonly ITournamentRepository _tournamentRepository;
+        private readonly IGameRepository _gameRepository;
+        private readonly IResultTournamentPlayerRepository _resultTournamentPlayerRepository;
 
         public TournamentService()
         {
             _tournamentRepository = new TournamentRepository();
             _gameRepository = new GameRepository();
             _resultTournamentPlayerRepository = new ResultTournamentPlayerRepository();
+        }
+
+        public TournamentService(ITournamentRepository tournamentRepository, IGameRepository gameRepository, IResultTournamentPlayerRepository resultTournamentPlayerRepository)
+        {
+            _tournamentRepository = tournamentRepository;
+            _gameRepository = gameRepository;
+            _resultTournamentPlayerRepository = resultTournamentPlayerRepository;
         }
 
         public List<TournamentModel> GetAllTournaments()
@@ -60,11 +67,17 @@ namespace TournamentOrganizer.BusinessLayer.Service
         {
             _resultTournamentPlayerRepository.DeleteByTournament(playerId, tournamentId);
         }
+
         public int AddPalyerToTournament(PlayerModel player, int tournamentId)
         {
             var playerModel = CustomMapper.GetInstance().Map<Player>(player);
             return _resultTournamentPlayerRepository.AddPlayerToTournament(playerModel, tournamentId);
         }
+
+        //public List<PlayerModel> GetAllPlayers()
+        //{
+        //    //var players = 
+        //}
     }
 
 }

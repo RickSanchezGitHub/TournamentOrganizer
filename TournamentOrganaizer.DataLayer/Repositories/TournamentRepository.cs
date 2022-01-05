@@ -11,7 +11,7 @@ using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
-    public class TournamentRepository : BaseRepository
+    public class TournamentRepository : BaseRepository, ITournamentRepository
     {
         public int TournamentInsert(Tournament tournament)
         {

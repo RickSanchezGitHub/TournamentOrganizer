@@ -13,5 +13,6 @@ namespace TournamentOrganaizer.DataLayer.Entities
         public DateTime StartDate { get; set; }
         public DateTime CloseDate { get; set; }
         public Game Game { get; set; }
+        public bool OnlyForTeams { get; set; }
     }
 }

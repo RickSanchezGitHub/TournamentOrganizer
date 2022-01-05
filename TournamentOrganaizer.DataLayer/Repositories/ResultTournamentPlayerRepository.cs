@@ -12,7 +12,7 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class ResultTournamentPlayerRepository : BaseRepository
+    public class ResultTournamentPlayerRepository : BaseRepository, IResultTournamentPlayerRepository
     {
         public List<ResultTournamentPlayer> GetPlayerResultsInAllTournaments(int playerId)
         {
@@ -140,7 +140,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
             sqlConnection.Execute
                 (
                     storedProcedure,
-                    new 
+                    new
                     {
                         TournamentId = tournamentId,
                         Id = id

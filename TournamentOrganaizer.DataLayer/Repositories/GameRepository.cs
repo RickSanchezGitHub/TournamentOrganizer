@@ -12,7 +12,7 @@ using TournamentOrganizer.DataLayer.Repositories;
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
 
-    public class GameRepository: BaseRepository
+    public class GameRepository : BaseRepository, IGameRepository
     {
         public void GameInsert(string name)
         {
@@ -41,7 +41,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             const string procedureName = "Game_SelectByAll";
             using IDbConnection connection = ProvideConnection();
             var resultList = connection.Query<Game>(
-                procedureName, 
+                procedureName,
                 commandType: CommandType.StoredProcedure
             ).ToList();
             return resultList;
@@ -65,10 +65,11 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             using IDbConnection connection = ProvideConnection();
             var result = connection.Execute(
                 procedureName,
-                new { 
-                    Id = id ,
+                new
+                {
+                    Id = id,
                     Name = name
-                    },
+                },
                 commandType: CommandType.StoredProcedure
             );
         }

@@ -32,13 +32,9 @@
         <Image x:Name="MainImage" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Source="..\Images\carbon.jpg" Stretch="UniformToFill" Grid.RowSpan="9" Panel.ZIndex="0"/>
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
             <Label HorizontalAlignment="Left" FontWeight="Normal" FontSize="15" VerticalAlignment="Center" >Список турниров</Label>
-            <ComboBox  Name="ComboBoxPickParticipants" Width="auto" VerticalAlignment="Center" >
-                <ComboBoxItem IsSelected="true">
-                    <TextBlock>Командные турниры</TextBlock>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock>Турниры для игроков</TextBlock>
-                </ComboBoxItem>
+            <ComboBox  Name="ComboBoxPickParticipants" Width="auto" VerticalAlignment="Center" SelectedValuePath="Content" SelectedValue ="{Binding ComboBoxSelectTournamentType}" i:CommandBehavior.Event="SelectionChanged" i:CommandBehavior.Command="{Binding InitializeTournaments}">
+                <ComboBoxItem Content="Командные турниры"/>
+                <ComboBoxItem Content="Турниры для игроков"/>
             </ComboBox>
         </StackPanel>
 
@@ -99,6 +95,10 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelCloseDate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Дата закрытия</Label>
                 <DatePicker x:Name="DatePickerDayClose" Grid.Row="3"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" SelectedDate="{Binding DatePickerCloseDate}"></DatePicker>
+            </StackPanel>        
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                <Label Name="LabelSelectToyrnamentType" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Только для команд</Label>
+                    <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" IsChecked ="{Binding CheckTournamentForTeams}"/>           
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelParticipant" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Список участников</Label>
@@ -108,6 +108,7 @@
                 <Label Name="LabelRounds" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Турнирная сетка</Label>
                 <Button Name="ButtonViewRounds" Grid.Row="5"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
             </StackPanel>
+            
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Visibility="{Binding VisibilityColumnParticipant}" >
