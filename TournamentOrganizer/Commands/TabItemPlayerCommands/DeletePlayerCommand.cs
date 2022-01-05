@@ -24,8 +24,8 @@ namespace TournamentOrganizer.UI.Commands
 
         public override void Execute(object parameter)
         {
-            _playerService.DeleteById(_viewModel.SelectedDeletePlayer.Id);
-            _viewModel.Players.Remove(_viewModel.SelectedDeletePlayer);
+            _playerService.DeleteById(_viewModel.SelectedPlayer.Id);
+            _viewModel.Players.Remove(_viewModel.SelectedPlayer);
             
         }
     }

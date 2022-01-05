@@ -43,17 +43,11 @@ namespace TournamentOrganizer.UI.VeiwModels
 
         private  IPlayerService _playerService;
 
-        
-
         public ObservableCollection<PlayerModel> Players {get; set;}
-
-        
-
         public ObservableCollection<TeamModel> Teams { get; set; }
+
        
-
         private GridLength? _widthGridAddPlayer;
-
         public GridLength? WidthGridAddPlayer
         {
             get { return _widthGridAddPlayer; }
@@ -76,7 +70,6 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
 
         private PlayerModel _selectedPlayer;
-
         public PlayerModel SelectedPlayer
         {
             get { return _selectedPlayer; }
@@ -84,18 +77,6 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _selectedPlayer = value;
                 OnPropertyChanged(nameof(SelectedPlayer));
-            }
-        }
-
-        private PlayerModel _selectedDeletePlayer;
-
-        public PlayerModel SelectedDeletePlayer
-        {
-            get { return _selectedDeletePlayer; }
-            set
-            {
-                _selectedDeletePlayer = value;
-                OnPropertyChanged(nameof(SelectedDeletePlayer));
             }
         }
 

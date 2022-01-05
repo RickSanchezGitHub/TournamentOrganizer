@@ -42,12 +42,12 @@ namespace TournamentOrganizer.UI.Commands
                 return;
             }
 
-            _viewModel.SelectedDeletePlayer.FirstName = _viewModel.TextBoxFirstNameText;
-            _viewModel.SelectedDeletePlayer.LastName = _viewModel.TextBoxLastNameText;
-            _viewModel.SelectedDeletePlayer.NickName = _viewModel.TextBoxNickNameText;
-            _viewModel.SelectedDeletePlayer.Email = _viewModel.TextBoxEmailText;
-            _viewModel.SelectedDeletePlayer.Birthday = _viewModel.DatePickerBirthdaySelectedDate;
-            _playerService.PlayerUpdate(_viewModel.SelectedDeletePlayer.Id, _viewModel.SelectedDeletePlayer);
+            _viewModel.SelectedPlayer.FirstName = _viewModel.TextBoxFirstNameText;
+            _viewModel.SelectedPlayer.LastName = _viewModel.TextBoxLastNameText;
+            _viewModel.SelectedPlayer.NickName = _viewModel.TextBoxNickNameText;
+            _viewModel.SelectedPlayer.Email = _viewModel.TextBoxEmailText;
+            _viewModel.SelectedPlayer.Birthday = _viewModel.DatePickerBirthdaySelectedDate;
+            _playerService.PlayerUpdate(_viewModel.SelectedPlayer.Id, _viewModel.SelectedPlayer);
             _viewModel.IsEnabledButtonEditSave = false;
             _viewModel.VisibilityButtonEditSave = Visibility.Hidden;
 

@@ -27,7 +27,6 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
 
             _viewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
             _viewModel.StateMainDataGrid = false;
-            //ViewModel.SelectedPlayer = null;
             _viewModel.IsEnabledButtonAddSave = true;
             _viewModel.VisibilityButtonAddSave = Visibility.Visible;
             _viewModel.IsEnabledButtonAdd = false;

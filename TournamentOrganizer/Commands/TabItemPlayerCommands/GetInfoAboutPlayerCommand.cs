@@ -25,8 +25,6 @@ namespace TournamentOrganizer.UI.Commands
         }
         public override void Execute(object parameter)
         {
-            _viewModel.SelectedPlayer = _viewModel.SelectedDeletePlayer;
-
             _viewModel.Teams.Clear();
             foreach (var item in _playerService.GetTeamsByPlayerId(_viewModel.SelectedPlayer.Id))
                 _viewModel.Teams.Add(item);

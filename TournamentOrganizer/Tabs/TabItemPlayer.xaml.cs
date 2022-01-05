@@ -22,8 +22,7 @@ namespace TournamentOrganizer.UI.Tabs
     /// Interaction logic for TabItemPlayer.xaml  
     /// </summary>  
     public partial class TabItemPlayer : TabItem
-    {
-      
+    { 
         public TabItemPlayer()
         {
             InitializeComponent();

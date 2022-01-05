@@ -29,11 +29,11 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.VisibilityButtonEditSave = Visibility.Visible;
 
             _viewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
-            _viewModel.TextBoxFirstNameText = _viewModel.SelectedDeletePlayer.FirstName;
-            _viewModel.TextBoxLastNameText = _viewModel.SelectedDeletePlayer.LastName;
-            _viewModel.TextBoxNickNameText = _viewModel.SelectedDeletePlayer.NickName;
-            _viewModel.TextBoxEmailText = _viewModel.SelectedDeletePlayer.Email;
-            _viewModel.DatePickerBirthdaySelectedDate = _viewModel.SelectedDeletePlayer.Birthday;
+            _viewModel.TextBoxFirstNameText = _viewModel.SelectedPlayer.FirstName;
+            _viewModel.TextBoxLastNameText = _viewModel.SelectedPlayer.LastName;
+            _viewModel.TextBoxNickNameText = _viewModel.SelectedPlayer.NickName;
+            _viewModel.TextBoxEmailText = _viewModel.SelectedPlayer.Email;
+            _viewModel.DatePickerBirthdaySelectedDate = _viewModel.SelectedPlayer.Birthday;
 
             _viewModel.StateMainDataGrid = false;
             _viewModel.IsEnabledButtonAdd = false;
