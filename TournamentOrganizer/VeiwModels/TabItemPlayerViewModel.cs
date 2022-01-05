@@ -20,7 +20,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public TabItemPlayerViewModel()
         {
             _playerService = new PlayerService();
-            Players = new ObservableCollection<PlayerModel>(_playerService.GetAll());
+            Players = new ObservableCollection<PlayerModel>();
             WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
             WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
             StateMainDataGrid = true;
@@ -38,6 +38,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddClick = new AddClickCommand(this);
             EditClick = new EditClickCommand(this);
             IsEnabledButtonAdd = true;
+            LoadPlayers = new LoadPlayersCommand(this, _playerService);
 
         }
 
@@ -230,7 +231,9 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand BackFromInfo { get; set; }
        
         public ICommand BackFromAdd { get; set; }
-        
+
+        public ICommand LoadPlayers { get; set; }
+
         private bool _isEnabledButtonAdd;
 
         public bool IsEnabledButtonAdd
