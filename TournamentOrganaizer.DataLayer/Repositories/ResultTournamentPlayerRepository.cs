@@ -162,6 +162,26 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public void SetPlayerResultMatchRoundInTournament(int newResult, ResultTournamentPlayer resultTournamentPlayer)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_SetPlayerResultMatchRoundInTournament]";
+
+            var newRows = sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TournamentId = resultTournamentPlayer.Tournament.Id,
+                        PlayerId = resultTournamentPlayer.Player.Id,
+                        newResult = newResult,
+                        NumberMatch = resultTournamentPlayer.NumberMatch,
+                        NumberRound = resultTournamentPlayer.NumberRound  
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
 
     }
 }

@@ -118,6 +118,17 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private Button _selectedButton;
+        public Button SelectedButton
+        {
+            get { return _selectedButton; }
+            set
+            {
+                _selectedButton = value;
+                OnPropertyChanged(nameof(SelectedButton));
+            }
+        }
+
         public ICommand TournamentSelect { get; set; }
         public ICommand CreateRound { get; set; }
         public ICommand SetWinner { get; set; }

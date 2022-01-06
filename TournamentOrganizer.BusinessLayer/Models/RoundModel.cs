@@ -35,6 +35,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+        #region CommentsAndHuita
         public void DistributeParticipantsInFirstRound(List<PlayerModel> participants)
         {
             Matchs = new ObservableCollection<MatchModel>();
@@ -57,7 +58,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        #region Comments
+        
         /*
         public void DistributeParticipants(List<PlayerModel> participants,
             TournamentModel tournament)
@@ -159,7 +160,15 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 sortedPlayersByScore.RemoveAt(index - 1);
                 allTournamentPairs.Add(match.Participants);
             }
+            SetNumbersOfMatchs(tournament);
+        }
 
+        public void SetNumbersOfMatchs(TournamentModel tournament)
+        {
+            for (int i = 0; i < Matchs.Count; i++)
+            {
+                Matchs[i].MatchNumber = i + 1;
+            }
         }
 
         public bool CheckMatchesOnResolved()
@@ -171,48 +180,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
             return true;
         }
+
+       
     }
 }
-
-/*
- void Circle(List<int> listIntov, List<List<int>> pairs)
-            {
-                var copy = CreateCopy(listIntov);
-
-                while (copy.Count != 0)
-                {
-                    List<int> newPair = new();
-                    int index = 1;
-
-                    for (int i = 0; i < pairs.Count; i++)
-                    {
-                        //если index уже дошёл до размера copy, но цикл не завершился, значит из
-                        //имеющихся в copy данных невозможно составить такую турнирную пару, которой 
-                        //ещё не было бы. Поэтому необходимо стереть из pairs последнюю пару и её
-                        //значения добавить обратно в copy
-                        if (index == copy.Count)
-                        {
-                            foreach (int item in pairs[pairs.Count - 1])
-                                copy.Add(item);
-
-                            pairs.RemoveAt(pairs.Count - 1);
-                            i = -1;
-                            index = 1;
-
-                        }
-                        //если итая пара содержит оба элемента, то нет смысла смотреть дальше 
-                        //можно обнулить счётчик i и увеличить index
-                        else if ((pairs[i].Contains(copy[0]) && pairs[i].Contains(copy[index])))
-                        {
-                            i = -1;
-                            index++;
-                        }
-                    }
-                    newPair.Add(copy[0]);
-                    newPair.Add(copy[index]);
-                    copy.Remove(copy[0]);
-                    copy.Remove(copy[index - 1]);
-                    pairs.Add(newPair);
-                }
-            }
- */

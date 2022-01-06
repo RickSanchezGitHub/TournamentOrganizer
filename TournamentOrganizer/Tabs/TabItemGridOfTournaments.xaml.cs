@@ -38,7 +38,7 @@ namespace TournamentOrganizer.UI.Tabs
         {
             var button = (Button)sender;
             var data = button.DataContext;
-
+            _viewModel.SelectedButton = button;
             _viewModel.SelctedMatchInTreeView = (MatchModel)data;
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Visible;
             _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;

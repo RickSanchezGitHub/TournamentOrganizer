@@ -82,6 +82,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             Rounds = new ObservableCollection<RoundModel>();
             Participants = new();
             ParticipantsResults = new();
+            ParticipantsResultsInMatchs = new();
             _closeTournament = false;
             _startedTournament = false;
 
@@ -91,6 +92,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         private bool _startedTournament;
         public ObservableCollection<ParticipantTournamentResult> ParticipantsResults { get; set; }
 
+        public ObservableCollection<ResultTournamentParticipantModel> ParticipantsResultsInMatchs { get; set; }
         public ObservableCollection<IParticipant> Participants { get; set; }
         public ObservableCollection<RoundModel> Rounds { get; private set; }
         public int NumberParticipantsInMatch { get; private set; }//2
@@ -101,7 +103,14 @@ namespace TournamentOrganizer.BusinessLayer.Models
             NumberRounds = (int)Math.Log(Participants.Count, NumberParticipantsInMatch);
         }
 
-
+        public void SetParticipantsResults()
+        {
+            foreach (IParticipant participant in Participants)
+            {
+                int score = ParticipantsResultsInMatchs.Where(item => item.Participant == participant).Sum(item => item.Result);
+                ParticipantsResults.First(item => item.Participant == participant).Score = score;
+            }
+        }
 
         public bool CreateRound()
         {
@@ -140,6 +149,18 @@ namespace TournamentOrganizer.BusinessLayer.Models
         {
             _startedTournament = true;
             SetNumberRounds();
+        }
+
+        public RoundModel GetRoundByMatch(MatchModel match)
+        {
+            for (int i = 0; i < Rounds.Count; i++)
+            {
+                if (Rounds[i].Matchs.Contains(match))
+                {
+                    return Rounds[i];
+                }
+            }
+            return null;
         }
     }
 }

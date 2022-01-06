@@ -31,6 +31,8 @@ namespace TournamentOrganizer.UI.Commands
             }
             _viewModel.SelctedMatchInTreeView.ResolveWinner(_viewModel.SelectedTournament, _viewModel.SelctedPlayerInComboBox);
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
+            _viewModel.SelectedButton.Content = "Матч разрешён";
+            _viewModel.SelectedButton.IsEnabled = false;
         }
     }
 }

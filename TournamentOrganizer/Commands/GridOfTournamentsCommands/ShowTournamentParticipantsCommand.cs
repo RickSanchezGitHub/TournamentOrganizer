@@ -17,6 +17,7 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 
         public override void Execute(object parameter)
         {
+            _viewModel.SelectedTournament.SetParticipantsResults();
             _viewModel.VisibilityDataGridShowTournamentParticipants = System.Windows.Visibility.Visible;
 
         }
