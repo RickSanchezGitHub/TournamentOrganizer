@@ -5,6 +5,6 @@
     [StartDate] SMALLDATETIME NOT NULL, 
     [CloseDate] SMALLDATETIME NOT NULL, 
     [GameId] INT NOT NULL, 
-    [OnlyForTeams] BINARY(1) NOT NULL DEFAULT 0, 
+    [OnlyForTeams] BIT NOT NULL , 
     CONSTRAINT [FK_Tournament_ToGame] FOREIGN KEY ([GameId]) REFERENCES [Game]([Id])
 )

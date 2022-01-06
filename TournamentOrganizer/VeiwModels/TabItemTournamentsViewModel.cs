@@ -26,6 +26,8 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
         public ObservableCollection<GameModel> Games { get; set; }
         public ObservableCollection<IParticipant> TournamentParticipants { get; set; }
+        public ObservableCollection<IParticipant> AllParticipants { get; set; }
+
         public ObservableCollection<string> TournamentsSelectionTypeList { get; set; }
 
         private TournamentModel _selectedTournament;
@@ -244,8 +246,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             _tournamentService = new TournamentService();
             Tournaments = new ObservableCollection<TournamentModel>();
             Games = new ObservableCollection<GameModel>();
+            AllParticipants = new ObservableCollection<IParticipant>();
             TournamentParticipants = new ObservableCollection<IParticipant>();
-            ComboBoxSelectTournamentType = "Турниры для игроков";
             VisibilityColumn = Visibility.Collapsed;
             VisibilityDataGridPlayers = Visibility.Collapsed;
             VisibilityBackPlayersButton = Visibility.Collapsed;
@@ -257,9 +259,10 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddTournament = new AddTournamentCommand(this);
             BackTournament = new BackTournamentCommand(this);
             EditTournament = new EditTournamentCommand(this);
-            GetPlayers = new GetTournamentPlayers(this, _tournamentService);
+            GetPlayers = new GetTournamentPlayersCommand(this, _tournamentService);
             BackPlayers = new BackPlayersCommand(this);
             DeletePlayer = new DeletePlayerFromTournanamentCommand(this, _tournamentService);
+            
         }
 
     }

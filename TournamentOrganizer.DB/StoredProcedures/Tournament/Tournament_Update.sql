@@ -3,7 +3,8 @@
 	@Name varchar(50),
 	@StartDate date,
 	@CloseDate date,
-	@GameId int
+	@GameId int,
+	@OnlyForTeams bit
 AS
 BEGIN
 	UPDATE Tournament
@@ -11,7 +12,8 @@ BEGIN
 		Name = @Name,
 		StartDate = @StartDate,
 		CloseDate = @CloseDate,
-		GameId = @GameId
+		GameId = @GameId,
+		OnlyForTeams = @OnlyForTeams
 	Where Id = @Id
 		
 End

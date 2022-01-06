@@ -6,12 +6,12 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TournamentCommands
 {
-    public class GetTournamentPlayers : CommandBase
+    public class GetTournamentPlayersCommand : CommandBase
     {
         private readonly TabItemTournamentsViewModel _viewModel;
         private readonly ITournamentService _tournamentService;
 
-        public GetTournamentPlayers(TabItemTournamentsViewModel viewModel, ITournamentService tournamentService) : base()
+        public GetTournamentPlayersCommand(TabItemTournamentsViewModel viewModel, ITournamentService tournamentService) : base()
         {
             _viewModel = viewModel;
             _tournamentService = tournamentService;
@@ -20,10 +20,16 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         public override void Execute(object parameter)
         {
             _viewModel.TournamentParticipants.Clear();
-            var playerList =  _tournamentService.GetPlayersInTournament(_viewModel.SelectedTournament.Id);
-            foreach (var item in playerList)
+            var tournamentPlayerList =  _tournamentService.GetPlayersInTournament(_viewModel.SelectedTournament.Id);
+            foreach (var item in tournamentPlayerList)
             {
                 _viewModel.TournamentParticipants.Add(item);
+            }
+            _viewModel.AllParticipants.Clear();
+            var allPlayerList = _tournamentService.GetAllPlayers();
+            foreach (var item in allPlayerList)
+            {
+                _viewModel.AllParticipants.Add(item);
             }
             _viewModel.VisibilityDataGridPlayers = Visibility.Visible;
             _viewModel.VisibilityDataGridTournaments = Visibility.Collapsed;

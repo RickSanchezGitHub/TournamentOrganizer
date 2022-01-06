@@ -24,7 +24,8 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
-                    GameId = tournament.Game.Id
+                    GameId = tournament.Game.Id,
+                    OnlyForTeams = tournament.OnlyForTeams
                 },
                 commandType: CommandType.StoredProcedure
             ).FirstOrDefault();
@@ -91,7 +92,8 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
-                    GameId = tournament.Game.Id
+                    GameId = tournament.Game.Id,
+                    OnlyForTeams = tournament.OnlyForTeams
                 },
                 commandType: CommandType.StoredProcedure
             );

@@ -28,7 +28,8 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
                 Name = _viewModel.SelectedTournament.Name,
                 StartDate = _viewModel.SelectedTournament.StartDate,
                 CloseDate = _viewModel.SelectedTournament.CloseDate,
-                Game = _viewModel.SelectedTournament.Game
+                Game = _viewModel.SelectedTournament.Game,
+                OnlyForTeams = _viewModel.CheckBoxSelectedTournamentType
             };
             _tournamentService.UpdateTournament(tournament);
 

@@ -13,12 +13,14 @@ namespace TournamentOrganizer.BusinessLayer.Service
         private readonly ITournamentRepository _tournamentRepository;
         private readonly IGameRepository _gameRepository;
         private readonly IResultTournamentPlayerRepository _resultTournamentPlayerRepository;
+        private readonly IPlayerRepository _playerRepository;
 
         public TournamentService()
         {
             _tournamentRepository = new TournamentRepository();
             _gameRepository = new GameRepository();
             _resultTournamentPlayerRepository = new ResultTournamentPlayerRepository();
+            _playerRepository = new PlayerRepository();
         }
 
         public TournamentService(ITournamentRepository tournamentRepository, IGameRepository gameRepository, IResultTournamentPlayerRepository resultTournamentPlayerRepository)
@@ -74,10 +76,11 @@ namespace TournamentOrganizer.BusinessLayer.Service
             return _resultTournamentPlayerRepository.AddPlayerToTournament(playerModel, tournamentId);
         }
 
-        //public List<PlayerModel> GetAllPlayers()
-        //{
-        //    //var players = 
-        //}
+        public List<PlayerModel> GetAllPlayers()
+        {
+            var players = _playerRepository.GetAll();
+            return CustomMapper.GetInstance().Map<List<PlayerModel>>(players);
+        }
     }
 
 }

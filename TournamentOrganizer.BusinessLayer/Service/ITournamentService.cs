@@ -13,5 +13,6 @@ namespace TournamentOrganizer.BusinessLayer.Service
         public List<PlayerModel> GetPlayersInTournament(int tournamentId);
         public void DeletePlayerFromTournament(int playerId, int tournamentId);
         public int AddPalyerToTournament(PlayerModel player, int tournamentId);
+        public List<PlayerModel> GetAllPlayers();
     }
 }
