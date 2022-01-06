@@ -11,6 +11,7 @@ using System.Windows.Input;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.DataLayer.Repositories;
 using TournamentOrganizer.UI.Commands;
 using TournamentOrganizer.UI.Commands.GridOfTournamentsCommands;
 
@@ -24,10 +25,12 @@ namespace TournamentOrganizer.UI.VeiwModels
 
         private ITournamentService _tournamentService;
         private IPlayerService _playerService;
+        private ResultTournamentPlayerService _resultTournamentPlayerService;
         public TabItemGridOfTournamentsViewModel()
         {
             _tournamentService = new TournamentService();
             _playerService = new PlayerService();
+            _resultTournamentPlayerService = new ResultTournamentPlayerService();
             TournamentSelect = new TournamentSelectCommand(this, _tournamentService);
             Tournaments = new ObservableCollection<TournamentModel>();
             CreateRound = new CreateRoundCommand(this);
@@ -35,15 +38,17 @@ namespace TournamentOrganizer.UI.VeiwModels
             SetDraw = new SetDrawCommand(this);
             BackFromResolveMatch = new BackFromResolveMatchCommand(this);
             ShowTournamentParticipants = new ShowTournamentParticipantsCommand(this);
-            LoadTournaments = new LoadTournamentsCommand(this, _tournamentService);
+            LoadTournaments = new LoadTournamentsCommand(this, _resultTournamentPlayerService, _playerService, _tournamentService);
             ResolveMatch = new ResolveMatchCommand(this);
+            StartTournament = new StartTournamentCommand(this);
             Command = new RoutedCommand("Command", typeof(Button));
             Players = new();
             SelctedMatchInTreeView = new();
             VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             VisibilityButtonShowTournamentParticipants = Visibility.Collapsed;
             VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
-            InitialData();
+            VisibilityButtonForStartTournament = Visibility.Hidden;
+            //InitialData();
         }
 
         private TournamentModel _selectedTournament;
@@ -55,9 +60,17 @@ namespace TournamentOrganizer.UI.VeiwModels
                 _selectedTournament = value;
                 OnPropertyChanged(nameof(SelectedTournament));
                 if (_selectedTournament != null)
-                {
                     VisibilityButtonShowTournamentParticipants = Visibility.Visible;
+
+                if (_selectedTournament.StartedTournament == false)
+                {
+                    VisibilityButtonForStartTournament = Visibility.Visible;
                 }
+                else
+                {
+                    VisibilityButtonForStartTournament = Visibility.Hidden;
+                }
+
                 
             }
         }
@@ -118,6 +131,17 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private Visibility _visibilityButtonForStartTournament;
+        public Visibility VisibilityButtonForStartTournament
+        {
+            get { return _visibilityButtonForStartTournament; }
+            set
+            {
+                _visibilityButtonForStartTournament = value;
+                OnPropertyChanged(nameof(VisibilityButtonForStartTournament));
+            }
+        }
+
         private Button _selectedButton;
         public Button SelectedButton
         {
@@ -137,6 +161,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand ShowTournamentParticipants { get; set; }
         public ICommand LoadTournaments { get;set; }
         public ICommand ResolveMatch { get; set; }
+        public ICommand StartTournament { get; set; }
         public RoutedCommand Command { get; set; }
 
         public void Command_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -156,7 +181,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             TournamentModel tour = new TournamentModel
             {
                 Name = "Experience tour",
-                Game = game.GameSelectById(7),
+                Game = game.GameSelectById(1),
                 StartDate = DateTime.Now.AddDays(-10),
                 CloseDate = DateTime.Now
             };

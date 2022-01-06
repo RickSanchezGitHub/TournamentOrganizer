@@ -12,7 +12,7 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    class ResultTournamentTeamRepository: BaseRepository
+    public class ResultTournamentTeamRepository: BaseRepository
     { 
         public void Insert(ResultTournamentTeam resultTournamentTeam)
         {

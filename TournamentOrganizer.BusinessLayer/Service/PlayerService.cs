@@ -56,9 +56,9 @@ namespace TournamentOrganizer.BusinessLayer.Service
             return CustomMapper.GetInstance().Map<List<TeamModel>>(teams);
         }
 
-        public List<PlayerModel> GetPlayersByTournamentId(int tournamentId)
+        public List<PlayerModel> GetPlayersByTournamentId(TournamentModel tournament)
         {
-            var players = _playerRepository.GetPlayersInTournament(tournamentId);
+            var players = _playerRepository.GetPlayersInTournament(tournament.Id);
             return CustomMapper.GetInstance().Map<List<PlayerModel>>(players);
         }
     }

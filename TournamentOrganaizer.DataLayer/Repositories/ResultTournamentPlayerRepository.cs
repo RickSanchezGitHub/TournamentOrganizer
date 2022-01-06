@@ -182,6 +182,28 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public List<ResultTournamentPlayer> GetDataOfTournament(int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_GetDataOfTournament]";
+
+            var result = sqlConnection
+                .Query<ResultTournamentPlayer, Player, ResultTournamentPlayer>
+                (
+                    storedProcedure,
+                    (resultTournamentPlayer, player) =>
+                    {
+                        resultTournamentPlayer.Player = player;
+                        return resultTournamentPlayer;
+                    },
+                    new {TournamentId = tournamentId },
+                    commandType: CommandType.StoredProcedure,
+                    splitOn: "Id"
+                )
+                .ToList();
+
+            return result;
+        }
 
     }
 }

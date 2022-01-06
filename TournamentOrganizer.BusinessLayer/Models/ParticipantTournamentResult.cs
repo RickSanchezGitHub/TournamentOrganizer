@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class ParticipantTournamentResult: INotifyPropertyChanged
+    public class ParticipantTournamentResult : INotifyPropertyChanged
     {
         public IParticipant Participant { get; set; }
-
-        private int _score;
 
         public ParticipantTournamentResult(IParticipant participant)
         {
             Participant = participant;
         }
 
-        public int Score
+        private int? _score;
+        public int? Score
         {
             get { return _score; }
             set

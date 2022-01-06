@@ -49,7 +49,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         public Game GameSelectById(int id)
         {
-            const string procedureName = "Game_SelectById";
+            const string procedureName = "[dbo].[Game_SelectById]";
             using IDbConnection connection = ProvideConnection();
             var result = connection.Query<Game>(
                 procedureName,

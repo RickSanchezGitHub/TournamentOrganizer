@@ -12,6 +12,6 @@ namespace TournamentOrganizer.BusinessLayer.Service
         int InsertPlayer(PlayerModel playerModel);
         void PlayerUpdate(int id, PlayerModel playerModel);
 
-        List<PlayerModel> GetPlayersByTournamentId(int tournamentId);
+        List<PlayerModel> GetPlayersByTournamentId(TournamentModel tournament);
     }
 }

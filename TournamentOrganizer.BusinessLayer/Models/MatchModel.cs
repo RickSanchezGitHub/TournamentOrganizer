@@ -9,11 +9,15 @@ namespace TournamentOrganizer.BusinessLayer.Models
 {
     public class MatchModel
     {
+        public MatchModel()
+        {
+            Participants = new();
+        }
         public int MatchNumber { get; set; }
         
         public ObservableCollection<IParticipant> Participants { get; set; }
 
-        public bool MatchResolved { get; private set; }
+        public bool MatchResolved { get; set; }
 
         //private int _numberParticipantsInMatch;
 
@@ -21,10 +25,10 @@ namespace TournamentOrganizer.BusinessLayer.Models
         {
             //ObservableCollection<ParticipantTournamentResult> tournamentParticipants = tournament.ParticipantsResults;
             //var winner = tournamentParticipants.First(item => item.Participant == participant);
-            int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
-            ResultTournamentParticipantModel winner = new(); 
+            int? roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
+            ResultTournamentPlayerModel winner = new(); 
             winner.NumberMatch = MatchNumber;
-            winner.Participant = participant;
+            winner.Player = (PlayerModel)participant;
             winner.Tournament = tournament;
             winner.NumberRound = roundNumber;
             winner.Result = 2;
@@ -35,10 +39,10 @@ namespace TournamentOrganizer.BusinessLayer.Models
         public void ResolveDraw(TournamentModel tournament, IParticipant participant)
         {
             // var draw = tournament.ParticipantsResults.First(item => item.Participant == participant);
-            int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
-            ResultTournamentParticipantModel draw = new();
+            int? roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
+            ResultTournamentPlayerModel draw = new();
             draw.NumberMatch = MatchNumber;
-            draw.Participant = participant;
+            draw.Player = (PlayerModel)participant;
             draw.Tournament = tournament;
             draw.NumberRound = roundNumber;
             draw.Result = 1;

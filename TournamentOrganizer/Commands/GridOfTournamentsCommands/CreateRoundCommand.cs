@@ -24,7 +24,19 @@ namespace TournamentOrganizer.UI.Commands
                 MessageBox.Show("Выберите турнир");
                 return;
             }
-            
+
+            if (_viewModel.SelectedTournament.ClosedTournament == true)
+            {
+                MessageBox.Show("Турнир завершён");
+                return;
+            }
+
+            if (_viewModel.SelectedTournament.StartedTournament == false)
+            {
+                MessageBox.Show("Турнир не начат");
+                return;
+            }
+
             if (!_viewModel.SelectedTournament.CreateRound())
             {
                 MessageBox.Show("В текущем раунде не во всех матчах установлен результат");
