@@ -11,6 +11,7 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
 {
     public class AddClickCommand : CommandBase
     {
+       
         private TabItemPlayerViewModel _viewModel;
 
         public AddClickCommand(TabItemPlayerViewModel viewModel) : base()
@@ -25,7 +26,7 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
             _viewModel.TextBoxEmailText = null;
             _viewModel.DatePickerBirthdaySelectedDate = DateTime.Now;
 
-            _viewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
+            _viewModel.WidthGridAddPlayer = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnVisible, GridUnitType.Star);
             _viewModel.StateMainDataGrid = false;
             _viewModel.IsEnabledButtonAddSave = true;
             _viewModel.VisibilityButtonAddSave = Visibility.Visible;

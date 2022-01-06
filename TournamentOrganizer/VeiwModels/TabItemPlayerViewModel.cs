@@ -21,8 +21,8 @@ namespace TournamentOrganizer.UI.VeiwModels
         {
             _playerService = new PlayerService();
             Players = new ObservableCollection<PlayerModel>();
-            WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
-            WidthGridPlayerInfo = new GridLength(0, GridUnitType.Star);
+            WidthGridAddPlayer = new GridLength((int)WidthGridColumn.ColumnHidden, GridUnitType.Star);
+            WidthGridPlayerInfo = new GridLength((int)WidthGridColumn.ColumnHidden, GridUnitType.Star);
             StateMainDataGrid = true;
             VisibilityButtonAddSave = Visibility.Hidden;
             VisibilityButtonEditSave = Visibility.Hidden;
@@ -68,6 +68,12 @@ namespace TournamentOrganizer.UI.VeiwModels
                 _widthGridPlayerInfo = value;
                 OnPropertyChanged(nameof(WidthGridPlayerInfo));
             }
+        }
+
+        public enum WidthGridColumn
+        {
+            ColumnHidden, 
+            ColumnVisible
         }
 
         private PlayerModel _selectedPlayer;

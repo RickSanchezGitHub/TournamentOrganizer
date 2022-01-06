@@ -27,10 +27,6 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
         {
             foreach (var item in _playerService.GetAll())
                 _viewModel.Players.Add(item);
-
-
-
-
         }
 
     }

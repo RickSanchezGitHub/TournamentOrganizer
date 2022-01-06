@@ -40,7 +40,7 @@ namespace TournamentOrganizer.UI.Commands
                 _viewModel.VisibilityLabelPlayerWithoutTeams = Visibility.Collapsed;
             }
 
-            _viewModel.WidthGridPlayerInfo = new GridLength(1, GridUnitType.Star);
+            _viewModel.WidthGridPlayerInfo = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnVisible, GridUnitType.Star);
             _viewModel.StateMainDataGrid = false;
             _viewModel.IsEnabledButtonAdd = false;
 

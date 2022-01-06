@@ -15,6 +15,7 @@ namespace TournamentOrganizer.UI.Commands
 {
     public class AddSavePlayerCommand : CommandBase
     {
+       
         private TabItemPlayerViewModel _viewModel;
 
         private readonly IPlayerService _playerService;
@@ -45,8 +46,7 @@ namespace TournamentOrganizer.UI.Commands
             }
 
 
-            var playerModel = new PlayerModel
-
+            PlayerModel playerModel = new PlayerModel
             {
                 FirstName = _viewModel.TextBoxFirstNameText,
                 LastName = _viewModel.TextBoxLastNameText,
@@ -60,7 +60,7 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.Players.Add(playerModel);
 
 
-            _viewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
+            _viewModel.WidthGridAddPlayer = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnHidden, GridUnitType.Star);
             _viewModel.StateMainDataGrid = true;
 
             _viewModel.IsEnabledButtonAddSave = false;

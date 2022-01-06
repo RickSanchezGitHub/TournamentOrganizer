@@ -12,6 +12,7 @@ namespace TournamentOrganizer.UI.Commands
 {
     public class BackFromAddCommand : CommandBase
     {
+       
         private TabItemPlayerViewModel _viewModel;
 
         public BackFromAddCommand(TabItemPlayerViewModel viewModel) : base()
@@ -20,7 +21,7 @@ namespace TournamentOrganizer.UI.Commands
         }
         public override void Execute(object parameter)
         {
-            _viewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
+            _viewModel.WidthGridAddPlayer = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnHidden, GridUnitType.Star);
             _viewModel.StateMainDataGrid = true;
             _viewModel.VisibilityButtonAddSave = Visibility.Hidden;
             _viewModel.VisibilityButtonEditSave = Visibility.Hidden;

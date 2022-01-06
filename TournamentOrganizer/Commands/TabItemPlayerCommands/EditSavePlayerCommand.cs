@@ -14,6 +14,7 @@ namespace TournamentOrganizer.UI.Commands
 {
     public class EditSavePlayerCommand : CommandBase
     {
+        
         private TabItemPlayerViewModel _viewModel;
 
         private readonly IPlayerService _playerService;
@@ -51,10 +52,11 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.IsEnabledButtonEditSave = false;
             _viewModel.VisibilityButtonEditSave = Visibility.Hidden;
 
-            _viewModel.WidthGridAddPlayer = new GridLength(0, GridUnitType.Star);
+            _viewModel.WidthGridAddPlayer = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnHidden, GridUnitType.Star);
             _viewModel.StateMainDataGrid = true;
             _viewModel.IsEnabledButtonAdd = true;
 
+            
         }
     }
 }

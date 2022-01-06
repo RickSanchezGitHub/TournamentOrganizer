@@ -104,11 +104,11 @@
         <StackPanel Grid.Column="2" Grid.RowSpan="2">
         <StackPanel DataContext="{Binding SelectedPlayer}" x:Name="StackPanelPlayerInfo" VerticalAlignment="Top">
             <Label HorizontalAlignment="Center" Content="Информация"/>
-            <Label Content="{Binding FirstName}" Margin="0,0,0,8" />
-            <Label Content="{Binding LastName}" Margin="0,0,0,8"/>
-            <Label Content="{Binding NickName}" Margin="0,0,0,8"/>
-            <Label Content="{Binding Email}" Margin="0,0,0,8"/>
-            <Label Content="{Binding Birthday}"/>
+            <TextBlock Text="{Binding StringFormat=Имя: {0}, Path= FirstName}" Margin="24,0,0,8" />
+            <TextBlock Text="{Binding StringFormat=Фамилия: {0}, Path=LastName}" Margin="24,0,0,8"/>
+                <TextBlock Text="{Binding StringFormat=Никнэйм: {0}, Path=NickName}" Margin="24,0,0,8"/>
+                <TextBlock Text="{Binding StringFormat=Почта: {0}, Path=Email}" Margin="24,0,0,8"/>
+                <TextBlock Text="{Binding StringFormat=День_Рождения: {0}, Path=Birthday}" Margin="24,0,0,8"/>
         </StackPanel>
             <Label Visibility="{Binding VisibilityLabelPlayerWithoutTeams}" Content="В командах не состоит" Margin="0,20,0,60"/>
             <DataGrid Visibility="{Binding VisibilityDataGridShowTeamsPlayer}" Height="96" ItemsSource="{Binding Teams}" Margin="0,10,0,0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">

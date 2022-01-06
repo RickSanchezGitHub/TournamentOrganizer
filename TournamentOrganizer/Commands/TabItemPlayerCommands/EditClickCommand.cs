@@ -12,9 +12,8 @@ namespace TournamentOrganizer.UI.Commands
 {
     public class EditClickCommand : CommandBase
     {
+       
         private TabItemPlayerViewModel _viewModel;
-
-
 
         public EditClickCommand(TabItemPlayerViewModel viewModel) : base()
         {
@@ -28,7 +27,7 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.IsEnabledButtonEditSave = true;
             _viewModel.VisibilityButtonEditSave = Visibility.Visible;
 
-            _viewModel.WidthGridAddPlayer = new GridLength(1, GridUnitType.Star);
+            _viewModel.WidthGridAddPlayer = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnVisible, GridUnitType.Star);
             _viewModel.TextBoxFirstNameText = _viewModel.SelectedPlayer.FirstName;
             _viewModel.TextBoxLastNameText = _viewModel.SelectedPlayer.LastName;
             _viewModel.TextBoxNickNameText = _viewModel.SelectedPlayer.NickName;
