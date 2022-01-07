@@ -44,6 +44,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             Command = new RoutedCommand("Command", typeof(Button));
             Players = new();
             SelctedMatchInTreeView = new();
+            ParticipantTournamentResults = new();
             VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             VisibilityButtonShowTournamentParticipants = Visibility.Collapsed;
             VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
@@ -190,7 +191,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             foreach (PlayerModel item in listPlayers)
             {
                 tour.Participants.Add(item);
-                tour.ParticipantsResults.Add(new ParticipantTournamentResult(item));
+                //tour.ParticipantsResults.Add(new ParticipantTournamentResult(item));
             }
 
             tour.StartTournament();

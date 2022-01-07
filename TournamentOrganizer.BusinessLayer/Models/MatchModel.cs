@@ -12,44 +12,40 @@ namespace TournamentOrganizer.BusinessLayer.Models
         public MatchModel()
         {
             Participants = new();
+            ParticipantsResults = new();
         }
         public int MatchNumber { get; set; }
-        
+
         public ObservableCollection<IParticipant> Participants { get; set; }
+
+        public ObservableCollection<IResultTournamentParticipantModel> ParticipantsResults { get; set; }
 
         public bool MatchResolved { get; set; }
 
         //private int _numberParticipantsInMatch;
 
-        public void ResolveWinner(TournamentModel tournament, IParticipant participant)
+        //ЗДЕСЬ АПДЕЙТ РЕЗУЛЬТАТА ПО ИГРОКУ РАУНДУ ТУРНИРУ
+        public int ResolveWinner(TournamentModel tournament, IParticipant participant)
         {
-            //ObservableCollection<ParticipantTournamentResult> tournamentParticipants = tournament.ParticipantsResults;
-            //var winner = tournamentParticipants.First(item => item.Participant == participant);
-            int? roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
-            ResultTournamentPlayerModel winner = new(); 
-            winner.NumberMatch = MatchNumber;
-            winner.Player = (PlayerModel)participant;
-            winner.Tournament = tournament;
-            winner.NumberRound = roundNumber;
-            winner.Result = 2;
-            tournament.ParticipantsResultsInMatchs.Add(winner);
+            int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
+            var winner = tournament.ParticipantsResults.First(item =>
+            item.Participant.Equals(participant));
+
+            winner.Score += 2;
             MatchResolved = true;
+            return roundNumber;
         }
 
-        public void ResolveDraw(TournamentModel tournament, IParticipant participant)
+        public int ResolveDraw(TournamentModel tournament, IParticipant participant)
         {
-            // var draw = tournament.ParticipantsResults.First(item => item.Participant == participant);
-            int? roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
-            ResultTournamentPlayerModel draw = new();
-            draw.NumberMatch = MatchNumber;
-            draw.Player = (PlayerModel)participant;
-            draw.Tournament = tournament;
-            draw.NumberRound = roundNumber;
-            draw.Result = 1;
-            tournament.ParticipantsResultsInMatchs.Add(draw);
+
+            var draw = tournament.ParticipantsResults.First(item => item.Participant.Equals(participant));
+            int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
+            draw.Score += 1;
             MatchResolved = true;
+            return roundNumber;
         }
 
-        
+
     }
 }

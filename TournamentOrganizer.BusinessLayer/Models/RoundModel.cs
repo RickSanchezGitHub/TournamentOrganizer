@@ -16,8 +16,8 @@ namespace TournamentOrganizer.BusinessLayer.Models
             Matchs = new();
         }
 
-        private int? _roundNumber;
-        public int? RoundNumber
+        private int _roundNumber;
+        public int RoundNumber
         {
             get { return _roundNumber; }
             set
@@ -122,6 +122,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             return sortedParticipants;
         }
 
+        //ТУТ ПОРЯДОК ЗАЕБАЛ СЮДА ПЯЛИТЬ ЕБЛАН
         public void DistributeParticipants(TournamentModel tournament)
         {
             ObservableCollection<IParticipant> sortedPlayersByScore = GetTournamentPlayersAndOrderByDescending(tournament);
@@ -130,8 +131,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             while (sortedPlayersByScore.Count != 0)
             {
                 MatchModel match = new MatchModel();
-                //match.Participants = new();
-
+                
                 int index = 1;
                 for (int i = 0; i < allTournamentPairs.Count; i++)
                 {
@@ -162,11 +162,12 @@ namespace TournamentOrganizer.BusinessLayer.Models
             SetNumbersOfMatchs(tournament);
         }
 
+        //ОТСДА ПОХОДУ ИНСЕРТАТЬ ВСЁ
         public void SetNumbersOfMatchs(TournamentModel tournament)
         {
             for (int i = 0; i < Matchs.Count; i++)
             {
-                Matchs[i].MatchNumber = i + 1;
+                Matchs[i].MatchNumber = i + 1;  
             }
         }
 

@@ -76,43 +76,32 @@ namespace TournamentOrganizer.BusinessLayer.Models
 
         #endregion
 
-        public TournamentModel(int numberParticipantsInMatch = 2)
+        public TournamentModel()
         {
-            NumberParticipantsInMatch = numberParticipantsInMatch;
             Rounds = new ObservableCollection<RoundModel>();
             Participants = new();
             ParticipantsResults = new();
-            ParticipantsResultsInMatchs = new();
             ClosedTournament = false;
             StartedTournament = false;
-
+            ParticipantsResultsInMatchs = new();
         }
 
         public bool ClosedTournament { get; private set; }
         public bool StartedTournament { get; private set; }
         public ObservableCollection<ParticipantTournamentResult> ParticipantsResults { get; set; }
 
-        public ObservableCollection<ResultTournamentPlayerModel> ParticipantsResultsInMatchs { get; set; }
+        public ObservableCollection<IResultTournamentParticipantModel> ParticipantsResultsInMatchs { get; set; }
         public ObservableCollection<IParticipant> Participants { get; set; }
         public ObservableCollection<RoundModel> Rounds { get; private set; }
-        public int NumberParticipantsInMatch { get; private set; }//2
 
         public int NumberRounds { get; set; }
         public void SetNumberRounds()
         {
-            NumberRounds = (int)Math.Log(Participants.Count, NumberParticipantsInMatch);
+            NumberRounds = (int)Math.Log(Participants.Count, 2);
         }
 
-        public void SetParticipantsResults()
-        {
-            foreach (IParticipant participant in Participants)
-            {
-                int? score = ParticipantsResultsInMatchs.Where(item => item.Player.Equals(participant)).Sum(item => item.Result);
-
-                ParticipantsResults.First(item => item.Participant == participant).Score = score;
-            }
-        }
-
+       
+        //ОТСЮДА МОЖНО ИНСЕРТНУТЬ турнир раунд матч
         public bool CreateRound()
         {
             bool lastRoundIsResolved = Rounds.Count == 0 || Rounds.Last<RoundModel>().CheckMatchesOnResolved();
@@ -126,6 +115,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 {
                     CloseTournament();
                 }
+                
                 return true;
             }
             return false;

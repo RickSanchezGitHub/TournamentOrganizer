@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.DataLayer.Entities;
 using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.BusinessLayer.Service
@@ -37,6 +38,33 @@ namespace TournamentOrganizer.BusinessLayer.Service
 
         }
 
+        public void SetPlayerResultInRoundOfTournament(int newResult, ResultTournamentPlayerModel resultTournamentPlayerModel)
+        {
+            var resultTournamentPlayer = CustomMapper.GetInstance().Map<ResultTournamentPlayer>(resultTournamentPlayerModel);
+            _resultTournamentPlayerRepository.SetPlayerResultMatchRoundInTournament(newResult, resultTournamentPlayer);
+        }
+
+        public void SetPlayerResultInRoundOfTournament(int newResult, int playerId, int numberRound, int tournamentId)
+        {
+            _resultTournamentPlayerRepository.SetPlayerResultInRoundOfTournament(newResult, playerId, numberRound, tournamentId);
+        }
+
+        public void InsertPlayerIdRoundMatchTournament(int playerId, int round, int match, int tournament)
+        {
+            _resultTournamentPlayerRepository.InsertPlayerIdRoundMatchTournament(playerId, round, match, tournament);
+        }
+
+        public void SetMatchRoundByPlayerTournament(int tournamentId, int playerId, int numMatch, int numRound)
+        {
+            _resultTournamentPlayerRepository.SetMatchRoundByPlayerTournament(tournamentId, playerId, numMatch, numRound);
+        }
+
+        public List<ResultTournamentPlayerModel> GetPlayerResultsInTournament(int playerId, int tournamentId)
+        {
+            var results = _resultTournamentPlayerRepository.GetPlayerResultsInTournament(playerId, tournamentId);
+            return CustomMapper.GetInstance().Map<List<ResultTournamentPlayerModel>>(results);
+        }
+
         public void CreateTournamentFromDataBase(TournamentModel tournament)
         {
             int tournamentId = tournament.Id;
@@ -54,8 +82,8 @@ namespace TournamentOrganizer.BusinessLayer.Service
             tournament.SetNumberRounds();
             if (data.Any(item => item.NumberRound == 0))
                 return;
-            
 
+            tournament.StartTournament();
             foreach (var item in data)
                 tournament.ParticipantsResultsInMatchs.Add(item);
 
@@ -69,22 +97,35 @@ namespace TournamentOrganizer.BusinessLayer.Service
                 for (int j = 1; j <= maxMatch; j++)
                 {
                     MatchModel match = new MatchModel { MatchNumber = j };
-                    if (matchData.First(item => item.NumberMatch == j).Result == null)
+                    if (matchData.Where(item => item.NumberMatch == j).All(res => res.Result == 0))
                         match.MatchResolved = false;
                     else
                         match.MatchResolved = true;
 
                     foreach (var instance in matchData.Where(el => el.NumberMatch == j))
+                    {
                         match.Participants.Add(instance.Player);
-
+                        match.ParticipantsResults.Add(instance);
+                    }
                     tournament.Rounds[i - 1].Matchs.Add(match);
                 }
             }
-            tournament.SetParticipantsResults();
-            if (tournament.NumberRounds >= tournament.Rounds.Count)
+            StartFillResultPlayersInTournament(tournament);
+            if (tournament.NumberRounds <= tournament.Rounds.Count)
             {
                 tournament.StartTournament();
                 tournament.CloseTournament();
+            }
+        }
+
+        public void StartFillResultPlayersInTournament(TournamentModel tournament)
+        {
+            foreach (var item in tournament.ParticipantsResults)
+            {
+                foreach (var result in GetPlayerResultsInTournament(item.Participant.Id, tournament.Id))
+                {
+                    item.Score += (int)result.Result;
+                }
             }
         }
 

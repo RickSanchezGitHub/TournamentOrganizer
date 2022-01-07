@@ -17,8 +17,8 @@ namespace TournamentOrganizer.BusinessLayer.Models
             Participant = participant;
         }
 
-        private int? _score;
-        public int? Score
+        private int _score;
+        public int Score
         {
             get { return _score; }
             set
