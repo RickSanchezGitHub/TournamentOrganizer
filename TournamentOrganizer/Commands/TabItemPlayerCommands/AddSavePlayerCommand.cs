@@ -41,7 +41,13 @@ namespace TournamentOrganizer.UI.Commands
             
             if (_validationTabItemPlayer.CheckIsValidInputData())
             {
-                MessageBox.Show("Имя и Фамилия не должны содержать 1234567890!@#$%^&*()_+= и пробелов");
+                MessageBox.Show("Имя и Фамилия не должны содержать 1234567890!@#$%^&*()_+= и пробелов и название не должно превышать 25 символов");
+                return;
+            }
+
+            if (Validation.BirthdayValidation(_viewModel.DatePickerBirthdaySelectedDate))
+            {
+                MessageBox.Show("Игроку должно быть больше 14 лет");
                 return;
             }
 

@@ -15,7 +15,7 @@ namespace TournamentOrganizer.UI.Commands
             string textTrim = text.Trim();
             foreach (var item in invalidSymbols)
             {
-                if (textTrim.Contains(item))
+                if (textTrim.Contains(item) || textTrim.Length>25)
                 {
                     isValid = false;
                     break;
@@ -33,5 +33,17 @@ namespace TournamentOrganizer.UI.Commands
             }
             return isValid;
         }
+
+        public static bool BirthdayValidation(DateTime birdthday)
+        {
+            if (DateTime.Now.Year - birdthday.Year < 14)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
     }
 }
