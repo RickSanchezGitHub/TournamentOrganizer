@@ -16,6 +16,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         
@@ -28,7 +29,7 @@
         <Image x:Name="MainImage"
                            Grid.Column="0" 
                            Grid.Row="0" 
-                           Grid.ColumnSpan="5"
+                           Grid.ColumnSpan="6"
                            Grid.RowSpan="3"
                            Source="..\Images\carbon.jpg" 
                            Stretch="UniformToFill" 
@@ -138,10 +139,11 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
+        
         <StackPanel Orientation="Vertical"
                     Grid.Row="0" 
                     Grid.Column="3"
-                    Visibility="{Binding VisibilityColumn}"
+                    Visibility="{Binding VisibilityColumnAddTeam}"
                     Margin="0,20,0,0">
             
             <StackPanel Orientation="Horizontal" 
@@ -162,28 +164,62 @@
                          Text ="{Binding TextBoxName}">                    
                 </TextBox>
                 
-            </StackPanel>
+            </StackPanel>           
             
-            <StackPanel Orientation="Horizontal" 
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" 
+                    Grid.Column="4"
+                    Visibility="{Binding VisibilityColumnUpdateTeam}"
+                    Margin="0,20,0,0">
+            
+            <StackPanel Orientation="Vertical" 
                         HorizontalAlignment="Stretch">
 
-                <Label Name="LabelPlayer"
+                <Label Name="LabellName"
                        Foreground="White"
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
-                       FontSize="15"
-                       VerticalAlignment="Center">Игроки
+                       FontSize="15" 
+                       Margin="5"
+                       VerticalAlignment="Center">Название
                 </Label>
-               
-                <ComboBox Width="Auto"
-                          VerticalAlignment="Center" 
-                          ItemsSource="{Binding Players}"
-                          DisplayMemberPath="FirstName"
-                          SelectedValue="{Binding SelectedPlayer}">
-                                  
-                </ComboBox>
+
+                <TextBox x:Name="TexttBoxName"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         MinWidth="100"
+                         Text ="{Binding TextBoxName}">
+                </TextBox>
+                
+                <ListBox ItemsSource="{Binding Players}"
+                         SelectedItem="{Binding SelectedPlayer}"
+                         SelectedIndex="0">
+                    
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate  DataType="c:PlayerModel">
+                            <DockPanel>
+
+                                <TextBlock Text="{Binding NickName}" 
+                                           Width="120"
+                                           HorizontalAlignment="Left" 
+                                           Margin="5,0,0,0"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                </ListBox>
+                
             </StackPanel>
-            
+
         </StackPanel>
 
         <StackPanel Grid.Row="2"
@@ -219,7 +255,7 @@
         <StackPanel Grid.Row="2"
                     Grid.Column="3"
                     Orientation="Horizontal"
-                    Visibility="{Binding VisibilityColumn}">
+                    Visibility="{Binding VisibilityColumnAddTeam}">
 
             <Button Visibility="{Binding VisibilitySaveButton}"
                     Height="20"
@@ -237,5 +273,26 @@
 
         </StackPanel>
         
+        <StackPanel Grid.Row="2"
+                    Grid.Column="4"
+                    Orientation="Horizontal"
+                    Visibility="{Binding VisibilityColumnUpdateTeam}">
+
+            <Button Visibility="{Binding VisibilitySaveButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Сохранить"
+                    Command="{Binding UpdateTeamCommand}"/>
+
+            <Button Visibility="{Binding VisibilityBackButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Назад"
+                    Command="{Binding BackTeamCommand}"/>
+
+        </StackPanel>
+
     </Grid>
 </TabItem>

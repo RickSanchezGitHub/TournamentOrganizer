@@ -31,6 +31,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand AddPlayerForTeamCommand { get; set; }
         public ICommand DeletePlayerForTeamCommand { get; set; }
         public ICommand GetAllPlayerCommand { get; set; }
+        public ICommand SaveUpdateTeamCommand { get; set; }
 
         public TabItemTeamViewModel()
         {
@@ -47,6 +48,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddPlayerForTeamCommand = new AddPlayerForTeamCommand(this, _teamPlayerService);
 
             DeletePlayerForTeamCommand = new DeletePlayerForTeamCommand(this, _teamPlayerService);
+
             GetAllPlayerCommand = new GetAllPlayerCommand(this, _playerService);
 
             DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
@@ -60,8 +62,13 @@ namespace TournamentOrganizer.UI.VeiwModels
             UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
             
             InitializeTeamCommand = new InitializeTeamCommand(this, _teamService, _playerService);
-            
-            VisibilityColumn = Visibility.Collapsed;
+
+            SaveUpdateTeamCommand = new SaveUpdateTeamCommand(this, _teamService, _teamPlayerService);
+
+            VisibilityColumnAddTeam = Visibility.Collapsed;
+
+            VisibilityColumnUpdateTeam = Visibility.Collapsed;
+
         }
 
         private ObservableCollection<TeamModel> _teams;
@@ -115,20 +122,31 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private Visibility _visibilityColumn;
+        private Visibility _visibilityColumnAddTeam;
 
-        public Visibility VisibilityColumn 
+        public Visibility VisibilityColumnAddTeam 
         {
-            get => _visibilityColumn;
+            get => _visibilityColumnAddTeam;
             set
             {
-                _visibilityColumn = value;
-                OnPropertyChanged(nameof(VisibilityColumn));
+                _visibilityColumnAddTeam = value;
+                OnPropertyChanged(nameof(VisibilityColumnAddTeam));
+            }
+        }
+
+        private Visibility _visibilityColumnUpdateTeam;
+
+        public Visibility VisibilityColumnUpdateTeam
+        {
+            get => _visibilityColumnUpdateTeam;
+            set
+            {
+                _visibilityColumnUpdateTeam = value;
+                OnPropertyChanged(nameof(VisibilityColumnUpdateTeam));
             }
         }
 
         private Visibility _visibilitySaveButton;
-
         public Visibility VisibilitySaveButton
         {
             get => _visibilitySaveButton;

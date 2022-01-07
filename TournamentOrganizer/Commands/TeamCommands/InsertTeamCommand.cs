@@ -27,7 +27,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             {
                 Name = _viewModel.TextBoxName
             };
-            _viewModel.VisibilityColumn = Visibility.Collapsed;
+            _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
             int idNewTeam = _teamService.Insert(teamModel);
             teamModel.Id = idNewTeam;
             _viewModel.Teams.Add(teamModel);

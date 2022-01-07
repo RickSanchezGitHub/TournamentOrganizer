@@ -28,7 +28,6 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                 TeamId = _viewModel.SelectedTeam.Id,
                 PlayerId = _viewModel.SelectedPlayer.Id
             };
-            _viewModel.VisibilityColumn = Visibility.Collapsed;
             _teamPlayerService.Insert(teamPlayerModel);
         }
     }
