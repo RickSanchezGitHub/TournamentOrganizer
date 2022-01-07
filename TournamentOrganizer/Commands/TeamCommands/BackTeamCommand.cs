@@ -21,6 +21,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         public override void Execute(object parameter)
         {
             _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
+            _viewModel.VisibilityColumnUpdateTeam = Visibility.Collapsed;
         }
     }
 }

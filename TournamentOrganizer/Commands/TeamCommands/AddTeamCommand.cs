@@ -18,6 +18,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         }
         public override void Execute(object parameter)
         {
+            _viewModel.VisibilityColumnUpdateTeam = Visibility.Collapsed;
             _viewModel.VisibilityColumnAddTeam = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;
             _viewModel.TextBoxName = "";

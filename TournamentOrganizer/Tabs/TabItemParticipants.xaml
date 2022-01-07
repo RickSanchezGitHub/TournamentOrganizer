@@ -190,12 +190,15 @@
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center" 
                          MinWidth="100"
+                         Margin="5"
+                         
                          Text ="{Binding TextBoxName}">
                 </TextBox>
                 
                 <ListBox ItemsSource="{Binding Players}"
                          SelectedItem="{Binding SelectedPlayer}"
-                         SelectedIndex="0">
+                         SelectedIndex="0"
+                         Margin="5">
                     
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -283,7 +286,7 @@
                     Width="100"
                     Margin="10"
                     Content="Сохранить"
-                    Command="{Binding UpdateTeamCommand}"/>
+                    Command="{Binding SaveUpdateTeamCommand}"/>
 
             <Button Visibility="{Binding VisibilityBackButton}"
                     Height="20"

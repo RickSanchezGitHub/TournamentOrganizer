@@ -82,7 +82,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             set
             {
                 _teams = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Teams));
             }
         }
         private ObservableCollection<PlayerModel> _players;

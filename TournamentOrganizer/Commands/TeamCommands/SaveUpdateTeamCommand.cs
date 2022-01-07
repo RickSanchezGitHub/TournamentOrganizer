@@ -27,20 +27,12 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             _viewModel.VisibilityColumnUpdateTeam = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;
-            _viewModel.TextBoxName = _viewModel.SelectedTeam.Name;
 
             var teamModel = new TeamModel
             {
                 Name = _viewModel.TextBoxName
             };
             _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
-
-            var teamPlayerModel = new TeamPlayerModel
-            {
-                TeamId = _viewModel.SelectedTeam.Id,
-                PlayerId = _viewModel.SelectedPlayer.Id
-            };
-            _teamPLayerService.Insert(teamPlayerModel);
         }
     }
 }
