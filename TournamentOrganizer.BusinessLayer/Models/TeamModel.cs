@@ -35,7 +35,22 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        public ObservableCollection<PlayerModel> Players { get; set; }
+        private ObservableCollection<PlayerModel> _players { get; set; }
+
+        public ObservableCollection<PlayerModel> Players 
+        {
+            get
+            {
+                return _players ?? new ObservableCollection<PlayerModel>();
+            }
+            set
+            {
+                _players = value;
+                OnPropertyChanged();
+            }
+        }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

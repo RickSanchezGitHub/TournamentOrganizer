@@ -32,6 +32,9 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand DeletePlayerForTeamCommand { get; set; }
         public ICommand GetAllPlayerCommand { get; set; }
         public ICommand SaveUpdateTeamCommand { get; set; }
+        public ICommand AddPlayerToTmpList { get; set; }
+        public ICommand GetTeamPlayers { get; set; }
+        public ICommand RemovePlayerFromTmpListForAdd { get; set; }
 
         public TabItemTeamViewModel()
         {
@@ -65,10 +68,32 @@ namespace TournamentOrganizer.UI.VeiwModels
 
             SaveUpdateTeamCommand = new SaveUpdateTeamCommand(this, _teamService, _teamPlayerService);
 
+            AddPlayerToTmpList = new AddPlayerToTmpList(this, _teamPlayerService);
+
+            GetTeamPlayers = new GetTeamPlayers(this, _teamService);
+
+            RemovePlayerFromTmpListForAdd = new RemovePlayerFromTmpListForAdd(this, _teamPlayerService);
+
             VisibilityColumnAddTeam = Visibility.Collapsed;
 
             VisibilityColumnUpdateTeam = Visibility.Collapsed;
 
+
+        }
+
+        private ObservableCollection<PlayerModel> _availablePlayersToAddInTeam;
+
+        public ObservableCollection<PlayerModel> AvailablePlayersToAddInTeam
+        {
+            get
+            {
+                return _availablePlayersToAddInTeam ?? new ObservableCollection<PlayerModel>();
+            }
+            set
+            {
+                _availablePlayersToAddInTeam = value;
+                OnPropertyChanged();
+            }
         }
 
         private ObservableCollection<TeamModel> _teams;
@@ -85,7 +110,7 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(Teams));
             }
         }
-        private ObservableCollection<PlayerModel> _players;
+        private ObservableCollection<PlayerModel> _players;       
 
         public ObservableCollection<PlayerModel> Players
         {
@@ -96,6 +121,21 @@ namespace TournamentOrganizer.UI.VeiwModels
             set
             {
                 _players = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<PlayerModel> _playersToAddInTeam = new ObservableCollection<PlayerModel>();
+
+        public ObservableCollection<PlayerModel> PlayersToAddInTeam
+        {
+            get
+            {
+                return _playersToAddInTeam ?? new ObservableCollection<PlayerModel>();
+            }
+            set
+            {
+                _playersToAddInTeam = value;
                 OnPropertyChanged();
             }
         }

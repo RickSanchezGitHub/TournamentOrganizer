@@ -13,6 +13,12 @@ namespace TournamentOrganizer.BusinessLayer.Service.TeamPlayerService
     public class TeamPlayerService : ITeamPLayerService
     {
         private readonly TeamPlayerRepository _teamPlayerRepository;
+
+        public TeamPlayerService()
+        {
+            _teamPlayerRepository = new TeamPlayerRepository();
+        }
+
         public void Insert(TeamPlayerModel teamPlayerModel)
         {
             var entity = CustomMapper.GetInstance().Map<TeamPlayer>(teamPlayerModel);

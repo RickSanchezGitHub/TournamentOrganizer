@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         }
         public override void Execute(object parameter)
         {
+            _viewModel.AvailablePlayersToAddInTeam = new ObservableCollection<PlayerModel>(_teamService.GetAvailablePlayersToAdd(_viewModel.SelectedTeam.Id));
             _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
             _viewModel.VisibilityColumnUpdateTeam = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;

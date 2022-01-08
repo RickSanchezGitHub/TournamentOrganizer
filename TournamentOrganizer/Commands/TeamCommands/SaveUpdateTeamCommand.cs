@@ -31,8 +31,25 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             var teamModel = new TeamModel
             {
                 Name = _viewModel.TextBoxName
-            };
+            };         
             _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
+
+            foreach(var player in _viewModel.PlayersToAddInTeam)
+            {
+                var teamPlayerModel = new TeamPlayerModel
+                {
+                    TeamId = _viewModel.SelectedTeam.Id,
+                    PlayerId = player.Id
+                };
+                _teamPLayerService.Insert(teamPlayerModel);
+                _viewModel.SelectedTeam.Players.Add(player);
+            }           
+            _viewModel.PlayersToAddInTeam.Clear();
+            _viewModel.AvailablePlayersToAddInTeam.Clear();
+            _viewModel.SelectedTeam.Name = _viewModel.TextBoxName;
+            _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
+            _viewModel.VisibilityColumnUpdateTeam = Visibility.Collapsed;
+            _viewModel.VisibilitySaveButton = Visibility.Collapsed;
         }
     }
 }

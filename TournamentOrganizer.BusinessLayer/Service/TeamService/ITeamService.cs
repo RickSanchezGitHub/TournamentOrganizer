@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.BusinessLayer.Service.TeamService
 {
@@ -14,5 +15,6 @@ namespace TournamentOrganizer.BusinessLayer.Service.TeamService
         TeamModel GetById(int id);
         int Insert(TeamModel team);
         void Update(int id, TeamModel team);
+        List<PlayerModel> GetAvailablePlayersToAdd(int id);
     }
 }

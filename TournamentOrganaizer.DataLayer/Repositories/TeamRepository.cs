@@ -108,5 +108,21 @@ namespace TournamentOrganizer.DataLayer.Repositories
             );
 
         }
+
+        public List<Player> GetAvailablePlayersToAdd(int id)
+        {
+            const string procedureName = "Team_GetAvailablePlayersToAdd";
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            var result = sqlConnection
+                .Query<Player>
+                (
+                    procedureName,
+                    commandType: CommandType.StoredProcedure,
+                    param: new {TeamId = id}
+                )
+                .ToList();
+            return result;
+        }
     }
 }

@@ -44,5 +44,12 @@ namespace TournamentOrganizer.BusinessLayer.Service.TeamService
             var entity = CustomMapper.GetInstance().Map<Team>(team);
             _teamRepository.Update(id, entity);
         }
+
+        public List<PlayerModel> GetAvailablePlayersToAdd(int id)
+        {
+            var entity = _teamRepository.GetAvailablePlayersToAdd(id);
+            var result = CustomMapper.GetInstance().Map<List<PlayerModel>>(entity);
+            return result;
+        }
     }
 }

@@ -22,7 +22,7 @@
         
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         
@@ -62,11 +62,18 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate  DataType="c:TeamModel">
                             <DockPanel>
-
                                 <TextBlock Text="{Binding Name}" 
                                            Width="120"
                                            HorizontalAlignment="Left" 
-                                           Margin="5,0,0,0"/>
+                                           Margin="5,0,0,0">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding 
+                                            Command="{Binding DataContext.GetTeamPlayers, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
+                                                    MouseAction="LeftDoubleClick"/>
+                                </TextBlock.InputBindings>    
+                                </TextBlock>
+                                
                             </DockPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -154,7 +161,7 @@
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
                        FontSize="15"                        
-                       VerticalAlignment="Center">Название
+                       VerticalAlignment="Center">Все игроки
                 </Label>
                 
                 <TextBox x:Name="TextBoxName"
@@ -182,7 +189,7 @@
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
                        FontSize="15" 
-                       Margin="5"
+                       Margin="1"
                        VerticalAlignment="Center">Название
                 </Label>
 
@@ -194,11 +201,65 @@
                          
                          Text ="{Binding TextBoxName}">
                 </TextBox>
-                
-                <ListBox ItemsSource="{Binding Players}"
+
+                <Label Name="LabelllName"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15" 
+                       Margin="1"
+                       VerticalAlignment="Center">Игроки в команде
+                </Label>
+
+                <ListBox ItemsSource="{Binding PlayersToAddInTeam}"
                          SelectedItem="{Binding SelectedPlayer}"
                          SelectedIndex="0"
-                         Margin="5">
+                         Margin="1"
+                         Height="100"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate  DataType="c:PlayerModel">
+                            <DockPanel>
+                                <TextBlock Text="{Binding NickName}" 
+                                           Width="120"
+                                           HorizontalAlignment="Left" 
+                                           Margin="5,0,0,0">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
+                                            Command="{Binding DataContext.RemovePlayerFromTmpListForAdd, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                    MouseAction="LeftDoubleClick"/>
+                                    </TextBlock.InputBindings>
+                                </TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+                <Label Name="Labe"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15" 
+                       Margin="1"
+                       VerticalAlignment="Center">Все игроки
+                </Label>
+
+                <ListBox ItemsSource="{Binding AvailablePlayersToAddInTeam}"
+                         SelectedItem="{Binding SelectedPlayer}"
+                         SelectedIndex="0"
+                         Margin="5"
+                         Height="100"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible">
                     
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -210,11 +271,17 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate  DataType="c:PlayerModel">
                             <DockPanel>
-
                                 <TextBlock Text="{Binding NickName}" 
                                            Width="120"
                                            HorizontalAlignment="Left" 
-                                           Margin="5,0,0,0"/>
+                                           Margin="5,0,0,0">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
+                                            Command="{Binding DataContext.AddPlayerToTmpList, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
+                                                    MouseAction="LeftDoubleClick"/>
+                                    </TextBlock.InputBindings>
+                                </TextBlock>
                             </DockPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
