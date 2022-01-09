@@ -13,10 +13,12 @@ namespace TournamentOrganizer.UI.Commands
     {
         private TabItemGridOfTournamentsViewModel _viewModel;
         private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly ResultTournamentTeamService _resultTournamentTeamService;
         public SetDrawCommand(TabItemGridOfTournamentsViewModel viewModel)
         {
             _viewModel = viewModel;
             _resultTournamentPlayerService = new();
+            _resultTournamentTeamService = new();
         }
 
         public override void Execute(object parameter)
@@ -31,13 +33,17 @@ namespace TournamentOrganizer.UI.Commands
             foreach (var item in players)
             {
                 int numberRound = _viewModel.SelctedMatchInTreeView.ResolveDraw(_viewModel.SelectedTournament, item);
-                _resultTournamentPlayerService.SetPlayerResultInRoundOfTournament(1,
-                item.Id, numberRound, _viewModel.SelectedTournament.Id);
+
+                if (_viewModel.SelectedTournament.OnlyForTeams)
+                    _resultTournamentTeamService.SetTeamResultInRoundOfTournament(item.Id, 1, numberRound, _viewModel.SelectedTournament.Id);
+                else
+                    _resultTournamentPlayerService.SetPlayerResultInRoundOfTournament(1,
+                    item.Id, numberRound, _viewModel.SelectedTournament.Id);
             }
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             _viewModel.SelctedPlayerInComboBox = null;
-            _viewModel.SelectedButton.Content = "Матч разрешён";
-            _viewModel.SelectedButton.IsEnabled = false;
+            //_viewModel.SelectedButton.Content = "Матч разрешён";
+            //_viewModel.SelectedButton.IsEnabled = false;
         }
     }
 }

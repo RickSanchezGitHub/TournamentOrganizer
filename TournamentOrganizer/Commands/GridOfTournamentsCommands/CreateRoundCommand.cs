@@ -10,14 +10,16 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
 {
-    public class CreateRoundCommand: CommandBase
+    public class CreateRoundCommand : CommandBase
     {
         private TabItemGridOfTournamentsViewModel _viewModel;
         private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly ResultTournamentTeamService _resultTournamentTeamService;
         public CreateRoundCommand(TabItemGridOfTournamentsViewModel viewModel)
         {
             _viewModel = viewModel;
             _resultTournamentPlayerService = new();
+            _resultTournamentTeamService = new();
         }
 
         public override void Execute(object parameter)
@@ -46,7 +48,6 @@ namespace TournamentOrganizer.UI.Commands
                 return;
             }
 
-            //ИНСЕРТ С ПОМОЩЬЮ ЭТОЙ ЗАЛУПНИ ВСЁ КРОМЕ РЕЗАЛТА
             foreach (var match in _viewModel.SelectedTournament.Rounds.Last<RoundModel>().Matchs)
             {
                 foreach (var participant in match.Participants)
@@ -55,13 +56,45 @@ namespace TournamentOrganizer.UI.Commands
                     int rn = _viewModel.SelectedTournament.Rounds.Last<RoundModel>().RoundNumber;
                     int tId = _viewModel.SelectedTournament.Id;
                     int pId = participant.Id;
-
-                    if(_viewModel.SelectedTournament.Rounds.Last<RoundModel>().RoundNumber == 1)
+                    IResultTournamentParticipantModel resultTournamentParticipantModel;
+                    if (_viewModel.SelectedTournament.OnlyForTeams)
                     {
-                        _resultTournamentPlayerService.SetMatchRoundByPlayerTournament(tId, pId, mn, rn);
+                        resultTournamentParticipantModel = new ResultTournamentTeamModel
+                        {
+                            NumberMatch = mn,
+                            NumberRound = rn,
+                            Tournament = _viewModel.SelectedTournament,
+                            Team = participant as TeamModel,
+                            Result = null
+                        };
+                        match.TeamsResults.Add(resultTournamentParticipantModel as ResultTournamentTeamModel);
+                        if (_viewModel.SelectedTournament.Rounds.Last<RoundModel>().RoundNumber == 1)
+                        {
+                            _resultTournamentTeamService.SetMatchRoundInTournamentByTeamId(tId, pId, mn, rn);
+                        }
+                        else
+                            _resultTournamentTeamService.InsertTeamIdRoundMatchTournament(pId, rn, mn, tId);
                     }
                     else
-                    _resultTournamentPlayerService.InsertPlayerIdRoundMatchTournament(pId, rn, mn, tId);
+                    {
+                        resultTournamentParticipantModel = new ResultTournamentPlayerModel
+                        {
+                            NumberMatch = mn,
+                            NumberRound = rn,
+                            Tournament = _viewModel.SelectedTournament,
+                            Player = participant as PlayerModel,
+                            Result = null
+                        };
+                        match.PlayersResults.Add(resultTournamentParticipantModel as ResultTournamentPlayerModel);
+                        if (_viewModel.SelectedTournament.Rounds.Last<RoundModel>().RoundNumber == 1)
+                        {
+                            _resultTournamentPlayerService.SetMatchRoundByPlayerTournament(tId, pId, mn, rn);
+                        }
+                        else
+                            _resultTournamentPlayerService.InsertPlayerIdRoundMatchTournament(pId, rn, mn, tId);
+                    }
+                    
+                    
                 }
             }
 

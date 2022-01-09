@@ -33,6 +33,18 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
+        private string _description;
+
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")

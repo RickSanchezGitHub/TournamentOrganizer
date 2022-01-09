@@ -14,13 +14,13 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
     public class GameRepository: BaseRepository
     {
-        public int GameInsert(string name)
+        public int GameInsert(string name, string description)
         {
             const string procedureName = "Game_Insert";
             using IDbConnection connection = ProvideConnection();
             return connection.ExecuteScalar<int>(
                 procedureName,
-                new { Name = name },
+                new { Name = name, Description = description },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -59,7 +59,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             return result;
         }
 
-        public void GameUpdate(int id, string name)
+        public void GameUpdate(int id, string name, string description)
         {
             const string procedureName = "Game_Update";
             using IDbConnection connection = ProvideConnection();
@@ -67,7 +67,8 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                 procedureName,
                 new { 
                     Id = id ,
-                    Name = name
+                    Name = name,
+                    Description = description
                     },
                 commandType: CommandType.StoredProcedure
             );

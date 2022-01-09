@@ -4,16 +4,26 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
+using TournamentOrganizer.BusinessLayer.Models;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
-    public class ConverterMatchResolved : IValueConverter
+    public class ConverterShowTeamTournaments : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !(bool)value;
+            if ((bool)value)
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
         }
+
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

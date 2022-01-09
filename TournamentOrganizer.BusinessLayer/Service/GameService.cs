@@ -27,14 +27,14 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
             _gameRepository.GameDeleteById(id);
         }
 
-        public int InsertGame(string nameGame)
+        public int InsertGame(string nameGame, string description)
         {
-            return _gameRepository.GameInsert(nameGame);
+            return _gameRepository.GameInsert(nameGame, description);
         }
 
-        public void UpdateGameName(string newNameGame, int id)
+        public void UpdateGameName(int id, string newNameGame, string description)
         {
-            _gameRepository.GameUpdate(id, newNameGame);
+            _gameRepository.GameUpdate(id, newNameGame, description);
         }
 
         public GameModel GameSelectById(int gameId)

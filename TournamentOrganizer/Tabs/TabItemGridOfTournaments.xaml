@@ -17,8 +17,11 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <TabItem.Resources>
-        <local:ConverterMatchResolved x:Key="MatchResolvedInverse"/>
+        <local:ConverterContentFromMatchResolved x:Key="ButtonContentMatchResolve"/>
         <local:ConverterResultsToString x:Key="ConverterResult"/>
+        <local:ConverterShowTeamTournaments x:Key="ConverterShowTeam"/>
+        <local:ConverterShowPlayerTournaments x:Key="ConverterShowPlayers"/>
+        <local:ConverterParticipantName x:Key="ConverterParticipantNameOrNickName"/>
     </TabItem.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -40,7 +43,8 @@
             <Button Command="{Binding CreateRound}" Width="130" Height="23" Content="Сформировать раунд"/>
         </StackPanel>
         <Button Command="{Binding ShowTournamentParticipants}" Grid.Column="1" Margin="10,0" Visibility="{Binding VisibilityButtonShowTournamentParticipants}" Content="Показать участников турнира" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TreeView Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding SelectedTournament.Rounds}">
+
+        <TreeView Visibility="{Binding SelectedTournament.OnlyForTeams, Converter = {StaticResource ConverterShowPlayers}}" Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding SelectedTournament.Rounds}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Matchs}">
                     <TextBlock Text="{Binding StringFormat=Раунд {0}, Path=RoundNumber}" FontWeight="Bold"/>
@@ -48,37 +52,67 @@
                         <DataTemplate>
                             <StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Margin="5, 0" Text="{Binding StringFormat=Матч {0}, Path=MatchNumber}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <DataGrid ItemsSource="{Binding ParticipantsResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid ItemsSource="{Binding PlayersResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Имя" Binding="{Binding  Path=Player.FirstName}"/>
                                         <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Player.LastName}"/>
                                         <DataGridTextColumn Header="Псевдоним" Binding="{Binding Path=Player.NickName}"/>
-                                        <DataGridTextColumn Header="Результат" Binding="{Binding Result, Converter={StaticResource ConverterResult}}" FontWeight="Bold"/>
+                                        <DataGridTextColumn Header="Результат" Binding="{Binding Result, Converter={StaticResource ConverterResult}}" FontWeight="Bold">
+                                            
+                                        </DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
-                                <Button Click="Button_Click" IsEnabled="{Binding MatchResolved, Converter={StaticResource MatchResolvedInverse}}" Content="Разрешить матч" Margin="15, 0" Height="30"/>
+                                <Button Click="Button_Click"  Content="{Binding MatchResolved, Converter={StaticResource ButtonContentMatchResolve}}" Margin="15, 0" Height="30"/>
                             </StackPanel>
                         </DataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <Label Grid.Row="1" Grid.Column="1" Content="ШЛа НА ХУЙ" Margin="10"/>
+
+        <TreeView Visibility="{Binding SelectedTournament.OnlyForTeams, Converter = {StaticResource ConverterShowTeam}}" Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding SelectedTournament.Rounds}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Matchs}">
+                    <TextBlock Text="{Binding StringFormat=Раунд {0}, Path=RoundNumber}" FontWeight="Bold"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Margin="5, 0" Text="{Binding StringFormat=Матч {0}, Path=MatchNumber}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <DataGrid ItemsSource="{Binding TeamsResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Название" Binding="{Binding  Path=Team.Name}"/>
+                                        <DataGridTextColumn Header="Результат" Binding="{Binding Result, Converter={StaticResource ConverterResult}}" FontWeight="Bold">
+
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Button Click="Button_Click" Content="{Binding MatchResolved, Converter={StaticResource ButtonContentMatchResolve}}" Margin="15, 0" Height="30"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        
+        <Label Grid.Row="1" Grid.Column="1" Content=" " Margin="10"/>
+        
+        
         <StackPanel Visibility="{Binding DataContext.VisibilityStackPanelMatchResolve, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }" 
                     Margin="20, 40" Grid.Row="1" Grid.Column="1" DataContext="{Binding SelctedMatchInTreeView}" HorizontalAlignment="Center">
             <Label Margin="3" Content="Выберите победителя"/>
             <ComboBox SelectedItem="{Binding DataContext.SelctedPlayerInComboBox, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
-                      Margin="3" ItemsSource="{Binding Participants}" DisplayMemberPath="NickName"/>
+                      Margin="3" ItemsSource="{Binding Participants}" DisplayMemberPath="{Binding DataContext.PlayersOrTeams, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
             <Button Command="{Binding DataContext.SetWinner, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Зафиксировать победителя"/>
             <Label Margin="3" Content="Или"/>
             <Button Command="{Binding DataContext.SetDraw, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Ничья"/>
             <Button Command="{Binding DataContext.BackFromResolveMatch, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3,30,3,3" Content="Назад"/>
         </StackPanel>
+        
         <DataGrid ItemsSource="{Binding DataContext.SelectedTournament.ParticipantsResults, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
                   Visibility="{Binding DataContext.VisibilityDataGridShowTournamentParticipants, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
                   Margin="20, 40" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Width="2*" Header="Участники" Binding="{Binding Participant.NickName}" />
+                <DataGridTextColumn Width="2*" Header="Участники" Binding="{Binding Participant, Converter={StaticResource ConverterParticipantNameOrNickName}}" />
                 <DataGridTextColumn Width="*" Header="Результаты" Binding="{Binding Score}" SortDirection="Descending" />
             </DataGrid.Columns>
         </DataGrid>

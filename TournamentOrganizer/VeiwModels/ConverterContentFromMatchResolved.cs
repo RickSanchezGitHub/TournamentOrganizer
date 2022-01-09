@@ -8,25 +8,17 @@ using System.Windows.Data;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
-    class ConverterResultsToString : IValueConverter
+    public class ConverterContentFromMatchResolved : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((int?)value == 2)
+            if ((bool)value)
             {
-                return "Победил";
-            }
-            else if((int?)value == 1)
-            {
-                return "Ничья";
-            }
-            else if((int?)value == 0)
-            {
-                return "Проиграл";
+                return "Изменить результат";
             }
             else
             {
-                return "Не играл";
+                return "Установить результат";
             }
         }
 

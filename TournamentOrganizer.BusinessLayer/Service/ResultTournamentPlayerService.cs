@@ -13,13 +13,11 @@ namespace TournamentOrganizer.BusinessLayer.Service
 {
     public class ResultTournamentPlayerService
     {
-        private readonly ResultTournamentTeamRepository _resultTournamentTeamRepository;
         private readonly ResultTournamentPlayerRepository _resultTournamentPlayerRepository;
         private readonly PlayerService _playerService;
 
         public ResultTournamentPlayerService()
         {
-            _resultTournamentTeamRepository = new();
             _resultTournamentPlayerRepository = new();
             _playerService = new();
         }
@@ -31,6 +29,7 @@ namespace TournamentOrganizer.BusinessLayer.Service
             return result;
         }
 
+
         public List<ResultTournamentPlayerModel> GetDataOfTournamentByRound(int tournamentId, int numberRound)
         {
             var data = _resultTournamentPlayerRepository.GetPlayersResultsInTournamentRound(tournamentId, numberRound);
@@ -38,15 +37,9 @@ namespace TournamentOrganizer.BusinessLayer.Service
 
         }
 
-        public void SetPlayerResultInRoundOfTournament(int newResult, ResultTournamentPlayerModel resultTournamentPlayerModel)
+        public int SetPlayerResultInRoundOfTournament(int newResult, int playerId, int numberRound, int tournamentId)
         {
-            var resultTournamentPlayer = CustomMapper.GetInstance().Map<ResultTournamentPlayer>(resultTournamentPlayerModel);
-            _resultTournamentPlayerRepository.SetPlayerResultMatchRoundInTournament(newResult, resultTournamentPlayer);
-        }
-
-        public void SetPlayerResultInRoundOfTournament(int newResult, int playerId, int numberRound, int tournamentId)
-        {
-            _resultTournamentPlayerRepository.SetPlayerResultInRoundOfTournament(newResult, playerId, numberRound, tournamentId);
+            return _resultTournamentPlayerRepository.SetPlayerResultInRoundOfTournament(newResult, playerId, numberRound, tournamentId);
         }
 
         public void InsertPlayerIdRoundMatchTournament(int playerId, int round, int match, int tournament)
@@ -54,10 +47,12 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _resultTournamentPlayerRepository.InsertPlayerIdRoundMatchTournament(playerId, round, match, tournament);
         }
 
+
         public void SetMatchRoundByPlayerTournament(int tournamentId, int playerId, int numMatch, int numRound)
         {
             _resultTournamentPlayerRepository.SetMatchRoundByPlayerTournament(tournamentId, playerId, numMatch, numRound);
         }
+
 
         public List<ResultTournamentPlayerModel> GetPlayerResultsInTournament(int playerId, int tournamentId)
         {
@@ -98,14 +93,16 @@ namespace TournamentOrganizer.BusinessLayer.Service
                 {
                     MatchModel match = new MatchModel { MatchNumber = j };
                     if (matchData.Where(item => item.NumberMatch == j).All(res => res.Result == 0))
+                    {
                         match.MatchResolved = false;
+                    }
                     else
                         match.MatchResolved = true;
 
                     foreach (var instance in matchData.Where(el => el.NumberMatch == j))
                     {
                         match.Participants.Add(instance.Player);
-                        match.ParticipantsResults.Add(instance);
+                        match.PlayersResults.Add(instance);
                     }
                     tournament.Rounds[i - 1].Matchs.Add(match);
                 }

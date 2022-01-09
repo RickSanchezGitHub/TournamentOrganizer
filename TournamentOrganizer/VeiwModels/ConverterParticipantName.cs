@@ -5,30 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using TournamentOrganizer.BusinessLayer.Models;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
-    class ConverterResultsToString : IValueConverter
+    public class ConverterParticipantName : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((int?)value == 2)
+            if (value is PlayerModel)
             {
-                return "Победил";
-            }
-            else if((int?)value == 1)
-            {
-                return "Ничья";
-            }
-            else if((int?)value == 0)
-            {
-                return "Проиграл";
+                return ((PlayerModel)value).NickName;
             }
             else
             {
-                return "Не играл";
+                return ((TeamModel)value).Name;
             }
         }
+
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class ResultTournamentTeamModel: INotifyPropertyChanged, IResultTournamentParticipantModel
+    public class ResultTournamentParticipantModel : INotifyPropertyChanged, IResultTournamentParticipantModel
     {
         private int _id;
         public int Id
@@ -20,14 +20,14 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 OnPropertyChanged(nameof(Id));
             }
         }
-        private TeamModel _team;
-        public TeamModel Team
+        private IParticipant _participant;
+        public IParticipant Participant
         {
-            get { return _team; }
+            get { return _participant; }
             set
             {
-                _team = value;
-                OnPropertyChanged(nameof(Team));
+                _participant = value;
+                OnPropertyChanged(nameof(Participant));
             }
         }
 

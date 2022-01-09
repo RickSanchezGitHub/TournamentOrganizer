@@ -34,13 +34,16 @@ namespace TournamentOrganizer
             Random x = new Random();
             InitializeComponent();
 
-            TournamentService tournamentService = new();
-            ResultTournamentPlayerService service = new();
 
-            var tours = tournamentService.GetAllTournaments();
-            List<ResultTournamentPlayerModel> results = service.GetDataOfTournament(tours[0]);
-            service.CreateTournamentFromDataBase(tours[0]);
-            var turnir = tours[0];
+            //TournamentService tournamentService = new();
+            //ResultTournamentPlayerService service = new();
+
+            //var tours = tournamentService.GetAllTournaments();
+            //List<ResultTournamentParticipantModel> results = service.GetDatasOfTournament(tours[0]);
+            //service.CreateTournamentFromDataBase(tours[0]);
+            //var turnir = tours[0];
+
+            //var datAss = service.GetDataOfTournamentByRound(turnir.Id, 1);
         }
     }
 }

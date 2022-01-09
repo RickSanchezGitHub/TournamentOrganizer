@@ -71,10 +71,30 @@ namespace TournamentOrganizer.UI.VeiwModels
                 {
                     VisibilityButtonForStartTournament = Visibility.Hidden;
                 }
+                if (_selectedTournament.OnlyForTeams)
+                {
+                    PlayersOrTeams = "Name";
+                }
+                else
+                {
+                    PlayersOrTeams = "NickName";
+                }
 
                 
             }
         }
+
+        private string _playersOrTeams;
+        public string PlayersOrTeams
+        {
+            get { return _playersOrTeams; }
+            set
+            {
+                _playersOrTeams = value;
+                OnPropertyChanged(nameof(PlayersOrTeams));
+            }
+        }
+
 
         private MatchModel _selctedMatchInTreeView;
         public MatchModel SelctedMatchInTreeView
@@ -88,8 +108,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private PlayerModel _selctedPlayerInComboBox;
-        public PlayerModel SelctedPlayerInComboBox
+        private IParticipant _selctedPlayerInComboBox;
+        public IParticipant SelctedPlayerInComboBox
         {
             get { return _selctedPlayerInComboBox; }
             set

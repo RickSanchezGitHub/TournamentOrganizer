@@ -36,6 +36,8 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
                 cfg.CreateMap<TeamModel, Team>();
                 cfg.CreateMap<ResultTournamentPlayerModel, ResultTournamentPlayer>();
                 cfg.CreateMap<ResultTournamentPlayer, ResultTournamentPlayerModel>();
+                cfg.CreateMap<ResultTournamentTeamModel, ResultTournamentTeam>();
+                cfg.CreateMap<ResultTournamentTeam, ResultTournamentTeamModel>();
             }));
         }
     }

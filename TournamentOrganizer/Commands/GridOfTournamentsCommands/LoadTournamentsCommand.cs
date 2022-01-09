@@ -11,10 +11,11 @@ using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
-    public class LoadTournamentsCommand: CommandBase
+    public class LoadTournamentsCommand : CommandBase
     {
         private TabItemGridOfTournamentsViewModel _viewModel;
         private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly ResultTournamentTeamService _resultTournamentTeamService;
         private readonly IPlayerService _playerService;
         private readonly ITournamentService _tournamentService;
 
@@ -22,6 +23,7 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
         {
             _viewModel = viewModel;
             _resultTournamentPlayerService = resultTournamentPlayerService;
+            _resultTournamentTeamService = new();
             _playerService = playerService;
             _tournamentService = tournamentService;
         }
@@ -31,7 +33,15 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
             foreach (var item in _tournamentService.GetAllTournaments())
             {
                 _viewModel.Tournaments.Add(item);
-                _resultTournamentPlayerService.CreateTournamentFromDataBase(item);
+                if (item.OnlyForTeams)
+                {
+                    _resultTournamentTeamService.CreateTournamentFromDataBase(item);
+                }
+                else
+                {
+                    _resultTournamentPlayerService.CreateTournamentFromDataBase(item);
+                }
+
             }
         }
     }

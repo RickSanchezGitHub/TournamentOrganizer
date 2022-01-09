@@ -23,16 +23,16 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
         public override void Execute(object parameter)
         {
             //ПЕРЕНЕСТИ ВО ВЬЮ МОДЕЛЬ и забиндить
-            //ObservableCollection<ParticipantTournamentResult> participantTournamentResults = new(); 
-            //foreach (IParticipant item in _viewModel.SelectedTournament.Participants)
-            //{
-            //    ParticipantTournamentResult newParticipantResults = new (item);
-            //    foreach (var results in _resultTournamentPlayerService.GetPlayerResultsInTournament(item.Id, _viewModel.SelectedTournament.Id))
-            //    {
-            //        newParticipantResults.Score += (int)results.Result;
-            //    }
-            //    participantTournamentResults.Add(newParticipantResults);
-            //}
+            ObservableCollection<ParticipantTournamentResult> participantTournamentResults = new();
+            foreach (IParticipant item in _viewModel.SelectedTournament.Participants)
+            {
+                ParticipantTournamentResult newParticipantResults = new(item);
+                foreach (var results in _resultTournamentPlayerService.GetPlayerResultsInTournament(item.Id, _viewModel.SelectedTournament.Id))
+                {
+                    newParticipantResults.Score += (int)results.Result;
+                }
+                participantTournamentResults.Add(newParticipantResults);
+            }
 
             //_viewModel.SelectedTournament.SetParticipantsResults();
             _viewModel.VisibilityDataGridShowTournamentParticipants = System.Windows.Visibility.Visible;

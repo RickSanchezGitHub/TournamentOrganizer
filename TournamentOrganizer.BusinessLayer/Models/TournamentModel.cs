@@ -67,6 +67,18 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
+        private bool _onlyForTeams;
+
+        public bool OnlyForTeams
+        {
+            get { return _onlyForTeams; }
+            set
+            {
+                _onlyForTeams = value;
+                OnPropertyChanged(nameof(OnlyForTeams));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
