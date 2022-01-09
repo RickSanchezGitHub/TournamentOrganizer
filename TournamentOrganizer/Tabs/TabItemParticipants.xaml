@@ -91,7 +91,7 @@
                   Header="{Binding SelectedTeam.Name}">
             
             <DataGrid ItemsSource="{Binding SelectedTeam.Players}"
-                      
+                      SelectedItem="{Binding SelectedPlayer}"
                       Width="Auto"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
@@ -138,7 +138,7 @@
                             <DataTemplate>
                                 <Button Content="Удалить"
                                         Command="{Binding DataContext.DeletePlayerForTeamCommand, 
-                                                    RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                                    RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
