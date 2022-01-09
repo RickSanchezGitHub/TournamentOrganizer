@@ -29,8 +29,8 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
         <Label Content="Выберите турнир" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Height="28" Width="130" FontWeight="Bold" FontSize="14"/>
@@ -42,7 +42,11 @@
             <Button Command="{Binding StartTournament}" Visibility="{Binding VisibilityButtonForStartTournament}" Margin="15,0" Height="23" Content="Начать турнир"/>
             <Button Command="{Binding CreateRound}" Width="130" Height="23" Content="Сформировать раунд"/>
         </StackPanel>
-        <Button Command="{Binding ShowTournamentParticipants}" Grid.Column="1" Margin="10,0" Visibility="{Binding VisibilityButtonShowTournamentParticipants}" Content="Показать участников турнира" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button Command="{Binding ShowTournamentParticipants}" Margin="10,2" Visibility="{Binding VisibilityButtonShowTournamentParticipants}" Content="{Binding ShowParticipantsTournamentResult}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Command="{Binding RedistributeParticipants}" Margin="10,2" Visibility="{Binding VisibilityButtonShowTournamentParticipants}" Content="Перераспределить игроков" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </StackPanel>
+
 
         <TreeView Visibility="{Binding SelectedTournament.OnlyForTeams, Converter = {StaticResource ConverterShowPlayers}}" Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding SelectedTournament.Rounds}">
             <TreeView.ItemTemplate>
@@ -58,7 +62,7 @@
                                         <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Player.LastName}"/>
                                         <DataGridTextColumn Header="Псевдоним" Binding="{Binding Path=Player.NickName}"/>
                                         <DataGridTextColumn Header="Результат" Binding="{Binding Result, Converter={StaticResource ConverterResult}}" FontWeight="Bold">
-                                            
+
                                         </DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -93,10 +97,10 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        
+
         <Label Grid.Row="1" Grid.Column="1" Content=" " Margin="10"/>
-        
-        
+
+
         <StackPanel Visibility="{Binding DataContext.VisibilityStackPanelMatchResolve, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }" 
                     Margin="20, 40" Grid.Row="1" Grid.Column="1" DataContext="{Binding SelctedMatchInTreeView}" HorizontalAlignment="Center">
             <Label Margin="3" Content="Выберите победителя"/>
@@ -107,8 +111,8 @@
             <Button Command="{Binding DataContext.SetDraw, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Ничья"/>
             <Button Command="{Binding DataContext.BackFromResolveMatch, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3,30,3,3" Content="Назад"/>
         </StackPanel>
-        
-        <DataGrid ItemsSource="{Binding DataContext.SelectedTournament.ParticipantsResults, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
+
+        <DataGrid ItemsSource="{Binding DataContext.ParticipantTournamentResults, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
                   Visibility="{Binding DataContext.VisibilityDataGridShowTournamentParticipants, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
                   Margin="20, 40" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" >
             <DataGrid.Columns>
@@ -116,5 +120,24 @@
                 <DataGridTextColumn Width="*" Header="Результаты" Binding="{Binding Score}" SortDirection="Descending" />
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding DataContext.VisibilityStackPanelRedistributeParticipants, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }">
+            <TextBlock Text="{Binding StringFormat=Перераспредлить раунд {0}, Path=RoundForRedistribute.RoundNumber}"/>
+            <DataGrid ItemsSource="{Binding DataContext.ParticipantsForRedistribution, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
+                  Margin="20, 10" CanUserAddRows="False" >
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Добавить" Click="Button_Click_1"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Сохранить" Command="{Binding SaveRedistribute}"/>
+        </StackPanel>
+
+
     </Grid>
 </TabItem>

@@ -126,5 +126,14 @@ namespace TournamentOrganizer.BusinessLayer.Service
             }
         }
 
+        public void UpdatePlayerInMatchRoundTournament(int playerId, int tournamentId, int numberRound, int numberMatch)
+        {
+            _resultTournamentPlayerRepository.UpdatePlayerInMatchRoundTournament(playerId, tournamentId, numberRound, numberMatch);
+        }
+
+        public void DeleteByTournamentRoundMatch(int tournamentId, int numberRound)
+        {
+            _resultTournamentPlayerRepository.DeleteByTournamentRoundMatch(tournamentId, numberRound);
+        }
     }
 }

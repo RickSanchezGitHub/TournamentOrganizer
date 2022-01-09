@@ -20,7 +20,7 @@ namespace TournamentOrganizer.UI.VeiwModels
     public class TabItemGridOfTournamentsViewModel : BaseViewModel
     {
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
-        public ObservableCollection<PlayerModel> Players { get; set; }
+        public ObservableCollection<IParticipant> ParticipantsForRedistribution { get; set; }
         public ObservableCollection<ParticipantTournamentResult> ParticipantTournamentResults { get; set; }
 
         private ITournamentService _tournamentService;
@@ -41,15 +41,19 @@ namespace TournamentOrganizer.UI.VeiwModels
             LoadTournaments = new LoadTournamentsCommand(this, _resultTournamentPlayerService, _playerService, _tournamentService);
             ResolveMatch = new ResolveMatchCommand(this);
             StartTournament = new StartTournamentCommand(this);
-            Command = new RoutedCommand("Command", typeof(Button));
-            Players = new();
+            RedistributeParticipants = new RedistributeParticipantsCommand(this);
+            SaveRedistribute = new SaveRedistributeCommand(this);
+            ParticipantsForRedistribution = new();
             SelctedMatchInTreeView = new();
             ParticipantTournamentResults = new();
             VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             VisibilityButtonShowTournamentParticipants = Visibility.Collapsed;
             VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
+            VisibilityStackPanelRedistributeParticipants = Visibility.Collapsed;
             VisibilityButtonForStartTournament = Visibility.Hidden;
+            ShowParticipantsTournamentResult = "Показать участников турнира";
             //InitialData();
+            //Command = new RoutedCommand("Command", typeof(Button));
         }
 
         private TournamentModel _selectedTournament;
@@ -95,6 +99,16 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private string _showParticipantsTournamentResult;
+        public string ShowParticipantsTournamentResult
+        {
+            get { return _showParticipantsTournamentResult; }
+            set
+            {
+                _showParticipantsTournamentResult = value;
+                OnPropertyChanged(nameof(ShowParticipantsTournamentResult));
+            }
+        }
 
         private MatchModel _selctedMatchInTreeView;
         public MatchModel SelctedMatchInTreeView
@@ -108,6 +122,28 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private RoundModel _roundForRedistribute;
+        public RoundModel RoundForRedistribute
+        {
+            get { return _roundForRedistribute; }
+            set
+            {
+                _roundForRedistribute = value;
+                OnPropertyChanged(nameof(RoundForRedistribute));
+
+            }
+        }
+        private RoundModel _newRound;
+        public RoundModel NewRound
+        {
+            get { return _newRound; }
+            set
+            {
+                _newRound = value;
+                OnPropertyChanged(nameof(NewRound));
+
+            }
+        }
         private IParticipant _selctedPlayerInComboBox;
         public IParticipant SelctedPlayerInComboBox
         {
@@ -117,6 +153,17 @@ namespace TournamentOrganizer.UI.VeiwModels
                 _selctedPlayerInComboBox = value;
                 OnPropertyChanged(nameof(SelctedPlayerInComboBox));
 
+            }
+        }
+
+        private Visibility _visibilityStackPanelRedistributeParticipants;
+        public Visibility VisibilityStackPanelRedistributeParticipants
+        {
+            get { return _visibilityStackPanelRedistributeParticipants; }
+            set
+            {
+                _visibilityStackPanelRedistributeParticipants = value;
+                OnPropertyChanged(nameof(VisibilityStackPanelRedistributeParticipants));
             }
         }
 
@@ -183,39 +230,42 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand LoadTournaments { get;set; }
         public ICommand ResolveMatch { get; set; }
         public ICommand StartTournament { get; set; }
-        public RoutedCommand Command { get; set; }
+        public ICommand RedistributeParticipants { get; set; }
+        public ICommand SaveRedistribute { get; set; }
 
-        public void Command_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            var button = (Button)sender;
-            var data = button.DataContext;
-            SelctedMatchInTreeView = (MatchModel)data;
-            VisibilityStackPanelMatchResolve = Visibility.Visible;
-            VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
-        }
+        //public RoutedCommand Command { get; set; }
 
-        private void InitialData()
-        {
-            GameService game = new GameService();
-            PlayerService playerService = new PlayerService();
+        //public void Command_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    var button = (Button)sender;
+        //    var data = button.DataContext;
+        //    SelctedMatchInTreeView = (MatchModel)data;
+        //    VisibilityStackPanelMatchResolve = Visibility.Visible;
+        //    VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
+        //}
 
-            TournamentModel tour = new TournamentModel
-            {
-                Name = "Experience tour",
-                Game = game.GameSelectById(1),
-                StartDate = DateTime.Now.AddDays(-10),
-                CloseDate = DateTime.Now
-            };
-            var listPlayers = playerService.GetAll();
+        //private void InitialData()
+        //{
+        //    GameService game = new GameService();
+        //    PlayerService playerService = new PlayerService();
 
-            foreach (PlayerModel item in listPlayers)
-            {
-                tour.Participants.Add(item);
-                //tour.ParticipantsResults.Add(new ParticipantTournamentResult(item));
-            }
+        //    TournamentModel tour = new TournamentModel
+        //    {
+        //        Name = "Experience tour",
+        //        Game = game.GameSelectById(1),
+        //        StartDate = DateTime.Now.AddDays(-10),
+        //        CloseDate = DateTime.Now
+        //    };
+        //    var listPlayers = playerService.GetAll();
 
-            tour.StartTournament();
-            Tournaments.Add(tour);
-        }
+        //    foreach (PlayerModel item in listPlayers)
+        //    {
+        //        tour.Participants.Add(item);
+        //        //tour.ParticipantsResults.Add(new ParticipantTournamentResult(item));
+        //    }
+
+        //    tour.StartTournament();
+        //    Tournaments.Add(tour);
+        //}
     }
 }

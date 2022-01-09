@@ -44,7 +44,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         public int ResolveWinner(TournamentModel tournament, IParticipant participant)
         {
             int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
-            var winner = tournament.ParticipantsResults.First(item => item.Participant.Equals(participant));
+            //var winner = tournament.ParticipantsResults.First(item => item.Participant.Equals(participant));
             if (tournament.OnlyForTeams)
             {
                 var resultWinner = TeamsResults.First(item => item.Team.Equals(participant)).Result = 2;
@@ -55,7 +55,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 var resultWinner = PlayersResults.First(item => item.Player.Equals(participant)).Result = 2;
                 var resultLooser = PlayersResults.First(item => !item.Player.Equals(participant)).Result = 0;
             }
-            winner.Score += 2;
+            //winner.Score += 2;
             MatchResolved = true;
             return roundNumber;
         }
@@ -63,7 +63,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         public int ResolveDraw(TournamentModel tournament, IParticipant participant)
         {
 
-            var draw = tournament.ParticipantsResults.First(item => item.Participant.Equals(participant));
+            //var draw = tournament.ParticipantsResults.First(item => item.Participant.Equals(participant));
             int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
            
             if(tournament.OnlyForTeams)
@@ -71,7 +71,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             else
                 PlayersResults.First(item => item.Player.Equals(participant)).Result = 1;
             
-            draw.Score += 1;
+            //draw.Score += 1;
             MatchResolved = true;
             return roundNumber;
         }

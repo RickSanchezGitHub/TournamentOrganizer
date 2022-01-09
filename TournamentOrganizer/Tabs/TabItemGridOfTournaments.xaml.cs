@@ -42,11 +42,37 @@ namespace TournamentOrganizer.UI.Tabs
             _viewModel.SelctedMatchInTreeView = (MatchModel)data;
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Visible;
             _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
+            _viewModel.VisibilityStackPanelRedistributeParticipants = Visibility.Collapsed;
         }
 
-        private void ComboBox_Selected(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            var button = (Button)sender;
+            var participant = button.DataContext;
+            var match = _viewModel.NewRound.Matchs.First(item => item.Participants.Count != 2);
+            match.Participants.Add((IParticipant)participant); 
+            if (_viewModel.SelectedTournament.OnlyForTeams)
+            {
+                var result = new ResultTournamentTeamModel
+                {
+                    Team = (TeamModel)participant,
+                    NumberMatch = match.MatchNumber,
+                    NumberRound = _viewModel.NewRound.RoundNumber
+                };
+                match.TeamsResults.Add(result);
+            }
+                
+            else 
+            {
+                var result = new ResultTournamentPlayerModel
+                {
+                    Player = (PlayerModel)participant,
+                    NumberMatch = match.MatchNumber,
+                    NumberRound = _viewModel.NewRound.RoundNumber
+                };
+                match.PlayersResults.Add(result);
+            }
+            _viewModel.ParticipantsForRedistribution.Remove((IParticipant)participant);
         }
     }
 }

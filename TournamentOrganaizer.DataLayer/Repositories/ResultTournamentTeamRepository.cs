@@ -244,5 +244,41 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public int UpdateTeamInMatchRoundTournament(int teamId, int tournamentId, int numberRound, int numberMatch)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_UpdateTeamInMatchRoundTournament]";
+
+            return sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TeamId = teamId,
+                        TournamentId = tournamentId,
+                        NumberRound = numberRound,
+                        NumberMatch = numberMatch
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public void DeleteByTournamentRoundMatch(int tournamentId, int numberRound)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_UpdateTeamInMatchRoundTournament]";
+
+            sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TournamentId = tournamentId,
+                        NumberRound = numberRound
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
     }
 }
