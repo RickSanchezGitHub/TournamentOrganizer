@@ -39,13 +39,13 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        private string _nickName;
-        public string NickName
+        private string _name;
+        public string Name
         {
-            get { return _nickName; }
+            get { return _name; }
             set
             {
-                _nickName = value;
+                _name = value;
                 OnPropertyChanged();
             }
         }

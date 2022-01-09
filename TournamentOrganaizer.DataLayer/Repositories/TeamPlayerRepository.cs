@@ -11,7 +11,7 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamPlayerRepository : BaseRepository
+    public class TeamPlayerRepository : BaseRepository, ITeamPlayerRepository
     {
         public int Insert(TeamPlayer teamPlayer)
         {

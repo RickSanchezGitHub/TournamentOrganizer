@@ -12,11 +12,11 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamRepository : BaseRepository
+    public class TeamRepository : BaseRepository, ITeamRepository
     {
         public int Insert(Team team)
         {
-            
+
             var procedureName = "Team_Insert";
             using IDbConnection sqlConnection = ProvideConnection();
 
@@ -119,7 +119,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 (
                     procedureName,
                     commandType: CommandType.StoredProcedure,
-                    param: new {TeamId = id}
+                    param: new { TeamId = id }
                 )
                 .ToList();
             return result;

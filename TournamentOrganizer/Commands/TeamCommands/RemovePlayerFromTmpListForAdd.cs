@@ -15,11 +15,9 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     {
         private readonly TabItemTeamViewModel _viewModel;
 
-        private readonly ITeamPLayerService _teamPlayerService;
         public RemovePlayerFromTmpListForAdd(TabItemTeamViewModel viewModel, ITeamPLayerService teamPlayerService)
         {
             _viewModel = viewModel;
-            _teamPlayerService = teamPlayerService;
         }
         public override void Execute(object parameter)
         {

@@ -153,6 +153,16 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private Visibility _visibilityBackButton;
+        public Visibility VisibilityBackButton
+        {
+            get => _visibilityBackButton;
+            set
+            {
+                _visibilityBackButton = value;
+                OnPropertyChanged(nameof(VisibilityBackButton));
+            }
+        }
         private Visibility _visibilityColumnUpdateTeam;
 
         public Visibility VisibilityColumnUpdateTeam

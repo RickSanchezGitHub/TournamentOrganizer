@@ -110,6 +110,8 @@
     <Build Include="StoredProcedures\Team_Player\Team_Player_Insert.sql" />
     <Build Include="StoredProcedures\Team\Team_SelectById.sql" />
     <Build Include="StoredProcedures\Team\Team_GetAvailablePlayersToAdd.sql" />
+    <Build Include="StoredProcedures\Team_Player\Team_Player_SelectByPlayerId.sql" />
+    <Build Include="StoredProcedures\Team_Player\Team_Player_SelectByTeamId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />

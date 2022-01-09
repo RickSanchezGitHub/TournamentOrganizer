@@ -12,12 +12,10 @@ namespace TournamentOrganizer.BusinessLayer.Service.PlayerService
 {
     public class PlayerService : IPlayerService
     {
-        private readonly PlayerRepository _playerRepository;
-        private readonly TeamPlayerRepository _teamPlayerRepository;
+        private readonly IPlayerRepository _playerRepository;
         public PlayerService()
         {
             _playerRepository = new PlayerRepository();
-            _teamPlayerRepository = new TeamPlayerRepository();
         }
 
         public List<PlayerModel> GetAll()

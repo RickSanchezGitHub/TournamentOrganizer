@@ -12,7 +12,7 @@ namespace TournamentOrganizer.BusinessLayer.Service.TeamPlayerService
 {
     public class TeamPlayerService : ITeamPLayerService
     {
-        private readonly TeamPlayerRepository _teamPlayerRepository;
+        private readonly ITeamPlayerRepository _teamPlayerRepository;
 
         public TeamPlayerService()
         {

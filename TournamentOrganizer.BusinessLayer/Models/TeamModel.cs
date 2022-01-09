@@ -15,7 +15,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
 
         public int Id
         {
-            get { return _id; }
+            get => _id;
             set
             {
                 _id = value;

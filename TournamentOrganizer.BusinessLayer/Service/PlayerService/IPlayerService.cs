@@ -10,7 +10,7 @@ namespace TournamentOrganizer.BusinessLayer.Service.PlayerService
     public interface IPlayerService
     {
         void Delete(int id);
-        public int Insert(PlayerModel playerModel);
+        int Insert(PlayerModel playerModel);
         List<PlayerModel> GetAll();
         PlayerModel GetById(int id);
         void Update(int id, PlayerModel player);

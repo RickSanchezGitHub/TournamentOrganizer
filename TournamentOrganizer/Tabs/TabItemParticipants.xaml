@@ -103,7 +103,7 @@
                 <DataGrid.Columns>
                     
                     <DataGridTextColumn Header="Псевдоним" 
-                                        Binding="{Binding NickName}"
+                                        Binding="{Binding Name}"
                                         Width="Auto" 
                                         MaxWidth="120"
                                         MinWidth ="50"/>
@@ -265,7 +265,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate  DataType="c:PlayerModel">
                             <DockPanel>
-                                <TextBlock Text="{Binding NickName}" 
+                                <TextBlock Text="{Binding Name}" 
                                            Width="120"
                                            HorizontalAlignment="Left" 
                                            Margin="5,0,0,0">
