@@ -137,7 +137,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Удалить"
-                                        Command="{Binding DataContext.DeleteTeamCommand, 
+                                        Command="{Binding DataContext.DeletePlayerForTeamCommand, 
                                                     RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -161,7 +161,7 @@
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
                        FontSize="15"                        
-                       VerticalAlignment="Center">Все игроки
+                       VerticalAlignment="Center">Название
                 </Label>
                 
                 <TextBox x:Name="TextBoxName"
@@ -189,7 +189,6 @@
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
                        FontSize="15" 
-                       Margin="1"
                        VerticalAlignment="Center">Название
                 </Label>
 
@@ -202,12 +201,11 @@
                          Text ="{Binding TextBoxName}">
                 </TextBox>
 
-                <Label Name="LabelllName"
+                <Label Name="LabelNamePlayersInTeam"
                        Foreground="White"
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
                        FontSize="15" 
-                       Margin="1"
                        VerticalAlignment="Center">Игроки в команде
                 </Label>
 
@@ -245,12 +243,11 @@
 
                 </ListBox>
 
-                <Label Name="Labe"
+                <Label Name="AllPlayers"
                        Foreground="White"
                        HorizontalAlignment="Center"
                        FontWeight="Normal" 
                        FontSize="15" 
-                       Margin="1"
                        VerticalAlignment="Center">Все игроки
                 </Label>
 
