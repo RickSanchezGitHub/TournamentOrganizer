@@ -30,7 +30,7 @@ namespace TournamentOrganizer.UI.Commands
             _viewModel.WidthGridAddPlayer = new GridLength((int)TabItemPlayerViewModel.WidthGridColumn.ColumnVisible, GridUnitType.Star);
             _viewModel.TextBoxFirstNameText = _viewModel.SelectedPlayer.FirstName;
             _viewModel.TextBoxLastNameText = _viewModel.SelectedPlayer.LastName;
-            _viewModel.TextBoxNickNameText = _viewModel.SelectedPlayer.NickName;
+            _viewModel.TextBoxNameText = _viewModel.SelectedPlayer.Name;
             _viewModel.TextBoxEmailText = _viewModel.SelectedPlayer.Email;
             _viewModel.DatePickerBirthdaySelectedDate = _viewModel.SelectedPlayer.Birthday;
 

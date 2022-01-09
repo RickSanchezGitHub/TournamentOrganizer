@@ -51,7 +51,7 @@ namespace TournamentOrganizer.UI.Commands
 
             _viewModel.SelectedPlayer.FirstName = _viewModel.TextBoxFirstNameText;
             _viewModel.SelectedPlayer.LastName = _viewModel.TextBoxLastNameText;
-            _viewModel.SelectedPlayer.NickName = _viewModel.TextBoxNickNameText;
+            _viewModel.SelectedPlayer.Name = _viewModel.TextBoxNameText;
             _viewModel.SelectedPlayer.Email = _viewModel.TextBoxEmailText;
             _viewModel.SelectedPlayer.Birthday = _viewModel.DatePickerBirthdaySelectedDate;
             _playerService.PlayerUpdate(_viewModel.SelectedPlayer.Id, _viewModel.SelectedPlayer);

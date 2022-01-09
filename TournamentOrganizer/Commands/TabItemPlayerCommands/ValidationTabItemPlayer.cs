@@ -25,7 +25,7 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
             if (Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxFirstNameText) &&
              Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxLastNameText) &&
              Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxEmailText) &&
-             Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxNickNameText))
+             Validation.TextBoxValidationIsEmptyOrWhiteSpace(_viewModel.TextBoxNameText))
             {
                 canExecute = false;
             }

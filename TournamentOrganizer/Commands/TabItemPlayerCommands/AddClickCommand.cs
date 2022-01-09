@@ -22,7 +22,7 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
         {
             _viewModel.TextBoxFirstNameText = null;
             _viewModel.TextBoxLastNameText = null;
-            _viewModel.TextBoxNickNameText = null;
+            _viewModel.TextBoxNameText = null;
             _viewModel.TextBoxEmailText = null;
             _viewModel.DatePickerBirthdaySelectedDate = DateTime.Now;
 

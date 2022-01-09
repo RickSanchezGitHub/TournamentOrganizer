@@ -48,8 +48,8 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ObservableCollection<TeamModel> Teams { get; set; }
 
        
-        private GridLength? _widthGridAddPlayer;
-        public GridLength? WidthGridAddPlayer
+        private GridLength _widthGridAddPlayer;
+        public GridLength WidthGridAddPlayer
         {
             get { return _widthGridAddPlayer; }
             set
@@ -120,14 +120,14 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private string _textBoxNickNameText;
-        public string TextBoxNickNameText
+        private string _textBoxNameText;
+        public string TextBoxNameText
         {
-            get { return _textBoxNickNameText; }
+            get { return _textBoxNameText; }
             set
             {
-                _textBoxNickNameText = value;
-                OnPropertyChanged(nameof(TextBoxNickNameText));
+                _textBoxNameText = value;
+                OnPropertyChanged(nameof(TextBoxNameText));
             }
         }
 

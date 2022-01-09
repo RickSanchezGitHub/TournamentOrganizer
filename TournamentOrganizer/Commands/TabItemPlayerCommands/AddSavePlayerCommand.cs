@@ -56,7 +56,7 @@ namespace TournamentOrganizer.UI.Commands
             {
                 FirstName = _viewModel.TextBoxFirstNameText,
                 LastName = _viewModel.TextBoxLastNameText,
-                NickName = _viewModel.TextBoxNickNameText,
+                Name = _viewModel.TextBoxNameText,
                 Email = _viewModel.TextBoxEmailText,
                 Birthday = _viewModel.DatePickerBirthdaySelectedDate
             };

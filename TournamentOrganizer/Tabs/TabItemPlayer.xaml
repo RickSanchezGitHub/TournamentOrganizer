@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
          xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
          xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      Header="Player">
+      Header="Игроки">
 
     <TabItem.DataContext>
         <local:TabItemPlayerViewModel/>
@@ -61,7 +61,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="2*" Header="Имя" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Width="2*" Header="Фамилия" Binding="{Binding LastName}"/>
-                <DataGridTextColumn Width="2*" Header="Псеводним" Binding="{Binding NickName}"/>
+                <DataGridTextColumn Width="2*" Header="Псеводним" Binding="{Binding Name}"/>
                 <DataGridTemplateColumn Width="1*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -90,7 +90,7 @@
             <Label Content="Добавить игрока"/>
             <TextBox x:Name="TextBoxFirstName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxFirstNameText}" Tag="Введите имя" Margin="0,0,0,8" />
             <TextBox x:Name="TextBoxLastName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxLastNameText}" Tag="Введите фамилию" Margin="0,0,0,8"/>
-            <TextBox x:Name="TextBoxNickName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxNickNameText}" Tag="Введите псевдоним" Margin="0,0,0,8"/>
+            <TextBox x:Name="TextBoxName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxNameText}" Tag="Введите псевдоним" Margin="0,0,0,8"/>
             <TextBox x:Name="TextBoxEmail" Style="{StaticResource placeHolder}" Text="{Binding TextBoxEmailText}" Tag="Введите email" Margin="0,0,0,8"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                 <Label Content="Дата рождения"/>
@@ -106,7 +106,7 @@
             <Label HorizontalAlignment="Center" Content="Информация"/>
             <TextBlock Text="{Binding StringFormat=Имя: {0}, Path= FirstName}" Margin="24,0,0,8" />
             <TextBlock Text="{Binding StringFormat=Фамилия: {0}, Path=LastName}" Margin="24,0,0,8"/>
-                <TextBlock Text="{Binding StringFormat=Никнэйм: {0}, Path=NickName}" Margin="24,0,0,8"/>
+                <TextBlock Text="{Binding StringFormat=Никнэйм: {0}, Path=Name}" Margin="24,0,0,8"/>
                 <TextBlock Text="{Binding StringFormat=Почта: {0}, Path=Email}" Margin="24,0,0,8"/>
                 <TextBlock Text="{Binding StringFormat=День_Рождения: {0}, Path=Birthday}" Margin="24,0,0,8"/>
         </StackPanel>
