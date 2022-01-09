@@ -99,11 +99,14 @@
                       VerticalGridLinesBrush="LightGray"
                       Background="LightGray"                      
                       Margin="5">
-                
+
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" 
-                                        Binding="{Binding Id}"
-                                        Width="20"/>
+                    
+                    <DataGridTextColumn Header="Псевдоним" 
+                                        Binding="{Binding NickName}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="50"/>
                     
                     <DataGridTextColumn Header="Имя" 
                                         Binding="{Binding FirstName}"
@@ -113,12 +116,6 @@
                     
                     <DataGridTextColumn Header="Фамилия" 
                                         Binding="{Binding LastName}"
-                                        Width="Auto" 
-                                        MaxWidth="120"
-                                        MinWidth ="50"/>
-                    
-                    <DataGridTextColumn Header="Ник" 
-                                        Binding="{Binding NickName}"
                                         Width="Auto" 
                                         MaxWidth="120"
                                         MinWidth ="50"/>

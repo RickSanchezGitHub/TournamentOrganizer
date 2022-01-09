@@ -30,6 +30,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                 PlayerId = _viewModel.SelectedPlayer.Id
             };
             _teamPlayerService.Delete(teamPlayerModel);
+            _viewModel.SelectedTeam.Players.Remove(_viewModel.SelectedPlayer);
         }
     }
 }
