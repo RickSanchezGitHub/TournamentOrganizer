@@ -25,13 +25,13 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand DeleteTeamCommand { get; set; }
         public ICommand GetAllTeamCommand { get; set; }
         public ICommand GetByIdTeamCommand { get; set; }
-        public ICommand InsertTeamCommand { get; set; }
+        public ICommand AddSaveTeamCommand { get; set; }
         public ICommand UpdateTeamCommand { get; set; }
         public ICommand InitializeTeamCommand { get; set; }
         public ICommand AddPlayerForTeamCommand { get; set; }
         public ICommand DeletePlayerForTeamCommand { get; set; }
         public ICommand GetAllPlayerCommand { get; set; }
-        public ICommand SaveUpdateTeamCommand { get; set; }
+        public ICommand UpdateSaveTeamCommand { get; set; }
         public ICommand AddPlayerToTmpList { get; set; }
         public ICommand GetTeamPlayers { get; set; }
         public ICommand RemovePlayerFromTmpListForAdd { get; set; }
@@ -39,46 +39,25 @@ namespace TournamentOrganizer.UI.VeiwModels
         public TabItemTeamViewModel()
         {
             _teamService = new TeamService();
-
             _playerService = new PlayerService();
-
-            _teamPlayerService = new TeamPlayerService();
-            
-            AddTeamCommand = new AddTeamCommand(this);
-            
-            BackTeamCommand = new BackTeamCommand(this);
-            
+            _teamPlayerService = new TeamPlayerService();            
+            AddTeamCommand = new AddTeamCommand(this);            
+            BackTeamCommand = new BackTeamCommand(this);            
             AddPlayerForTeamCommand = new AddPlayerForTeamCommand(this, _teamPlayerService);
-
             DeletePlayerForTeamCommand = new DeletePlayerForTeamCommand(this, _teamPlayerService);
-
             GetAllPlayerCommand = new GetAllPlayerCommand(this, _playerService);
-
-            DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
-            
-            GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);
-            
-            GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);
-            
-            InsertTeamCommand = new InsertTeamCommand(this, _teamService);
-            
-            UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
-            
+            DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);            
+            GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);            
+            GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);            
+            AddSaveTeamCommand = new AddSaveTeamCommand(this, _teamService);            
+            UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);            
             InitializeTeamCommand = new InitializeTeamCommand(this, _teamService, _playerService);
-
-            SaveUpdateTeamCommand = new SaveUpdateTeamCommand(this, _teamService, _teamPlayerService);
-
-            AddPlayerToTmpList = new AddPlayerToTmpList(this, _teamPlayerService);
-
+            UpdateSaveTeamCommand = new UpdateSaveTeamCommand(this, _teamService, _teamPlayerService);
+            AddPlayerToTmpList = new AddPlayerToTmpList(this);
             GetTeamPlayers = new GetTeamPlayers(this, _teamService);
-
             RemovePlayerFromTmpListForAdd = new RemovePlayerFromTmpListForAdd(this, _teamPlayerService);
-
             VisibilityColumnAddTeam = Visibility.Collapsed;
-
             VisibilityColumnUpdateTeam = Visibility.Collapsed;
-
-
         }
 
         private ObservableCollection<PlayerModel> _availablePlayersToAddInTeam;

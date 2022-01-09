@@ -332,7 +332,7 @@
                     Width="100"
                     Margin="10"
                     Content="Сохранить"
-                    Command="{Binding InsertTeamCommand}"/>
+                    Command="{Binding AddSaveTeamCommand}"/>
             
             <Button Visibility="{Binding VisibilityBackButton}"
                     Height="20"
@@ -353,7 +353,7 @@
                     Width="100"
                     Margin="10"
                     Content="Сохранить"
-                    Command="{Binding SaveUpdateTeamCommand}"/>
+                    Command="{Binding UpdateSaveTeamCommand}"/>
 
             <Button Visibility="{Binding VisibilityBackButton}"
                     Height="20"

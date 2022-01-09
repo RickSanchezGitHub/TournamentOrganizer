@@ -8,25 +8,42 @@ using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation.TabItemTeamValidation;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
 {
-    public class SaveUpdateTeamCommand : CommandBase
+    public class UpdateSaveTeamCommand : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
         private readonly ITeamService _teamService;
         private readonly ITeamPLayerService _teamPLayerService;
-        public SaveUpdateTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService, ITeamPLayerService teamPLayerService)
+        private TabItemTeamValidation _tabItemTeamValidation;
+
+        public UpdateSaveTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService, ITeamPLayerService teamPLayerService)
         {
             _viewModel = viewModel;
             _teamService = teamService;
             _teamPLayerService = teamPLayerService;
+            _tabItemTeamValidation = new TabItemTeamValidation(viewModel);
+
         }
         public override void Execute(object parameter)
         {
-            _viewModel.VisibilityColumnUpdateTeam = Visibility.Visible;
-            _viewModel.VisibilitySaveButton = Visibility.Visible;
+            if (_tabItemTeamValidation.CheckIsEmptyOrWtiteSpaceInputData())
+            {
+                MessageBox.Show("Заполните поле",
+                                "Ошибка ",
+                                MessageBoxButton.OK);
+                return;
+            }
+            if (_tabItemTeamValidation.CheckValidInputData())
+            {
+                MessageBox.Show("Название не должно содержать никаких символов, пробелов и не должно превышать 25 символов",
+                                "Ошибка ",
+                                MessageBoxButton.OK);
+                return;
+            }
 
             var teamModel = new TeamModel
             {
