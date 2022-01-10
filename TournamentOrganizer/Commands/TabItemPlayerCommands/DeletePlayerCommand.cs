@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.Command;
@@ -24,6 +25,16 @@ namespace TournamentOrganizer.UI.Commands
 
         public override void Execute(object parameter)
         {
+            _viewModel.Teams.Clear();
+            foreach (var item in _playerService.GetTeamsByPlayerId(_viewModel.SelectedPlayer.Id))
+                _viewModel.Teams.Add(item);
+
+            if (_viewModel.Teams.Count > 0)
+            {
+                MessageBox.Show("Для возможности удаления игрок не должен состоять в командах");
+                return;
+            }
+
             _playerService.DeleteById(_viewModel.SelectedPlayer.Id);
             _viewModel.Players.Remove(_viewModel.SelectedPlayer);
             

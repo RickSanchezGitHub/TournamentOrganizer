@@ -11,7 +11,7 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamPlayerRepository : BaseRepository
+    public class TeamPlayerRepository : BaseRepository, ITeamPlayerRepository
     {
         public int Insert(TeamPlayer teamPlayer)
         {
@@ -53,7 +53,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         {
             const string procedureName = "[dbo].[Team_Player_SelectByPlayerId]";
             using IDbConnection sqlConnection = ProvideConnection();
-            
+
             var teamDictionary = new Dictionary<int, Team>();
             var result = sqlConnection
                .Query<TeamPlayer, Team, Team>
