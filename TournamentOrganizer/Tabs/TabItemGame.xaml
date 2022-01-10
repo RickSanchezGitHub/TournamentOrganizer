@@ -1,9 +1,99 @@
-﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemGame"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemGame"  
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+         xmlns:local="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       Header="Game">
 
+    <TabItem.DataContext>
+        <local:TabItemPlayerViewModel/>
+    </TabItem.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadGames}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <TabItem.Resources>
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBox Text="{Binding Path=Text,  
+                                                RelativeSource={RelativeSource TemplatedParent},   
+                                                Mode=TwoWay,  
+                                                UpdateSourceTrigger=PropertyChanged}"  
+                                 x:Name="textSource"   
+                                 Background="Transparent"   
+                                 Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="#FF807463"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </TabItem.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="331*"/>
+            <RowDefinition Height="103*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition  Width="{Binding WidthGridAddPlayer}"/>
+           
+        </Grid.ColumnDefinitions>
+
+        <DataGrid ItemsSource="{Binding Games}" IsEnabled="{Binding StateMainDataGrid}" x:Name="DataGridListGames" 
+                  SelectedItem="{Binding SelectedGame}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="0" Grid.Column="0" Margin="0,20,0,0" Grid.RowSpan="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="2*" Header="Название игры" Binding="{Binding GameName}"/>
+                <DataGridTextColumn Width="4*" Header="Иноформация о игре" Binding="{Binding Description}"/>
+                
+                <DataGridTemplateColumn Width="1*" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding DataContext.EditClick, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}} }">Редактировать</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Width="1*" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding DataContext.DeletePlayer, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}} }" >Удалить</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="ButtonAddGame" Content="Добавить игру" IsEnabled="{Binding IsEnabledButtonAdd}" HorizontalAlignment="Center" Margin="0,32,0,0" Grid.Row="1" VerticalAlignment="Top" Command="{Binding AddClick}"/>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,17,0,0"  MaxWidth="200" >
+            <Label Content="Добавить игру"/>
+            <TextBox x:Name="TextBoxGameName" Style="{StaticResource placeHolder}" Text="{Binding TextBoxFirstNameText}" Tag="Введите название игры" Margin="0,0,0,8" />
+            <TextBox x:Name="TextBoxDescription" Style="{StaticResource placeHolder}" Text="{Binding TextBoxLastNameText}" Tag="Введите описание игры" Margin="0,0,0,8" />
+            
+           
+            <Button x:Name="ButtonSaveEditGame" Visibility="{Binding VisibilityButtonEditSave}" IsEnabled="{Binding IsEnabledButtonEditSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Command="{Binding EditSaveGame}"/>
+            <Button x:Name="ButtonSaveAddedGame" Visibility="{Binding VisibilityButtonAddSave}" IsEnabled="{Binding IsEnabledButtonAddSave}" Width="166" Margin="0,5,0,0" Content="Сохранить" Command="{Binding AddSaveGame}"/>
+            <Button Command="{Binding BackFromAdd}" Margin="0,30,0,0" Width="166" Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="20,1,20,1" />
+
+        </StackPanel >
+       
+           
+           
     </Grid>
 </TabItem>
+

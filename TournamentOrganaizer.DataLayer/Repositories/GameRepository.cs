@@ -14,13 +14,13 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
     public class GameRepository: BaseRepository
     {
-        public void GameInsert(string name)
+        public int GameInsert(string name, string description)
         {
             const string procedureName = "Game_Insert";
             using IDbConnection connection = ProvideConnection();
-            connection.Execute(
+            return connection.ExecuteScalar<int>(
                 procedureName,
-                new { Name = name },
+                new { Name = name, Description = description },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -36,12 +36,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             );
         }
 
-        public List<Game> GameSelectByAll()
+        public List<Game> GameSelectAll()
         {
             const string procedureName = "Game_SelectByAll";
             using IDbConnection connection = ProvideConnection();
             var resultList = connection.Query<Game>(
-                procedureName, 
+                procedureName,
                 commandType: CommandType.StoredProcedure
             ).ToList();
             return resultList;
@@ -49,7 +49,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         public Game GameSelectById(int id)
         {
-            const string procedureName = "Game_SelectById";
+            const string procedureName = "[dbo].[Game_SelectById]";
             using IDbConnection connection = ProvideConnection();
             var result = connection.Query<Game>(
                 procedureName,
@@ -59,19 +59,20 @@ namespace TournamentOrganaizer.DataLayer.Repositories
             return result;
         }
 
-        public void GameUpdate(int id, string name)
+        public void GameUpdate(int id, string name, string description)
         {
             const string procedureName = "Game_Update";
             using IDbConnection connection = ProvideConnection();
             var result = connection.Execute(
                 procedureName,
-                new { 
-                    Id = id ,
-                    Name = name
-                    },
+                new
+                {
+                    Id = id,
+                    Name = name,
+                    Description = description
+                },
                 commandType: CommandType.StoredProcedure
             );
         }
-
     }
 }

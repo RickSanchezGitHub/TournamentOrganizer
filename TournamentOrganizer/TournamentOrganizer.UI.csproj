@@ -8,15 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Tabs\Fon123.png" />
+    <None Remove="Tabs\Tournament %288%29.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj" />
+    <ProjectReference Include="..\TournamentOrganizer.BusinessLayer\TournamentOrganizer.BusinessLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="VeiwModels\" />
+    <Resource Include="Images\Fon123.png" />
+    <Resource Include="Images\Tournament %288%29.png" />
   </ItemGroup>
 
 </Project>
