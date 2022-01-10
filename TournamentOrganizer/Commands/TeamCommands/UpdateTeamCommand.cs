@@ -35,7 +35,11 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                                 MessageBoxButton.OK);
                 return;
             }
-            _viewModel.AvailablePlayersToAddInTeam = new ObservableCollection<PlayerModel>(_teamService.GetAvailablePlayersToAdd(_viewModel.SelectedTeam.Id));
+            var players = _teamService.GetAvailablePlayersToAdd(_viewModel.SelectedTeam.Id);
+            foreach (var item in players)
+            {
+                _viewModel.AvailablePlayersToAddInTeam.Add(item);
+            }
             _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
             _viewModel.VisibilityColumnUpdateTeam = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;

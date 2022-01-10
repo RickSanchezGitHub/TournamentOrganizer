@@ -23,7 +23,11 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
         public override void Execute(object parameter)
         {
             var players = _playerService.GetAll();
-            _viewModel.Players = new ObservableCollection<PlayerModel>(players);
+            foreach (var item in players)
+            {
+                _viewModel.Players.Add(item);
+            }
+            //_viewModel.Players = new ImprovedObservableCollection<PlayerModel>(players);
         }
     }
 }

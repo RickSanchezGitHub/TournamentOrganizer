@@ -58,66 +58,19 @@ namespace TournamentOrganizer.UI.VeiwModels
             RemovePlayerFromTmpListForAdd = new RemovePlayerFromTmpListForAdd(this, _teamPlayerService);
             VisibilityColumnAddTeam = Visibility.Collapsed;
             VisibilityColumnUpdateTeam = Visibility.Collapsed;
+            Teams = new ImprovedObservableCollection<TeamModel>();
+            Players = new ImprovedObservableCollection<PlayerModel>();
+            PlayersToAddInTeam = new ImprovedObservableCollection<PlayerModel>();
+            AvailablePlayersToAddInTeam = new ImprovedObservableCollection<PlayerModel>();
         }
 
-        private ObservableCollection<PlayerModel> _availablePlayersToAddInTeam;
+        public ImprovedObservableCollection<PlayerModel> AvailablePlayersToAddInTeam { get; set; }
 
-        public ObservableCollection<PlayerModel> AvailablePlayersToAddInTeam
-        {
-            get
-            {
-                return _availablePlayersToAddInTeam ?? new ObservableCollection<PlayerModel>();
-            }
-            set
-            {
-                _availablePlayersToAddInTeam = value;
-                OnPropertyChanged();
-            }
-        }
+        public ImprovedObservableCollection<TeamModel> Teams { get; set; }
 
-        private ObservableCollection<TeamModel> _teams;
+        public ImprovedObservableCollection<PlayerModel> Players { get; set; }
 
-        public ObservableCollection<TeamModel> Teams
-        {
-            get
-            {
-                return _teams ?? new ObservableCollection<TeamModel>();
-            }
-            set
-            {
-                _teams = value;
-                OnPropertyChanged(nameof(Teams));
-            }
-        }
-        private ObservableCollection<PlayerModel> _players;       
-
-        public ObservableCollection<PlayerModel> Players
-        {
-            get
-            {
-                return _players ?? new ObservableCollection<PlayerModel>();
-            }
-            set
-            {
-                _players = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<PlayerModel> _playersToAddInTeam = new ObservableCollection<PlayerModel>();
-
-        public ObservableCollection<PlayerModel> PlayersToAddInTeam
-        {
-            get
-            {
-                return _playersToAddInTeam ?? new ObservableCollection<PlayerModel>();
-            }
-            set
-            {
-                _playersToAddInTeam = value;
-                OnPropertyChanged();
-            }
-        }
+        public ImprovedObservableCollection<PlayerModel> PlayersToAddInTeam { get; set; }
 
         private TeamModel _selectedTeam;
         public TeamModel SelectedTeam

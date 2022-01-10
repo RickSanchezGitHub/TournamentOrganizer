@@ -28,8 +28,16 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            _viewModel.Teams = new ObservableCollection<TeamModel>(_teamService.GetAll());
-            _viewModel.Players = new ObservableCollection<PlayerModel>(_playerService.GetAll());
+            var teams = _teamService.GetAll();
+            foreach (var item in teams)
+            {
+                _viewModel.Teams.Add(item);
+            }
+            var players = _playerService.GetAll();
+            foreach (var item in players)
+            {
+                _viewModel.Players.Add(item);
+            }
         }
     }
 }
