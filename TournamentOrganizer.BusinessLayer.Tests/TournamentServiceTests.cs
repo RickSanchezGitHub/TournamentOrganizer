@@ -255,7 +255,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             sut.UpdateTournament(tetsTournament);
 
             //assert
-            _tournamnetRepositoryMock.Verify(m => m.TournamentUpdateById(tournament), Times.Once());
+            _tournamnetRepositoryMock.Verify(m => m.TournamentUpdateById(It.IsAny<Tournament>()), Times.Once());
             Assert.Pass();
 
         }
@@ -351,6 +351,12 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             Assert.IsInstanceOf(typeof(int), actual);
             Assert.Pass();
         }
+
+        public void GetTeamsInTournament_ShouldReturnTeamsInTournament(int tournamentId)
+        {
+
+        }
+
 
     }
 }

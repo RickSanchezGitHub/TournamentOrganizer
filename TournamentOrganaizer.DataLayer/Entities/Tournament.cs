@@ -14,5 +14,17 @@ namespace TournamentOrganaizer.DataLayer.Entities
         public DateTime CloseDate { get; set; }
         public Game Game { get; set; }
         public bool OnlyForTeams { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Tournament tournament &&
+                   Id == tournament.Id &&
+                   Name == tournament.Name &&
+                   StartDate == tournament.StartDate &&
+                   CloseDate == tournament.CloseDate &&
+                   EqualityComparer<Game>.Default.Equals(Game, tournament.Game) &&
+                   OnlyForTeams == tournament.OnlyForTeams;
+        }
+
     }
 }

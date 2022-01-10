@@ -118,10 +118,7 @@
                 <Label Name="LabelParticipant" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Список участников</Label>
                 <Button Name="ButtonViewParticipant" Grid.Row="4"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" Command="{Binding GetPlayers}">Просмотреть</Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Label Name="LabelRounds" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Турнирная сетка</Label>
-                <Button Name="ButtonViewRounds" Grid.Row="5"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100">Просмотреть</Button>
-            </StackPanel>
+            
             
         </StackPanel>
         </StackPanel>
