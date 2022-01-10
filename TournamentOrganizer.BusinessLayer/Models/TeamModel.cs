@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
@@ -35,7 +31,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private ObservableCollection<PlayerModel> _players { get; set; }
-        public ObservableCollection<PlayerModel> Players 
+        public ObservableCollection<PlayerModel> Players
         {
             get
             {

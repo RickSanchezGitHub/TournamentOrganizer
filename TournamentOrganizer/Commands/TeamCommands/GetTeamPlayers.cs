@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TournamentOrganizer.BusinessLayer.Service.PlayerService;
-using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
+﻿using System.Linq;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.VeiwModels;
@@ -28,7 +22,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             if (teamWithPlayers.Players.Count >= 1 && teamWithPlayers.Players.FirstOrDefault() != null)
             {
                 _viewModel.SelectedTeam.Players = teamWithPlayers.Players;
-            }         
+            }
         }
     }
 }

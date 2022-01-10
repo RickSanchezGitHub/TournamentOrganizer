@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
-using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.Validation;
@@ -29,7 +23,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            if(_tabItemTeamValidation.CheckIsEmptyOrWtiteSpaceInputData())
+            if (_tabItemTeamValidation.CheckIsEmptyOrWtiteSpaceInputData())
             {
                 HelperExceptionMessage.HelperMessageBox("CheckIsEmptyOrWtiteSpaceInputData");
             }

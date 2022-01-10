@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -39,17 +37,17 @@ namespace TournamentOrganizer.UI.VeiwModels
         {
             _teamService = new TeamService();
             _playerService = new PlayerService();
-            _teamPlayerService = new TeamPlayerService();            
-            AddTeamCommand = new AddTeamCommand(this);            
-            BackTeamCommand = new BackTeamCommand(this);            
+            _teamPlayerService = new TeamPlayerService();
+            AddTeamCommand = new AddTeamCommand(this);
+            BackTeamCommand = new BackTeamCommand(this);
             AddPlayerForTeamCommand = new AddPlayerForTeamCommand(this, _teamPlayerService);
             DeletePlayerForTeamCommand = new DeletePlayerForTeamCommand(this, _teamPlayerService);
             GetAllPlayerCommand = new GetAllPlayerCommand(this, _playerService);
-            DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);            
-            GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);            
-            GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);            
-            AddSaveTeamCommand = new AddSaveTeamCommand(this, _teamService);            
-            UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);            
+            DeleteTeamCommand = new DeleteTeamCommand(this, _teamService);
+            GetAllTeamCommand = new GetAllTeamCommand(this, _teamService);
+            GetByIdTeamCommand = new GetByIdTeamCommand(this, _teamService);
+            AddSaveTeamCommand = new AddSaveTeamCommand(this, _teamService);
+            UpdateTeamCommand = new UpdateTeamCommand(this, _teamService);
             InitializeTeamCommand = new InitializeTeamCommand(this, _teamService, _playerService);
             UpdateSaveTeamCommand = new UpdateSaveTeamCommand(this, _teamService, _teamPlayerService);
             AddPlayerToTmpList = new AddPlayerToTmpList(this);
@@ -96,7 +94,7 @@ namespace TournamentOrganizer.UI.VeiwModels
 
         private Visibility _visibilityColumnAddTeam;
 
-        public Visibility VisibilityColumnAddTeam 
+        public Visibility VisibilityColumnAddTeam
         {
             get => _visibilityColumnAddTeam;
             set

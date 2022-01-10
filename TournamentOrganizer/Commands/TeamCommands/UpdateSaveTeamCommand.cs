@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
@@ -49,10 +44,10 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             var teamModel = new TeamModel
             {
                 Name = _viewModel.TextBoxName
-            };         
+            };
             _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
 
-            foreach(var player in _viewModel.PlayersToAddInTeam)
+            foreach (var player in _viewModel.PlayersToAddInTeam)
             {
                 var teamPlayerModel = new TeamPlayerModel
                 {
@@ -61,8 +56,8 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                 };
                 _teamPLayerService.Insert(teamPlayerModel);
                 _viewModel.SelectedTeam.Players.Add(player);
-            }   
-            
+            }
+
             _viewModel.PlayersToAddInTeam.Clear();
             _viewModel.AvailablePlayersToAddInTeam.Clear();
             _viewModel.SelectedTeam.Name = _viewModel.TextBoxName;

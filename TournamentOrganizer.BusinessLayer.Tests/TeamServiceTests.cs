@@ -2,9 +2,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
@@ -16,7 +13,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
     public class TeamServiceTests
     {
         private readonly Mock<ITeamRepository> _teamRepositoryMock;
-        
+
         public TeamServiceTests()
         {
             _teamRepositoryMock = new Mock<ITeamRepository>();
@@ -50,7 +47,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             {
                 Id = 1,
                 Name = "TestTeam",
-                Players= new List<Player>
+                Players = new List<Player>
                 {
                     new Player
                     {
@@ -80,7 +77,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             {
                 Id = 1,
                 Name = "Test1"
-            };                    
+            };
             return result;
         }
 
@@ -174,7 +171,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             _teamRepositoryMock.Verify(m => m.Delete(id), Times.Once());
             Assert.Pass();
         }
-        
+
 
         [TestCase(1)]
         public void Update_ShouldPass(int key)

@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using TournamentOrganizer.BusinessLayer.Service;
-using TournamentOrganizer.BusinessLayer.Service.TeamService;
+﻿using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
 using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.Validation.TabItemTeamValidation;
@@ -24,7 +22,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            if(_tabItemTeamValidation.CheckIsEmptySelectedTeam() == false)
+            if (_tabItemTeamValidation.CheckIsEmptySelectedTeam() == false)
             {
                 HelperExceptionMessage.HelperMessageBox("CheckIsEmptySelectedTeam");
             }

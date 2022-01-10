@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
@@ -12,10 +7,10 @@ namespace TournamentOrganizer.BusinessLayer.Models
     {
 
         private int _id;
-        public int Id 
+        public int Id
         {
             get => _id;
-            set 
+            set
             {
                 _id = value;
                 OnPropertyChanged(nameof(Id));
@@ -23,7 +18,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private int _teamId;
-        public int TeamId 
+        public int TeamId
         {
             get => _teamId;
             set
@@ -34,7 +29,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private int _playerId;
-        public int PlayerId 
+        public int PlayerId
         {
             get => _playerId;
             set
