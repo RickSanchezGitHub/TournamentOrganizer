@@ -12,31 +12,31 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class ResultTournamentPlayerRepository: BaseRepository
+    public class ResultTournamentPlayerRepository : BaseRepository, IResultTournamentPlayerRepository
     {
-        public List<ResultTournamentPlayer> GetPlayerResultsInAllTournaments(int playerId)
-        {
+        //public List<ResultTournamentPlayer> GetPlayerResultsInAllTournaments(int playerId)
+        //{
 
-            using var sqlConnection = ProvideConnection();
-            string storedProcedure = "dbo.ResultTournamentPlayer_SelectPlayerResultsInAllTournaments";
+        //    using var sqlConnection = ProvideConnection();
+        //    string storedProcedure = "dbo.ResultTournamentPlayer_SelectPlayerResultsInAllTournaments";
 
-            var result = sqlConnection
-                .Query<ResultTournamentPlayer, Player, ResultTournamentPlayer>
-                 (
-                    storedProcedure,
-                    (resultTournamentPlayer, player) =>
-                    {
-                        resultTournamentPlayer.Player = player;
-                        return resultTournamentPlayer;
-                    },
-                    new { PlayerId = playerId },
-                    commandType: CommandType.StoredProcedure,
-                    splitOn: "Id"
-                 )
-                .ToList();
+        //    var result = sqlConnection
+        //        .Query<ResultTournamentPlayer, Player, ResultTournamentPlayer>
+        //         (
+        //            storedProcedure,
+        //            (resultTournamentPlayer, player) =>
+        //            {
+        //                resultTournamentPlayer.Player = player;
+        //                return resultTournamentPlayer;
+        //            },
+        //            new { PlayerId = playerId },
+        //            commandType: CommandType.StoredProcedure,
+        //            splitOn: "Id"
+        //         )
+        //        .ToList();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public List<ResultTournamentPlayer> GetPlayersResultsInTournamentRound(int tournamentId, int numberRound)
         {
@@ -70,6 +70,29 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
 
+        //public List<ResultTournamentPlayer> GetDataOfTournamentByRound(int tournamentId, int numberRound)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_SelectByTournamentIdAndNumberRound]";
+
+        //    var result = sqlConnection
+        //        .Query<ResultTournamentPlayer, Player, ResultTournamentPlayer>
+        //        (
+        //            storedProcedure,
+        //            (resultTournamentPlayer, player) =>
+        //            {
+        //                resultTournamentPlayer.Player = player;
+        //                return resultTournamentPlayer;
+        //            },
+        //            new { TournamentId = tournamentId, NumberRound = numberRound },
+        //            commandType: CommandType.StoredProcedure,
+        //            splitOn: "Id"
+        //        )
+        //        .ToList();
+
+        //    return result;
+        //}
+
         public List<ResultTournamentPlayer> GetPlayerResultsInTournament(int playerId, int tournamentId)
         {
             using IDbConnection sqlConnection = ProvideConnection();
@@ -93,18 +116,37 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
 
-        public void Insert(ResultTournamentPlayer resultTournamentPlayer)
+        //public void Insert(ResultTournamentPlayer resultTournamentPlayer)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_Insert]";
+
+        //    var newRows = sqlConnection.Execute
+        //        (
+        //            storedProcedure,
+        //            new
+        //            {
+        //                PlayerId = resultTournamentPlayer.Player.Id,
+        //                Result = resultTournamentPlayer.Result,
+        //                NumberRound = resultTournamentPlayer.NumberRound,
+        //                NumberMatch = resultTournamentPlayer.NumberMatch,
+        //                TournamentId = resultTournamentPlayer.Tournament.Id
+        //            },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+        public int InsertPlayerIdRoundMatchTournament(ResultTournamentPlayer resultTournamentPlayer)
         {
             using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentPlayer_Insert]";
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_InsertPlayerIdRoundMatchTournament]";
 
-            var newRows = sqlConnection.Execute
+            return sqlConnection.ExecuteScalar<int>
                 (
                     storedProcedure,
                     new
                     {
                         PlayerId = resultTournamentPlayer.Player.Id,
-                        Result = resultTournamentPlayer.Result,
                         NumberRound = resultTournamentPlayer.NumberRound,
                         NumberMatch = resultTournamentPlayer.NumberMatch,
                         TournamentId = resultTournamentPlayer.Tournament.Id
@@ -112,6 +154,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     commandType: CommandType.StoredProcedure
                 );
         }
+
 
         public void SetPlayerResultInRoundOfTournament(int newResult, ResultTournamentPlayer resultTournamentPlayer)
         {
@@ -132,15 +175,186 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void DeleteByTournament(int tournamentId)
+        //public int SetPlayerResultInRoundOfTournament(int newResult, int playerId, int numberRound, int tournamentId)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_SetPlayerResultInRoundOfTournament]";
+
+        //    return sqlConnection.Execute
+        //        (
+        //            storedProcedure,
+        //            new
+        //            {
+        //                PlayerId = playerId,
+        //                newResult = newResult,
+        //                NumberRound = numberRound,
+        //                TournamentId = tournamentId
+        //            },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+
+        //public int SetMatchRoundByPlayerTournament(ResultTournamentPlayer resultTournamentPlayer)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_SetMatchRoundByPlayerAndTournament]";
+
+        //    return sqlConnection.ExecuteScalar<int>
+        //        (
+        //            storedProcedure,
+        //            new
+        //            {
+        //                TournamentId = resultTournamentPlayer.Tournament.Id,
+        //                PlayerId = resultTournamentPlayer.Id,
+        //                NumberMatch = resultTournamentPlayer.NumberMatch,
+        //                NumberRound = resultTournamentPlayer.NumberRound
+        //            },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+        //public void SetMatchRoundByPlayerTournament(int tournamentId, int playerId, int numberMatch, int numberRound)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_SetMatchRoundByPlayerAndTournament]";
+
+        //    var newRows = sqlConnection.Execute
+        //        (
+        //            storedProcedure,
+        //            new
+        //            {
+        //                TournamentId = tournamentId,
+        //                PlayerId = playerId,
+        //                NumberMatch = numberMatch,
+        //                NumberRound = numberRound
+        //            },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+        //public void DeleteByTournament(int tournamentId)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByTournamentId]";
+
+        //    sqlConnection.Execute
+        //        (
+        //            storedProcedure,
+        //            new { TournamentId = tournamentId },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+        public void AddPlayerToTournament(Player player, int tournamentId)
         {
             using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByTournamentId]";
-           
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_InsertPlayerAndTournament]";
+
+            var newRows = sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        PlayerId = player.Id,
+                        TournamentId = tournamentId
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        //public void SetPlayerResultMatchRoundInTournament(int newResult, ResultTournamentPlayer resultTournamentPlayer)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_SetPlayerResultMatchRoundInTournament]";
+
+        //    var newRows = sqlConnection.Execute
+        //        (
+        //            storedProcedure,
+        //            new
+        //            {
+        //                TournamentId = resultTournamentPlayer.Tournament.Id,
+        //                PlayerId = resultTournamentPlayer.Player.Id,
+        //                newResult = newResult,
+        //                NumberMatch = resultTournamentPlayer.NumberMatch,
+        //                NumberRound = resultTournamentPlayer.NumberRound  
+        //            },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+        public List<ResultTournamentPlayer> GetDataOfTournament(int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_GetDataOfTournament]";
+
+            var result = sqlConnection
+                .Query<ResultTournamentPlayer, Player, ResultTournamentPlayer>
+                (
+                    storedProcedure,
+                    (resultTournamentPlayer, player) =>
+                    {
+                        resultTournamentPlayer.Player = player;
+                        return resultTournamentPlayer;
+                    },
+                    new { TournamentId = tournamentId },
+                    commandType: CommandType.StoredProcedure,
+                    splitOn: "Id"
+                )
+                .ToList();
+
+            return result;
+        }
+
+        //public int UpdatePlayerInMatchRoundTournament(int playerId, int tournamentId, int numberRound, int numberMatch)
+        //{
+        //    using IDbConnection sqlConnection = ProvideConnection();
+        //    string storedProcedure = "[dbo].[ResultTournamentPlayer_UpdatePlayerInMatchRoundTournament]";
+
+        //    return sqlConnection.Execute
+        //        (
+        //            storedProcedure,
+        //            new
+        //            {
+        //                PlayerId = playerId,
+        //                TournamentId = tournamentId,
+        //                NumberRound = numberRound,
+        //                NumberMatch = numberMatch
+        //            },
+        //            commandType: CommandType.StoredProcedure
+        //        );
+        //}
+
+        public void DeleteByTournamentRound(int tournamentId, int numberRound)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByTournamentAndRound]";
+
             sqlConnection.Execute
                 (
                     storedProcedure,
-                    new { TournamentId = tournamentId },
+                    new
+                    {
+                        TournamentId = tournamentId,
+                        NumberRound = numberRound
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public void DeleteByPlayerIdAndTournamentId(int playerId, int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByPlayerIdAndTournamentId]";
+
+            sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        PlayerId = playerId,
+                        TournamentId = tournamentId
+                    },
                     commandType: CommandType.StoredProcedure
                 );
         }

@@ -108,6 +108,19 @@
     <Build Include="StoredProcedures\Tournament\Tournament_Update.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Delete.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Insert.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_InsertPlayerAndTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_SetPlayerResultMatchRoundInTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_GetDataOfTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_InsertPlayerIdRoundMatchTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_SetMatchRoundByPlayerAndTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_DeleteByTournamentAndRound.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_DeleteByTournamentAndRound.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_GetDataOfTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_SelectByTournamentIdAndNumberRound.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_SetMatchRoundInTournamentByTeamId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_InsertTeamIdRoundMatchTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_DeleteByPlayerIdAndTournamentId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_DeleteByTeamIdAndTournamentId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />

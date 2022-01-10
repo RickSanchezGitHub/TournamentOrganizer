@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ using System.Windows.Shapes;
 using TournamentOrganaizer.DataLayer;
 using TournamentOrganaizer.DataLayer.Entities;
 using TournamentOrganaizer.DataLayer.Repositories;
+using TournamentOrganizer.BusinessLayer.Configuration;
+using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.DataLayer.Entities;
 using TournamentOrganizer.DataLayer.Repositories;
 
@@ -27,7 +31,7 @@ namespace TournamentOrganizer
     {
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
     }
 }
