@@ -168,6 +168,21 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             });
         }
 
+        public void FillTestObjectsForGetGyIdPlayer()
+        {
+
+
+            _playerRepositoryMock.Setup(m => m.GetById(1)).Returns(
+                            new Player
+                            {
+                                Id = 1,
+                                FirstName = "TestVasya",
+                                LastName = "TestIvaniv",
+                                Name = "Vasya228",
+                                Email = "testc@yandex.ru",
+                                Birthday = DateTime.Now
+                            });
+        }
 
         public void FillTestObjectsForGetTeamsInTournament()
         {
@@ -536,6 +551,6 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             Assert.Pass();
         }
 
-
+    
     }
 }

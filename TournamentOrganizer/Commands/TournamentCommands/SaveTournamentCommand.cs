@@ -18,6 +18,11 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         public override void Execute(object parameter)
         {
             _viewModel.VisibilityColumn = Visibility.Collapsed;
+            if (!Validation.Validation.TextBoxValidation(_viewModel.TextBoxName))
+            {
+                MessageBox.Show("Название содержит недопустьимые символы", "Ошибка ", MessageBoxButton.OK);
+                return;
+            }
             var tournament = new TournamentModel()
             {
                 Name = _viewModel.TextBoxName,

@@ -8,7 +8,7 @@ namespace TournamentOrganizer.UI.Validation
 {
     public static class Validation
     {
-        private static string _invalidSymbols = "1234567890-=!@#$%^&*()_+ ";
+        private static string _invalidSymbols = "-=!@#$%^&*()_+ ";
 
         public static bool TextBoxValidation(string text)
         {
