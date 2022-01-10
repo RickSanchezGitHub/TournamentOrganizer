@@ -21,7 +21,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         }
         public override void Execute(object parameter)
         {
-            var player = (PlayerModel)_viewModel.SelectedPlayer.Clone();
+            var player = (PlayerModel)_viewModel.SelectedPlayer;
             _viewModel.PlayersToAddInTeam.Remove(_viewModel.SelectedPlayer);
             _viewModel.AvailablePlayersToAddInTeam.Add(player);
         }

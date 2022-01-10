@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class PlayerModel : INotifyPropertyChanged, ICloneable
+    public class PlayerModel : INotifyPropertyChanged
     {
         private int _id;
         public int Id
@@ -77,11 +77,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public object Clone()
-        {
-            return this;
         }
     }
 }
