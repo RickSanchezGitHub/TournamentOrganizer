@@ -136,31 +136,12 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void InsertPlayerIdRoundMatchTournament(int playerId, int round, int match, int tournament)
+        public int InsertPlayerIdRoundMatchTournament(ResultTournamentPlayer resultTournamentPlayer)
         {
             using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentPlayer_InsertPlayerIdRoundMatchTournament]";
 
-            var newRows = sqlConnection.Execute
-                (
-                    storedProcedure,
-                    new
-                    {
-                        PlayerId = playerId,
-                        NumberRound = round,
-                        NumberMatch = match,
-                        TournamentId = tournament
-                    },
-                    commandType: CommandType.StoredProcedure
-                );
-        }
-
-        public void InsertPlayerIdRoundMatchTournament(ResultTournamentPlayer resultTournamentPlayer)
-        {
-            using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentPlayer_InsertPlayerIdRoundMatchTournament]";
-
-            var newRows = sqlConnection.Execute
+            return sqlConnection.ExecuteScalar<int>
                 (
                     storedProcedure,
                     new
@@ -173,6 +154,8 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     commandType: CommandType.StoredProcedure
                 );
         }
+
+      
 
         public void SetPlayerResultInRoundOfTournament(int newResult, ResultTournamentPlayer resultTournamentPlayer)
         {
@@ -212,7 +195,27 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void SetMatchRoundByPlayerTournament(int tournamentId, int playerId, int numMatch, int numRound)
+
+        public int SetMatchRoundByPlayerTournament(ResultTournamentPlayer resultTournamentPlayer)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_SetMatchRoundByPlayerAndTournament]";
+
+            return sqlConnection.ExecuteScalar<int>
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TournamentId = resultTournamentPlayer.Tournament.Id,
+                        PlayerId = resultTournamentPlayer.Id,
+                        NumberMatch = resultTournamentPlayer.NumberMatch,
+                        NumberRound = resultTournamentPlayer.NumberRound
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public void SetMatchRoundByPlayerTournament(int tournamentId, int playerId, int numberMatch, int numberRound)
         {
             using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentPlayer_SetMatchRoundByPlayerAndTournament]";
@@ -224,27 +227,8 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     {
                         TournamentId = tournamentId,
                         PlayerId = playerId,
-                        NumberMatch = numMatch,
-                        NumberRound = numRound
-                    },
-                    commandType: CommandType.StoredProcedure
-                );
-        }
-
-        public void SetMatchRoundByPlayerTournament(ResultTournamentPlayer resultTournamentPlayer)
-        {
-            using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentPlayer_SetMatchRoundByPlayerAndTournament]";
-
-            var newRows = sqlConnection.Execute
-                (
-                    storedProcedure,
-                    new
-                    {
-                        TournamentId = resultTournamentPlayer.Tournament.Id,
-                        PlayerId = resultTournamentPlayer.Id,
-                        NumberMatch = resultTournamentPlayer.NumberMatch,
-                        NumberRound = resultTournamentPlayer.NumberRound
+                        NumberMatch = numberMatch,
+                        NumberRound = numberRound
                     },
                     commandType: CommandType.StoredProcedure
                 );
@@ -354,6 +338,23 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     {
                         TournamentId = tournamentId,
                         NumberRound = numberRound
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public void DeleteByPlayerIdAndTournamentId(int playerId, int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByPlayerIdAndTournamentId]";
+
+            sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        PlayerId = playerId,
+                        TournamentId = tournamentId
                     },
                     commandType: CommandType.StoredProcedure
                 );

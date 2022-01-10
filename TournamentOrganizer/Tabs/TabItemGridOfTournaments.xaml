@@ -22,6 +22,7 @@
         <local:ConverterShowTeamTournaments x:Key="ConverterShowTeam"/>
         <local:ConverterShowPlayerTournaments x:Key="ConverterShowPlayers"/>
         <local:ConverterParticipantName x:Key="ConverterParticipantToName"/>
+        <local:ConverterParticipantsResult x:Key="ConverterParticipantResult"/>
     </TabItem.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -56,7 +57,7 @@
                         <DataTemplate>
                             <StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Margin="5, 0" Text="{Binding StringFormat=Матч {0}, Path=MatchNumber}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <DataGrid ItemsSource="{Binding PlayersResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid ItemsSource="{Binding ParticipantsResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Имя" Binding="{Binding  Path=Player.FirstName}"/>
                                         <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Player.LastName}"/>
@@ -82,7 +83,7 @@
                         <DataTemplate>
                             <StackPanel Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Margin="5, 0" Text="{Binding StringFormat=Матч {0}, Path=MatchNumber}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <DataGrid ItemsSource="{Binding TeamsResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid ItemsSource="{Binding ParticipantsResults}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Название" Binding="{Binding  Path=Team.Name}"/>
                                         <DataGridTextColumn Header="Результат" Binding="{Binding Result, Converter={StaticResource ConverterResult}}" FontWeight="Bold">
@@ -104,15 +105,17 @@
         <StackPanel Visibility="{Binding DataContext.VisibilityStackPanelMatchResolve, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }" 
                     Margin="20, 40" Grid.Row="1" Grid.Column="1" DataContext="{Binding SelctedMatchInTreeView}" HorizontalAlignment="Center">
             <Label Margin="3" Content="Выберите победителя"/>
-            <ComboBox SelectedItem="{Binding DataContext.SelctedPlayerInComboBox, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
-                      Margin="3" ItemsSource="{Binding Participants}" DisplayMemberPath="Name"/>
+            <ComboBox Visibility="{Binding DataContext.SelectedTournament.OnlyForTeams, RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Converter={StaticResource ConverterShowPlayers}}" SelectedItem="{Binding DataContext.SelectedResult, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
+                      Margin="3" ItemsSource="{Binding ParticipantsResults}" DisplayMemberPath="Player.Name"/>
+            <ComboBox Visibility="{Binding DataContext.SelectedTournament.OnlyForTeams, RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Converter={StaticResource ConverterShowTeam}}" SelectedItem="{Binding DataContext.SelectedResult, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
+                      Margin="3" ItemsSource="{Binding ParticipantsResults}" DisplayMemberPath="Team.Name"/>
             <Button Command="{Binding DataContext.SetWinner, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Зафиксировать победителя"/>
             <Label Margin="3" Content="Или"/>
             <Button Command="{Binding DataContext.SetDraw, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3" Content="Ничья"/>
             <Button Command="{Binding DataContext.BackFromResolveMatch, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Margin="3,30,3,3" Content="Назад"/>
         </StackPanel>
 
-        <DataGrid ItemsSource="{Binding DataContext.ParticipantTournamentResults, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
+        <DataGrid ItemsSource="{Binding DataContext.SelectedTournament.ParticipantsResults, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
                   Visibility="{Binding DataContext.VisibilityDataGridShowTournamentParticipants, RelativeSource={RelativeSource AncestorType={x:Type Grid}} }"
                   Margin="20, 40" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" >
             <DataGrid.Columns>

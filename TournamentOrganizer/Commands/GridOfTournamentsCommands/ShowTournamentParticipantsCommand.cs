@@ -41,34 +41,8 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                 _viewModel.ShowParticipantsTournamentResult = "Показать участников турнира";
                 return;
             }
-            
-            if (_viewModel.SelectedTournament.OnlyForTeams)
-            {
-                foreach (IParticipant item in _viewModel.SelectedTournament.Participants)
-                {
-                    ParticipantTournamentResult participantTournamentResult = new(item);
-                    foreach (var results in _resultTournamentTeamService.GetTeamResultsInTournament(item.Id, _viewModel.SelectedTournament.Id))
-                    {
-                        participantTournamentResult.Score += (int)results.Result;
-                    }
-                    _viewModel.ParticipantTournamentResults.Add(participantTournamentResult);
-                }
-            }
-            else
-            {
-                foreach (IParticipant item in _viewModel.SelectedTournament.Participants)
-                {
-                    ParticipantTournamentResult participantTournamentResult = new(item);
-                    foreach (var results in _resultTournamentPlayerService.GetPlayerResultsInTournament(item.Id, _viewModel.SelectedTournament.Id))
-                    {
-                        participantTournamentResult.Score += (int)results.Result;
-                    }
-                    _viewModel.ParticipantTournamentResults.Add(participantTournamentResult);
 
-                }
-            }
-            
-            
+            SortedResults.SortResultInTournament(_viewModel.SelectedTournament, _resultTournamentPlayerService, _resultTournamentTeamService);
 
         }
     }

@@ -56,6 +56,17 @@ namespace TournamentOrganizer.UI.VeiwModels
             //Command = new RoutedCommand("Command", typeof(Button));
         }
 
+        private IResultTournamentParticipantModel _selectedResult;
+        public IResultTournamentParticipantModel SelectedResult
+        {
+            get { return _selectedResult; }
+            set
+            {
+                _selectedResult = value;
+                OnPropertyChanged(nameof(SelectedResult));
+            }
+        }
+
         private TournamentModel _selectedTournament;
         public TournamentModel SelectedTournament
         {

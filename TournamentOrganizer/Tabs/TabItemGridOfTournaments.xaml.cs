@@ -57,9 +57,10 @@ namespace TournamentOrganizer.UI.Tabs
                 {
                     Team = (TeamModel)participant,
                     NumberMatch = match.MatchNumber,
-                    NumberRound = _viewModel.NewRound.RoundNumber
+                    NumberRound = _viewModel.NewRound.RoundNumber,
+                    Tournament = _viewModel.SelectedTournament
                 };
-                match.TeamsResults.Add(result);
+                match.ParticipantsResults.Add(result);
             }
                 
             else 
@@ -68,9 +69,10 @@ namespace TournamentOrganizer.UI.Tabs
                 {
                     Player = (PlayerModel)participant,
                     NumberMatch = match.MatchNumber,
-                    NumberRound = _viewModel.NewRound.RoundNumber
+                    NumberRound = _viewModel.NewRound.RoundNumber,
+                    Tournament = _viewModel.SelectedTournament
                 };
-                match.PlayersResults.Add(result);
+                match.ParticipantsResults.Add(result);
             }
             _viewModel.ParticipantsForRedistribution.Remove((IParticipant)participant);
             if(match.Participants.Count == 2)

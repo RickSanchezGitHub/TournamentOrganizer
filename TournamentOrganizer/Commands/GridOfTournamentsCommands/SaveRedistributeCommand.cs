@@ -32,9 +32,11 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                 _resultTournamentTeamService.DeleteByTournamentRound(_viewModel.SelectedTournament.Id, _viewModel.RoundForRedistribute.RoundNumber);
                 foreach (MatchModel match in _viewModel.NewRound.Matchs)
                 {
-                    foreach (var result in match.TeamsResults)
-                        _resultTournamentTeamService.UpdateTeamInMatchRoundTournament(result.Team.Id, _viewModel.SelectedTournament.Id, (int)result.NumberRound, (int)result.NumberMatch);
-                    
+                    foreach (var result in match.ParticipantsResults)
+                    {
+                        int id = _resultTournamentTeamService.InsertTeamIdRoundMatchTournament(result as ResultTournamentTeamModel);
+                        result.Id = id;
+                    }
                 }
             }
             else
@@ -42,13 +44,13 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                 _resultTournamentPlayerService.DeleteByTournamentRound(_viewModel.SelectedTournament.Id, _viewModel.RoundForRedistribute.RoundNumber);
                 foreach (MatchModel match in _viewModel.NewRound.Matchs)
                 {
-                    foreach (var result in match.PlayersResults)
-                        _resultTournamentPlayerService.UpdatePlayerInMatchRoundTournament(result.Player.Id, _viewModel.SelectedTournament.Id, (int)result.NumberRound, (int)result.NumberMatch);
-                    
+                    foreach (var result in match.ParticipantsResults)
+                    {
+                        int id =_resultTournamentPlayerService.InsertPlayerIdRoundMatchTournament(result as ResultTournamentPlayerModel);
+                        result.Id = id;
+                    }
                 }
             }
-
-
 
             _viewModel.SelectedTournament.Rounds.Remove(_viewModel.RoundForRedistribute);
             _viewModel.SelectedTournament.Rounds.Add(_viewModel.NewRound);

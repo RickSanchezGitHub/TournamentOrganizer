@@ -14,17 +14,12 @@ namespace TournamentOrganizer.BusinessLayer.Models
         public MatchModel()
         {
             Participants = new();
-            PlayersResults = new();
-            TeamsResults = new();
+            ParticipantsResults = new();
         }
         public int MatchNumber { get; set; }
-
         public ObservableCollection<IParticipant> Participants { get; set; }
+        public ObservableCollection<IResultTournamentParticipantModel> ParticipantsResults { get; set; }
 
-        //очень не нравится
-        public ObservableCollection<ResultTournamentPlayerModel> PlayersResults { get; set; }
-        public ObservableCollection<ResultTournamentTeamModel> TeamsResults { get; set; }
-        //ну очень не нравится
 
         private bool _matchResolved;
         public bool MatchResolved
@@ -43,34 +38,23 @@ namespace TournamentOrganizer.BusinessLayer.Models
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
-        public int ResolveWinner(TournamentModel tournament, IParticipant participant)
+        public int ResolveWinner(TournamentModel tournament, IResultTournamentParticipantModel participantResult)
         {
             int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
 
-            if (tournament.OnlyForTeams)
-            {
-                var resultWinner = TeamsResults.First(item => item.Team.Equals(participant)).Result = 2;
-                var resultLooser = TeamsResults.First(item => !item.Team.Equals(participant)).Result = 0;
-            }
-            else
-            {
-                var resultWinner = PlayersResults.First(item => item.Player.Equals(participant)).Result = 2;
-                var resultLooser = PlayersResults.First(item => !item.Player.Equals(participant)).Result = 0;
-            }
-
+            ParticipantsResults.First(item => item.Id == participantResult.Id).Result = 2;
+            ParticipantsResults.First(item => item.Id != participantResult.Id).Result = 0;
+            
             MatchResolved = true;
             return roundNumber;
         }
 
-        public int ResolveDraw(TournamentModel tournament, IParticipant participant)
+        public int ResolveDraw(TournamentModel tournament, IResultTournamentParticipantModel participantResult)
         {
             int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;
-           
-            if(tournament.OnlyForTeams)
-                TeamsResults.First(item => item.Team.Equals(participant)).Result = 1;
-            else
-                PlayersResults.First(item => item.Player.Equals(participant)).Result = 1;
-            
+
+            ParticipantsResults.First(item => item.Id == participantResult.Id).Result=1;
+
             MatchResolved = true;
             return roundNumber;
         }

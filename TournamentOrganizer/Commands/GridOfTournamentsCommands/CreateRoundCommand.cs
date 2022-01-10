@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.UI.Commands.GridOfTournamentsCommands;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
@@ -41,7 +42,8 @@ namespace TournamentOrganizer.UI.Commands
                 MessageBox.Show("Турнир не начат");
                 return;
             }
-
+            //huita
+            SortedResults.SortResultInTournament(_viewModel.SelectedTournament, _resultTournamentPlayerService, _resultTournamentTeamService);
             if (!_viewModel.SelectedTournament.CreateRound())
             {
                 MessageBox.Show("В текущем раунде не во всех матчах установлен результат");
@@ -67,13 +69,15 @@ namespace TournamentOrganizer.UI.Commands
                             Team = participant as TeamModel,
                             Result = null
                         };
-                        match.TeamsResults.Add(resultTournamentParticipantModel as ResultTournamentTeamModel);
+
                         if (_viewModel.SelectedTournament.Rounds.Last<RoundModel>().RoundNumber == 1)
                         {
-                            _resultTournamentTeamService.SetMatchRoundInTournamentByTeamId(tId, pId, mn, rn);
+                            _resultTournamentTeamService.DeleteByTeamIdAndTournamentId(pId, tId);
                         }
-                        else
-                            _resultTournamentTeamService.InsertTeamIdRoundMatchTournament(pId, rn, mn, tId);
+
+                        int id = _resultTournamentTeamService.InsertTeamIdRoundMatchTournament(resultTournamentParticipantModel as ResultTournamentTeamModel);
+                        resultTournamentParticipantModel.Id = id;
+
                     }
                     else
                     {
@@ -85,16 +89,18 @@ namespace TournamentOrganizer.UI.Commands
                             Player = participant as PlayerModel,
                             Result = null
                         };
-                        match.PlayersResults.Add(resultTournamentParticipantModel as ResultTournamentPlayerModel);
+
                         if (_viewModel.SelectedTournament.Rounds.Last<RoundModel>().RoundNumber == 1)
                         {
-                            _resultTournamentPlayerService.SetMatchRoundByPlayerTournament(tId, pId, mn, rn);
+                            _resultTournamentPlayerService.DeleteByPlayerIdAndTournamentId(pId, tId);
                         }
-                        else
-                            _resultTournamentPlayerService.InsertPlayerIdRoundMatchTournament(pId, rn, mn, tId);
+
+                        int id = _resultTournamentPlayerService.InsertPlayerIdRoundMatchTournament(resultTournamentParticipantModel as ResultTournamentPlayerModel);
+                        resultTournamentParticipantModel.Id = id;
+
                     }
-                    
-                    
+                    match.ParticipantsResults.Add(resultTournamentParticipantModel);
+
                 }
             }
 

@@ -119,6 +119,8 @@
     <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_SelectByTournamentIdAndNumberRound.sql" />
     <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_SetMatchRoundInTournamentByTeamId.sql" />
     <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_InsertTeamIdRoundMatchTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_DeleteByPlayerIdAndTournamentId.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentTeam_DeleteByTeamIdAndTournamentId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />

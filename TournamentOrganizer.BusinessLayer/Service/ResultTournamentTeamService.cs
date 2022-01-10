@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
+using TournamentOrganizer.DataLayer.Entities;
 using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.BusinessLayer.Service
@@ -43,9 +44,21 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _resultTournamentTeamRepository.SetTeamResultInRoundOfTournament(newResult, playerId, numberRound, tournamentId);
         }
 
+        public void SetTeamResultInRoundOfTournament(ResultTournamentTeamModel resultTournamentTeamModel, int newResult)
+        {
+            var resultTournamentTeam = CustomMapper.GetInstance().Map<ResultTournamentTeam>(resultTournamentTeamModel);
+            _resultTournamentTeamRepository.SetTeamResultInRoundOfTournament(resultTournamentTeam, newResult);
+        }
+
         public void SetMatchRoundInTournamentByTeamId(int tournamentId, int teamId, int numMatch, int numRound)
         {
             _resultTournamentTeamRepository.SetMatchRoundInTournamentByTeamId(tournamentId, teamId, numMatch, numRound);
+        }
+
+        public void SetMatchRoundInTournamentByTeamId(ResultTournamentTeamModel resultTournamentTeamModel)
+        {
+            var resultTournamentTeam = CustomMapper.GetInstance().Map<ResultTournamentTeam>(resultTournamentTeamModel);
+            _resultTournamentTeamRepository.SetMatchRoundInTournamentByTeamId(resultTournamentTeam);
         }
 
         public List<ResultTournamentTeamModel> GetTeamResultsInTournament(int teamId, int tournamentId)
@@ -57,6 +70,12 @@ namespace TournamentOrganizer.BusinessLayer.Service
         public void InsertTeamIdRoundMatchTournament(int teamId, int round, int match, int tournament)
         {
             _resultTournamentTeamRepository.InsertTeamIdRoundMatchTournament(teamId, round, match, tournament);
+        }
+
+        public int InsertTeamIdRoundMatchTournament(ResultTournamentTeamModel resultTournamentTeamModel)
+        {
+            var resultTournamentTeam = CustomMapper.GetInstance().Map<ResultTournamentTeam>(resultTournamentTeamModel);
+            return _resultTournamentTeamRepository.InsertTeamIdRoundMatchTournament(resultTournamentTeam);
         }
 
         public void CreateTournamentFromDataBase(TournamentModel tournament)
@@ -101,7 +120,7 @@ namespace TournamentOrganizer.BusinessLayer.Service
                     foreach (var instance in matchData.Where(el => el.NumberMatch == j))
                     {
                         match.Participants.Add(instance.Team);
-                        match.TeamsResults.Add(instance);
+                        match.ParticipantsResults.Add(instance);
                     }
                     tournament.Rounds[i - 1].Matchs.Add(match);
                 }
@@ -130,9 +149,20 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _resultTournamentTeamRepository.UpdateTeamInMatchRoundTournament(teamId, tournamentId, numberRound, numberMatch);
         }
 
+        public void UpdateTeamInMatchRoundTournament(ResultTournamentTeamModel resultTournamentTeamModel)
+        {
+            var resultTournamentTeam = CustomMapper.GetInstance().Map<ResultTournamentTeam>(resultTournamentTeamModel);
+            _resultTournamentTeamRepository.UpdateTeamInMatchRoundTournament(resultTournamentTeam);
+        }
+
         public void DeleteByTournamentRound(int tournamentId, int numberRound)
         {
             _resultTournamentTeamRepository.DeleteByTournamentRound(tournamentId, numberRound);
+        }
+
+        public void DeleteByTeamIdAndTournamentId(int teamId, int tournamentId)
+        {
+            _resultTournamentTeamRepository.DeleteByTeamIdAndTournamentId(teamId, tournamentId);
         }
     }
 }

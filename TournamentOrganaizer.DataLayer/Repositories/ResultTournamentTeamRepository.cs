@@ -225,6 +225,25 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public void SetMatchRoundInTournamentByTeamId(ResultTournamentTeam resultTournamentTeam)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_SetMatchRoundInTournamentByTeamId]";
+
+            var newRows = sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TournamentId = resultTournamentTeam.Tournament.Id,
+                        TeamId = resultTournamentTeam.Team.Id,
+                        NumberMatch = resultTournamentTeam.NumberMatch,
+                        NumberRound = resultTournamentTeam.NumberRound
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
         public void InsertTeamIdRoundMatchTournament(int teamId, int round, int match, int tournament)
         {
             using IDbConnection sqlConnection = ProvideConnection();
@@ -239,6 +258,25 @@ namespace TournamentOrganizer.DataLayer.Repositories
                         NumberRound = round,
                         NumberMatch = match,
                         TournamentId = tournament
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public int InsertTeamIdRoundMatchTournament(ResultTournamentTeam resultTournamentTeam)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_InsertTeamIdRoundMatchTournament]";
+
+            return sqlConnection.ExecuteScalar<int>
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TeamId = resultTournamentTeam.Team.Id,
+                        NumberRound = resultTournamentTeam.NumberRound,
+                        NumberMatch = resultTournamentTeam.NumberMatch,
+                        TournamentId = resultTournamentTeam.Tournament.Id
                     },
                     commandType: CommandType.StoredProcedure
                 );
@@ -263,6 +301,25 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
+        public int UpdateTeamInMatchRoundTournament(ResultTournamentTeam resultTournamentTeam)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_UpdateTeamInMatchRoundTournament]";
+
+            return sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TeamId = resultTournamentTeam.Team.Id,
+                        TournamentId = resultTournamentTeam.Tournament.Id,
+                        NumberRound = resultTournamentTeam.NumberRound,
+                        NumberMatch = resultTournamentTeam.NumberMatch
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
         public void DeleteByTournamentRound(int tournamentId, int numberRound)
         {
             using IDbConnection sqlConnection = ProvideConnection();
@@ -275,6 +332,23 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     {
                         TournamentId = tournamentId,
                         NumberRound = numberRound
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+        }
+
+        public void DeleteByTeamIdAndTournamentId(int teamId, int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentTeam_DeleteByTeamIdAndTournamentId]";
+
+            sqlConnection.Execute
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TeamId = teamId,
+                        TournamentId = tournamentId
                     },
                     commandType: CommandType.StoredProcedure
                 );

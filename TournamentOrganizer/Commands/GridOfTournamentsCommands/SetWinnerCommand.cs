@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -24,7 +25,7 @@ namespace TournamentOrganizer.UI.Commands
 
         public override void Execute(object parameter)
         {
-            if (_viewModel.SelctedPlayerInComboBox == null)
+            if (_viewModel.SelectedResult == null)
             {
                 MessageBox.Show("Необходимо выбрать победителя");
                 return;
@@ -36,23 +37,21 @@ namespace TournamentOrganizer.UI.Commands
                 return;
             }
 
-            var looser = _viewModel.SelctedMatchInTreeView.Participants.First(item => item != _viewModel.SelctedPlayerInComboBox);
-            int numberRound = _viewModel.SelctedMatchInTreeView.ResolveWinner(_viewModel.SelectedTournament, _viewModel.SelctedPlayerInComboBox);
+            var looser = _viewModel.SelctedMatchInTreeView.ParticipantsResults.First(item => item != _viewModel.SelectedResult);
+            _viewModel.SelectedResult.Tournament = _viewModel.SelectedTournament;
+            looser.Tournament = _viewModel.SelectedTournament;
+            int numberRound = _viewModel.SelctedMatchInTreeView.ResolveWinner(_viewModel.SelectedTournament, _viewModel.SelectedResult);
             if (_viewModel.SelectedTournament.OnlyForTeams)
             {
-                _resultTournamentTeamService.SetTeamResultInRoundOfTournament(_viewModel.SelctedPlayerInComboBox.Id, 2,
-                numberRound, _viewModel.SelectedTournament.Id);
+                _resultTournamentTeamService.SetTeamResultInRoundOfTournament(_viewModel.SelectedResult as ResultTournamentTeamModel, 2);
 
-                _resultTournamentTeamService.SetTeamResultInRoundOfTournament( looser.Id, 0,
-                    numberRound, _viewModel.SelectedTournament.Id);
+                _resultTournamentTeamService.SetTeamResultInRoundOfTournament(looser as ResultTournamentTeamModel, 0);
             }
             else
             {
-                int idWinner = _resultTournamentPlayerService.SetPlayerResultInRoundOfTournament(2, _viewModel.SelctedPlayerInComboBox.Id,
-                numberRound, _viewModel.SelectedTournament.Id);
+                _resultTournamentPlayerService.SetPlayerResultInRoundOfTournament(2, _viewModel.SelectedResult as ResultTournamentPlayerModel);
 
-                int idLoser = _resultTournamentPlayerService.SetPlayerResultInRoundOfTournament(0, looser.Id,
-                    numberRound, _viewModel.SelectedTournament.Id);
+                _resultTournamentPlayerService.SetPlayerResultInRoundOfTournament(0, looser as ResultTournamentPlayerModel);
             }
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
 
