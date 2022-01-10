@@ -1,5 +1,6 @@
 ﻿using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
@@ -17,8 +18,15 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            var team = _teamService.GetById(_viewModel.SelectedTeam.Id);
-            _viewModel.Teams.Add(team);
+            try
+            {
+                var team = _teamService.GetById(_viewModel.SelectedTeam.Id);
+                _viewModel.Teams.Add(team);
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
+            }
         }
     }
 }

@@ -26,8 +26,15 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             {
                 HelperExceptionMessage.HelperMessageBox("CheckIsEmptySelectedTeam");
             }
+            try
+            {
             _teamService.Delete(_viewModel.SelectedTeam.Id);
             _viewModel.Teams.Remove(_viewModel.SelectedTeam);
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
+            }
         }
     }
 }

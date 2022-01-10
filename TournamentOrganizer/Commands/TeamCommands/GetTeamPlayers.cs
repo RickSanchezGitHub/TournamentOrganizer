@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
@@ -18,10 +19,18 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
-            var teamWithPlayers = _teamService.GetById(_viewModel.SelectedTeam.Id);
-            if (teamWithPlayers.Players.Count >= 1 && teamWithPlayers.Players.FirstOrDefault() != null)
+            try
             {
-                _viewModel.SelectedTeam.Players = teamWithPlayers.Players;
+
+                var teamWithPlayers = _teamService.GetById(_viewModel.SelectedTeam.Id);
+                if (teamWithPlayers.Players.Count >= 1 && teamWithPlayers.Players.FirstOrDefault() != null)
+                {
+                    _viewModel.SelectedTeam.Players = teamWithPlayers.Players;
+                }
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
             }
         }
     }

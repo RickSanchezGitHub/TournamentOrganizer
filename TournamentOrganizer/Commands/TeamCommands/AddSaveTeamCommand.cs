@@ -33,6 +33,9 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                 HelperExceptionMessage.HelperMessageBox("CheckValidInputData");
             }
 
+            try
+            {
+
             var teamModel = new TeamModel
             {
                 Name = _viewModel.TextBoxName
@@ -42,6 +45,11 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             int idNewTeam = _teamService.Insert(teamModel);
             teamModel.Id = idNewTeam;
             _viewModel.Teams.Add(teamModel);
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
+            }
         }
 
     }

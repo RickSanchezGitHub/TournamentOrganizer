@@ -3,6 +3,7 @@ using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.Validation.TabItemTeamValidation;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -27,35 +28,36 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             if (_tabItemTeamValidation.CheckIsEmptyOrWtiteSpaceInputData())
             {
-                MessageBox.Show("Заполните поле",
-                                "Ошибка ",
-                                MessageBoxButton.OK);
-                return;
+                HelperExceptionMessage.HelperMessageBox("CheckIsEmptyOrWtiteSpaceInputData");
             }
 
             if (_tabItemTeamValidation.CheckValidInputData())
             {
-                MessageBox.Show("Название не должно содержать никаких символов, пробелов и не должно превышать 25 символов",
-                                "Ошибка ",
-                                MessageBoxButton.OK);
-                return;
+                HelperExceptionMessage.HelperMessageBox("CheckValidInputData");
             }
 
-            var teamModel = new TeamModel
+            try
             {
-                Name = _viewModel.TextBoxName
-            };
-            _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
-
-            foreach (var player in _viewModel.PlayersToAddInTeam)
-            {
-                var teamPlayerModel = new TeamPlayerModel
+                var teamModel = new TeamModel
                 {
-                    TeamId = _viewModel.SelectedTeam.Id,
-                    PlayerId = player.Id
+                    Name = _viewModel.TextBoxName
                 };
-                _teamPLayerService.Insert(teamPlayerModel);
-                _viewModel.SelectedTeam.Players.Add(player);
+                _teamService.Update(_viewModel.SelectedTeam.Id, teamModel);
+
+                foreach (var player in _viewModel.PlayersToAddInTeam)
+                {
+                    var teamPlayerModel = new TeamPlayerModel
+                    {
+                        TeamId = _viewModel.SelectedTeam.Id,
+                        PlayerId = player.Id
+                    };
+                    _teamPLayerService.Insert(teamPlayerModel);
+                    _viewModel.SelectedTeam.Players.Add(player);
+                }
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
             }
 
             _viewModel.PlayersToAddInTeam.Clear();

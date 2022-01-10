@@ -1,6 +1,7 @@
 ﻿using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service.TeamPlayerService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TeamCommands
@@ -18,6 +19,8 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
 
         public override void Execute(object parameter)
         {
+            try
+            {
             var teamPlayerModel = new TeamPlayerModel
             {
                 TeamId = _viewModel.SelectedTeam.Id,
@@ -25,6 +28,11 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             };
             _teamPlayerService.Delete(teamPlayerModel);
             _viewModel.SelectedTeam.Players.Remove(_viewModel.SelectedPlayer);
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
+            }
         }
     }
 }

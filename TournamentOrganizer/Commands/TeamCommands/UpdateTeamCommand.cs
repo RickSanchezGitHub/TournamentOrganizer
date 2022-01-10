@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.Validation.TabItemTeamValidation;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -23,16 +24,19 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             if (_tabItemTeamValidation.CheckIsEmptySelectedTeam() == false)
             {
-                MessageBox.Show("Выберите команду",
-                                "Ошибка ",
-                                MessageBoxButton.OK);
-                return;
+                HelperExceptionMessage.HelperMessageBox("CheckIsEmptySelectedTeam");
             }
-
-            var players = _teamService.GetAvailablePlayersToAdd(_viewModel.SelectedTeam.Id);
-            foreach (var item in players)
+            try
             {
-                _viewModel.AvailablePlayersToAddInTeam.Add(item);
+                var players = _teamService.GetAvailablePlayersToAdd(_viewModel.SelectedTeam.Id);
+                foreach (var item in players)
+                {
+                    _viewModel.AvailablePlayersToAddInTeam.Add(item);
+                }
+            }
+            catch
+            {
+                HelperExceptionMessage.HelperMessageBox("Help");
             }
 
             _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
