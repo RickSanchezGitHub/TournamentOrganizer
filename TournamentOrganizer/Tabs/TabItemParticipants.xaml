@@ -66,12 +66,13 @@
                                            Width="120"
                                            HorizontalAlignment="Left" 
                                            Margin="5,0,0,0">
-                                <TextBlock.InputBindings>
-                                    <MouseBinding 
-                                            Command="{Binding DataContext.GetTeamPlayers, 
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
+                                                 Command="{Binding DataContext.GetTeamPlayers, 
                                                     RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
                                                     MouseAction="LeftDoubleClick"/>
-                                </TextBlock.InputBindings>    
+                                    </TextBlock.InputBindings> 
+                                    
                                 </TextBlock>
                                 
                             </DockPanel>
