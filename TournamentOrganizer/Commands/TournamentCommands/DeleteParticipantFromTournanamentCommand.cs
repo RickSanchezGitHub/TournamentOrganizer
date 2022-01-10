@@ -17,7 +17,14 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 
         public override void Execute(object parameter)
         {
-            _tournamentService.DeletePlayerFromTournament(_viewModel.SelectedTournamentParticipant.Id, _viewModel.SelectedTournament.Id);
+            if (_viewModel.SelectedTournament.OnlyForTeams)
+            {
+                _tournamentService.DeleteTeamFromTournament(_viewModel.SelectedTournamentParticipant.Id, _viewModel.SelectedTournament.Id);
+            }
+            else
+            {
+                _tournamentService.DeletePlayerFromTournament(_viewModel.SelectedTournamentParticipant.Id, _viewModel.SelectedTournament.Id);
+            }
             _viewModel.TournamentParticipants.Remove(_viewModel.SelectedTournamentParticipant);
         }
     }

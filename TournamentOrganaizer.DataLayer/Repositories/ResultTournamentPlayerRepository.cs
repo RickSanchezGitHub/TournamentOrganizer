@@ -143,7 +143,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     new
                     {
                         TournamentId = tournamentId,
-                        Id = playerId
+                        PlayerId = playerId
                     },
                     commandType: CommandType.StoredProcedure
                 );
@@ -161,6 +161,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     new { TournamentId = tournamentId },
                     commandType: CommandType.StoredProcedure
                  )
+
                 .ToList();
 
             return result;

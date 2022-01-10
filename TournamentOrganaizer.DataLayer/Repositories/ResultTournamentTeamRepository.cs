@@ -32,14 +32,17 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void DeleteByTournament(int tournamentId)
+        public void DeleteByTournament(int tournamentId, int teamId)
         {
             using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentTeam_DeleteByTournamentId]";
             sqlConnection.Execute
                 (
                     storedProcedure,
-                    new { TournamentId = tournamentId },
+                    new 
+                    { TournamentId = tournamentId,
+                      TeamId = teamId
+                    },
                     commandType: CommandType.StoredProcedure
                 );
         }

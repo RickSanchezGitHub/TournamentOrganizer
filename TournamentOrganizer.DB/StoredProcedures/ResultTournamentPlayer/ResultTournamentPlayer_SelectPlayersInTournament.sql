@@ -3,13 +3,14 @@
 AS
 BEGIN
 SELECT
-	  p.Id,
+	  
 	  p.FirstName,
 	  p.LastName,
 	  p.Name,
 	  p.Birthday,
 	  p.Email,
-	  rtp.Id
+	  rtp.Id,
+	  p.Id
   FROM [dbo].[ResultTournamentPlayer] rtp inner join dbo.[Player] p 
   ON rtp.PlayerId = p.Id
   WHERE  rtp.TournamentId = @TournamentId

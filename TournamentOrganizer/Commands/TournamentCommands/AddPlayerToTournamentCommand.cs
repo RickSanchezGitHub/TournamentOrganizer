@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
+using TournamentOrganizer.UI.Validation.TabItemTournamentValidation;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.TournamentCommands
@@ -17,18 +18,28 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         }
         public override void Execute(object parameter)
         {
-            if (_viewModel.SelectedTournament.OnlyForTeams != true)
+            if (!TabItemTournamentValidation.AddParticipantToTournamentValidation(_viewModel.SelectedTournamentParticipant, _viewModel.TournamentParticipants))
             {
-                var player = _viewModel.SelectedTournamentParticipant as PlayerModel;
-                _tournamentService.AddPalyerToTournament(player, _viewModel.SelectedTournament.Id);
-                _viewModel.TournamentParticipants.Add(player);
-            } else
-            {
-                var team = _viewModel.SelectedTournamentParticipant as TeamModel;
-                _tournamentService.AddTeamToTournament(team, _viewModel.SelectedTournament.Id);
-                _viewModel.TournamentParticipants.Add(team);
+                MessageBox.Show("Такой участник уже записан на участие в этом турнире",
+                           "Ошибка ",
+                           MessageBoxButton.OK);
+                return;
             }
-            
+            else
+            {
+                if (_viewModel.SelectedTournament.OnlyForTeams != true)
+                {
+                    var player = _viewModel.SelectedTournamentParticipant as PlayerModel;
+                    _tournamentService.AddPalyerToTournament(player, _viewModel.SelectedTournament.Id);
+                    _viewModel.TournamentParticipants.Add(player);
+                }
+                else
+                {
+                    var team = _viewModel.SelectedTournamentParticipant as TeamModel;
+                    _tournamentService.AddTeamToTournament(team, _viewModel.SelectedTournament.Id);
+                    _viewModel.TournamentParticipants.Add(team);
+                }
+            }
         }
     }
 }

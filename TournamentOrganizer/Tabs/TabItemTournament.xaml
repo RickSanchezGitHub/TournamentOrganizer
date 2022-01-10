@@ -109,9 +109,9 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
                 <Label Name="LabelCloseDate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Дата закрытия</Label>
                 <DatePicker x:Name="DatePickerDayClose" Grid.Row="3"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" SelectedDate="{Binding DatePickerCloseDate}"></DatePicker>
-            </StackPanel>        
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
-                    <Label Name="LabelSelectToyrnamentType" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center">Командный турнир</Label>
+            </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Visibility="{Binding VisibilityCheckBoxSelectedTournamentType}" >
+                    <Label Name="LabelSelectToyrnamentType" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Normal"  FontSize="15" VerticalAlignment="Center" >Командный турнир</Label>
                     <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" IsChecked ="{Binding CheckBoxSelectedTournamentType}"/>           
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >

@@ -17,16 +17,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 
         public override void Execute(object parameter)
         {
-            //if (_viewModel.ComboBoxSelectTournamentType == "Командные турниры")
-            //{
-            //    _viewModel.VisibilityDataGridTeamTournaments = Visibility.Visible;
-            //    _viewModel.VisibilityDataGridPlayersTournaments = Visibility.Collapsed;
-            //}
-            //if (_viewModel.ComboBoxSelectTournamentType == "Турниры для игроков")
-            //{
-            //    _viewModel.VisibilityDataGridTeamTournaments = Visibility.Collapsed;
-            //    _viewModel.VisibilityDataGridPlayersTournaments = Visibility.Visible;
-            //}
+
         }
     }
 }

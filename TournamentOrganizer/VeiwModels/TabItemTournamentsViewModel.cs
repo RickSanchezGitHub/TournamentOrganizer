@@ -57,10 +57,8 @@ namespace TournamentOrganizer.UI.VeiwModels
             AddPlayerToTournament = new AddPlayerToTournamentCommand(this, _tournamentService);
 
         }
-
-        private TournamentModel _selectedTournament;
         public TournamentModel SelectedTournament
-        { get; set; }
+        { get; set;}
 
         private IParticipant _selectedTournamentParticipant;
         public IParticipant SelectedTournamentParticipant
@@ -241,6 +239,21 @@ namespace TournamentOrganizer.UI.VeiwModels
                 _visibilityColumnParticipant = value;
 
                 OnPropertyChanged(nameof(VisibilityColumnParticipant));
+            }
+        }
+
+        private Visibility _visibilityCheckBoxSelectedTournamentType;
+        public Visibility VisibilityCheckBoxSelectedTournamentType
+        {
+            get
+            {
+                return _visibilityCheckBoxSelectedTournamentType;
+            }
+            set
+            {
+                _visibilityCheckBoxSelectedTournamentType = value;
+
+                OnPropertyChanged(nameof(VisibilityCheckBoxSelectedTournamentType));
             }
         }
 

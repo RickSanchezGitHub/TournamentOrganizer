@@ -79,6 +79,10 @@ namespace TournamentOrganizer.BusinessLayer.Service
         {
             _resultTournamentPlayerRepository.DeleteByTournament(playerId, tournamentId);
         }
+        public void DeleteTeamFromTournament(int teamId, int tournamentId)
+        {
+            _resultTournamentTeamRepository.DeleteByTournament(tournamentId, teamId);
+        }
 
         public int AddPalyerToTournament(PlayerModel player, int tournamentId)
         {
