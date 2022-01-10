@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
+using System.Threading.Tasks;
 namespace TournamentOrganizer.BusinessLayer.Models
 {
     public class PlayerModel : INotifyPropertyChanged, IParticipant
@@ -17,7 +17,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _id = value;
-                OnPropertyChanged(nameof(Id));
+                OnPropertyChanged();
             }
         }
 
@@ -28,7 +28,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged();
             }
         }
 
@@ -39,7 +39,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged();
             }
         }
 
@@ -50,7 +50,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _name = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged();
             }
         }
 
@@ -61,7 +61,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _email = value;
-                OnPropertyChanged(nameof(Email));
+                OnPropertyChanged();
             }
         }
 
@@ -72,30 +72,24 @@ namespace TournamentOrganizer.BusinessLayer.Models
             set
             {
                 _birthday = value;
-                OnPropertyChanged(nameof(Birthday));
+                OnPropertyChanged();
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
         public override bool Equals(object obj)
         {
             return obj is PlayerModel model &&
-                   _firstName == model._firstName &&
                    FirstName == model.FirstName &&
-                   _lastName == model._lastName &&
                    LastName == model.LastName &&
-                   _name == model._name &&
                    Name == model.Name &&
-                   _email == model._email &&
                    Email == model.Email &&
-                   _birthday == model._birthday &&
                    Birthday == model.Birthday;
         }
     }

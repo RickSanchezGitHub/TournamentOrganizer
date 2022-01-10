@@ -7,7 +7,8 @@ namespace TournamentOrganizer.DataLayer.Repositories
     {
         void Delete(int id);
         List<Team> GetAll();
-        List<Team> GetById(int id);
+        List<Player> GetAvailablePlayersToAdd(int id);
+        Team GetById(int id);
         int Insert(Team team);
         void Update(int id, Team team);
     }

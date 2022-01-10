@@ -1,12 +1,363 @@
 ﻿<TabItem x:Class="TournamentOrganizer.UI.Tabs.TabItemParticipants"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:tabData ="clr-namespace:TournamentOrganizer.UI.Tabs"
-         Header="Participants">
+         xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+         xmlns:cmd="clr-namespace:TournamentOrganizer.UI.Command"
+         xmlns:c="clr-namespace:TournamentOrganizer.BusinessLayer.Models;assembly=TournamentOrganizer.BusinessLayer" 
+         xmlns:i="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
+         Header="Команды">
+        
+    <TabItem.DataContext>
+        <m:TabItemTeamViewModel></m:TabItemTeamViewModel>
+    </TabItem.DataContext>
+    <Grid i:CommandBehavior.Event="Loaded" i:CommandBehavior.Command="{Binding InitializeTeamCommand}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <Image x:Name="MainImage"
+                           Grid.Column="0" 
+                           Grid.Row="0" 
+                           Grid.ColumnSpan="6"
+                           Grid.RowSpan="3"
+                           Source="..\Images\carbon.jpg" 
+                           Stretch="UniformToFill" 
+                           Panel.ZIndex="0"/>
+        
 
-    <Grid>
-        <TabControl>
 
-        </TabControl>
+        <GroupBox Grid.Column="0"
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
+                  Header="Команды" 
+                  Width="180"
+                  Margin="10,5,5,0"
+                  Foreground="White">
+
+            <DockPanel Margin="5" Width="180">
+
+                <ListBox ItemsSource="{Binding Teams}" 
+                         SelectedItem="{Binding SelectedTeam}"
+                         SelectedIndex="0">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate  DataType="c:TeamModel">
+                            <DockPanel>
+                                <TextBlock Text="{Binding Name}" 
+                                           Width="120"
+                                           HorizontalAlignment="Left" 
+                                           Margin="5,0,0,0">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
+                                                 Command="{Binding DataContext.GetTeamPlayers, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
+                                                    MouseAction="LeftDoubleClick"/>
+                                    </TextBlock.InputBindings> 
+                                    
+                                </TextBlock>
+                                
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="1" 
+                  Grid.Row="0"   
+                  Grid.ColumnSpan="2" 
+                  Grid.RowSpan="2"
+                  Margin="5,5,10,0"
+                  Foreground="White"
+                  Header="{Binding SelectedTeam.Name}">
+            
+            <DataGrid ItemsSource="{Binding SelectedTeam.Players}"
+                      SelectedItem="{Binding SelectedPlayer}"
+                      Width="Auto"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      HorizontalGridLinesBrush="LightGray"
+                      VerticalGridLinesBrush="LightGray"
+                      Background="LightGray"                      
+                      Margin="5">
+
+                <DataGrid.Columns>
+                    
+                    <DataGridTextColumn Header="Псевдоним" 
+                                        Binding="{Binding Name}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="50"/>
+                    
+                    <DataGridTextColumn Header="Имя" 
+                                        Binding="{Binding FirstName}"
+                                        Width="Auto" 
+                                        MaxWidth="100"
+                                        MinWidth ="50"/>
+                    
+                    <DataGridTextColumn Header="Фамилия" 
+                                        Binding="{Binding LastName}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="50"/>
+                    
+                    <DataGridTextColumn Header="Email" 
+                                        Binding="{Binding Email}"
+                                        Width="Auto" 
+                                        MaxWidth="120"
+                                        MinWidth ="70"/>
+
+                    <DataGridTextColumn Header="Дата рождения" 
+                                        Binding="{Binding Birthday, StringFormat=dd.mm.yyyy}"
+                                        Width="100"/>
+
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить"
+                                        Command="{Binding DataContext.DeletePlayerForTeamCommand, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" 
+                    Grid.Column="3"
+                    Visibility="{Binding VisibilityColumnAddTeam}"
+                    Margin="0,20,0,0">
+            
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Stretch">
+                
+                <Label Name="LabelName"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15"                        
+                       VerticalAlignment="Center">Название
+                </Label>
+                
+                <TextBox x:Name="TextBoxName"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         MinWidth="100"
+                         Text ="{Binding TextBoxName}">                    
+                </TextBox>
+                
+            </StackPanel>           
+            
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" 
+                    Grid.Column="4"
+                    Visibility="{Binding VisibilityColumnUpdateTeam}"
+                    Margin="0,20,0,0">
+            
+            <StackPanel Orientation="Vertical" 
+                        HorizontalAlignment="Stretch">
+
+                <Label Name="LabellName"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15" 
+                       VerticalAlignment="Center">Название
+                </Label>
+
+                <TextBox x:Name="TexttBoxName"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Center" 
+                         MinWidth="100"
+                         Margin="5"
+                         
+                         Text ="{Binding TextBoxName}">
+                </TextBox>
+
+                <Label Name="LabelNamePlayersInTeam"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15" 
+                       VerticalAlignment="Center">Игроки в команде
+                </Label>
+
+                <ListBox ItemsSource="{Binding PlayersToAddInTeam}"
+                         SelectedItem="{Binding SelectedPlayer}"
+                         SelectedIndex="0"
+                         Margin="1"
+                         Height="100"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate  DataType="c:PlayerModel">
+                            <DockPanel>
+                                <TextBlock Text="{Binding Name}" 
+                                           Width="120"
+                                           HorizontalAlignment="Left" 
+                                           Margin="5,0,0,0">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
+                                            Command="{Binding DataContext.RemovePlayerFromTmpListForAdd, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                    MouseAction="LeftDoubleClick"/>
+                                    </TextBlock.InputBindings>
+                                </TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+                <Label Name="AllPlayers"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" 
+                       FontSize="15" 
+                       VerticalAlignment="Center">Все игроки
+                </Label>
+
+                <ListBox ItemsSource="{Binding AvailablePlayersToAddInTeam}"
+                         SelectedItem="{Binding SelectedPlayer}"
+                         SelectedIndex="0"
+                         Margin="5"
+                         Height="100"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" 
+                                    Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate  DataType="c:PlayerModel">
+                            <DockPanel>
+                                <TextBlock Text="{Binding Name}" 
+                                           Width="120"
+                                           HorizontalAlignment="Left" 
+                                           Margin="5,0,0,0">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding 
+                                            Command="{Binding DataContext.AddPlayerToTmpList, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
+                                                    MouseAction="LeftDoubleClick"/>
+                                    </TextBlock.InputBindings>
+                                </TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                </ListBox>
+                
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal">
+            <Button x:Name="ButtonAdd"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Height="20"
+                    Width="80"
+                    Margin="10"                    
+                    Content="Добавить"
+                    Command="{Binding AddTeamCommand}"/>
+            
+            <Button Content="Редактировать"
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Width="90" 
+                Height="20"
+                Margin="10"              
+                Command="{Binding UpdateTeamCommand}"/>
+
+            <Button Content="Удалить"
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Width="80" 
+                Height="20"
+                Margin="10"
+                Command="{Binding DeleteTeamCommand}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2"
+                    Grid.Column="3"
+                    Orientation="Horizontal"
+                    Visibility="{Binding VisibilityColumnAddTeam}">
+
+            <Button Visibility="{Binding VisibilitySaveButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Сохранить"
+                    Command="{Binding AddSaveTeamCommand}"/>
+            
+            <Button Visibility="{Binding VisibilityBackButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Назад"
+                    Command="{Binding BackTeamCommand}"/>
+
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2"
+                    Grid.Column="4"
+                    Orientation="Horizontal"
+                    Visibility="{Binding VisibilityColumnUpdateTeam}">
+
+            <Button Visibility="{Binding VisibilitySaveButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Сохранить"
+                    Command="{Binding UpdateSaveTeamCommand}"/>
+
+            <Button Visibility="{Binding VisibilityBackButton}"
+                    Height="20"
+                    Width="100"
+                    Margin="10"
+                    Content="Назад"
+                    Command="{Binding BackTeamCommand}"/>
+
+        </StackPanel>
+
     </Grid>
 </TabItem>

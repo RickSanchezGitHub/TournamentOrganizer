@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TournamentOrganizer.UI.Commands
+namespace TournamentOrganizer.UI.Command
 {
     public abstract class CommandBase : ICommand
     {

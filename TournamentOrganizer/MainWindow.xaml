@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tabData ="clr-namespace:TournamentOrganizer.UI.Tabs"
+         xmlns:m="clr-namespace:TournamentOrganizer.UI.VeiwModels"
+        
         mc:Ignorable="d"
         Title="Организатор турниров" Height="460" Width="819">
     <Grid>

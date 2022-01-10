@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TournamentOrganizer.UI.Validation
+﻿namespace TournamentOrganizer.UI.Validation
 {
     public static class Validation
     {
-        private static string _invalidSymbols = "-=!@#$%^&*()_+ ";
+        private static string _invalidSymbols = "1234567890-=!@#$%^&*()_+ ";
 
         public static bool TextBoxValidation(string text)
         {

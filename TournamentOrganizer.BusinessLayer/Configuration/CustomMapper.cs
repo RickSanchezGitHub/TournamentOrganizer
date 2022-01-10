@@ -40,7 +40,10 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
 
 
 
+                cfg.CreateMap<TeamPlayer, TeamPlayerModel>();
+                cfg.CreateMap<TeamPlayerModel, TeamPlayer>();
             }));
+
         }
     }
 }

@@ -4,5 +4,5 @@ begin
 	select
 		Id,
 		Name
-	from Team
+	from  dbo.[Team]
 end
