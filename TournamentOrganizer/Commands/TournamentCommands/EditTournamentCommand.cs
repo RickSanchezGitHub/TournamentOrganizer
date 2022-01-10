@@ -21,6 +21,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
             _viewModel.VisibilitySaveButton = Visibility.Collapsed;
             _viewModel.VisibilityUpdateButton = Visibility.Visible;
             _viewModel.VisibilityCheckBoxSelectedTournamentType = Visibility.Collapsed;
+            _viewModel.VisibilityButtonParticipants = Visibility.Visible;
         }
     }
 }

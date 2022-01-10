@@ -257,6 +257,36 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
+        private Visibility _visibilityButtonParticipants;
+        public Visibility VisibilityButtonParticipants
+        {
+            get
+            {
+                return _visibilityButtonParticipants;
+            }
+            set
+            {
+                _visibilityButtonParticipants = value;
+
+                OnPropertyChanged(nameof(VisibilityButtonParticipants));
+            }
+        }
+
+        private Visibility _visibilityButtonAddTournament;
+        public Visibility VisibilityButtonAddTournament
+        {
+            get
+            {
+                return _visibilityButtonAddTournament;
+            }
+            set
+            {
+                _visibilityButtonAddTournament = value;
+
+                OnPropertyChanged(nameof(VisibilityButtonAddTournament));
+            }
+        }
+
         private GridLength _gridLength;
         public GridLength GridLength
         {

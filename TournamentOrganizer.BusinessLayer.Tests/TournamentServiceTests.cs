@@ -17,13 +17,19 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         private readonly Mock<ITournamentRepository> _tournamnetRepositoryMock;
         private readonly Mock<IGameRepository> _gameRepositoryMock;
         private readonly Mock<IResultTournamentPlayerRepository> _resultTournamentPlayerRepositoryMock;
+        private readonly Mock<IResultTournamentTeamRepository> _resultTournamentTeamRepositoryMock;
+        private readonly Mock<IPlayerRepository> _playerRepositoryMock;
+        private readonly Mock<ITeamRepository> _teamRepositoryMock;
+
 
         public TournamentServiceTests()
         {
             _tournamnetRepositoryMock = new Mock<ITournamentRepository>();
             _gameRepositoryMock = new Mock<IGameRepository>();
             _resultTournamentPlayerRepositoryMock = new Mock<IResultTournamentPlayerRepository>();
-
+            _resultTournamentTeamRepositoryMock = new Mock<IResultTournamentTeamRepository>();
+            _playerRepositoryMock = new Mock<IPlayerRepository>();
+            _teamRepositoryMock = new Mock<ITeamRepository>();
         }
 
         public void FillTestObjectsForGetAllTournaments()
@@ -53,6 +59,48 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                             Id = 1,
                             Name = "TestGame"
                         }
+                }
+            });
+        }
+
+        public void FillTestObjectsForGetAllPlayers()
+        {
+            _playerRepositoryMock.Setup(m => m.GetAll()).Returns(new List<Player>
+            {
+                new Player
+                {
+                    Id = 1,
+                    FirstName = "Vasya",
+                    LastName = "Pupkin",
+                    Name = "Ybica2000",
+                    Email = "test",
+                    Birthday = DateTime.Now
+                },
+                new Player
+                {
+                    Id = 2,
+                    FirstName = "Vasya2",
+                    LastName = "Pupkin2",
+                    Name = "Ybica20002",
+                    Email = "test2",
+                    Birthday = DateTime.Now
+                }
+            });
+        }
+
+        public void FillTestObjectsForGetAllTeams()
+        {
+            _teamRepositoryMock.Setup(m => m.GetAll()).Returns(new List<Team>
+            {
+                new Team
+                {
+                    Id = 1,
+                    Name = "Team1"
+                },
+                new Team
+                {
+                    Id = 2,
+                    Name = "Team2"
                 }
             });
         }
@@ -113,6 +161,24 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                     Name = "Test1",
                 },
                 new Game
+                {
+                    Id = 2,
+                    Name = "Test2"
+                }
+            });
+        }
+
+
+        public void FillTestObjectsForGetTeamsInTournament()
+        {
+            _resultTournamentTeamRepositoryMock.Setup(m => m.GetTeamsInTournament(1)).Returns(new List<Team>
+            {
+                new Team
+                {
+                    Id = 1,
+                    Name = "Test1",
+                },
+                new Team
                 {
                     Id = 2,
                     Name = "Test2"
@@ -199,6 +265,35 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
 
+        public TeamModel GetTestTeamsForTestAddPalyerToTournamentTes(int key)
+        {
+            TeamModel result;
+            switch (key)
+            {
+                case 1:
+                    result = new TeamModel
+                    {
+                        Id = 1,
+                        Name = "Team1"
+                    };
+                    break;
+
+                case 2:
+                    result = new TeamModel
+                    {
+                        Id = 1,
+                        Name = "Team2"
+                    };
+                    break;
+                default:
+                    result = null;
+                    break;
+            }
+            return result;
+
+        }
+
+
 
         [SetUp]
         public void Setup()
@@ -210,7 +305,8 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         public void GetAllTournaments_ShouldReturnTournamentsWithGamesInfo()
         {
             //arrange
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
+
             FillTestObjectsForGetAllTournaments();
             //act
             var actual = sut.GetAllTournaments();
@@ -232,7 +328,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         public void DeleteTournament_ShouldPass(int id)
         {
             //arrange
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
 
             //act
             sut.DeleteTournament(id);
@@ -248,7 +344,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         {
             //arrange
             var tetsTournament = GetTestTournamentsModelToFill(key);
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
             var tournament = CustomMapper.GetInstance().Map<Tournament>(tetsTournament);
 
             //act
@@ -266,7 +362,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         {
             //arrange
             var testTournament = GetTestTournamentsModelToFill(key);
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
 
             //act
             var actual = sut.InsertTournament(testTournament);
@@ -283,7 +379,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         public void GetAllGames_ShouldReturnAllAvailableGames()
         {
             //arrange
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
             FillTestObjectsForGetAllGames();
             //act
             var actual = sut.GetAllGames();
@@ -301,7 +397,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         public void GetPlayersInTournament_ShouldRetuenPlayersInCurrentTournament(int key)
         {
             //arrange
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
             FillTestObjectsForGetPlayersInTournament();
             //act 
             var actual = sut.GetPlayersInTournament(key);
@@ -322,7 +418,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         public void DeletePlayerFromTournament_ShouldPass(int playerId, int tournamentId)
         {
             //arrange
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
 
             //act
             sut.DeletePlayerFromTournament(playerId, tournamentId);
@@ -341,7 +437,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         {
             //arrange
             var testPlayer = GetTestPlayerForTestAddPalyerToTournamentTes(key);
-            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
 
             //act
             var actual = sut.AddPalyerToTournament(testPlayer, tournamentId);
@@ -352,9 +448,92 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             Assert.Pass();
         }
 
+        [TestCase(1)]
         public void GetTeamsInTournament_ShouldReturnTeamsInTournament(int tournamentId)
         {
+            //arrange
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
+            FillTestObjectsForGetTeamsInTournament();
 
+            //act
+            var actual = sut.GetTeamsInTournament(tournamentId);
+
+            //assert
+            _resultTournamentTeamRepositoryMock.Verify(m => m.GetTeamsInTournament(1), Times.Once());
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Count > 0);
+            Assert.IsInstanceOf(typeof(TeamModel), actual[0]);
+            Assert.Pass();
+        }
+
+        [TestCase(1,1)]
+        public void DeleteTeamFromTournament_ShuldPass(int teamId, int tournamentId)
+        {
+            //arrange
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
+
+            //act
+            sut.DeleteTeamFromTournament(teamId,  tournamentId);
+
+            //assert
+            _resultTournamentTeamRepositoryMock.Verify(m => m.DeleteByTournament(tournamentId, teamId), Times.Once());
+            Assert.Pass();
+        }
+
+        [TestCase (1, 1)]
+        [TestCase (2, 1)]
+
+        public void AddTeamToTournament(int key, int tournamentId)
+        {
+            //arrange
+            var testTeam = GetTestTeamsForTestAddPalyerToTournamentTes(key);
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
+
+            //act
+            var actual = sut.AddTeamToTournament(testTeam, tournamentId);
+
+            //assert
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOf(typeof(int), actual);
+            Assert.Pass();
+        }
+
+        [Test]
+
+        public void GetAllPlayers_SholudReturnAllPlayersList()
+        {
+            //arrange
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
+            FillTestObjectsForGetAllPlayers();
+
+            //act
+            var actual = sut.GetAllPlayers();
+
+            //assert
+            _playerRepositoryMock.Verify(m => m.GetAll(), Times.Once());
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Count > 0);
+            Assert.IsInstanceOf(typeof(PlayerModel), actual[0]);
+            Assert.Pass();
+        }
+
+        [Test]
+
+        public void GetAllTeams_SholudReturnAllTeamList()
+        {
+            //arrange
+            var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object, _playerRepositoryMock.Object, _teamRepositoryMock.Object, _resultTournamentTeamRepositoryMock.Object);
+            FillTestObjectsForGetAllTeams();
+
+            //act
+            var actual = sut.GetAllTeams();
+
+            //assert
+            _teamRepositoryMock.Verify(m => m.GetAll(), Times.Once());
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Count > 0);
+            Assert.IsInstanceOf(typeof(TeamModel), actual[0]);
+            Assert.Pass();
         }
 
 

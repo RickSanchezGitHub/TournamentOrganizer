@@ -19,6 +19,7 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
             _viewModel.VisibilitySaveButton = Visibility.Visible;
             _viewModel.VisibilityUpdateButton = Visibility.Collapsed;
             _viewModel.VisibilityCheckBoxSelectedTournamentType = Visibility.Visible;
+            _viewModel.VisibilityButtonParticipants = Visibility.Collapsed;
             _viewModel.TextBoxName = null;
             _viewModel.DatePickerStartDate = DateTime.Today;
             _viewModel.DatePickerCloseDate = DateTime.Today;

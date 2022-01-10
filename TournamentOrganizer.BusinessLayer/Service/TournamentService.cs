@@ -27,11 +27,14 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _resultTournamentTeamRepository = new ResultTournamentTeamRepository();
         }
 
-        public TournamentService(ITournamentRepository tournamentRepository, IGameRepository gameRepository, IResultTournamentPlayerRepository resultTournamentPlayerRepository)
+        public TournamentService(ITournamentRepository tournamentRepository, IGameRepository gameRepository, IResultTournamentPlayerRepository resultTournamentPlayerRepository, IPlayerRepository playerRepository, ITeamRepository teamRepository, IResultTournamentTeamRepository resultTournamentTeamRepository)
         {
             _tournamentRepository = tournamentRepository;
             _gameRepository = gameRepository;
             _resultTournamentPlayerRepository = resultTournamentPlayerRepository;
+            _playerRepository = playerRepository;
+            _teamRepository = teamRepository;
+            _resultTournamentTeamRepository = resultTournamentTeamRepository;
         }
 
         public List<TournamentModel> GetAllTournaments()
@@ -79,6 +82,7 @@ namespace TournamentOrganizer.BusinessLayer.Service
         {
             _resultTournamentPlayerRepository.DeleteByTournament(playerId, tournamentId);
         }
+
         public void DeleteTeamFromTournament(int teamId, int tournamentId)
         {
             _resultTournamentTeamRepository.DeleteByTournament(tournamentId, teamId);
