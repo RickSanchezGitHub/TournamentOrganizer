@@ -12,14 +12,15 @@ namespace TournamentOrganizer.UI.Commands
 {
     public class SetDrawCommand : CommandBase
     {
-        private TabItemGridOfTournamentsViewModel _viewModel;
-        private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
-        private readonly ResultTournamentTeamService _resultTournamentTeamService;
-        public SetDrawCommand(TabItemGridOfTournamentsViewModel viewModel)
+        private readonly TabItemGridOfTournamentsViewModel _viewModel;
+        private readonly IResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly IResultTournamentTeamService _resultTournamentTeamService;
+        public SetDrawCommand(TabItemGridOfTournamentsViewModel viewModel, IResultTournamentPlayerService resultTournamentPlayerService,
+            IResultTournamentTeamService resultTournamentTeamService)
         {
             _viewModel = viewModel;
-            _resultTournamentPlayerService = new();
-            _resultTournamentTeamService = new();
+            _resultTournamentPlayerService = resultTournamentPlayerService;
+            _resultTournamentTeamService = resultTournamentTeamService;
         }
 
         public override void Execute(object parameter)

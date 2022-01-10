@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
@@ -11,22 +12,28 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
     public class SaveRedistributeCommand : CommandBase
     {
-        private TabItemGridOfTournamentsViewModel _viewModel;
-        private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
-        private readonly ResultTournamentTeamService _resultTournamentTeamService;
+        private readonly TabItemGridOfTournamentsViewModel _viewModel;
+        private readonly IResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly IResultTournamentTeamService _resultTournamentTeamService;
 
 
-        public SaveRedistributeCommand(TabItemGridOfTournamentsViewModel viewModel)
+        public SaveRedistributeCommand(TabItemGridOfTournamentsViewModel viewModel, IResultTournamentPlayerService resultTournamentPlayerService,
+            IResultTournamentTeamService resultTournamentTeamService)
         {
             _viewModel = viewModel;
-            _resultTournamentPlayerService = new();
-            _resultTournamentTeamService = new();
+            _resultTournamentPlayerService = resultTournamentPlayerService;
+            _resultTournamentTeamService = resultTournamentTeamService;
 
         }
 
         public override void Execute(object parameter)
         {
-
+            MessageBoxResult userAnswer = MessageBox.Show($"Уверены что хотите сохранить изменения?", "Подтверждение",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (userAnswer == MessageBoxResult.No)
+            {
+                return;
+            }
             if (_viewModel.SelectedTournament.OnlyForTeams)
             {
                 _resultTournamentTeamService.DeleteByTournamentRound(_viewModel.SelectedTournament.Id, _viewModel.RoundForRedistribute.RoundNumber);
@@ -54,6 +61,8 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 
             _viewModel.SelectedTournament.Rounds.Remove(_viewModel.RoundForRedistribute);
             _viewModel.SelectedTournament.Rounds.Add(_viewModel.NewRound);
+            _viewModel.IsEnabledButtonSaveRedistributeParticipants = false;
+            _viewModel.IsEnabledButtonShowParticipantsResultsAndRedistribute = true;
         }
     }
 }

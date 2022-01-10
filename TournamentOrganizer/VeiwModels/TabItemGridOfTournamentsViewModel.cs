@@ -21,39 +21,37 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         public ObservableCollection<TournamentModel> Tournaments { get; set; }
         public ObservableCollection<IParticipant> ParticipantsForRedistribution { get; set; }
-        public ObservableCollection<ParticipantTournamentResult> ParticipantTournamentResults { get; set; }
 
         private ITournamentService _tournamentService;
-        private IPlayerService _playerService;
-        private ResultTournamentPlayerService _resultTournamentPlayerService;
+        private IResultTournamentPlayerService _resultTournamentPlayerService;
+        private IResultTournamentTeamService _resultTournamentTeamService;
         public TabItemGridOfTournamentsViewModel()
         {
             _tournamentService = new TournamentService();
-            _playerService = new PlayerService();
             _resultTournamentPlayerService = new ResultTournamentPlayerService();
+            _resultTournamentTeamService = new ResultTournamentTeamService();
             TournamentSelect = new TournamentSelectCommand(this, _tournamentService);
             Tournaments = new ObservableCollection<TournamentModel>();
-            CreateRound = new CreateRoundCommand(this);
-            SetWinner = new SetWinnerCommand(this);
-            SetDraw = new SetDrawCommand(this);
+            CreateRound = new CreateRoundCommand(this, _resultTournamentPlayerService, _resultTournamentTeamService);
+            SetWinner = new SetWinnerCommand(this, _resultTournamentPlayerService, _resultTournamentTeamService);
+            SetDraw = new SetDrawCommand(this, _resultTournamentPlayerService, _resultTournamentTeamService);
             BackFromResolveMatch = new BackFromResolveMatchCommand(this);
-            ShowTournamentParticipants = new ShowTournamentParticipantsCommand(this);
-            LoadTournaments = new LoadTournamentsCommand(this, _resultTournamentPlayerService, _playerService, _tournamentService);
-            ResolveMatch = new ResolveMatchCommand(this);
+            ShowTournamentParticipants = new ShowTournamentParticipantsCommand(this, _resultTournamentPlayerService, _resultTournamentTeamService);
+            LoadTournaments = new LoadTournamentsCommand(this, _resultTournamentPlayerService, _resultTournamentTeamService, _tournamentService);
             StartTournament = new StartTournamentCommand(this);
             RedistributeParticipants = new RedistributeParticipantsCommand(this);
-            SaveRedistribute = new SaveRedistributeCommand(this);
+            SaveRedistribute = new SaveRedistributeCommand(this, _resultTournamentPlayerService, _resultTournamentTeamService);
+            BackFromRedistribute = new BackFromRedistributeCommand(this);
             ParticipantsForRedistribution = new();
             SelctedMatchInTreeView = new();
-            ParticipantTournamentResults = new();
             VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             VisibilityButtonShowTournamentParticipants = Visibility.Collapsed;
             VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
             VisibilityStackPanelRedistributeParticipants = Visibility.Collapsed;
             VisibilityButtonForStartTournament = Visibility.Hidden;
             ShowParticipantsTournamentResult = "Показать участников турнира";
-            //InitialData();
-            //Command = new RoutedCommand("Command", typeof(Button));
+            IsEnabledButtonSaveRedistributeParticipants = false;
+            IsEnabledButtonShowParticipantsResultsAndRedistribute = true;
         }
 
         private IResultTournamentParticipantModel _selectedResult;
@@ -64,6 +62,28 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 _selectedResult = value;
                 OnPropertyChanged(nameof(SelectedResult));
+            }
+        }
+
+        private bool _isEnabledButtonSaveRedistributeParticipants;
+        public bool IsEnabledButtonSaveRedistributeParticipants
+        {
+            get { return _isEnabledButtonSaveRedistributeParticipants; }
+            set
+            {
+                _isEnabledButtonSaveRedistributeParticipants = value;
+                OnPropertyChanged(nameof(IsEnabledButtonSaveRedistributeParticipants));
+            }
+        }
+
+        private bool _isEnabledButtonShowParticipantsResults;
+        public bool IsEnabledButtonShowParticipantsResultsAndRedistribute
+        {
+            get { return _isEnabledButtonShowParticipantsResults; }
+            set
+            {
+                _isEnabledButtonShowParticipantsResults = value;
+                OnPropertyChanged(nameof(IsEnabledButtonShowParticipantsResultsAndRedistribute));
             }
         }
 
@@ -86,16 +106,6 @@ namespace TournamentOrganizer.UI.VeiwModels
                 {
                     VisibilityButtonForStartTournament = Visibility.Hidden;
                 }
-                if (_selectedTournament.OnlyForTeams)
-                {
-                    PlayersOrTeams = "Name";
-                }
-                else
-                {
-                    PlayersOrTeams = "NickName";
-                }
-
-                
             }
         }
 
@@ -243,40 +253,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand StartTournament { get; set; }
         public ICommand RedistributeParticipants { get; set; }
         public ICommand SaveRedistribute { get; set; }
+        public ICommand BackFromRedistribute { get; set; }
 
-        //public RoutedCommand Command { get; set; }
-
-        //public void Command_Executed(object sender, ExecutedRoutedEventArgs e)
-        //{
-        //    var button = (Button)sender;
-        //    var data = button.DataContext;
-        //    SelctedMatchInTreeView = (MatchModel)data;
-        //    VisibilityStackPanelMatchResolve = Visibility.Visible;
-        //    VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
-        //}
-
-        //private void InitialData()
-        //{
-        //    GameService game = new GameService();
-        //    PlayerService playerService = new PlayerService();
-
-        //    TournamentModel tour = new TournamentModel
-        //    {
-        //        Name = "Experience tour",
-        //        Game = game.GameSelectById(1),
-        //        StartDate = DateTime.Now.AddDays(-10),
-        //        CloseDate = DateTime.Now
-        //    };
-        //    var listPlayers = playerService.GetAll();
-
-        //    foreach (PlayerModel item in listPlayers)
-        //    {
-        //        tour.Participants.Add(item);
-        //        //tour.ParticipantsResults.Add(new ParticipantTournamentResult(item));
-        //    }
-
-        //    tour.StartTournament();
-        //    Tournaments.Add(tour);
-        //}
     }
 }

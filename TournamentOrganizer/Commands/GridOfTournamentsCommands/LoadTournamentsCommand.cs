@@ -13,16 +13,19 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
     public class LoadTournamentsCommand : CommandBase
     {
-        private TabItemGridOfTournamentsViewModel _viewModel;
-        private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
-        private readonly ResultTournamentTeamService _resultTournamentTeamService;
+        private readonly TabItemGridOfTournamentsViewModel _viewModel;
+        private readonly IResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly IResultTournamentTeamService _resultTournamentTeamService;
         private readonly ITournamentService _tournamentService;
 
-        public LoadTournamentsCommand(TabItemGridOfTournamentsViewModel viewModel, ResultTournamentPlayerService resultTournamentPlayerService, IPlayerService playerService, ITournamentService tournamentService)
+        public LoadTournamentsCommand(TabItemGridOfTournamentsViewModel viewModel, 
+            IResultTournamentPlayerService resultTournamentPlayerService,
+            IResultTournamentTeamService resultTournamentTeamService,
+            ITournamentService tournamentService)
         {
             _viewModel = viewModel;
             _resultTournamentPlayerService = resultTournamentPlayerService;
-            _resultTournamentTeamService = new();
+            _resultTournamentTeamService = resultTournamentTeamService;
             _tournamentService = tournamentService;
         }
 
@@ -33,11 +36,11 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                 _viewModel.Tournaments.Add(item);
                 if (item.OnlyForTeams)
                 {
-                    _resultTournamentTeamService.CreateTournamentFromDataBase(item);
+                    HelperForLoadAndSorted.CreateTournamentFromDataBase(item, _resultTournamentTeamService);
                 }
                 else
                 {
-                    _resultTournamentPlayerService.CreateTournamentFromDataBase(item);
+                    HelperForLoadAndSorted.CreateTournamentFromDataBase(item, _resultTournamentPlayerService);
                 }
 
             }

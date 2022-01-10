@@ -11,15 +11,21 @@ using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.BusinessLayer.Service
 {
-    public class ResultTournamentPlayerService
+    public class ResultTournamentPlayerService : IResultTournamentPlayerService
     {
         private readonly ResultTournamentPlayerRepository _resultTournamentPlayerRepository;
-        private readonly PlayerService _playerService;
+        private readonly PlayerRepository _playerRepository;
 
         public ResultTournamentPlayerService()
         {
             _resultTournamentPlayerRepository = new();
-            _playerService = new();
+            _playerRepository = new();
+        }
+
+        public List<PlayerModel> GetPlayersByTournamentId(TournamentModel tournament)
+        {
+            var players = _playerRepository.GetPlayersInTournament(tournament.Id);
+            return CustomMapper.GetInstance().Map<List<PlayerModel>>(players);
         }
 
         public List<ResultTournamentPlayerModel> GetDataOfTournament(TournamentModel tournament)
@@ -37,10 +43,6 @@ namespace TournamentOrganizer.BusinessLayer.Service
 
         }
 
-        public int SetPlayerResultInRoundOfTournament(int newResult, int playerId, int numberRound, int tournamentId)
-        {
-            return _resultTournamentPlayerRepository.SetPlayerResultInRoundOfTournament(newResult, playerId, numberRound, tournamentId);
-        }
         public void SetPlayerResultInRoundOfTournament(int newResult, ResultTournamentPlayerModel resultTournamentPlayerModel)
         {
             var resultTournamentPlayer = CustomMapper.GetInstance().Map<ResultTournamentPlayer>(resultTournamentPlayerModel);
@@ -53,98 +55,11 @@ namespace TournamentOrganizer.BusinessLayer.Service
             return _resultTournamentPlayerRepository.InsertPlayerIdRoundMatchTournament(resultTournamentPlayer);
         }
 
-
-
-        public void SetMatchRoundByPlayerTournament(int tournamentId, int playerId, int numMatch, int numRound)
-        {
-            _resultTournamentPlayerRepository.SetMatchRoundByPlayerTournament(tournamentId, playerId, numMatch, numRound);
-        }
-
-        public int SetMatchRoundByPlayerTournament(ResultTournamentPlayerModel resultTournamentPlayerModel)
-        {
-            var resultTournamentPlayer = CustomMapper.GetInstance().Map<ResultTournamentPlayer>(resultTournamentPlayerModel);
-            return _resultTournamentPlayerRepository.SetMatchRoundByPlayerTournament(resultTournamentPlayer);
-        }
-
-
         public List<ResultTournamentPlayerModel> GetPlayerResultsInTournament(int playerId, int tournamentId)
         {
             var results = _resultTournamentPlayerRepository.GetPlayerResultsInTournament(playerId, tournamentId);
             return CustomMapper.GetInstance().Map<List<ResultTournamentPlayerModel>>(results);
         }
-
-        public void CreateTournamentFromDataBase(TournamentModel tournament)
-        {
-            int tournamentId = tournament.Id;
-            List<ResultTournamentPlayerModel> data = GetDataOfTournament(tournament);
-            if (data.Count == 0)
-            {
-                return;
-            }
-
-            foreach (var item in _playerService.GetPlayersByTournamentId(tournament))
-            {
-                tournament.Participants.Add(item);
-                tournament.ParticipantsResults.Add(new ParticipantTournamentResult(item));
-            }
-            tournament.SetNumberRounds();
-            if (data.Any(item => item.NumberRound == 0))
-                return;
-
-            tournament.StartTournament();
-            foreach (var item in data)
-                tournament.ParticipantsResultsInMatchs.Add(item);
-
-            int? maxRound = data.Max(item => item.NumberRound);
-
-            for (int i = 1; i <= maxRound; i++)
-            {
-                tournament.Rounds.Add(new RoundModel { RoundNumber = i });
-                var matchData = GetDataOfTournamentByRound(tournamentId, i);
-                int? maxMatch = matchData.Max(item => item.NumberMatch);
-                for (int j = 1; j <= maxMatch; j++)
-                {
-                    MatchModel match = new MatchModel { MatchNumber = j };
-                    if (matchData.Where(item => item.NumberMatch == j).All(res => res.Result == 0))
-                    {
-                        match.MatchResolved = false;
-                    }
-                    else
-                        match.MatchResolved = true;
-
-                    foreach (var instance in matchData.Where(el => el.NumberMatch == j))
-                    {
-                        match.Participants.Add(instance.Player);
-                        match.ParticipantsResults.Add(instance);
-                    }
-                    tournament.Rounds[i - 1].Matchs.Add(match);
-                }
-            }
-            StartFillResultPlayersInTournament(tournament);
-            if (tournament.NumberRounds <= tournament.Rounds.Count)
-            {
-                tournament.StartTournament();
-                tournament.CloseTournament();
-            }
-        }
-
-        public void StartFillResultPlayersInTournament(TournamentModel tournament)
-        {
-            foreach (var item in tournament.ParticipantsResults)
-            {
-                foreach (var result in GetPlayerResultsInTournament(item.Participant.Id, tournament.Id))
-                {
-                    item.Score += (int)result.Result;
-                }
-            }
-        }
-
-        public void UpdatePlayerInMatchRoundTournament(int playerId, int tournamentId, int numberRound, int numberMatch)
-        {
-            _resultTournamentPlayerRepository.SetMatchRoundByPlayerTournament(playerId, tournamentId, numberRound, numberMatch);
-        }
-
-
         public void DeleteByTournamentRound(int tournamentId, int numberRound)
         {
             _resultTournamentPlayerRepository.DeleteByTournamentRound(tournamentId, numberRound);
@@ -154,5 +69,6 @@ namespace TournamentOrganizer.BusinessLayer.Service
         {
             _resultTournamentPlayerRepository.DeleteByPlayerIdAndTournamentId(playerId, tournamentId);
         }
+
     }
 }

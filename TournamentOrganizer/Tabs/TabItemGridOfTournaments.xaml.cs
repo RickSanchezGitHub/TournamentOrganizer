@@ -29,10 +29,6 @@ namespace TournamentOrganizer.UI.Tabs
             InitializeComponent();
             DataContext = _viewModel;
         }
-        //CommandBinding OpenCmdBinding = new CommandBinding(
-        //    ApplicationCommands.Open,
-        //    Command_Execute);
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -43,6 +39,7 @@ namespace TournamentOrganizer.UI.Tabs
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Visible;
             _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
             _viewModel.VisibilityStackPanelRedistributeParticipants = Visibility.Collapsed;
+            _viewModel.ShowParticipantsTournamentResult = "Показать участников турнира";
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -77,6 +74,9 @@ namespace TournamentOrganizer.UI.Tabs
             _viewModel.ParticipantsForRedistribution.Remove((IParticipant)participant);
             if(match.Participants.Count == 2)
                 MessageBox.Show("Пара сформирована!");
+
+            if (_viewModel.ParticipantsForRedistribution.Count == 0) { }
+                _viewModel.IsEnabledButtonSaveRedistributeParticipants = true;
         }
     }
 }

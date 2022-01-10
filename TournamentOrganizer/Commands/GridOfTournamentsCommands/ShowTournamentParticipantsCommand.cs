@@ -13,36 +13,34 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
     public class ShowTournamentParticipantsCommand : CommandBase
     {
-        private TabItemGridOfTournamentsViewModel _viewModel;
-        private ResultTournamentPlayerService _resultTournamentPlayerService;
-        private ResultTournamentTeamService _resultTournamentTeamService;
-        public ShowTournamentParticipantsCommand(TabItemGridOfTournamentsViewModel viewModel)
+        private readonly TabItemGridOfTournamentsViewModel _viewModel;
+        private readonly IResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly IResultTournamentTeamService _resultTournamentTeamService;
+        public ShowTournamentParticipantsCommand(TabItemGridOfTournamentsViewModel viewModel, IResultTournamentPlayerService resultTournamentPlayerService,
+            IResultTournamentTeamService resultTournamentTeamService)
         {
             _viewModel = viewModel;
-            _resultTournamentPlayerService = new();
-            _resultTournamentTeamService = new();
+            _resultTournamentPlayerService = resultTournamentPlayerService;
+            _resultTournamentTeamService = resultTournamentTeamService;
         }
 
         public override void Execute(object parameter)
         {
-            _viewModel.ParticipantTournamentResults.Clear();
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
-            _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Visible;
             _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
             _viewModel.VisibilityStackPanelRedistributeParticipants = Visibility.Collapsed;
             if (_viewModel.ShowParticipantsTournamentResult == "Показать участников турнира")
             {
-                _viewModel.VisibilityDataGridShowTournamentParticipants = System.Windows.Visibility.Visible;
+                _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Visible;
                 _viewModel.ShowParticipantsTournamentResult = "Скрыть участников турнира";
+                HelperForLoadAndSorted.SortResultInTournament(_viewModel.SelectedTournament, _resultTournamentPlayerService, _resultTournamentTeamService);
             }
             else
             {
-                _viewModel.VisibilityDataGridShowTournamentParticipants = System.Windows.Visibility.Collapsed;
+                _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
                 _viewModel.ShowParticipantsTournamentResult = "Показать участников турнира";
                 return;
             }
-
-            SortedResults.SortResultInTournament(_viewModel.SelectedTournament, _resultTournamentPlayerService, _resultTournamentTeamService);
 
         }
     }

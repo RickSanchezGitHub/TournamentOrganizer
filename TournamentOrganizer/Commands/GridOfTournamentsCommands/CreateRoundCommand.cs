@@ -13,14 +13,15 @@ namespace TournamentOrganizer.UI.Commands
 {
     public class CreateRoundCommand : CommandBase
     {
-        private TabItemGridOfTournamentsViewModel _viewModel;
-        private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
-        private readonly ResultTournamentTeamService _resultTournamentTeamService;
-        public CreateRoundCommand(TabItemGridOfTournamentsViewModel viewModel)
+        private readonly TabItemGridOfTournamentsViewModel _viewModel;
+        private readonly IResultTournamentPlayerService _resultTournamentPlayerService;
+        private readonly IResultTournamentTeamService _resultTournamentTeamService;
+        public CreateRoundCommand(TabItemGridOfTournamentsViewModel viewModel, IResultTournamentPlayerService resultTournamentPlayerService,
+            IResultTournamentTeamService resultTournamentTeamService)
         {
             _viewModel = viewModel;
-            _resultTournamentPlayerService = new();
-            _resultTournamentTeamService = new();
+            _resultTournamentPlayerService = resultTournamentPlayerService;
+            _resultTournamentTeamService = resultTournamentTeamService;
         }
 
         public override void Execute(object parameter)
@@ -43,7 +44,7 @@ namespace TournamentOrganizer.UI.Commands
                 return;
             }
             //huita
-            SortedResults.SortResultInTournament(_viewModel.SelectedTournament, _resultTournamentPlayerService, _resultTournamentTeamService);
+            HelperForLoadAndSorted.SortResultInTournament(_viewModel.SelectedTournament, _resultTournamentPlayerService, _resultTournamentTeamService);
             if (!_viewModel.SelectedTournament.CreateRound())
             {
                 MessageBox.Show("В текущем раунде не во всех матчах установлен результат");

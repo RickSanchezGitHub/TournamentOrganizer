@@ -12,23 +12,32 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
     public class RedistributeParticipantsCommand : CommandBase
     {
-        private TabItemGridOfTournamentsViewModel _viewModel;
-        private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
-        private readonly ResultTournamentTeamService _resultTournamentTeamService;
+        private readonly TabItemGridOfTournamentsViewModel _viewModel;
         public RedistributeParticipantsCommand(TabItemGridOfTournamentsViewModel viewModel)
         {
             _viewModel = viewModel;
-            _resultTournamentPlayerService = new();
-            _resultTournamentTeamService = new();
         }
 
         public override void Execute(object parameter)
         {
+
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
+            _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
+            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
+            _viewModel.ShowParticipantsTournamentResult = "Показать участников турнира";
+
             if (_viewModel.SelectedTournament.ClosedTournament && _viewModel.SelectedTournament.Rounds.Last<RoundModel>().CheckMatchesOnResolved())
             {
                 MessageBox.Show("Турнир уже завершён");
                 return;
             }
+
+            if (!_viewModel.SelectedTournament.StartedTournament)
+            {
+                MessageBox.Show("Турнир не начат");
+                return;
+            }
+
             foreach (MatchModel match in _viewModel.SelectedTournament.Rounds.Last<RoundModel>().Matchs)
             {
                 if (match.MatchResolved == true)
@@ -37,16 +46,8 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                     return;
                 }
             }
-            MessageBoxResult userAnswer = MessageBox.Show($"Уверены что хотите распределить участников самостоятельно?", "Подтверждение",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (userAnswer == MessageBoxResult.No)
-            {
-                return;
-            }
-
-            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
-            _viewModel.VisibilityDataGridShowTournamentParticipants = Visibility.Collapsed;
-            _viewModel.VisibilityStackPanelMatchResolve = Visibility.Collapsed;
+            
+            _viewModel.IsEnabledButtonShowParticipantsResultsAndRedistribute = false;
             _viewModel.VisibilityStackPanelRedistributeParticipants = Visibility.Visible;
             _viewModel.RoundForRedistribute = _viewModel.SelectedTournament.Rounds.Last<RoundModel>();
             _viewModel.NewRound = new RoundModel { RoundNumber = _viewModel.RoundForRedistribute.RoundNumber };
@@ -54,7 +55,6 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
             {
               _viewModel.NewRound.Matchs.Add(new MatchModel { MatchNumber = item.MatchNumber, MatchResolved = false });
             }
-
 
             _viewModel.ParticipantsForRedistribution.Clear();
             foreach (IParticipant participant in _viewModel.SelectedTournament.Participants)
