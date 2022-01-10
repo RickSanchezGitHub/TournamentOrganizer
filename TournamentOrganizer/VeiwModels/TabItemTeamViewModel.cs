@@ -16,7 +16,6 @@ namespace TournamentOrganizer.UI.VeiwModels
     public class TabItemTeamViewModel : INotifyPropertyChanged
     {
         private readonly ITeamService _teamService;
-
         private readonly ITeamPLayerService _teamPlayerService;
         private readonly IPlayerService _playerService;
 
@@ -71,6 +70,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ImprovedObservableCollection<PlayerModel> Players { get; set; }
 
         public ImprovedObservableCollection<PlayerModel> PlayersToAddInTeam { get; set; }
+
 
         private TeamModel _selectedTeam;
         public TeamModel SelectedTeam

@@ -18,12 +18,14 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         private TabItemTeamViewModel _viewModel;
         private ITeamService _teamService;
         private TabItemTeamValidation _tabItemTeamValidation;
+
         public AddSaveTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService) : base()
         {
             _viewModel = viewModel;
             _teamService = teamService;
             _tabItemTeamValidation = new TabItemTeamValidation(viewModel);
         }
+
         public override void Execute(object parameter)
         {
             if(_tabItemTeamValidation.CheckIsEmptyOrWtiteSpaceInputData())
@@ -33,6 +35,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                                 MessageBoxButton.OK);
                 return;
             }
+
             if (_tabItemTeamValidation.CheckValidInputData())
             {
                 MessageBox.Show("Название не должно содержать никаких символов, пробелов и не должно превышать 25 символов",
@@ -45,10 +48,12 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             {
                 Name = _viewModel.TextBoxName
             };
+
             _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
             int idNewTeam = _teamService.Insert(teamModel);
             teamModel.Id = idNewTeam;
             _viewModel.Teams.Add(teamModel);
         }
+
     }
 }

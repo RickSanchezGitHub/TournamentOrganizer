@@ -26,6 +26,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             _teamService = teamService;
             _tabItemTeamValidation = new TabItemTeamValidation(viewModel);
         }
+
         public override void Execute(object parameter)
         {
             if (_tabItemTeamValidation.CheckIsEmptySelectedTeam() == false)
@@ -35,11 +36,13 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                                 MessageBoxButton.OK);
                 return;
             }
+
             var players = _teamService.GetAvailablePlayersToAdd(_viewModel.SelectedTeam.Id);
             foreach (var item in players)
             {
                 _viewModel.AvailablePlayersToAddInTeam.Add(item);
             }
+
             _viewModel.VisibilityColumnAddTeam = Visibility.Collapsed;
             _viewModel.VisibilityColumnUpdateTeam = Visibility.Visible;
             _viewModel.VisibilitySaveButton = Visibility.Visible;

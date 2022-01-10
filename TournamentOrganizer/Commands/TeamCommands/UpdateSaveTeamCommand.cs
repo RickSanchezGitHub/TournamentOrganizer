@@ -37,6 +37,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                                 MessageBoxButton.OK);
                 return;
             }
+
             if (_tabItemTeamValidation.CheckValidInputData())
             {
                 MessageBox.Show("Название не должно содержать никаких символов, пробелов и не должно превышать 25 символов",
@@ -60,7 +61,8 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                 };
                 _teamPLayerService.Insert(teamPlayerModel);
                 _viewModel.SelectedTeam.Players.Add(player);
-            }           
+            }   
+            
             _viewModel.PlayersToAddInTeam.Clear();
             _viewModel.AvailablePlayersToAddInTeam.Clear();
             _viewModel.SelectedTeam.Name = _viewModel.TextBoxName;

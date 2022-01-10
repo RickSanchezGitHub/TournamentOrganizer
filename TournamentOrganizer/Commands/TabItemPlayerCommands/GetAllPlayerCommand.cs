@@ -15,11 +15,13 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
     {
         private readonly TabItemTeamViewModel _viewModel;
         private readonly IPlayerService _playerService;
+
         public GetAllPlayerCommand(TabItemTeamViewModel viewModel, IPlayerService playerService)
         {
             _viewModel = viewModel;
             _playerService = playerService;
         }
+
         public override void Execute(object parameter)
         {
             var players = _playerService.GetAll();
@@ -27,7 +29,6 @@ namespace TournamentOrganizer.UI.Commands.TabItemPlayerCommands
             {
                 _viewModel.Players.Add(item);
             }
-            //_viewModel.Players = new ImprovedObservableCollection<PlayerModel>(players);
         }
     }
 }

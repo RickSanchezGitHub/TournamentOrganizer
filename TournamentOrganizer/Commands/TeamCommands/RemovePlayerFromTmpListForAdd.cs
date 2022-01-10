@@ -19,6 +19,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             _viewModel = viewModel;
         }
+
         public override void Execute(object parameter)
         {
             var player = (PlayerModel)_viewModel.SelectedPlayer;

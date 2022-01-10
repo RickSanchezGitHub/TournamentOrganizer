@@ -19,10 +19,12 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             _viewModel = viewModel;
         }
+
         public override void Execute(object parameter)
         {
             _viewModel.PlayersToAddInTeam.Add((PlayerModel)_viewModel.SelectedPlayer);
             _viewModel.AvailablePlayersToAddInTeam.Remove(_viewModel.SelectedPlayer);
         }
+
     }
 }

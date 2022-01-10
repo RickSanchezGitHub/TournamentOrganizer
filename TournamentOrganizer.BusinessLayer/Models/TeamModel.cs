@@ -11,8 +11,8 @@ namespace TournamentOrganizer.BusinessLayer.Models
 {
     public class TeamModel : INotifyPropertyChanged
     {
-        private int _id;
 
+        private int _id;
         public int Id
         {
             get => _id;
@@ -24,7 +24,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private string _name;
-
         public string Name
         {
             get { return _name; }
@@ -36,7 +35,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
         }
 
         private ObservableCollection<PlayerModel> _players { get; set; }
-
         public ObservableCollection<PlayerModel> Players 
         {
             get
@@ -50,13 +48,12 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
     }
 }

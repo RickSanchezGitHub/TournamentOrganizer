@@ -14,7 +14,6 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     public class GetAllTeamCommand : CommandBase
     {
         private TabItemTeamViewModel _viewModel;
-
         private ITeamService _teamService;
 
         public GetAllTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService) : base()

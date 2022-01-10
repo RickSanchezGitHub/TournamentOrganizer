@@ -14,8 +14,8 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     class DeletePlayerForTeamCommand : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
-
         private readonly ITeamPLayerService _teamPlayerService;
+
         public DeletePlayerForTeamCommand(TabItemTeamViewModel viewModel, ITeamPLayerService teamPlayerService)
         {
             _viewModel = viewModel;

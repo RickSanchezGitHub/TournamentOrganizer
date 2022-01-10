@@ -10,10 +10,12 @@ namespace TournamentOrganizer.UI.Validation.TabItemTeamValidation
     public class TabItemTeamValidation
     {
         private TabItemTeamViewModel _viewModel;
+
         public TabItemTeamValidation(TabItemTeamViewModel viewModel)
         {
             _viewModel = viewModel;
         }
+
         public bool CheckIsEmptyOrWtiteSpaceInputData()
         {
             bool canExecute = true;

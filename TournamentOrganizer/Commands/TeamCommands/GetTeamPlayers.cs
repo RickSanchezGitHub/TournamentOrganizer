@@ -14,13 +14,14 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     public class GetTeamPlayers : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
-
         private readonly ITeamService _teamService;
+
         public GetTeamPlayers(TabItemTeamViewModel viewModel, ITeamService teamService)
         {
             _viewModel = viewModel;
             _teamService = teamService;
         }
+
         public override void Execute(object parameter)
         {
             var teamWithPlayers = _teamService.GetById(_viewModel.SelectedTeam.Id);

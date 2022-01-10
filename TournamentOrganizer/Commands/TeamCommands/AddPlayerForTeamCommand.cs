@@ -14,13 +14,14 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     public class AddPlayerForTeamCommand : CommandBase
     {
         private readonly TabItemTeamViewModel _viewModel;
-
         private readonly ITeamPLayerService _teamPlayerService;
+
         public AddPlayerForTeamCommand(TabItemTeamViewModel viewModel, ITeamPLayerService teamPlayerService)
         {
             _viewModel = viewModel;
             _teamPlayerService = teamPlayerService;
         }
+
         public override void Execute(object parameter)
         {
             var teamPlayerModel = new TeamPlayerModel
@@ -30,5 +31,6 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             };
             _teamPlayerService.Insert(teamPlayerModel);
         }
+
     }
 }

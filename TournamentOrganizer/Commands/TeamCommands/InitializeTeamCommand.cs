@@ -19,6 +19,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         private readonly TabItemTeamViewModel _viewModel;
         private readonly ITeamService _teamService;
         private readonly IPlayerService _playerService;
+
         public InitializeTeamCommand(TabItemTeamViewModel viewModel, ITeamService teamService, IPlayerService playerService)
         {
             _viewModel = viewModel;
@@ -33,6 +34,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
             {
                 _viewModel.Teams.Add(item);
             }
+
             var players = _playerService.GetAll();
             foreach (var item in players)
             {

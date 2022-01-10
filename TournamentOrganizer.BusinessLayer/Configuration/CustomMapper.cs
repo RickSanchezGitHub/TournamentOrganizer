@@ -16,6 +16,7 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
             }
             return _instance;
         }
+
         public static void InitCustomMapper()
         {
             _instance = new Mapper(new MapperConfiguration(cfg =>
@@ -29,5 +30,6 @@ namespace TournamentOrganizer.BusinessLayer.Configuration
 
             }));
         }
+
     }
 }

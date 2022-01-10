@@ -12,10 +12,12 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
     public class AddTeamCommand : CommandBase
     {
         private TabItemTeamViewModel _viewModel;
+
         public AddTeamCommand(TabItemTeamViewModel viewModel)
         {
             _viewModel = viewModel;
         }
+
         public override void Execute(object parameter)
         {
             _viewModel.VisibilityColumnUpdateTeam = Visibility.Collapsed;

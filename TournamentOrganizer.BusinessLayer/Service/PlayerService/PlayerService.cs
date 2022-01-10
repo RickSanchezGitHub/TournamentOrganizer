@@ -13,6 +13,7 @@ namespace TournamentOrganizer.BusinessLayer.Service.PlayerService
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository _playerRepository;
+
         public PlayerService()
         {
             _playerRepository = new PlayerRepository();
@@ -47,5 +48,6 @@ namespace TournamentOrganizer.BusinessLayer.Service.PlayerService
             var player = CustomMapper.GetInstance().Map<Player>(playerModel);
             _playerRepository.Update(id, player);
         }
+
     }
 }
