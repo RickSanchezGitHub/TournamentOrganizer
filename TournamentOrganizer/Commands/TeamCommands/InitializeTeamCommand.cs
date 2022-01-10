@@ -34,11 +34,11 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
                 {
                     _viewModel.Players.Add(item);
                 }
-            }
+        }
             catch
             {
                 HelperExceptionMessage.HelperMessageBox("Help");
             }
-        }
+}
     }
 }

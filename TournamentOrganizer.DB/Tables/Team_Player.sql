@@ -14,14 +14,14 @@
 GO
 
 ALTER TABLE [dbo].[Team_Player]  WITH CHECK ADD  CONSTRAINT [FK_Team_Player_Player] FOREIGN KEY([PlayerId])
-REFERENCES [dbo].[Player] ([Id])
+REFERENCES [dbo].[Player] ([Id]) ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Team_Player] CHECK CONSTRAINT [FK_Team_Player_Player]
 GO
 
 ALTER TABLE [dbo].[Team_Player]  WITH CHECK ADD  CONSTRAINT [FK_Team_Player_Team] FOREIGN KEY([TeamId])
-REFERENCES [dbo].[Team] ([Id])
+REFERENCES [dbo].[Team] ([Id]) ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Team_Player] CHECK CONSTRAINT [FK_Team_Player_Team]
