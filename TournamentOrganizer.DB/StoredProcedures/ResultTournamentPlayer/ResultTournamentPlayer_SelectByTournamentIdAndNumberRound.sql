@@ -13,7 +13,7 @@ BEGIN
 	p.Id,
 	p.FirstName,
 	p.LastName,
-	p.NickName,
+	p.Name,
 	p.Email,
 	p.Birthday
 	FROM [dbo].[ResultTournamentPlayer] rtp inner join [dbo].Player p ON rtp.PlayerId = p.Id

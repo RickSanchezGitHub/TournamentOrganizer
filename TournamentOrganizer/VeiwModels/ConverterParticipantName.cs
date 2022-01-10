@@ -13,14 +13,7 @@ namespace TournamentOrganizer.UI.VeiwModels
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PlayerModel)
-            {
-                return ((PlayerModel)value).NickName;
-            }
-            else
-            {
-                return ((TeamModel)value).Name;
-            }
+            return ((IParticipant)value).Name;
         }
 
 

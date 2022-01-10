@@ -10,7 +10,7 @@ SELECT
 	  p.Id,
 	  p.FirstName,
 	  p.LastName,
-	  p.NickName,
+	  p.Name,
 	  p.Birthday,
 	  p.Email
   FROM [dbo].[ResultTournamentPlayer] rtp inner join dbo.[Player] p 

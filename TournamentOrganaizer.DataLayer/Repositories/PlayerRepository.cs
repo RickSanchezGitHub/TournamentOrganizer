@@ -26,7 +26,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 {
                     FirstName = player.FirstName,
                     LastName = player.LastName,
-                    NickName = player.NickName,
+                    Name = player.Name,
                     Email = player.Email,
                     Birthday = player.Birthday
                 },
@@ -88,7 +88,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                         Id = id,
                         FirstName = player.FirstName,
                         LastName = player.LastName,
-                        NickName = player.NickName,
+                        Name = player.Name,
                         Birthday = player.Birthday
                     },
                     commandType: CommandType.StoredProcedure

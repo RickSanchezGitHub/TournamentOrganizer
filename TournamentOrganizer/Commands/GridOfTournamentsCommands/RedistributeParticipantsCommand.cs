@@ -24,7 +24,7 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 
         public override void Execute(object parameter)
         {
-            if (_viewModel.SelectedTournament.ClosedTournament)
+            if (_viewModel.SelectedTournament.ClosedTournament && _viewModel.SelectedTournament.Rounds.Last<RoundModel>().CheckMatchesOnResolved())
             {
                 MessageBox.Show("Турнир уже завершён");
                 return;
@@ -37,7 +37,7 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                     return;
                 }
             }
-            MessageBoxResult userAnswer = MessageBox.Show($"Уверены что хотите распределить участников самостоятельно", "Подтверждение",
+            MessageBoxResult userAnswer = MessageBox.Show($"Уверены что хотите распределить участников самостоятельно?", "Подтверждение",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (userAnswer == MessageBoxResult.No)
             {

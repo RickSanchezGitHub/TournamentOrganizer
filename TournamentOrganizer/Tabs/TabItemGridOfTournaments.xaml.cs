@@ -73,6 +73,8 @@ namespace TournamentOrganizer.UI.Tabs
                 match.PlayersResults.Add(result);
             }
             _viewModel.ParticipantsForRedistribution.Remove((IParticipant)participant);
+            if(match.Participants.Count == 2)
+                MessageBox.Show("Пара сформирована!");
         }
     }
 }

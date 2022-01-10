@@ -228,7 +228,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void InsertTeamIdRoundMatchTournament(int teamId, int round, int match, int tournament)
         {
             using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentTeam_InsertTeamIdRountMatchTournament]";
+            string storedProcedure = "[dbo].[ResultTournamentTeam_InsertTeamIdRoundMatchTournament]";
 
             var newRows = sqlConnection.Execute
                 (
@@ -263,10 +263,10 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void DeleteByTournamentRoundMatch(int tournamentId, int numberRound)
+        public void DeleteByTournamentRound(int tournamentId, int numberRound)
         {
             using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentTeam_UpdateTeamInMatchRoundTournament]";
+            string storedProcedure = "[dbo].[ResultTournamentTeam_DeleteByTournamentAndRound]";
 
             sqlConnection.Execute
                 (

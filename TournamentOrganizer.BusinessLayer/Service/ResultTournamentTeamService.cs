@@ -130,9 +130,9 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _resultTournamentTeamRepository.UpdateTeamInMatchRoundTournament(teamId, tournamentId, numberRound, numberMatch);
         }
 
-        public void DeleteByTournamentRoundMatch(int tournamentId, int numberRound)
+        public void DeleteByTournamentRound(int tournamentId, int numberRound)
         {
-            _resultTournamentTeamRepository.DeleteByTournamentRoundMatch(tournamentId, numberRound);
+            _resultTournamentTeamRepository.DeleteByTournamentRound(tournamentId, numberRound);
         }
     }
 }

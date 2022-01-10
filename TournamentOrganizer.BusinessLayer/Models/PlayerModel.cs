@@ -43,14 +43,14 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        private string _nickName;
-        public string NickName
+        private string _name;
+        public string Name
         {
-            get { return _nickName; }
+            get { return _name; }
             set
             {
-                _nickName = value;
-                OnPropertyChanged(nameof(NickName));
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -89,7 +89,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
                    Id == model.Id &&
                    FirstName == model.FirstName &&
                    LastName == model.LastName &&
-                   NickName == model.NickName &&
+                   Name == model.Name &&
                    Email == model.Email &&
                    Birthday == model.Birthday;
         }

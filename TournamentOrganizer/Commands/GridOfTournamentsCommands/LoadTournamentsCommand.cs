@@ -16,7 +16,6 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
         private TabItemGridOfTournamentsViewModel _viewModel;
         private readonly ResultTournamentPlayerService _resultTournamentPlayerService;
         private readonly ResultTournamentTeamService _resultTournamentTeamService;
-        private readonly IPlayerService _playerService;
         private readonly ITournamentService _tournamentService;
 
         public LoadTournamentsCommand(TabItemGridOfTournamentsViewModel viewModel, ResultTournamentPlayerService resultTournamentPlayerService, IPlayerService playerService, ITournamentService tournamentService)
@@ -24,7 +23,6 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
             _viewModel = viewModel;
             _resultTournamentPlayerService = resultTournamentPlayerService;
             _resultTournamentTeamService = new();
-            _playerService = playerService;
             _tournamentService = tournamentService;
         }
 

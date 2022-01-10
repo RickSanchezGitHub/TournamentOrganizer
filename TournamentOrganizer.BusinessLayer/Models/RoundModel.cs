@@ -101,7 +101,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
         */
         #endregion
 
-        public ObservableCollection<ObservableCollection<IParticipant>> GetAllPlayerPairsInMatchs()
+        public ObservableCollection<ObservableCollection<IParticipant>> GetAllParticipantPairsInMatchs()
         {
             ObservableCollection<ObservableCollection<IParticipant>> playerPairs = new();
             for (int i = 0; i < Matchs.Count; i++)
@@ -111,7 +111,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             return playerPairs;
         }
 
-        private ObservableCollection<IParticipant> GetTournamentPlayersAndOrderByDescending(TournamentModel tournament)
+        private ObservableCollection<IParticipant> GetTournamentParticipantsAndOrderByDescending(TournamentModel tournament)
         {
             var sortedResults = tournament.ParticipantsResults.OrderByDescending(item => item.Score);
             ObservableCollection<IParticipant> sortedParticipants = new();
@@ -122,10 +122,9 @@ namespace TournamentOrganizer.BusinessLayer.Models
             return sortedParticipants;
         }
 
-        //ТУТ ПОРЯДОК ЗАЕБАЛ СЮДА ПЯЛИТЬ ЕБЛАН
         public void DistributeParticipants(TournamentModel tournament)
         {
-            ObservableCollection<IParticipant> sortedPlayersByScore = GetTournamentPlayersAndOrderByDescending(tournament);
+            ObservableCollection<IParticipant> sortedPlayersByScore = GetTournamentParticipantsAndOrderByDescending(tournament);
             ObservableCollection<ObservableCollection<IParticipant>> allTournamentPairs = tournament.GetAllPlayerPairsInTournament();
 
             while (sortedPlayersByScore.Count != 0)
@@ -162,7 +161,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
             SetNumbersOfMatchs(tournament);
         }
 
-        //ОТСДА ПОХОДУ ИНСЕРТАТЬ ВСЁ
         public void SetNumbersOfMatchs(TournamentModel tournament)
         {
             for (int i = 0; i < Matchs.Count; i++)

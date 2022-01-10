@@ -93,13 +93,13 @@ namespace TournamentOrganizer.BusinessLayer.Models
             Rounds = new ObservableCollection<RoundModel>();
             Participants = new();
             ParticipantsResults = new();
-            ClosedTournament = false;
-            StartedTournament = false;
+            ClosedTournament = false; //нахуй надо?
+            StartedTournament = false;//нахуй надо?
             ParticipantsResultsInMatchs = new();
         }
 
-        public bool ClosedTournament { get; private set; }
-        public bool StartedTournament { get; private set; }
+        public bool ClosedTournament { get; private set; }//нахуй надо?
+        public bool StartedTournament { get; private set; }//нахуй надо?
         public ObservableCollection<ParticipantTournamentResult> ParticipantsResults { get; set; }
 
         public ObservableCollection<IResultTournamentParticipantModel> ParticipantsResultsInMatchs { get; set; }
@@ -112,8 +112,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
             NumberRounds = (int)Math.Log(Participants.Count, 2);
         }
 
-       
-        //ОТСЮДА МОЖНО ИНСЕРТНУТЬ турнир раунд матч
         public bool CreateRound()
         {
             bool lastRoundIsResolved = Rounds.Count == 0 || Rounds.Last<RoundModel>().CheckMatchesOnResolved();
@@ -138,7 +136,7 @@ namespace TournamentOrganizer.BusinessLayer.Models
             ObservableCollection<ObservableCollection<IParticipant>> playerPairs = new();
             for (int i = 0; i < Rounds.Count; i++)
             {
-                foreach (var item in Rounds[i].GetAllPlayerPairsInMatchs())
+                foreach (var item in Rounds[i].GetAllParticipantPairsInMatchs())
                 {
                     playerPairs.Add(item);
                 }
