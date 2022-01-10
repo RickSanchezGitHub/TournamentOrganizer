@@ -1,17 +1,10 @@
 ﻿using MvvmHelpers;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
-using TournamentOrganizer.DataLayer.Repositories;
 using TournamentOrganizer.UI.Commands;
 using TournamentOrganizer.UI.Commands.GridOfTournamentsCommands;
 
@@ -248,7 +241,7 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand SetDraw { get; set; }
         public ICommand BackFromResolveMatch { get; set; }
         public ICommand ShowTournamentParticipants { get; set; }
-        public ICommand LoadTournaments { get;set; }
+        public ICommand LoadTournaments { get; set; }
         public ICommand ResolveMatch { get; set; }
         public ICommand StartTournament { get; set; }
         public ICommand RedistributeParticipants { get; set; }

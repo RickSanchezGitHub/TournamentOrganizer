@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TournamentOrganizer.BusinessLayer.Models;
-using TournamentOrganizer.BusinessLayer.Service;
-using TournamentOrganizer.DataLayer.Repositories;
+﻿using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
@@ -18,7 +10,7 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
         private readonly IResultTournamentTeamService _resultTournamentTeamService;
         private readonly ITournamentService _tournamentService;
 
-        public LoadTournamentsCommand(TabItemGridOfTournamentsViewModel viewModel, 
+        public LoadTournamentsCommand(TabItemGridOfTournamentsViewModel viewModel,
             IResultTournamentPlayerService resultTournamentPlayerService,
             IResultTournamentTeamService resultTournamentTeamService,
             ITournamentService tournamentService)

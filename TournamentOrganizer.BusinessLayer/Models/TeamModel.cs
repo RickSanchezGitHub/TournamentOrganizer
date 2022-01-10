@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class TeamModel : INotifyPropertyChanged, IParticipant
+    public class TeamModel : BaseModel, IParticipant
     {
         private int _id;
         public int Id
@@ -30,13 +30,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 _name = value;
                 OnPropertyChanged(nameof(Name));
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
         public override bool Equals(object obj)

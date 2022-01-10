@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class MatchModel: INotifyPropertyChanged
+    public class MatchModel : BaseModel
     {
         public MatchModel()
         {
@@ -32,12 +32,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
         public int ResolveWinner(TournamentModel tournament, IResultTournamentParticipantModel participantResult)
         {
             int roundNumber = tournament.GetRoundByMatch(this).RoundNumber;

@@ -49,7 +49,7 @@
                   Margin="145,0,0,0" VerticalAlignment="Center" Width="Auto" Height="23" IsEnabled="{Binding IsEnabledButtonShowParticipantsResultsAndRedistribute}"/>
 
         <StackPanel Opacity="0.9" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0" IsEnabled="{Binding IsEnabledButtonShowParticipantsResultsAndRedistribute}">
-            <Button Command="{Binding StartTournament}" Visibility="{Binding VisibilityButtonForStartTournament}" Margin="15,5" Height="23" Content="Начать турнир" />
+            <Button Command="{Binding StartTournament}" Visibility="{Binding VisibilityButtonForStartTournament}" Margin="0,5" Height="23" Content="Начать турнир" />
             <Button Command="{Binding CreateRound}" Width="130" Height="23" Content="Сформировать раунд" Margin="15,5" />
         </StackPanel>
         <StackPanel Opacity="0.9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="{Binding IsEnabledButtonShowParticipantsResultsAndRedistribute}">

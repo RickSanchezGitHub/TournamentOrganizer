@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using TournamentOrganizer.BusinessLayer.Models;
 
@@ -18,7 +14,7 @@ namespace TournamentOrganizer.UI.VeiwModels
             {
                 return ((ResultTournamentPlayerModel)value).Player.Name;
             }
-            else if(value is ObservableCollection<ResultTournamentTeamModel>)
+            else if (value is ObservableCollection<ResultTournamentTeamModel>)
             {
                 return ((ResultTournamentTeamModel)value).Team.Name;
             }

@@ -1,34 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace TournamentOrganizer.UI.VeiwModels
 {
-    class ConverterResultsToString : IValueConverter
+    public class ConverterShowPlayerTournaments : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((int?)value == 2)
+            if (!(bool)value || value == null)
             {
-                return "Победил";
-            }
-            else if((int?)value == 1)
-            {
-                return "Ничья";
-            }
-            else if((int?)value == 0)
-            {
-                return "Проиграл";
+                return Visibility.Visible;
             }
             else
             {
-                return "Не играл";
+                return Visibility.Collapsed;
             }
         }
+
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -36,3 +26,4 @@ namespace TournamentOrganizer.UI.VeiwModels
         }
     }
 }
+

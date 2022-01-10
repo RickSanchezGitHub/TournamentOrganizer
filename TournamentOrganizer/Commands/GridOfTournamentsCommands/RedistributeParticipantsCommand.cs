@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
-using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
@@ -46,14 +41,14 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
                     return;
                 }
             }
-            
+
             _viewModel.IsEnabledButtonShowParticipantsResultsAndRedistribute = false;
             _viewModel.VisibilityStackPanelRedistributeParticipants = Visibility.Visible;
             _viewModel.RoundForRedistribute = _viewModel.SelectedTournament.Rounds.Last<RoundModel>();
             _viewModel.NewRound = new RoundModel { RoundNumber = _viewModel.RoundForRedistribute.RoundNumber };
             foreach (var item in _viewModel.RoundForRedistribute.Matchs)
             {
-              _viewModel.NewRound.Matchs.Add(new MatchModel { MatchNumber = item.MatchNumber, MatchResolved = false });
+                _viewModel.NewRound.Matchs.Add(new MatchModel { MatchNumber = item.MatchNumber, MatchResolved = false });
             }
 
             _viewModel.ParticipantsForRedistribution.Clear();

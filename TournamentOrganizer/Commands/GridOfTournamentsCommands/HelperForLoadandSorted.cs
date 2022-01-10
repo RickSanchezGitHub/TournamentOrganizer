@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 
@@ -11,7 +7,7 @@ namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
     public static class HelperForLoadAndSorted
     {
-        public static void SortResultInTournament(TournamentModel tournament, 
+        public static void SortResultInTournament(TournamentModel tournament,
             IResultTournamentPlayerService resultTournamentPlayerService,
             IResultTournamentTeamService resultTournamentTeamService)
         {

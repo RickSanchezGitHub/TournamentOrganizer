@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
-    public class StartTournamentCommand: CommandBase
+    public class StartTournamentCommand : CommandBase
     {
         private readonly TabItemGridOfTournamentsViewModel _viewmodel;
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using TournamentOrganizer.BusinessLayer.Configuration;
-using TournamentOrganizer.BusinessLayer.Service;
+﻿using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands
@@ -24,7 +17,7 @@ namespace TournamentOrganizer.UI.Commands
 
         public override void Execute(object parameter)
         {
-            
+
 
         }
     }

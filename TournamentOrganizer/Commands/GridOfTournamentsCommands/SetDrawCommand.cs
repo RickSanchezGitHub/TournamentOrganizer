@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.UI.VeiwModels;
@@ -29,7 +24,7 @@ namespace TournamentOrganizer.UI.Commands
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (userAnswer == MessageBoxResult.No)
                 return;
-            
+
             var participantsResults = _viewModel.SelctedMatchInTreeView.ParticipantsResults;
             foreach (var item in participantsResults)
             {

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.UI.VeiwModels;
 
 namespace TournamentOrganizer.UI.Commands.GridOfTournamentsCommands
 {
-    public class ResolveMatchCommand : CommandBase 
+    public class ResolveMatchCommand : CommandBase
     {
         private TabItemGridOfTournamentsViewModel _viewModel;
 

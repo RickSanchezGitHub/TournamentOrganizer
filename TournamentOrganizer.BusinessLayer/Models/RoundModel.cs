@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class RoundModel : INotifyPropertyChanged
+    public class RoundModel : BaseModel
     {
         public RoundModel()
         {
@@ -27,79 +27,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
         public ObservableCollection<MatchModel> Matchs { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        #region CommentsAndHuita
-        public void DistributeParticipantsInFirstRound(List<PlayerModel> participants)
-        {
-            Matchs = new ObservableCollection<MatchModel>();
-            //participantsResults.OrderByDescending(item => item.Score); - в команды
-            if (RoundNumber == 1)
-            {
-                int numberHalfParticipants = participants.Count / 2;
-                for (int i = 0; i < numberHalfParticipants; i++)
-                {
-                    var match = new MatchModel();
-                    match.Participants = new ObservableCollection<IParticipant>();
-                    match.Participants.Add(participants[i]);
-                    match.Participants.Add(participants[i + numberHalfParticipants]);
-                    Matchs.Add(match);
-                }
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        
-        /*
-        public void DistributeParticipants(List<PlayerModel> participants,
-            TournamentModel tournament)
-        {
-            List<PlayerModel> sortedParticipantsByScore = participants;
-
-            List<List<PlayerModel>> playersPairs = tournament.GetAllPlayerPairsInTournament();
-            var s = tournament.GetAllPlayerPairsInTournament();
-
-            while (sortedParticipantsByScore.Count > 0)
-            {
-                MatchModel match = new MatchModel();
-                match.Participants = new();
-                int g = 1;
-                match.Participants.Add(sortedParticipantsByScore[0]);
-
-                for (int j = 0; j < s.Count; j++)
-                {
-                    match.Participants.Add(sortedParticipantsByScore[g]);
-                    if (1 == match.Participants.Intersect(s[j]).Count())
-                    {
-                        sortedParticipantsByScore.Remove(sortedParticipantsByScore[0]);
-                        if (sortedParticipantsByScore.Count != 0)
-                            sortedParticipantsByScore.Remove(sortedParticipantsByScore[g]);
-
-                        s.Remove(s[j]);
-                        g = 1;
-                        break;
-                    }
-                    else
-                    {
-                        match.Participants.Remove(sortedParticipantsByScore[g]);
-                        g++;
-                    }
-                }
-                Matchs.Add(match);
-            }
-
-        }
-        */
-        #endregion
 
         public ObservableCollection<ObservableCollection<IParticipant>> GetAllParticipantPairsInMatchs()
         {

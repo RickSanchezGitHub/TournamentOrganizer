@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class ParticipantTournamentResult : INotifyPropertyChanged
+    public class ParticipantTournamentResult : BaseModel
     {
         public IParticipant Participant { get; set; }
 
@@ -28,11 +28,5 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
     }
 }

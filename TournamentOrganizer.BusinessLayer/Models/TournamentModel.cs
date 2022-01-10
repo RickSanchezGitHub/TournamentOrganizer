@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class TournamentModel : INotifyPropertyChanged
+    public class TournamentModel : BaseModel
     {
-        #region NikitaSergeevich
+        
         private int _id;
         public int Id
         {
@@ -79,27 +79,18 @@ namespace TournamentOrganizer.BusinessLayer.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        #endregion
-
         public TournamentModel()
         {
             Rounds = new ObservableCollection<RoundModel>();
             Participants = new();
             ParticipantsResults = new();
-            ClosedTournament = false; //нахуй надо?
-            StartedTournament = false;//нахуй надо?
+            ClosedTournament = false; 
+            StartedTournament = false;
             ParticipantsResultsInMatchs = new();
         }
 
-        public bool ClosedTournament { get; private set; }//нахуй надо?
-        public bool StartedTournament { get; private set; }//нахуй надо?
+        public bool ClosedTournament { get; private set; }
+        public bool StartedTournament { get; private set; }
         public ObservableCollection<ParticipantTournamentResult> ParticipantsResults { get; set; }
 
         public ObservableCollection<IResultTournamentParticipantModel> ParticipantsResultsInMatchs { get; set; }
