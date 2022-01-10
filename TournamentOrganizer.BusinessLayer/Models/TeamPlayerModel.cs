@@ -50,5 +50,13 @@ namespace TournamentOrganizer.BusinessLayer.Models
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is TeamPlayerModel model &&
+                   Id == model.Id &&
+                   TeamId == model.TeamId &&
+                   PlayerId == model.PlayerId;
+        }
     }
 }

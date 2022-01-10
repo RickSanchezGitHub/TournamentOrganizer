@@ -78,5 +78,16 @@ namespace TournamentOrganizer.BusinessLayer.Models
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is PlayerModel model &&
+                   Id == model.Id &&
+                   FirstName == model.FirstName &&
+                   LastName == model.LastName &&
+                   Name == model.Name &&
+                   Email == model.Email &&
+                   Birthday == model.Birthday;
+        }
     }
 }

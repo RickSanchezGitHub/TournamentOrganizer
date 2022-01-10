@@ -55,5 +55,12 @@ namespace TournamentOrganizer.BusinessLayer.Models
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is TeamModel model &&
+                   Id == model.Id &&
+                   Name == model.Name &&
+                   EqualityComparer<ObservableCollection<PlayerModel>>.Default.Equals(Players, model.Players);
+        }
     }
 }
