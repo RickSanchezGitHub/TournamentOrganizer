@@ -18,6 +18,10 @@ namespace TournamentOrganizer.BusinessLayer.Service.TeamPlayerService
         {
             _teamPlayerRepository = new TeamPlayerRepository();
         }
+        public TeamPlayerService(ITeamPlayerRepository teamPlayerRepository)
+        {
+            _teamPlayerRepository = teamPlayerRepository;
+        }
 
         public void Insert(TeamPlayerModel teamPlayerModel)
         {

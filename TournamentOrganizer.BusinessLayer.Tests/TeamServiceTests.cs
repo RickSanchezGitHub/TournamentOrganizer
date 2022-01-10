@@ -16,13 +16,10 @@ namespace TournamentOrganizer.BusinessLayer.Tests
     public class TeamServiceTests
     {
         private readonly Mock<ITeamRepository> _teamRepositoryMock;
-        private readonly Mock<IPlayerRepository> _playerRepositoryMock;
-        private readonly Mock<ITeamPlayerRepository> _teamPlayerRepositoryMock;
+        
         public TeamServiceTests()
         {
             _teamRepositoryMock = new Mock<ITeamRepository>();
-            _playerRepositoryMock = new Mock<IPlayerRepository>();
-            _teamPlayerRepositoryMock = new Mock<ITeamPlayerRepository>();
         }
 
         public void FillTestObjectsForGetAllTeam()
@@ -77,24 +74,16 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             });
         }
 
-        public TeamModel GetTestTeamModelToFill(int key)
+        public TeamModel GetTestTeamModelToFill()
         {
-            TeamModel result;
-            switch (key)
+            TeamModel result = new TeamModel
             {
-                case 1:
-                    result = new TeamModel
-                    {
-                        Id = 1,
-                        Name = "Test1"
-                    };
-                    break;
-                default:
-                    result = null;
-                    break;
-            }
+                Id = 1,
+                Name = "Test1"
+            };                    
             return result;
         }
+
         public void FillTestObjectsForGetAvailablePlayersToAdd()
         {
             _teamRepositoryMock.Setup(m => m.GetAvailablePlayersToAdd(1)).Returns(new List<Player>
@@ -121,7 +110,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
         [Test]
-        public void TeamGetAll()
+        public void GetAllTeams_ShouldReturnAllTeams()
         {
             //arrange
             var sut = new TeamService(_teamRepositoryMock.Object);
@@ -140,7 +129,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
         [Test]
-        public void TeamGetById()
+        public void GetById_ShouldReturnTeamWithPlayersInto()
         {
             //arrange
             var sut = new TeamService(_teamRepositoryMock.Object);
@@ -156,11 +145,11 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             Assert.Pass();
         }
 
-        [TestCase(1)]
-        public void TeamInsert(int key)
+        [Test]
+        public void Insert_ShouldPass()
         {
             //arrange
-            var testTeam = GetTestTeamModelToFill(key);
+            var testTeam = GetTestTeamModelToFill();
             var sut = new TeamService(_teamRepositoryMock.Object);
 
             //act
@@ -173,7 +162,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
         [TestCase(1)]
-        public void TeamDelete(int id)
+        public void Delete_ShouldPass(int id)
         {
             //arrange
             var sut = new TeamService(_teamRepositoryMock.Object);
@@ -188,10 +177,10 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         
 
         [TestCase(1)]
-        public void UpdateTeam(int key)
+        public void Update_ShouldPass(int key)
         {
             //arrange
-            var tetsTeam = GetTestTeamModelToFill(key);
+            var tetsTeam = GetTestTeamModelToFill();
             var sut = new TeamService(_teamRepositoryMock.Object);
             var tournament = CustomMapper.GetInstance().Map<Team>(tetsTeam);
 
@@ -204,7 +193,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
         [Test]
-        public void GetAvailablePlayersToAdd()
+        public void GetAvailablePlayersToAdd_ShouldReturnAllPlayersFromTheTeam()
         {
             //arrange
             var sut = new TeamService(_teamRepositoryMock.Object);
