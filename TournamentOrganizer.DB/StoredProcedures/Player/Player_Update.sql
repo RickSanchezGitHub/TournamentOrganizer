@@ -2,7 +2,7 @@
 	 @Id int,
 	 @FirstName varchar(25),
 	 @LastName varchar(25),
-	 @NickName varchar(25),
+	 @Name varchar(25),
 	 @Birthday date
 As
 Begin
@@ -10,7 +10,7 @@ Begin
 	Set
 		FirstName = @FirstName,
 		LastName = @LastName,
-		NickName = @NickName,
+		Name = @Name,
 		Birthday = @Birthday
 	Where Id = @id
 End

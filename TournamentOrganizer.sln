@@ -9,7 +9,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TournamentOrganizer.DB", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentOrganizer.DataLayer", "TournamentOrganaizer.DataLayer\TournamentOrganizer.DataLayer.csproj", "{F232EF01-A9C4-4CB1-A679-98973FF87625}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentOrganizer.BusinessLayer", "TournamentOrganizer.BusinessLayer\TournamentOrganizer.BusinessLayer.csproj", "{F4B2706C-A22D-4A1B-93FE-B80A5156AAF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentOrganizer.BusinessLayer", "TournamentOrganizer.BusinessLayer\TournamentOrganizer.BusinessLayer.csproj", "{F4B2706C-A22D-4A1B-93FE-B80A5156AAF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentOrganizer.BusinessLayer.Tests", "TournamentOrganizer.BusinessLayer.Tests\TournamentOrganizer.BusinessLayer.Tests.csproj", "{5397984C-9E3E-458E-91E2-CC6CFCC4D480}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{F4B2706C-A22D-4A1B-93FE-B80A5156AAF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4B2706C-A22D-4A1B-93FE-B80A5156AAF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4B2706C-A22D-4A1B-93FE-B80A5156AAF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5397984C-9E3E-458E-91E2-CC6CFCC4D480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5397984C-9E3E-458E-91E2-CC6CFCC4D480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5397984C-9E3E-458E-91E2-CC6CFCC4D480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5397984C-9E3E-458E-91E2-CC6CFCC4D480}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

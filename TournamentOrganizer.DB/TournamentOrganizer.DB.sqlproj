@@ -13,7 +13,7 @@
     </RootPath>
     <RootNamespace>TournamentOrganizer.DB</RootNamespace>
     <AssemblyName>TournamentOrganizer.DB</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1049,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -22,6 +22,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Cyrillic_General_100_CI_AI</DefaultCollation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -108,6 +109,10 @@
     <Build Include="StoredProcedures\Tournament\Tournament_Update.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Delete.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Insert.sql" />
+    <Build Include="StoredProcedures\Team\Team_SelectById.sql" />
+    <Build Include="StoredProcedures\Team\Team_GetAvailablePlayersToAdd.sql" />
+    <Build Include="StoredProcedures\Team_Player\Team_Player_SelectByPlayerId.sql" />
+    <Build Include="StoredProcedures\Team_Player\Team_Player_SelectByTeamId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />

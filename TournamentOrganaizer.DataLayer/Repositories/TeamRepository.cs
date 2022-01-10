@@ -12,15 +12,15 @@ using TournamentOrganizer.DataLayer.Entities;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class TeamRepository : BaseRepository
+    public class TeamRepository : BaseRepository, ITeamRepository
     {
         public int Insert(Team team)
         {
-            int id = 0;
+
             var procedureName = "Team_Insert";
             using IDbConnection sqlConnection = ProvideConnection();
 
-            id = sqlConnection.ExecuteScalar<int>(
+            int id = sqlConnection.ExecuteScalar<int>(
                     procedureName,
                     new
                     {
@@ -60,7 +60,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
             return result;
         }
 
-        public List<Team> GetById(int id)
+        public Team GetById(int id)
         {
             const string procedureName = "Team_SelectById";
             using IDbConnection sqlConnection = ProvideConnection();
@@ -86,9 +86,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     new { Id = id },
                     splitOn: "Id",
                     commandType: CommandType.StoredProcedure
-                 )
-                .Distinct()
-                .ToList();
+                 ).FirstOrDefault();
 
             return result;
 
@@ -109,6 +107,22 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 commandType: CommandType.StoredProcedure
             );
 
+        }
+
+        public List<Player> GetAvailablePlayersToAdd(int id)
+        {
+            const string procedureName = "Team_GetAvailablePlayersToAdd";
+            using IDbConnection sqlConnection = ProvideConnection();
+
+            var result = sqlConnection
+                .Query<Player>
+                (
+                    procedureName,
+                    commandType: CommandType.StoredProcedure,
+                    param: new { TeamId = id }
+                )
+                .ToList();
+            return result;
         }
     }
 }

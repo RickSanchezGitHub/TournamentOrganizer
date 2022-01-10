@@ -6,7 +6,7 @@ SELECT
 	  p.Id,
 	  p.FirstName,
 	  p.LastName,
-	  p.NickName,
+	  p.Name,
 	  p.Birthday,
 	  p.Email,
 	  rtp.Id

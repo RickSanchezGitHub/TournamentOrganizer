@@ -6,7 +6,7 @@ Begin
 		id,
 		FirstName,
 		LastName,
-		NickName,
+		Name,
 		Email,
 		Birthday
 	From  dbo.Player
