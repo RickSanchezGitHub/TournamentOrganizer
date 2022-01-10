@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
@@ -20,14 +21,32 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         public override void Execute(object parameter)
         {
             _viewModel.TournamentParticipants.Clear();
-            var tournamentPlayerList =  _tournamentService.GetPlayersInTournament(_viewModel.SelectedTournament.Id);
-            foreach (var item in tournamentPlayerList)
+            List<IParticipant> tournamentParticippantList = new List<IParticipant>();
+            if (_viewModel.SelectedTournament.OnlyForTeams == true)
+            {
+                tournamentParticippantList = new List<IParticipant>(_tournamentService.GetTeamsInTournament(_viewModel.SelectedTournament.Id));
+            }
+            else
+            {
+                tournamentParticippantList = new List<IParticipant>(_tournamentService.GetPlayersInTournament(_viewModel.SelectedTournament.Id));
+            }
+
+            foreach (var item in tournamentParticippantList)
             {
                 _viewModel.TournamentParticipants.Add(item);
             }
             _viewModel.AllParticipants.Clear();
-            var allPlayerList = _tournamentService.GetAllPlayers();
-            foreach (var item in allPlayerList)
+
+            List<IParticipant> allParticipants = new List<IParticipant>();
+            if (_viewModel.SelectedTournament.OnlyForTeams == true)
+            {
+                allParticipants = new List<IParticipant>(_tournamentService.GetAllTeams());
+            }
+            else
+            {
+                allParticipants = new List<IParticipant>(_tournamentService.GetAllPlayers());
+            }
+            foreach (var item in allParticipants)
             {
                 _viewModel.AllParticipants.Add(item);
             }

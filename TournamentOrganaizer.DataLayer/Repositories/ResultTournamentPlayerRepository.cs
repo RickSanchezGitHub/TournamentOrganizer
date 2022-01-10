@@ -132,7 +132,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void DeleteByTournament(int id, int tournamentId)
+        public void DeleteByTournament(int playerId, int tournamentId)
         {
             using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByTournamentId]";
@@ -143,7 +143,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
                     new
                     {
                         TournamentId = tournamentId,
-                        Id = id
+                        Id = playerId
                     },
                     commandType: CommandType.StoredProcedure
                 );
@@ -169,7 +169,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public int AddPlayerToTournament(Player player, int tournamentId)
         {
             using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure = "[dbo].[ResultTournamentPlayer_Insert]";
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_AddPlayerToTournament]";
 
             var playerId = sqlConnection.Query<int>
                 (

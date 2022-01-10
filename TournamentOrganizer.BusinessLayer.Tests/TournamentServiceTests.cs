@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using TournamentOrganaizer.DataLayer.Entities;
 using TournamentOrganaizer.DataLayer.Repositories;
+using TournamentOrganizer.BusinessLayer.Configuration;
 using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.DataLayer.Entities;
@@ -65,7 +66,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                     Id = 1,
                     FirstName = "Vasya",
                     LastName = "Pupkin",
-                    NickName = "Ybica2000",
+                    Name = "Ybica2000",
                     Email = "test",
                     Birthday = DateTime.Now
                 },
@@ -74,7 +75,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                     Id = 2,
                     FirstName = "Vasya2",
                     LastName = "Pupkin2",
-                    NickName = "Ybica20002",
+                    Name = "Ybica20002",
                     Email = "test2",
                     Birthday = DateTime.Now
                 }
@@ -86,7 +87,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                     Id = 3,
                     FirstName = "Vasya3",
                     LastName = "Pupkin3",
-                    NickName = "Ybica20003",
+                    Name = "Ybica20003",
                     Email = "test3",
                     Birthday = DateTime.Now
                 },
@@ -95,7 +96,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                     Id = 4,
                     FirstName = "Vasya4",
                     LastName = "Pupkin4",
-                    NickName = "Ybica20004",
+                    Name = "Ybica20004",
                     Email = "test4",
                     Birthday = DateTime.Now
                 }
@@ -172,7 +173,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                         Id = 1,
                         FirstName = "Vasya",
                         LastName = "Pupkin",
-                        NickName = "Ybica2000",
+                        Name = "Ybica2000",
                         Email = "test",
                         Birthday = DateTime.Now
                     };
@@ -184,7 +185,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
                         Id = 2,
                         FirstName = "Vasya2",
                         LastName = "Pupkin2",
-                        NickName = "Ybica20002",
+                        Name = "Ybica20002",
                         Email = "test2",
                         Birthday = DateTime.Now
                     };
@@ -227,10 +228,8 @@ namespace TournamentOrganizer.BusinessLayer.Tests
 
 
         [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
 
-        public void DeleteTournamentTest_ShouldPass(int id)
+        public void DeleteTournament_ShouldPass(int id)
         {
             //arrange
             var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
@@ -244,27 +243,26 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
         [TestCase(1)]
-        [TestCase(2)]
 
-
-        public void UpdateTournamentTest_ShouldPass(int key)
+        public void UpdateTournament_ShouldPass(int key)
         {
             //arrange
             var tetsTournament = GetTestTournamentsModelToFill(key);
             var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
+            var tournament = CustomMapper.GetInstance().Map<Tournament>(tetsTournament);
 
             //act
             sut.UpdateTournament(tetsTournament);
 
             //assert
+            _tournamnetRepositoryMock.Verify(m => m.TournamentUpdateById(tournament), Times.Once());
             Assert.Pass();
 
         }
 
         [TestCase(1)]
-        [TestCase(2)]
 
-        public void InsertTournamentTest_ShouldReturnId(int key)
+        public void InsertTournament_ShouldReturnId(int key)
         {
             //arrange
             var testTournament = GetTestTournamentsModelToFill(key);
@@ -282,7 +280,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
 
         [Test]
 
-        public void GetAllGamesTest_ShouldReturnAllAvailableGames()
+        public void GetAllGames_ShouldReturnAllAvailableGames()
         {
             //arrange
             var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
@@ -299,10 +297,8 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         }
 
         [TestCase(1)]
-        [TestCase(2)]
 
-
-        public void GetPlayersInTournamentTest_ShouldRetuenPlayersInCurrentTournament(int key)
+        public void GetPlayersInTournament_ShouldRetuenPlayersInCurrentTournament(int key)
         {
             //arrange
             var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
@@ -323,8 +319,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         [TestCase(1, 2)]
         [TestCase(2, 2)]
 
-
-        public void DeletePlayerFromTournamentTest_ShouldPass(int playerId, int tournamentId)
+        public void DeletePlayerFromTournament_ShouldPass(int playerId, int tournamentId)
         {
             //arrange
             var sut = new TournamentService(_tournamnetRepositoryMock.Object, _gameRepositoryMock.Object, _resultTournamentPlayerRepositoryMock.Object);
@@ -342,7 +337,7 @@ namespace TournamentOrganizer.BusinessLayer.Tests
         [TestCase(1, 2)]
         [TestCase(2, 2)]
 
-        public void AddPalyerToTournamentTest_ShouldReturnPlayerId(int key, int tournamentId)
+        public void AddPalyerToTournament_ShouldReturnPlayerId(int key, int tournamentId)
         {
             //arrange
             var testPlayer = GetTestPlayerForTestAddPalyerToTournamentTes(key);
@@ -356,7 +351,6 @@ namespace TournamentOrganizer.BusinessLayer.Tests
             Assert.IsInstanceOf(typeof(int), actual);
             Assert.Pass();
         }
-
 
     }
 }

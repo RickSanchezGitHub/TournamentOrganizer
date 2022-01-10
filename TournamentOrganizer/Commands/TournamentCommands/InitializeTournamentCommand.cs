@@ -23,31 +23,16 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
 
             _viewModel.Games.Clear();
             _viewModel.Tournaments.Clear();
+      
 
             foreach (var item in games)
             {
                 _viewModel.Games.Add(item);
             }
 
-
             foreach (var item in tournaments)
             {
-                if(_viewModel.ComboBoxSelectTournamentType == "Турниры для игроков")
-                {
-                    if(item.OnlyForTeams != true)
-                    {
-                        _viewModel.Tournaments.Add(item);
-                    }
-                    
-                } else if(_viewModel.ComboBoxSelectTournamentType == "Командные турниры")
-                {
-                    if(item.OnlyForTeams)
-                    {
-                        _viewModel.Tournaments.Add(item);
-                    }
-                }
-
-                
+                _viewModel.Tournaments.Add(item);
             }
 
         }

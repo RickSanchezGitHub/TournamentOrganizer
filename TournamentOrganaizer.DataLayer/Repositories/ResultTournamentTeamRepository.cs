@@ -12,8 +12,8 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    class ResultTournamentTeamRepository: BaseRepository
-    { 
+    public class ResultTournamentTeamRepository : BaseRepository, IResultTournamentTeamRepository
+    {
         public void Insert(ResultTournamentTeam resultTournamentTeam)
         {
             string storedProcedure = "[dbo].[ResultTournamentTeam_Insert]";
@@ -47,7 +47,7 @@ namespace TournamentOrganizer.DataLayer.Repositories
         public void SetPlayerResultInRoundOfTournament(ResultTournamentTeam resultTournamentTeam, int newResult)
         {
             using IDbConnection sqlConnection = ProvideConnection();
-            string storedProcedure ="[dbo].[ResultTournamentTeam_SetTeamResultInRoundOfTournament]";
+            string storedProcedure = "[dbo].[ResultTournamentTeam_SetTeamResultInRoundOfTournament]";
             var newRows = sqlConnection.Execute(
                     storedProcedure,
                     new
@@ -132,6 +132,23 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 .ToList();
 
             return result;
+        }
+        public int AddTeamToTournament(Team team, int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_AddTeamToTournament]";
+
+            var playerId = sqlConnection.Query<int>
+                (
+                    storedProcedure,
+                    new
+                    {
+                        TeamId = team.Id,
+                        TournamentId = tournamentId
+                    },
+                    commandType: CommandType.StoredProcedure
+                ).FirstOrDefault();
+            return playerId;
         }
 
     }

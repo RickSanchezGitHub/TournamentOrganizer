@@ -17,12 +17,18 @@ namespace TournamentOrganizer.UI.Commands.TournamentCommands
         }
         public override void Execute(object parameter)
         {
-            //_viewModel.VisibilityColumn = Visibility.Collapsed;
-            //var player = _viewModel.ComboBoxSelectedPlayer;
-            //var playerId = _tournamentService.AddPalyerToTournament;
-            //player.Id = playerId;
-            //_viewModel.Tournaments.Add(player);
-
+            if (_viewModel.SelectedTournament.OnlyForTeams != true)
+            {
+                var player = _viewModel.SelectedTournamentParticipant as PlayerModel;
+                _tournamentService.AddPalyerToTournament(player, _viewModel.SelectedTournament.Id);
+                _viewModel.TournamentParticipants.Add(player);
+            } else
+            {
+                var team = _viewModel.SelectedTournamentParticipant as TeamModel;
+                _tournamentService.AddTeamToTournament(team, _viewModel.SelectedTournament.Id);
+                _viewModel.TournamentParticipants.Add(team);
+            }
+            
         }
     }
 }

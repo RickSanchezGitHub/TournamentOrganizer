@@ -14,6 +14,8 @@ namespace TournamentOrganizer.BusinessLayer.Service
         private readonly IGameRepository _gameRepository;
         private readonly IResultTournamentPlayerRepository _resultTournamentPlayerRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly ITeamRepository _teamRepository;
+        private readonly IResultTournamentTeamRepository _resultTournamentTeamRepository;
 
         public TournamentService()
         {
@@ -21,6 +23,8 @@ namespace TournamentOrganizer.BusinessLayer.Service
             _gameRepository = new GameRepository();
             _resultTournamentPlayerRepository = new ResultTournamentPlayerRepository();
             _playerRepository = new PlayerRepository();
+            _teamRepository = new TeamRepository();
+            _resultTournamentTeamRepository = new ResultTournamentTeamRepository();
         }
 
         public TournamentService(ITournamentRepository tournamentRepository, IGameRepository gameRepository, IResultTournamentPlayerRepository resultTournamentPlayerRepository)
@@ -65,6 +69,12 @@ namespace TournamentOrganizer.BusinessLayer.Service
             return CustomMapper.GetInstance().Map<List<PlayerModel>>(resultTournamentPlayers);
         }
 
+        public List<TeamModel> GetTeamsInTournament(int tournamentId)
+        {
+            var resultTournamentTeams = _resultTournamentTeamRepository.GetTeamsInTournament(tournamentId);
+            return CustomMapper.GetInstance().Map<List<TeamModel>>(resultTournamentTeams);
+        }
+
         public void DeletePlayerFromTournament(int playerId, int tournamentId)
         {
             _resultTournamentPlayerRepository.DeleteByTournament(playerId, tournamentId);
@@ -76,11 +86,25 @@ namespace TournamentOrganizer.BusinessLayer.Service
             return _resultTournamentPlayerRepository.AddPlayerToTournament(playerModel, tournamentId);
         }
 
+        public int AddTeamToTournament(TeamModel team, int tournamentId)
+        {
+            var teamModel = CustomMapper.GetInstance().Map<Team>(team);
+            return _resultTournamentTeamRepository.AddTeamToTournament(teamModel, tournamentId);
+        }
+
+
         public List<PlayerModel> GetAllPlayers()
         {
             var players = _playerRepository.GetAll();
             return CustomMapper.GetInstance().Map<List<PlayerModel>>(players);
         }
+
+        public List<TeamModel> GetAllTeams()
+        {
+            var teams = _teamRepository.GetAll();
+            return CustomMapper.GetInstance().Map<List<TeamModel>>(teams);
+        }
+
     }
 
 }

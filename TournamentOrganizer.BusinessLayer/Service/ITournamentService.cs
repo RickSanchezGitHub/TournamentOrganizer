@@ -14,5 +14,8 @@ namespace TournamentOrganizer.BusinessLayer.Service
         public void DeletePlayerFromTournament(int playerId, int tournamentId);
         public int AddPalyerToTournament(PlayerModel player, int tournamentId);
         public List<PlayerModel> GetAllPlayers();
+        public List<TeamModel> GetAllTeams();
+        public List<TeamModel> GetTeamsInTournament(int tournamentId);
+        public int AddTeamToTournament(TeamModel team, int tournamentId);
     }
 }

@@ -2,7 +2,7 @@
 as
 begin
 	select
-		Id
+		Id,
 		Name
 	from Team
 end

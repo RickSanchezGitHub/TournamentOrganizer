@@ -108,8 +108,16 @@
     <Build Include="StoredProcedures\Tournament\Tournament_Update.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Delete.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Insert.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentPlayer_SelectTeamsInTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_AddPlayerToTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentPlayer_AddTeamToTournament.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 </Project>

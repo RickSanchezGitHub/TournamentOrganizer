@@ -22,24 +22,45 @@ namespace TournamentOrganizer.UI.VeiwModels
         public ICommand GetPlayers { get; set; }
         public ICommand BackPlayers { get; set; }
         public ICommand DeletePlayer { get; set; }
+        public ICommand ChangeTournamentType { get; set; }
+        public ICommand AddPlayerToTournament { get; set; }
 
-        public ObservableCollection<TournamentModel> Tournaments { get; set; }
+        public ImprovedObservableCollection<TournamentModel> Tournaments { get; set; }
+
         public ObservableCollection<GameModel> Games { get; set; }
         public ObservableCollection<IParticipant> TournamentParticipants { get; set; }
         public ObservableCollection<IParticipant> AllParticipants { get; set; }
-
         public ObservableCollection<string> TournamentsSelectionTypeList { get; set; }
+
+        public TabItemTournamentsViewModel()
+        {
+            _tournamentService = new TournamentService();
+            Tournaments = new ImprovedObservableCollection<TournamentModel>();
+            Games = new ObservableCollection<GameModel>();
+            AllParticipants = new ObservableCollection<IParticipant>();
+            TournamentParticipants = new ObservableCollection<IParticipant>();
+            VisibilityColumn = Visibility.Collapsed;
+            VisibilityDataGridPlayers = Visibility.Collapsed;
+            VisibilityBackPlayersButton = Visibility.Collapsed;
+            VisibilityColumnParticipant = Visibility.Collapsed;
+            DeleteTournament = new DeleteTournamentCommand(this, _tournamentService);
+            SaveTournament = new SaveTournamentCommand(this, _tournamentService);
+            UpdateTournament = new UpdateTournamentCommand(this, _tournamentService);
+            InitializeTournaments = new InitializeTournamentCommand(this, _tournamentService);
+            AddTournament = new AddTournamentCommand(this);
+            BackTournament = new BackTournamentCommand(this);
+            EditTournament = new EditTournamentCommand(this);
+            GetPlayers = new GetTournamentPlayersCommand(this, _tournamentService);
+            BackPlayers = new BackPlayersCommand(this);
+            DeletePlayer = new DeleteParticipantFromTournanamentCommand(this, _tournamentService);
+            ChangeTournamentType = new ChangeTournamentTypeCommand(this);
+            AddPlayerToTournament = new AddPlayerToTournamentCommand(this, _tournamentService);
+
+        }
 
         private TournamentModel _selectedTournament;
         public TournamentModel SelectedTournament
-        {
-            get { return _selectedTournament; }
-            set
-            {
-                _selectedTournament = value;
-                OnPropertyChanged(nameof(SelectedTournament));
-            }
-        }
+        { get; set; }
 
         private IParticipant _selectedTournamentParticipant;
         public IParticipant SelectedTournamentParticipant
@@ -51,7 +72,6 @@ namespace TournamentOrganizer.UI.VeiwModels
                 OnPropertyChanged(nameof(_selectedTournamentParticipant));
             }
         }
-
 
         private string _textBoxName;
         public string TextBoxName
@@ -119,9 +139,6 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-
-
-
         private Visibility _visibilitySaveButton;
         public Visibility VisibilitySaveButton
         {
@@ -182,16 +199,16 @@ namespace TournamentOrganizer.UI.VeiwModels
             }
         }
 
-        private Visibility _visibilityDataGridTournaments;
+        private Visibility _visibilityDataGridTeamTournaments;
         public Visibility VisibilityDataGridTournaments
         {
             get
             {
-                return _visibilityDataGridTournaments;
+                return _visibilityDataGridTeamTournaments;
             }
             set
             {
-                _visibilityDataGridTournaments = value;
+                _visibilityDataGridTeamTournaments = value;
 
                 OnPropertyChanged(nameof(VisibilityDataGridTournaments));
             }
@@ -239,30 +256,6 @@ namespace TournamentOrganizer.UI.VeiwModels
                 _gridLength = value;
                 OnPropertyChanged(nameof(GridLength));
             }
-        }
-
-        public TabItemTournamentsViewModel()
-        {
-            _tournamentService = new TournamentService();
-            Tournaments = new ObservableCollection<TournamentModel>();
-            Games = new ObservableCollection<GameModel>();
-            AllParticipants = new ObservableCollection<IParticipant>();
-            TournamentParticipants = new ObservableCollection<IParticipant>();
-            VisibilityColumn = Visibility.Collapsed;
-            VisibilityDataGridPlayers = Visibility.Collapsed;
-            VisibilityBackPlayersButton = Visibility.Collapsed;
-            VisibilityColumnParticipant = Visibility.Collapsed;
-            DeleteTournament = new DeleteTournamentCommand(this, _tournamentService);
-            SaveTournament = new SaveTournamentCommand(this, _tournamentService);
-            UpdateTournament = new UpdateTournamentCommand(this, _tournamentService);
-            InitializeTournaments = new InitializeTournamentCommand(this, _tournamentService);
-            AddTournament = new AddTournamentCommand(this);
-            BackTournament = new BackTournamentCommand(this);
-            EditTournament = new EditTournamentCommand(this);
-            GetPlayers = new GetTournamentPlayersCommand(this, _tournamentService);
-            BackPlayers = new BackPlayersCommand(this);
-            DeletePlayer = new DeletePlayerFromTournanamentCommand(this, _tournamentService);
-            
         }
 
     }
