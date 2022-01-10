@@ -2,6 +2,7 @@
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.Validation.TabItemTeamValidation;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -25,10 +26,7 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             if(_tabItemTeamValidation.CheckIsEmptySelectedTeam() == false)
             {
-                MessageBox.Show("Выберите команду",
-                                "Ошибка ",
-                                MessageBoxButton.OK);
-                return;
+                HelperExceptionMessage.HelperMessageBox("CheckIsEmptySelectedTeam");
             }
             _teamService.Delete(_viewModel.SelectedTeam.Id);
             _viewModel.Teams.Remove(_viewModel.SelectedTeam);

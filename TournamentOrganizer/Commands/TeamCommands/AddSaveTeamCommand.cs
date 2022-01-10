@@ -8,6 +8,7 @@ using TournamentOrganizer.BusinessLayer.Models;
 using TournamentOrganizer.BusinessLayer.Service;
 using TournamentOrganizer.BusinessLayer.Service.TeamService;
 using TournamentOrganizer.UI.Command;
+using TournamentOrganizer.UI.Validation;
 using TournamentOrganizer.UI.Validation.TabItemTeamValidation;
 using TournamentOrganizer.UI.VeiwModels;
 
@@ -30,18 +31,12 @@ namespace TournamentOrganizer.UI.Commands.TeamCommands
         {
             if(_tabItemTeamValidation.CheckIsEmptyOrWtiteSpaceInputData())
             {
-                MessageBox.Show("Заполните поле", 
-                                "Ошибка ",
-                                MessageBoxButton.OK);
-                return;
+                HelperExceptionMessage.HelperMessageBox("CheckIsEmptyOrWtiteSpaceInputData");
             }
 
             if (_tabItemTeamValidation.CheckValidInputData())
             {
-                MessageBox.Show("Название не должно содержать никаких символов, пробелов и не должно превышать 25 символов",
-                                "Ошибка ",
-                                MessageBoxButton.OK);
-                return;
+                HelperExceptionMessage.HelperMessageBox("CheckValidInputData");
             }
 
             var teamModel = new TeamModel
