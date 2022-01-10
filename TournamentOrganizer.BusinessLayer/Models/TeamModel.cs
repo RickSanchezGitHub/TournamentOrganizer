@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
 using System.Runtime.CompilerServices;
-
+using System.Threading.Tasks;
 namespace TournamentOrganizer.BusinessLayer.Models
+
 {
-    public class TeamModel : INotifyPropertyChanged
+    public class TeamModel : INotifyPropertyChanged, IParticipant
     {
 
         private int _id;

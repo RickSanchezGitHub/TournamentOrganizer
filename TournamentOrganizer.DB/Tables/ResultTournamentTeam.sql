@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[ResultTournamentTeam](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[TeamId] [int] NOT NULL,
-	[Result] [int] NOT NULL,
-	[NumberRound] [int] NOT NULL,
-	[NumberMatch] [int] NOT NULL,
+	[Result] [int] NULL,
+	[NumberRound] [int] NULL,
+	[NumberMatch] [int] NULL,
 	[TournamentId] [int] NOT NULL,
  CONSTRAINT [PK_RESULTTOURNAMENTTEAM] PRIMARY KEY CLUSTERED 
 (

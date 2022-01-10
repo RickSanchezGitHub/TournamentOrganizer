@@ -12,7 +12,7 @@ using TournamentOrganaizer.DataLayer.Repositories;
 
 namespace TournamentOrganizer.DataLayer.Repositories
 {
-    public class ResultTournamentPlayerRepository: BaseRepository
+    public class ResultTournamentPlayerRepository : BaseRepository, IResultTournamentPlayerRepository
     {
         public List<ResultTournamentPlayer> GetPlayerResultsInAllTournaments(int playerId)
         {
@@ -132,18 +132,57 @@ namespace TournamentOrganizer.DataLayer.Repositories
                 );
         }
 
-        public void DeleteByTournament(int tournamentId)
+        public void DeleteByTournament(int playerId, int tournamentId)
         {
             using IDbConnection sqlConnection = ProvideConnection();
             string storedProcedure = "[dbo].[ResultTournamentPlayer_DeleteByTournamentId]";
-           
+
             sqlConnection.Execute
                 (
                     storedProcedure,
-                    new { TournamentId = tournamentId },
+                    new
+                    {
+                        TournamentId = tournamentId,
+                        PlayerId = playerId
+                    },
                     commandType: CommandType.StoredProcedure
                 );
         }
 
+        public List<Player> GetPlayersInTournamentsByTournamentId(int tournamentId)
+        {
+            using var sqlConnection = ProvideConnection();
+            string storedProcedure = "dbo.ResultTournamentPlayer_SelectPlayersInTournament";
+
+            var result = sqlConnection
+                .Query<Player>
+                 (
+                    storedProcedure,
+                    new { TournamentId = tournamentId },
+                    commandType: CommandType.StoredProcedure
+                 )
+
+                .ToList();
+
+            return result;
+        }
+
+        public int AddPlayerToTournament(Player player, int tournamentId)
+        {
+            using IDbConnection sqlConnection = ProvideConnection();
+            string storedProcedure = "[dbo].[ResultTournamentPlayer_AddPlayerToTournament]";
+
+            var playerId = sqlConnection.Query<int>
+                (
+                    storedProcedure,
+                    new
+                    {
+                        PlayerId = player.Id,
+                        TournamentId = tournamentId
+                    },
+                    commandType: CommandType.StoredProcedure
+                ).FirstOrDefault();
+            return playerId;
+        }
     }
 }

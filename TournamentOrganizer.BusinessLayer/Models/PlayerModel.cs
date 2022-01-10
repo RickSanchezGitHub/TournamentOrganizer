@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 
+using System.Threading.Tasks;
 namespace TournamentOrganizer.BusinessLayer.Models
 {
-    public class PlayerModel : INotifyPropertyChanged
+    public class PlayerModel : INotifyPropertyChanged, IParticipant
     {
         private int _id;
         public int Id
@@ -82,7 +86,6 @@ namespace TournamentOrganizer.BusinessLayer.Models
         public override bool Equals(object obj)
         {
             return obj is PlayerModel model &&
-                   Id == model.Id &&
                    FirstName == model.FirstName &&
                    LastName == model.LastName &&
                    Name == model.Name &&

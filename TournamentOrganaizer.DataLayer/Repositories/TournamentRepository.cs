@@ -11,23 +11,25 @@ using TournamentOrganizer.DataLayer.Repositories;
 
 namespace TournamentOrganaizer.DataLayer.Repositories
 {
-    public class TournamentRepository : BaseRepository
+    public class TournamentRepository : BaseRepository, ITournamentRepository
     {
-        public void TournamentInsert(Tournament tournament)
+        public int TournamentInsert(Tournament tournament)
         {
             const string procedureName = "Tournament_Insert";
             using IDbConnection connection = ProvideConnection();
-            connection.Execute(
+            var result = connection.Query<int>(
                 procedureName,
                 new
                 {
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
-                    GameId = tournament.Game.Id
+                    GameId = tournament.Game.Id,
+                    OnlyForTeams = tournament.OnlyForTeams
                 },
                 commandType: CommandType.StoredProcedure
-            );
+            ).FirstOrDefault();
+            return result;
         }
 
         public void TournamentDeleteById(int id)
@@ -43,7 +45,7 @@ namespace TournamentOrganaizer.DataLayer.Repositories
 
         }
 
-        public List<Tournament> TournamentSelectByAll()
+        public List<Tournament> TournamentSelectAll()
         {
             const string procedureName = "Tournament_SelectByAll";
             using IDbConnection connection = ProvideConnection();
@@ -86,10 +88,12 @@ namespace TournamentOrganaizer.DataLayer.Repositories
                 procedureName,
                 new
                 {
+                    Id = tournament.Id,
                     Name = tournament.Name,
                     StartDate = tournament.StartDate,
                     CloseDate = tournament.CloseDate,
-                    GameId = tournament.Game.Id
+                    GameId = tournament.Game.Id,
+                    OnlyForTeams = tournament.OnlyForTeams
                 },
                 commandType: CommandType.StoredProcedure
             );

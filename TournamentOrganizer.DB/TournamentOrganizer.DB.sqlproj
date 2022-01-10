@@ -104,11 +104,14 @@
     <Build Include="StoredProcedures\Team\Team_Update.sql" />
     <Build Include="StoredProcedures\Tournament\Tournament_Delete.sql" />
     <Build Include="StoredProcedures\Tournament\Tournament_Insert.sql" />
-    <Build Include="StoredProcedures\Tournament\Tournament_SelectAll.sql" />
+    <Build Include="StoredProcedures\Tournament\Tournament_SelectByAll.sql" />
     <Build Include="StoredProcedures\Tournament\Tournament_SelectById.sql" />
     <Build Include="StoredProcedures\Tournament\Tournament_Update.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Delete.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_Insert.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentPlayer_SelectTeamsInTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentPlayer\ResultTournamentPlayer_AddPlayerToTournament.sql" />
+    <Build Include="StoredProcedures\ResultTournamentTeam\ResultTournamentPlayer_AddTeamToTournament.sql" />
     <Build Include="StoredProcedures\Team\Team_SelectById.sql" />
     <Build Include="StoredProcedures\Team\Team_GetAvailablePlayersToAdd.sql" />
     <Build Include="StoredProcedures\Team_Player\Team_Player_SelectByPlayerId.sql" />
@@ -116,5 +119,10 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TournamentOrganizer.DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 </Project>
